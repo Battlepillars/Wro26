@@ -5557,6 +5557,16 @@
 	)
 	(wire
 		(pts
+			(xy 135.89 66.04) (xy 128.27 66.04)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "29b5ad1b-1718-4b61-9a9f-804c1d0e9faf")
+	)
+	(wire
+		(pts
 			(xy 38.1 147.32) (xy 35.56 147.32)
 		)
 		(stroke
@@ -5664,6 +5674,16 @@
 			(type solid)
 		)
 		(uuid "315d2b15-cfe6-4672-b3ad-24773f3df12c")
+	)
+	(wire
+		(pts
+			(xy 128.27 66.04) (xy 128.27 64.77)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "31a737cf-050c-4fb0-ace1-2f380faa94b0")
 	)
 	(wire
 		(pts
@@ -7635,6 +7655,16 @@
 		)
 		(uuid "5160b3d5-0622-412f-84ed-9900be82a5a6")
 	)
+	(label "+3.3v"
+		(at 128.27 64.77 0)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+			(justify left bottom)
+		)
+		(uuid "55c47c48-1ab9-43cc-8c6a-1290b22d91d6")
+	)
 	(label "DPHY0_D0_P"
 		(at 134.62 30.48 0)
 		(effects
@@ -8228,17 +8258,6 @@
 		)
 		(uuid "25247d0c-5910-484b-9651-5750d422a450")
 	)
-	(hierarchical_label "CAM_GPIO0"
-		(shape input)
-		(at 143.51 66.04 180)
-		(effects
-			(font
-				(size 1.27 1.27)
-			)
-			(justify right)
-		)
-		(uuid "3bf0f47e-2fb0-4931-8f02-fb83a50ab482")
-	)
 	(hierarchical_label "PCIE_RX_N"
 		(shape input)
 		(at 31.75 45.72 180)
@@ -8392,17 +8411,6 @@
 			(justify left)
 		)
 		(uuid "bb673c7a-d2b0-45b0-bfe2-0b113c092a77")
-	)
-	(hierarchical_label "CAM_GPIO1"
-		(shape input)
-		(at 143.51 68.58 180)
-		(effects
-			(font
-				(size 1.27 1.27)
-			)
-			(justify right)
-		)
-		(uuid "d34b6539-c34f-49ef-9bdb-01215693557e")
 	)
 	(hierarchical_label "PCIE_TX_N"
 		(shape output)
@@ -10120,6 +10128,129 @@
 			(project "CM5IO"
 				(path "/e63e39d7-6ac0-4ffd-8aa3-1841a4541b55/00000000-0000-0000-0000-00005cff70b1"
 					(reference "R8")
+					(unit 1)
+				)
+			)
+		)
+	)
+	(symbol
+		(lib_id "Device:R")
+		(at 139.7 66.04 90)
+		(unit 1)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(dnp no)
+		(uuid "6697b324-8832-4c2a-af36-a3c7cfe54887")
+		(property "Reference" "R14"
+			(at 137.795 63.5 90)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+			)
+		)
+		(property "Value" "2.2K 1%"
+			(at 146.05 63.5 90)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+			)
+		)
+		(property "Footprint" "Resistor_SMD:R_0402_1005Metric"
+			(at 139.7 67.818 90)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Datasheet" "https://fscdn.rohm.com/en/products/databook/datasheet/passive/resistor/chip_resistor/mcr-e.pdf"
+			(at 139.7 66.04 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Description" ""
+			(at 139.7 66.04 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Field4" "Farnell"
+			(at 139.7 66.04 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Field5" ""
+			(at 139.7 66.04 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Field7" ""
+			(at 139.7 66.04 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Field6" ""
+			(at 139.7 66.04 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Part Description" "Resistor 2.2K M1005 1% 63mW"
+			(at 139.7 66.04 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Field8" ""
+			(at 139.7 66.04 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(pin "1"
+			(uuid "1a8cd4d1-7b51-44ea-85b6-7d90a213eb10")
+		)
+		(pin "2"
+			(uuid "75eea3bb-7841-4ba1-9cf5-797420c044e6")
+		)
+		(instances
+			(project "baseboard"
+				(path "/e63e39d7-6ac0-4ffd-8aa3-1841a4541b55/00000000-0000-0000-0000-00005cff70b1"
+					(reference "R14")
 					(unit 1)
 				)
 			)

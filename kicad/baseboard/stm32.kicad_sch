@@ -4023,6 +4023,28 @@
 		)
 		(uuid "fe9b2fe3-370e-4903-afc8-940403d7c32a")
 	)
+	(global_label "BatterieSwitch"
+		(shape input)
+		(at 68.58 44.45 180)
+		(fields_autoplaced yes)
+		(effects
+			(font
+				(size 1.016 1.016)
+			)
+			(justify right)
+		)
+		(uuid "228bb18c-4a93-446c-ae9a-5173833a6722")
+		(property "Intersheetrefs" "${INTERSHEET_REFS}"
+			(at 55.2784 44.45 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify right)
+				(hide yes)
+			)
+		)
+	)
 	(symbol
 		(lib_id "Device:LED")
 		(at 196.85 99.06 180)
