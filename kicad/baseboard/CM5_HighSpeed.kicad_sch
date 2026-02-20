@@ -8721,7 +8721,7 @@
 				(justify left)
 			)
 		)
-		(property "Footprint" "Resistor_SMD:R_0402_1005Metric"
+		(property "Footprint" "Resistor_SMD:R_0603_1608Metric"
 			(at 200.152 64.77 90)
 			(effects
 				(font
@@ -8844,7 +8844,7 @@
 				(justify left)
 			)
 		)
-		(property "Footprint" "Resistor_SMD:R_0402_1005Metric"
+		(property "Footprint" "Resistor_SMD:R_0603_1608Metric"
 			(at 207.772 64.77 90)
 			(effects
 				(font
@@ -10037,7 +10037,7 @@
 				(justify left)
 			)
 		)
-		(property "Footprint" "Resistor_SMD:R_0402_1005Metric"
+		(property "Footprint" "Resistor_SMD:R_0603_1608Metric"
 			(at 138.43 138.938 90)
 			(effects
 				(font
@@ -10064,42 +10064,6 @@
 				(hide yes)
 			)
 		)
-		(property "Field4" "Farnell"
-			(at 138.43 137.16 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(hide yes)
-			)
-		)
-		(property "Field5" ""
-			(at 138.43 137.16 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(hide yes)
-			)
-		)
-		(property "Field7" ""
-			(at 138.43 137.16 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(hide yes)
-			)
-		)
-		(property "Field6" ""
-			(at 138.43 137.16 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(hide yes)
-			)
-		)
 		(property "Part Description" "Resistor 2.2K M1005 1% 63mW"
 			(at 138.43 137.16 0)
 			(effects
@@ -10109,8 +10073,8 @@
 				(hide yes)
 			)
 		)
-		(property "Field8" ""
-			(at 138.43 137.16 0)
+		(property "LCSC Part #" "C4190"
+			(at 138.43 137.16 90)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -10160,7 +10124,7 @@
 				(justify left)
 			)
 		)
-		(property "Footprint" "Resistor_SMD:R_0402_1005Metric"
+		(property "Footprint" "Resistor_SMD:R_0603_1608Metric"
 			(at 139.7 67.818 90)
 			(effects
 				(font
@@ -10187,42 +10151,6 @@
 				(hide yes)
 			)
 		)
-		(property "Field4" "Farnell"
-			(at 139.7 66.04 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(hide yes)
-			)
-		)
-		(property "Field5" ""
-			(at 139.7 66.04 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(hide yes)
-			)
-		)
-		(property "Field7" ""
-			(at 139.7 66.04 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(hide yes)
-			)
-		)
-		(property "Field6" ""
-			(at 139.7 66.04 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(hide yes)
-			)
-		)
 		(property "Part Description" "Resistor 2.2K M1005 1% 63mW"
 			(at 139.7 66.04 0)
 			(effects
@@ -10232,8 +10160,8 @@
 				(hide yes)
 			)
 		)
-		(property "Field8" ""
-			(at 139.7 66.04 0)
+		(property "LCSC Part #" "LCSC Part #"
+			(at 139.7 66.04 90)
 			(effects
 				(font
 					(size 1.27 1.27)

@@ -2674,131 +2674,6 @@
 			)
 			(embedded_fonts no)
 		)
-		(symbol "power:+5V"
-			(power)
-			(pin_numbers
-				(hide yes)
-			)
-			(pin_names
-				(offset 0)
-				(hide yes)
-			)
-			(exclude_from_sim no)
-			(in_bom yes)
-			(on_board yes)
-			(property "Reference" "#PWR"
-				(at 0 -3.81 0)
-				(effects
-					(font
-						(size 1.27 1.27)
-					)
-					(hide yes)
-				)
-			)
-			(property "Value" "+5V"
-				(at 0 3.556 0)
-				(effects
-					(font
-						(size 1.27 1.27)
-					)
-				)
-			)
-			(property "Footprint" ""
-				(at 0 0 0)
-				(effects
-					(font
-						(size 1.27 1.27)
-					)
-					(hide yes)
-				)
-			)
-			(property "Datasheet" ""
-				(at 0 0 0)
-				(effects
-					(font
-						(size 1.27 1.27)
-					)
-					(hide yes)
-				)
-			)
-			(property "Description" "Power symbol creates a global label with name \"+5V\""
-				(at 0 0 0)
-				(effects
-					(font
-						(size 1.27 1.27)
-					)
-					(hide yes)
-				)
-			)
-			(property "ki_keywords" "global power"
-				(at 0 0 0)
-				(effects
-					(font
-						(size 1.27 1.27)
-					)
-					(hide yes)
-				)
-			)
-			(symbol "+5V_0_1"
-				(polyline
-					(pts
-						(xy -0.762 1.27) (xy 0 2.54)
-					)
-					(stroke
-						(width 0)
-						(type default)
-					)
-					(fill
-						(type none)
-					)
-				)
-				(polyline
-					(pts
-						(xy 0 2.54) (xy 0.762 1.27)
-					)
-					(stroke
-						(width 0)
-						(type default)
-					)
-					(fill
-						(type none)
-					)
-				)
-				(polyline
-					(pts
-						(xy 0 0) (xy 0 2.54)
-					)
-					(stroke
-						(width 0)
-						(type default)
-					)
-					(fill
-						(type none)
-					)
-				)
-			)
-			(symbol "+5V_1_1"
-				(pin power_in line
-					(at 0 0 90)
-					(length 0)
-					(name "~"
-						(effects
-							(font
-								(size 1.27 1.27)
-							)
-						)
-					)
-					(number "1"
-						(effects
-							(font
-								(size 1.27 1.27)
-							)
-						)
-					)
-				)
-			)
-			(embedded_fonts no)
-		)
 		(symbol "power:GND"
 			(power)
 			(pin_numbers
@@ -2942,6 +2817,12 @@
 		(uuid "12d6ca45-fb4f-4b31-82d8-1b26d1fa6a11")
 	)
 	(junction
+		(at 88.9 96.52)
+		(diameter 0)
+		(color 0 0 0 0)
+		(uuid "2c5ccb06-3907-44ff-be76-ad64244120ef")
+	)
+	(junction
 		(at 72.39 96.52)
 		(diameter 0)
 		(color 0 0 0 0)
@@ -3006,12 +2887,6 @@
 		(diameter 0)
 		(color 0 0 0 0)
 		(uuid "c79c411a-f7f2-449d-a144-2412af09eae6")
-	)
-	(junction
-		(at 88.9 96.52)
-		(diameter 0)
-		(color 0 0 0 0)
-		(uuid "cc485ddb-683a-40e5-8a0e-4468b1cdf638")
 	)
 	(junction
 		(at 88.9 104.14)
@@ -3312,6 +3187,16 @@
 			(type default)
 		)
 		(uuid "60b62a47-7dce-4812-9889-bfea96f6f76a")
+	)
+	(wire
+		(pts
+			(xy 142.24 17.78) (xy 148.59 17.78)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "6ac5072c-0386-4062-9572-691684d63777")
 	)
 	(wire
 		(pts
@@ -3675,6 +3560,16 @@
 	)
 	(wire
 		(pts
+			(xy 88.9 96.52) (xy 105.41 96.52)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "d39176fa-e602-4be8-b3c7-20b6f5c27ab5")
+	)
+	(wire
+		(pts
 			(xy 39.37 101.6) (xy 55.88 101.6)
 		)
 		(stroke
@@ -3702,16 +3597,6 @@
 			(type default)
 		)
 		(uuid "dec2017d-8934-473d-ab64-73bb2c7f0629")
-	)
-	(wire
-		(pts
-			(xy 88.9 96.52) (xy 97.79 96.52)
-		)
-		(stroke
-			(width 0)
-			(type default)
-		)
-		(uuid "e58c3d41-11c0-448f-abfa-874e22358437")
 	)
 	(wire
 		(pts
@@ -3853,26 +3738,6 @@
 		)
 		(uuid "32501949-7d03-44b4-b0eb-676f839b22de")
 	)
-	(label "BAT AD IN"
-		(at 203.2 69.85 180)
-		(effects
-			(font
-				(size 1.27 1.27)
-			)
-			(justify right bottom)
-		)
-		(uuid "3a676606-bdf2-4308-b564-06ca0a043917")
-	)
-	(label "MOTOR PWM 2"
-		(at 91.44 50.8 0)
-		(effects
-			(font
-				(size 1.27 1.27)
-			)
-			(justify left bottom)
-		)
-		(uuid "3a85f83e-8cb9-479f-a264-eda972ba9066")
-	)
 	(label "MOTOR INT B"
 		(at 167.64 104.14 0)
 		(effects
@@ -3902,6 +3767,16 @@
 			(justify right bottom)
 		)
 		(uuid "5610b005-3754-4e15-b5e1-5c7b3b81288a")
+	)
+	(label "MOTOR INT B"
+		(at 93.98 50.8 0)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+			(justify left bottom)
+		)
+		(uuid "5ba05924-461a-42ce-9c03-f8edba2ba883")
 	)
 	(label "CS1"
 		(at 170.18 81.28 0)
@@ -3994,6 +3869,16 @@
 		(uuid "e6f98c81-a99f-4817-a17b-90bf34b93cf1")
 	)
 	(label "MOTOR INT A"
+		(at 93.98 48.26 0)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+			(justify left bottom)
+		)
+		(uuid "e878510c-2b7e-433e-854d-50395089957d")
+	)
+	(label "MOTOR INT A"
 		(at 167.64 106.68 0)
 		(effects
 			(font
@@ -4013,16 +3898,6 @@
 		)
 		(uuid "f6156f8d-ea17-4f7f-804e-aa15f8ec22bd")
 	)
-	(label "MOTOR PWM 1"
-		(at 91.44 48.26 0)
-		(effects
-			(font
-				(size 1.27 1.27)
-			)
-			(justify left bottom)
-		)
-		(uuid "fe9b2fe3-370e-4903-afc8-940403d7c32a")
-	)
 	(global_label "BatterieSwitch"
 		(shape input)
 		(at 68.58 44.45 180)
@@ -4041,6 +3916,72 @@
 					(size 1.27 1.27)
 				)
 				(justify right)
+				(hide yes)
+			)
+		)
+	)
+	(global_label "+5v"
+		(shape input)
+		(at 105.41 96.52 0)
+		(fields_autoplaced yes)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+			(justify left)
+		)
+		(uuid "433be897-29a3-4efe-84b5-cfd9512bd61e")
+		(property "Intersheetrefs" "${INTERSHEET_REFS}"
+			(at 112.2398 96.52 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+				(hide yes)
+			)
+		)
+	)
+	(global_label "BatterieSwitch"
+		(shape input)
+		(at 203.2 69.85 180)
+		(fields_autoplaced yes)
+		(effects
+			(font
+				(size 1.016 1.016)
+			)
+			(justify right)
+		)
+		(uuid "9bb9f5e0-ab69-4913-937a-c4421ae665f8")
+		(property "Intersheetrefs" "${INTERSHEET_REFS}"
+			(at 189.8984 69.85 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify right)
+				(hide yes)
+			)
+		)
+	)
+	(global_label "+5v"
+		(shape input)
+		(at 148.59 17.78 0)
+		(fields_autoplaced yes)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+			(justify left)
+		)
+		(uuid "dc563d3c-abc2-4af7-880c-832b3ea512f4")
+		(property "Intersheetrefs" "${INTERSHEET_REFS}"
+			(at 155.4198 17.78 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
 				(hide yes)
 			)
 		)
@@ -4072,7 +4013,7 @@
 				(justify right)
 			)
 		)
-		(property "Footprint" "LED_SMD:LED_0603_1608Metric"
+		(property "Footprint" "LED_SMD:LED_0805_2012Metric"
 			(at 196.85 99.06 0)
 			(effects
 				(font
@@ -4172,73 +4113,6 @@
 			(project "CM5IO"
 				(path "/e63e39d7-6ac0-4ffd-8aa3-1841a4541b55/f8d89121-d537-41fd-ae3a-d2339816f145"
 					(reference "D3")
-					(unit 1)
-				)
-			)
-		)
-	)
-	(symbol
-		(lib_id "power:+5V")
-		(at 97.79 96.52 270)
-		(unit 1)
-		(exclude_from_sim no)
-		(in_bom yes)
-		(on_board yes)
-		(dnp no)
-		(fields_autoplaced yes)
-		(uuid "0bdd35bf-b921-4618-8aea-75609d023f39")
-		(property "Reference" "#PWR020"
-			(at 93.98 96.52 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(hide yes)
-			)
-		)
-		(property "Value" "+5V"
-			(at 101.6 96.5199 90)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(justify left)
-			)
-		)
-		(property "Footprint" ""
-			(at 97.79 96.52 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(hide yes)
-			)
-		)
-		(property "Datasheet" ""
-			(at 97.79 96.52 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(hide yes)
-			)
-		)
-		(property "Description" "Power symbol creates a global label with name \"+5V\""
-			(at 97.79 96.52 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(hide yes)
-			)
-		)
-		(pin "1"
-			(uuid "cb56e523-cf87-400c-a574-3998038daaeb")
-		)
-		(instances
-			(project ""
-				(path "/e63e39d7-6ac0-4ffd-8aa3-1841a4541b55/f8d89121-d537-41fd-ae3a-d2339816f145"
-					(reference "#PWR020")
 					(unit 1)
 				)
 			)
@@ -4842,7 +4716,7 @@
 				)
 			)
 		)
-		(property "Footprint" "Package_TO_SOT_SMD:SOT-223"
+		(property "Footprint" "PCM_SparkFun-Semiconductor-Standard:SOT-223-3_TabPin2"
 			(at 139.7 35.56 0)
 			(effects
 				(font
@@ -5775,7 +5649,7 @@
 				(justify right)
 			)
 		)
-		(property "Footprint" "LED_SMD:LED_0603_1608Metric"
+		(property "Footprint" "LED_SMD:LED_0805_2012Metric"
 			(at 196.85 101.6 0)
 			(effects
 				(font
@@ -5847,7 +5721,7 @@
 				(hide yes)
 			)
 		)
-		(property "Part Description" "	Green 572nm LED Indication - Discrete 2.2V 2-SMD, No Lead"
+		(property "Part Description" "Yellow LED"
 			(at 196.85 101.6 0)
 			(effects
 				(font
@@ -5856,7 +5730,7 @@
 				(hide yes)
 			)
 		)
-		(property "j" "C2297"
+		(property "LCSC Part #" "C2296"
 			(at 196.85 101.6 90)
 			(effects
 				(font
@@ -6073,71 +5947,6 @@
 			(project "CM5IO"
 				(path "/e63e39d7-6ac0-4ffd-8aa3-1841a4541b55/f8d89121-d537-41fd-ae3a-d2339816f145"
 					(reference "R9")
-					(unit 1)
-				)
-			)
-		)
-	)
-	(symbol
-		(lib_id "power:+5V")
-		(at 142.24 17.78 0)
-		(unit 1)
-		(exclude_from_sim no)
-		(in_bom yes)
-		(on_board yes)
-		(dnp no)
-		(uuid "cfe1a48f-9289-4ee4-a8f9-8cbff4a4032f")
-		(property "Reference" "#PWR017"
-			(at 142.24 21.59 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(hide yes)
-			)
-		)
-		(property "Value" "+5V"
-			(at 144.272 14.224 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
-		(property "Footprint" ""
-			(at 142.24 17.78 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(hide yes)
-			)
-		)
-		(property "Datasheet" ""
-			(at 142.24 17.78 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(hide yes)
-			)
-		)
-		(property "Description" "Power symbol creates a global label with name \"+5V\""
-			(at 142.24 17.78 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(hide yes)
-			)
-		)
-		(pin "1"
-			(uuid "4626b83b-281a-4c6e-952e-a6f5d9035f9d")
-		)
-		(instances
-			(project ""
-				(path "/e63e39d7-6ac0-4ffd-8aa3-1841a4541b55/f8d89121-d537-41fd-ae3a-d2339816f145"
-					(reference "#PWR017")
 					(unit 1)
 				)
 			)
