@@ -4250,6 +4250,15 @@
 				(hide yes)
 			)
 		)
+		(property "LCSC Part #" "C160255"
+			(at 83.82 101.6 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
 		(pin "1"
 			(uuid "3630ee4b-e962-44d7-85e5-3d214dfbef71")
 		)
@@ -4390,6 +4399,15 @@
 			)
 		)
 		(property "Description" "Generic connector, single row, 01x06, script generated"
+			(at 111.76 50.8 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "LCSC Part #" "C160255"
 			(at 111.76 50.8 0)
 			(effects
 				(font
@@ -5229,6 +5247,15 @@
 				(hide yes)
 			)
 		)
+		(property "LCSC Part #" "C160255"
+			(at 50.8 101.6 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
 		(pin "1"
 			(uuid "cc811b16-16fc-4eb5-b6db-8d42bc7b1191")
 		)
@@ -5379,6 +5406,15 @@
 			)
 		)
 		(property "Description" "Generic connector, single row, 01x06, script generated"
+			(at 34.29 101.6 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "LCSC Part #" "C160255"
 			(at 34.29 101.6 0)
 			(effects
 				(font
@@ -6360,6 +6396,15 @@
 			)
 		)
 		(property "Description" "Generic connector, single row, 01x06, script generated"
+			(at 67.31 101.6 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "LCSC Part #" "C160255"
 			(at 67.31 101.6 0)
 			(effects
 				(font

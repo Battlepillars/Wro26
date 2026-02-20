@@ -16180,7 +16180,7 @@
 		(exclude_from_sim no)
 		(in_bom yes)
 		(on_board yes)
-		(dnp no)
+		(dnp yes)
 		(fields_autoplaced yes)
 		(uuid "10402ee4-fc1d-4559-9180-332d0fc7d39c")
 		(property "Reference" "U9"
@@ -16413,7 +16413,7 @@
 				(hide yes)
 			)
 		)
-		(property "LCSC Part #" "C9900132877"
+		(property "LCSC Part #" "C22457393"
 			(at 267.97 92.71 0)
 			(effects
 				(font
