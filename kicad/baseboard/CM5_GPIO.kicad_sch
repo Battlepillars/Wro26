@@ -8978,6 +8978,238 @@
 			)
 			(embedded_fonts no)
 		)
+		(symbol "wrostuff:BNO055_Modul"
+			(pin_names
+				(offset 1.016)
+				(hide yes)
+			)
+			(exclude_from_sim no)
+			(in_bom yes)
+			(on_board yes)
+			(property "Reference" "J"
+				(at 0 5.08 0)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+				)
+			)
+			(property "Value" "DfRobot BNO055"
+				(at 0 -7.62 0)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+				)
+			)
+			(property "Footprint" "PCM_SparkFun-Connector:1x04_P2.54mm_Locking"
+				(at 0 -10.16 0)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+					(hide yes)
+				)
+			)
+			(property "Datasheet" "~"
+				(at 0 -12.7 0)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+					(hide yes)
+				)
+			)
+			(property "Description" "Staggard 0.1\" PTH"
+				(at 0 -15.24 0)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+					(hide yes)
+				)
+			)
+			(property "ki_keywords" "SparkFun connector"
+				(at 0 0 0)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+					(hide yes)
+				)
+			)
+			(property "ki_fp_filters" "Connector*:*_1x??_*"
+				(at 0 0 0)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+					(hide yes)
+				)
+			)
+			(symbol "BNO055_Modul_1_1"
+				(rectangle
+					(start -1.27 3.81)
+					(end 10.795 -6.35)
+					(stroke
+						(width 0)
+						(type solid)
+					)
+					(fill
+						(type background)
+					)
+				)
+				(rectangle
+					(start -1.27 2.667)
+					(end 0 2.413)
+					(stroke
+						(width 0.1524)
+						(type default)
+					)
+					(fill
+						(type none)
+					)
+				)
+				(rectangle
+					(start -1.27 0.127)
+					(end 0 -0.127)
+					(stroke
+						(width 0.1524)
+						(type default)
+					)
+					(fill
+						(type none)
+					)
+				)
+				(rectangle
+					(start -1.27 -2.413)
+					(end 0 -2.667)
+					(stroke
+						(width 0.1524)
+						(type default)
+					)
+					(fill
+						(type none)
+					)
+				)
+				(rectangle
+					(start -1.27 -4.953)
+					(end 0 -5.207)
+					(stroke
+						(width 0.1524)
+						(type default)
+					)
+					(fill
+						(type none)
+					)
+				)
+				(text "SCL\n"
+					(at 2.032 -2.54 0)
+					(effects
+						(font
+							(size 1.27 1.27)
+						)
+					)
+				)
+				(text "SDA"
+					(at 2.032 -5.08 0)
+					(effects
+						(font
+							(size 1.27 1.27)
+						)
+					)
+				)
+				(text "VCC\n"
+					(at 2.286 2.286 0)
+					(effects
+						(font
+							(size 1.27 1.27)
+						)
+					)
+				)
+				(text "GND"
+					(at 2.286 0 0)
+					(effects
+						(font
+							(size 1.27 1.27)
+						)
+					)
+				)
+				(pin power_in line
+					(at -5.08 2.54 0)
+					(length 3.81)
+					(name "VCC_33"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+					(number "1"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+				)
+				(pin power_in line
+					(at -5.08 0 0)
+					(length 3.81)
+					(name "GND"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+					(number "2"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+				)
+				(pin output line
+					(at -5.08 -2.54 0)
+					(length 3.81)
+					(name "SCL"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+					(number "3"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+				)
+				(pin bidirectional line
+					(at -5.08 -5.08 0)
+					(length 3.81)
+					(name "SDA"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+					(number "4"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+				)
+			)
+			(embedded_fonts no)
+		)
 	)
 	(text "40Way GPIO Header"
 		(exclude_from_sim no)
@@ -9595,7 +9827,7 @@
 	)
 	(wire
 		(pts
-			(xy 100.33 90.17) (xy 114.3 90.17)
+			(xy 100.33 90.17) (xy 119.38 90.17)
 		)
 		(stroke
 			(width 0)
@@ -10072,6 +10304,16 @@
 			(type solid)
 		)
 		(uuid "4805cbab-da73-4d3e-afa3-21868e76e954")
+	)
+	(wire
+		(pts
+			(xy 59.69 173.99) (xy 63.5 173.99)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "4bb12b9a-bdf6-4abb-bfc0-dd5e03155929")
 	)
 	(wire
 		(pts
@@ -10705,6 +10947,16 @@
 	)
 	(wire
 		(pts
+			(xy 58.42 171.45) (xy 63.5 171.45)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "918abad8-0fa1-4d88-8871-33fc4b3a3295")
+	)
+	(wire
+		(pts
 			(xy 25.4 123.19) (xy 39.37 123.19)
 		)
 		(stroke
@@ -10722,6 +10974,16 @@
 			(type solid)
 		)
 		(uuid "93214faa-922d-478e-8ec1-80d24a2b2723")
+	)
+	(wire
+		(pts
+			(xy 59.69 176.53) (xy 63.5 176.53)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "94725068-202c-4432-9216-a93529254106")
 	)
 	(wire
 		(pts
@@ -10945,7 +11207,7 @@
 	)
 	(wire
 		(pts
-			(xy 100.33 85.09) (xy 114.3 85.09)
+			(xy 100.33 85.09) (xy 119.38 85.09)
 		)
 		(stroke
 			(width 0)
@@ -11335,6 +11597,16 @@
 	)
 	(wire
 		(pts
+			(xy 25.4 133.35) (xy 25.4 135.89)
+		)
+		(stroke
+			(width 0)
+			(type solid)
+		)
+		(uuid "c945b5ab-db82-46f8-9c7c-ee4cdde324cf")
+	)
+	(wire
+		(pts
 			(xy 140.97 69.85) (xy 152.4 69.85)
 		)
 		(stroke
@@ -11595,6 +11867,16 @@
 	)
 	(wire
 		(pts
+			(xy 59.69 168.91) (xy 63.5 168.91)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "de87c834-82e3-4da6-9ff0-b04bbc6ccd79")
+	)
+	(wire
+		(pts
 			(xy 101.6 74.93) (xy 101.6 87.63)
 		)
 		(stroke
@@ -11622,16 +11904,6 @@
 			(type solid)
 		)
 		(uuid "dfe751d0-0c73-4407-8b79-3d4787ac8f76")
-	)
-	(wire
-		(pts
-			(xy 148.59 129.54) (xy 160.02 129.54)
-		)
-		(stroke
-			(width 0)
-			(type default)
-		)
-		(uuid "e10ebb3c-e0ac-4200-88de-0ab13d99e435")
 	)
 	(wire
 		(pts
@@ -12363,6 +12635,16 @@
 		)
 		(uuid "4227d0f4-4162-4ece-9ec9-195feb76c6dd")
 	)
+	(label "GPIO3"
+		(at 59.69 173.99 180)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+			(justify right bottom)
+		)
+		(uuid "42f8c41e-36a4-4ad9-b882-e3400e4b725c")
+	)
 	(label "SD_DAT3"
 		(at 111.76 97.79 180)
 		(effects
@@ -12663,6 +12945,16 @@
 		)
 		(uuid "8538d430-1fd4-494f-ab17-e95325a71380")
 	)
+	(label "GPIO2"
+		(at 59.69 176.53 180)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+			(justify right bottom)
+		)
+		(uuid "8727c915-c673-4635-b867-6620abc96962")
+	)
 	(label "GPIO17"
 		(at 24.13 82.55 0)
 		(effects
@@ -12682,16 +12974,6 @@
 			(justify left bottom)
 		)
 		(uuid "8a2747cd-9545-4996-b99f-a27623db4e36")
-	)
-	(label "nPWR_LED"
-		(at 148.59 129.54 0)
-		(effects
-			(font
-				(size 1.27 1.27)
-			)
-			(justify left bottom)
-		)
-		(uuid "8a51259a-0b00-485b-ae12-40bbbcbb1fbf")
 	)
 	(label "TRD0_P"
 		(at 245.11 21.59 180)
@@ -12743,16 +13025,6 @@
 		)
 		(uuid "94b2d264-2d2c-4376-b127-a770616fcdbf")
 	)
-	(label "nPWR_LED"
-		(at 104.14 140.97 0)
-		(effects
-			(font
-				(size 1.27 1.27)
-			)
-			(justify left bottom)
-		)
-		(uuid "99f2690c-1a6d-4fbb-ba61-f3d41eb4c0b7")
-	)
 	(label "GPIO3"
 		(at 147.32 29.21 180)
 		(effects
@@ -12802,16 +13074,6 @@
 			(justify left bottom)
 		)
 		(uuid "adae4e92-033f-4af1-ab17-18d807cdc010")
-	)
-	(label "PWR_BUT"
-		(at 27.686 135.89 0)
-		(effects
-			(font
-				(size 1.27 1.27)
-			)
-			(justify left bottom)
-		)
-		(uuid "b6d945bb-e2eb-4605-8009-e2c500075502")
 	)
 	(label "GPIO12"
 		(at 175.26 62.23 180)
@@ -13103,16 +13365,6 @@
 		)
 		(uuid "edff7200-18c6-4e0c-99f9-a118fc24b63a")
 	)
-	(label "PWR_BUT"
-		(at 257.81 151.13 0)
-		(effects
-			(font
-				(size 1.27 1.27)
-			)
-			(justify left bottom)
-		)
-		(uuid "f222ec18-2936-4a9d-8782-46591afb7076")
-	)
 	(label "TR3_TAP"
 		(at 246.38 67.31 180)
 		(effects
@@ -13195,6 +13447,50 @@
 			)
 		)
 	)
+	(global_label "Stm32 Serial RX"
+		(shape input)
+		(at 119.38 90.17 0)
+		(fields_autoplaced yes)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+			(justify left)
+		)
+		(uuid "658f6cd4-7a5d-4c5a-9339-3a76a995d92d")
+		(property "Intersheetrefs" "${INTERSHEET_REFS}"
+			(at 138.4258 90.17 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+				(hide yes)
+			)
+		)
+	)
+	(global_label "PWR_BUT"
+		(shape input)
+		(at 25.4 133.35 180)
+		(fields_autoplaced yes)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+			(justify right)
+		)
+		(uuid "8d0d462a-d175-4b80-bfc7-76887192ba05")
+		(property "Intersheetrefs" "${INTERSHEET_REFS}"
+			(at 13.7926 133.35 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify right)
+				(hide yes)
+			)
+		)
+	)
 	(global_label "BatterieSwitch"
 		(shape input)
 		(at 129.54 95.25 180)
@@ -13217,6 +13513,50 @@
 			)
 		)
 	)
+	(global_label "nPWR_LED"
+		(shape input)
+		(at 116.84 140.97 0)
+		(fields_autoplaced yes)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+			(justify left)
+		)
+		(uuid "ba373310-af43-4e65-b0b6-5f3c5089d60e")
+		(property "Intersheetrefs" "${INTERSHEET_REFS}"
+			(at 129.4754 140.97 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+				(hide yes)
+			)
+		)
+	)
+	(global_label "nPWR_LED"
+		(shape input)
+		(at 160.02 129.54 0)
+		(fields_autoplaced yes)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+			(justify left)
+		)
+		(uuid "db735f6e-d564-440b-b716-191ebafce2b7")
+		(property "Intersheetrefs" "${INTERSHEET_REFS}"
+			(at 172.6554 129.54 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+				(hide yes)
+			)
+		)
+	)
 	(global_label "+5v"
 		(shape input)
 		(at 200.66 120.65 180)
@@ -13235,6 +13575,50 @@
 					(size 1.27 1.27)
 				)
 				(justify right)
+				(hide yes)
+			)
+		)
+	)
+	(global_label "PWR_BUT"
+		(shape input)
+		(at 257.81 151.13 0)
+		(fields_autoplaced yes)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+			(justify left)
+		)
+		(uuid "ee2f3e1e-8a72-4bf8-860f-e2b9207ecb06")
+		(property "Intersheetrefs" "${INTERSHEET_REFS}"
+			(at 269.4174 151.13 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+				(hide yes)
+			)
+		)
+	)
+	(global_label "Stm32 Serial TX"
+		(shape input)
+		(at 119.38 85.09 0)
+		(fields_autoplaced yes)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+			(justify left)
+		)
+		(uuid "f1f086af-e622-48bf-a8d1-0713b44f79d3")
+		(property "Intersheetrefs" "${INTERSHEET_REFS}"
+			(at 138.1234 85.09 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
 				(hide yes)
 			)
 		)
@@ -13370,6 +13754,17 @@
 			(justify left)
 		)
 		(uuid "81d72d8d-724d-4c93-8ab9-b3c57fbafb28")
+	)
+	(hierarchical_label "+3.3v"
+		(shape output)
+		(at 59.69 168.91 180)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+			(justify right)
+		)
+		(uuid "e1a07811-35e9-457e-a253-2e17c4cf1e65")
 	)
 	(symbol
 		(lib_id "CM5IO:ComputeModule5-CM5")
@@ -16174,6 +16569,71 @@
 		)
 	)
 	(symbol
+		(lib_id "power:GND")
+		(at 58.42 171.45 270)
+		(unit 1)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(dnp no)
+		(uuid "03b790fb-8655-43b6-9d3a-f035feb2784d")
+		(property "Reference" "#PWR032"
+			(at 52.07 171.45 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Value" "GND"
+			(at 54.0258 171.577 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Footprint" ""
+			(at 58.42 171.45 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Datasheet" ""
+			(at 58.42 171.45 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Description" "Power symbol creates a global label with name \"GND\" , ground"
+			(at 58.42 171.45 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(pin "1"
+			(uuid "1712e70f-97a9-4fa0-a821-eb091af784ab")
+		)
+		(instances
+			(project "baseboard"
+				(path "/e63e39d7-6ac0-4ffd-8aa3-1841a4541b55/00000000-0000-0000-0000-00005cff706a"
+					(reference "#PWR032")
+					(unit 1)
+				)
+			)
+		)
+	)
+	(symbol
 		(lib_id "Regulator_Linear:L7805")
 		(at 129.54 105.41 270)
 		(unit 1)
@@ -16834,6 +17294,82 @@
 			(project "CM5IO"
 				(path "/e63e39d7-6ac0-4ffd-8aa3-1841a4541b55/00000000-0000-0000-0000-00005cff706a"
 					(reference "J14")
+					(unit 1)
+				)
+			)
+		)
+	)
+	(symbol
+		(lib_id "wrostuff:BNO055_Modul")
+		(at 68.58 171.45 0)
+		(unit 1)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(dnp no)
+		(fields_autoplaced yes)
+		(uuid "712a1408-3a4c-4b69-9a03-449f48c37819")
+		(property "Reference" "J17"
+			(at 80.01 171.4499 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+			)
+		)
+		(property "Value" "DfRobot BNO055"
+			(at 80.01 173.9899 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+			)
+		)
+		(property "Footprint" "WroStuff:DfRobot BNO055"
+			(at 68.58 181.61 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Datasheet" "~"
+			(at 68.58 184.15 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Description" "Staggard 0.1\" PTH"
+			(at 68.58 186.69 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(pin "1"
+			(uuid "aa4f5e2c-c0c5-409d-b7e9-3ce8e19244a8")
+		)
+		(pin "2"
+			(uuid "4af14cd7-aadd-4e13-8893-a2d9b768913a")
+		)
+		(pin "4"
+			(uuid "cbe24c92-8398-4a81-8be6-7e61765d7c9d")
+		)
+		(pin "3"
+			(uuid "1e69449d-722b-49f6-9f80-c9ade13930ce")
+		)
+		(instances
+			(project ""
+				(path "/e63e39d7-6ac0-4ffd-8aa3-1841a4541b55/00000000-0000-0000-0000-00005cff706a"
+					(reference "J17")
 					(unit 1)
 				)
 			)

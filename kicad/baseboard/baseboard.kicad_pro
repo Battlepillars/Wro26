@@ -580,7 +580,7 @@
       "plot": "RPI-CM5IO-R2-Gerber050325/",
       "pos_files": "RPI-CM5IO-Gerber171224/",
       "specctra_dsn": "",
-      "step": "",
+      "step": "baseboard.stl",
       "svg": "SVG/",
       "vmrl": "",
       "vrml": ""

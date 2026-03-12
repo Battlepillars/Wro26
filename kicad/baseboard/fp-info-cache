@@ -1,4 +1,4 @@
-28180093259077063
+28178327443729550
 Audio_Module
 Reverb_BTDR-1H
 Digital Reverberation Unit, http://www.belton.co.kr/inc/downfile.php?seq=17&file=pdf (footprint from http://www.uk-electronic.de/PDF/BTDR-1.pdf)
@@ -71462,20 +71462,6 @@ Yellow 5381 Series LED
 0
 2
 2
-Library
-YAAJ_BlackPill_1
-BlackPill module with pin headers and sockets. No SWD breakout
-module BlackPill Black Pill header socket
-0
-34
-34
-Library
-YAAJ_BlackPill_2
-BlackPill module with pin headers / sockets. No SWD breakout
-module BlackPill Black Pill header
-0
-34
-34
 Module
 A20_OLINUXINO_LIME2
 A20 Olinuxino LIME2, 1.2GHz, 512-1024MB RAM, Micro-SD, NAND or eMMC, 1000Mbit Ethernet
@@ -111705,3 +111691,10 @@ Varistor VF
 0
 2
 2
+WroStuff
+DfRobot BNO055
+See our tutorial: https://www.sparkfun.com/tutorials/114
+SparkFun Locking Friction Fit PTH Male headers
+0
+10
+10
