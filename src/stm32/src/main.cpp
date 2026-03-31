@@ -1,5 +1,5 @@
 #include <Arduino.h>
-
+#include "Servo.h"  
 #include <PID_v1.h>
 #include <SPI.h>
 
@@ -11,6 +11,7 @@
 
 
 
+Servo servo;
 volatile long EncoderCount = 0;
 int32_t EncoderCountFull = 0;
 
@@ -28,7 +29,10 @@ int32_t impulse_diff = 0;
 int32_t lastEncoderCount = 0;
 int32_t rotations_per_sec = 0;
 
-boolean newdata = false;
+bool newdata = false;
+
+String strinList[100] = {};
+int amountDividers = 0;
 
 
 // PWM-capable pin for BlackPill F411.
@@ -58,11 +62,13 @@ VL53L8CX sensor_vl53l8cx_top4(&DEV_SPI, CS_PIN4);
 int sensorCaptures[8] = {0,0,0,0,0,0,0,0};
 
 
-double Setpoint=40, Input, Output;
+double Setpoint=0, Input, Output;
 PID myPID(&Input, &Output, &Setpoint,0.5,20,0/*0.0005*/, DIRECT);
 
 void setSpeed(double speed);
 void motorController100Hz();
+void waitForNewMessage();
+void parse();
 
 void initVL53(VL53L8CX * sensor)
 { 
@@ -179,11 +185,12 @@ void setup()
   Serial1.println("Sensor init start");
   DEV_SPI.begin();
 
-  // initVL53(&sensor_vl53l8cx_top1);
-  // initVL53(&sensor_vl53l8cx_top2);
-  // initVL53(&sensor_vl53l8cx_top3);
-  // initVL53(&sensor_vl53l8cx_top4);
+  initVL53(&sensor_vl53l8cx_top1);
+  initVL53(&sensor_vl53l8cx_top2);
+  initVL53(&sensor_vl53l8cx_top3);
+  initVL53(&sensor_vl53l8cx_top4);
   Serial1.println("Sensor init end");
+  servo.attach(PA5);
 }
 
 
@@ -221,9 +228,57 @@ void printSensorData(int cam,VL53L8CX_ResultsData * result)
   Serial1.println(",");
 }
 
+
+
+void waitForNewMessage()
+{
+  char str[2] = "";
+  int r = Serial1.read();
+  while (r>=0) 
+  {
+    if (r==',')
+    {
+      if (amountDividers<99)
+        amountDividers++;
+    }
+    else if (r=='\n')
+    {
+      parse();
+    }
+    else
+    {
+      str[0]=(char)r;
+      strinList[amountDividers] += String(str);
+    }
+    r = Serial1.read();
+   
+  }
+// Serial1.printf(" %i:<%c> ",r,r);
+}
+
+void parse()
+{
+  if (strinList[0] == "speed") {
+    Setpoint = strinList[1].toDouble();
+  } else if (strinList[0] == "servo") {
+    servo.write(strinList[1].toDouble());
+  }
+
+  // for (int i=0;i<=amountDividers;i++)
+  // {
+  //   Serial1.printf(" %i:<",i);
+  //   Serial1.print(strinList[i]);
+  //   Serial1.print("> ");
+  //   strinList[i]="";
+  // }
+  amountDividers=0;
+  // Serial1.println("");
+}
+
+
 void loop()
 {
-
+  waitForNewMessage();
   uint32_t ad = analogRead(PA4);
   double vBat=(double)ad * 3.3*5.7 / 1023.0;
 
@@ -263,26 +318,35 @@ void loop()
 
 
 
-  if (micros()-lastPrint>200000)
+  if (micros()-lastPrint>500000)
   {
+    static int pos=0;
+    // servo.write(90);
+    // if (pos==0)
+    //   servo.write(0);
+    // if (pos==1)
+    //   servo.write(90);
+    // if (pos==2)
+    //   servo.write(180);
+    // if (pos==3)
+    //   servo.write(90);      
+    // pos++;
+    // if (pos>3)
+    //   pos=0;
   
     lastPrint = micros();
     // Serial1.printf("%i    %i  %i     ",impulse_diff,rotations_per_sec,(int)(Output*10)); 
     Serial1.print("stat,");
+    Serial1.print(vBat);    //Voltage
     for (int i=0;i<4;i++) 
     {
-      Serial1.print(sensorCaptures[i]*2);
       Serial1.print(",");
+      Serial1.print(sensorCaptures[i]*2);
       sensorCaptures[i]=0;
     }
     // uint8_t status;
     // sensor_vl53l8cx_top1.get_ranging_frequency_hz(&status);
     // Serial1.printf("Freq: %i ",status);
-
-    Serial1.printf("%04i",results1.distance_mm[0]);
-    Serial1.printf(",%04i",results2.distance_mm[0]);
-    Serial1.printf(",%04i",results3.distance_mm[0]);
-    Serial1.printf(",%04i",results4.distance_mm[0]);
 
     Serial1.print(",\n");
 
@@ -307,8 +371,6 @@ void loop()
     Serial1.print(Output);    //Counter
     Serial1.print(",");    
     Serial1.print(Setpoint);    //Counter
-    Serial1.print(",");      
-    Serial1.print(vBat);    //Voltage
     Serial1.print(",\n");
     newdata = false;
   }
