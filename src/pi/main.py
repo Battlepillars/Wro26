@@ -3,6 +3,7 @@ import threading
 
 from parser import Parser
 from ui import Ui
+from driveController import DriveController
 
 # sem = threading.Semaphore()
 
@@ -22,6 +23,8 @@ def main():
 
     parserThread = threading.Thread(target=parser.pars, args=(), daemon=True) #arges=(sem,)
     parserThread.start()
+    clThread = threading.Thread(target=controllLoop, args=(parser,), daemon=True) #arges=(sem,)
+    clThread.start()
 
 
     while running:
@@ -35,6 +38,10 @@ def main():
         pygame.display.flip()
         clock.tick(60)
     pygame.quit()
+
+def controllLoop(parser):
+    dC = DriveController(parser)
+    dC.driveSpeed(1)
 
 
 if __name__ == "__main__":
