@@ -185,9 +185,13 @@ void setup()
   Serial1.println("Sensor init start");
   DEV_SPI.begin();
 
+  Serial1.println("*** CS1 ***");
   initVL53(&sensor_vl53l8cx_top1);
+  Serial1.println("*** CS2 ***");
   initVL53(&sensor_vl53l8cx_top2);
+  Serial1.println("*** CS3 ***");
   initVL53(&sensor_vl53l8cx_top3);
+  Serial1.println("*** CS4 ***");
   initVL53(&sensor_vl53l8cx_top4);
   Serial1.println("Sensor init end");
   servo.attach(PA5);
@@ -258,19 +262,22 @@ void waitForNewMessage()
 
 void parse()
 {
-  if (strinList[0] == "speed") {
+  if (strinList[0] == "speed" && amountDividers==1) 
+  {
     Setpoint = strinList[1].toDouble();
-  } else if (strinList[0] == "servo") {
+  } 
+  else if (strinList[0] == "servo" && amountDividers==1) 
+  {
     servo.write(strinList[1].toDouble());
   }
 
-  // for (int i=0;i<=amountDividers;i++)
-  // {
-  //   Serial1.printf(" %i:<",i);
-  //   Serial1.print(strinList[i]);
-  //   Serial1.print("> ");
-  //   strinList[i]="";
-  // }
+  for (int i=0;i<=amountDividers;i++)
+  {
+    // Serial1.printf(" %i:<",i);
+    // Serial1.print(strinList[i]);
+    // Serial1.print("> ");
+    strinList[i]="";
+  }
   amountDividers=0;
   // Serial1.println("");
 }
