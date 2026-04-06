@@ -51,14 +51,14 @@ int amountDividers = 0;
 #define LED1 PA2
 #define LED2 PA3
 uint8_t status;
-
+#define BUSSPEED 5000000
 
 SPIClass DEV_SPI(SPI_MOSI_PIN, SPI_MISO_PIN, SPI_CLK_PIN);
 
-VL53L8CX sensor_vl53l8cx_top1(&DEV_SPI, CS_PIN1);
-VL53L8CX sensor_vl53l8cx_top2(&DEV_SPI, CS_PIN2);
-VL53L8CX sensor_vl53l8cx_top3(&DEV_SPI, CS_PIN3);
-VL53L8CX sensor_vl53l8cx_top4(&DEV_SPI, CS_PIN4);
+VL53L8CX sensor_vl53l8cx_top1(&DEV_SPI, CS_PIN1, -1,  -1,  BUSSPEED);
+VL53L8CX sensor_vl53l8cx_top2(&DEV_SPI, CS_PIN2, -1,  -1,  BUSSPEED);
+VL53L8CX sensor_vl53l8cx_top3(&DEV_SPI, CS_PIN3, -1,  -1,  BUSSPEED);
+VL53L8CX sensor_vl53l8cx_top4(&DEV_SPI, CS_PIN4, -1,  -1,  BUSSPEED);
 int sensorCaptures[8] = {0,0,0,0,0,0,0,0};
 
 
@@ -299,11 +299,20 @@ void loop()
   static VL53L8CX_ResultsData results3;
   static VL53L8CX_ResultsData results4;
 
+  int s1=0;
+  int s2=0;
+  int s3=0;
+  int s4=0;
 
-  int s1=update(&sensor_vl53l8cx_top1, &results1);
-  int s2=update(&sensor_vl53l8cx_top2, &results2);
-  int s3=update(&sensor_vl53l8cx_top3, &results3);
-  int s4=update(&sensor_vl53l8cx_top4, &results4);
+  static int d=0;
+  d++;
+  s1=update(&sensor_vl53l8cx_top1, &results1);
+  if (d%3==0)
+    s2=update(&sensor_vl53l8cx_top2, &results2);
+  if ((d+1)%3==0)
+    s3=update(&sensor_vl53l8cx_top3, &results3);
+  if ((d+2)%3==0)
+    s4=update(&sensor_vl53l8cx_top4, &results4);
   if (s1>0)
     printSensorData(1,&results1);
   if (s2>0)
