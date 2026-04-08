@@ -29,7 +29,7 @@ int32_t impulse_diff = 0;
 int32_t lastEncoderCount = 0;
 int32_t rotations_per_sec = 0;
 
-bool newdata = false;
+bool newdata = false, checkVoltage = false;
 
 String strinList[100] = {};
 int amountDividers = 0;
@@ -70,7 +70,9 @@ void motorController100Hz();
 void waitForNewMessage();
 void parse();
 
-void initVL53(VL53L8CX * sensor)
+#define RESOLUTION VL53L8CX_RESOLUTION_4X4
+
+void initVL53(VL53L8CX * sensor, int speed)
 { 
   
   Serial1.println("Sensor Begin");
@@ -79,9 +81,9 @@ void initVL53(VL53L8CX * sensor)
   Serial1.println("Sensor Init");
   status = sensor->init();
   Serial1.println("Sensor resolution");
-  status = sensor->set_resolution(VL53L8CX_RESOLUTION_8X8);
+  status = sensor->set_resolution(RESOLUTION);
   Serial1.println("Sensor Frquency");
-  sensor->set_ranging_frequency_hz(120);
+  sensor->set_ranging_frequency_hz(speed);
   Serial1.println("Sensor ranging mode");
   sensor->set_ranging_mode(VL53L8CX_RANGING_MODE_CONTINUOUS);
   Serial1.println("Sensor start ranging");
@@ -186,13 +188,13 @@ void setup()
   DEV_SPI.begin();
 
   Serial1.println("*** CS1 ***");
-  initVL53(&sensor_vl53l8cx_top1);
+  initVL53(&sensor_vl53l8cx_top1,60);
   Serial1.println("*** CS2 ***");
-  initVL53(&sensor_vl53l8cx_top2);
+  initVL53(&sensor_vl53l8cx_top2,60);
   Serial1.println("*** CS3 ***");
-  initVL53(&sensor_vl53l8cx_top3);
+  initVL53(&sensor_vl53l8cx_top3,60);
   Serial1.println("*** CS4 ***");
-  initVL53(&sensor_vl53l8cx_top4);
+  initVL53(&sensor_vl53l8cx_top4,60);
   Serial1.println("Sensor init end");
   servo.attach(PA5);
 }
@@ -221,8 +223,11 @@ void setSpeed(double speed)
 }
 void printSensorData(int cam,VL53L8CX_ResultsData * result) 
 {
+  int res=8;
+  if (RESOLUTION == VL53L8CX_RESOLUTION_4X4)
+    res=4;
   Serial1.printf("cam,%i",cam);
-  for (int i = 0; i < 8*8; i++) 
+  for (int i = 0; i < res*res; i++) 
   {
     if (result->target_status[i]!=5 && result->target_status[i]!=9)
       Serial1.printf(",-1");
@@ -232,7 +237,21 @@ void printSensorData(int cam,VL53L8CX_ResultsData * result)
   Serial1.println(",");
 }
 
-
+void printMultiSensorData(int cam,VL53L8CX_ResultsData * result,int offset) 
+{
+  int res=8;
+  if (RESOLUTION == VL53L8CX_RESOLUTION_4X4)
+    res=4;
+  Serial1.printf("cam,%i",offset+1);
+  for (int i = 0; i < res*res*4; i+=4) 
+  {
+    if (result->target_status[i+offset]!=5 && result->target_status[i+offset]!=9)
+      Serial1.printf(",-1");
+    else
+      Serial1.printf(",%i", result->distance_mm[i+offset]);
+  }
+  Serial1.println(",");
+}
 
 void waitForNewMessage()
 {
@@ -269,6 +288,10 @@ void parse()
   else if (strinList[0] == "servo" && amountDividers==1) 
   {
     servo.write(strinList[1].toDouble());
+  }
+  else if (strinList[0] == "checkVoltage" && amountDividers==1) 
+  {
+    checkVoltage = strinList[1].toInt()>0;
   }
 
   for (int i=0;i<=amountDividers;i++)
@@ -307,20 +330,28 @@ void loop()
   static int d=0;
   d++;
   s1=update(&sensor_vl53l8cx_top1, &results1);
-  if (d%3==0)
+  // if (d%3==0)
     s2=update(&sensor_vl53l8cx_top2, &results2);
-  if ((d+1)%3==0)
+  // if ((d+1)%3==0)
     s3=update(&sensor_vl53l8cx_top3, &results3);
-  if ((d+2)%3==0)
+  // if ((d+2)%3==0)
     s4=update(&sensor_vl53l8cx_top4, &results4);
-  if (s1>0)
-    printSensorData(1,&results1);
-  if (s2>0)
-    printSensorData(2,&results2);
+  // if (s1>0)
+  //   printSensorData(1,&results1);
+  // if (s2>0)
+  //   printSensorData(2,&results2);
+  // if (s3>0)
+  //   printSensorData(3,&results3);
+  // if (s4>0)
+  //   printSensorData(4,&results4);
+
   if (s3>0)
-    printSensorData(3,&results3);
-  if (s4>0)
-    printSensorData(4,&results4);
+  {
+    printMultiSensorData(3,&results3,0);    
+    printMultiSensorData(3,&results3,1);    
+    printMultiSensorData(3,&results3,2);    
+    printMultiSensorData(3,&results3,3);    
+  }
         
   sensorCaptures[0]+=s1;
   sensorCaptures[1]+=s2;
@@ -330,13 +361,37 @@ void loop()
   static int c=0;
   static unsigned long lastPrint=micros();
 
-  
-
+  if (vBat<10.8 && checkVoltage)
+  {
+    while (true)
+    {
+      if (micros()-lastPrint>500000) {
+        lastPrint=micros();
+        Setpoint = 0;
+        Serial1.print("lowVoltage,");
+        Serial1.print(vBat);  //Voltage
+        Serial1.print(",\n");
+        static int pos=0;
+        servo.write(90);
+        if (pos==0)
+          servo.write(0);
+        if (pos==1)
+          servo.write(90);
+        if (pos==2)
+          servo.write(180);
+        if (pos==3)
+          servo.write(90);      
+        pos++;
+        if (pos>3)
+          pos=3;
+      }
+    }
+  }
 
 
   if (micros()-lastPrint>500000)
   {
-    static int pos=0;
+    // static int pos=0;
     // servo.write(90);
     // if (pos==0)
     //   servo.write(0);
@@ -365,8 +420,6 @@ void loop()
     // Serial1.printf("Freq: %i ",status);
 
     Serial1.print(",\n");
-
-
   }
 
   if (newdata) 
