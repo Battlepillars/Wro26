@@ -5,6 +5,8 @@ import board
 import busio
 import adafruit_bno055
 
+from subprocess import call
+
 
 class Parser:
     def __init__(self):
@@ -36,7 +38,12 @@ class Parser:
         self.send("speed,"+str(speed)+"\n")
     
     def setSteer(self, angle):
+        servoTrim = 4.4     # bigger nummer = more left
+        angle += servoTrim
         self.send("servo,"+str(angle)+"\n")
+    
+    def setLowVoltageCheck(self, checkVoltage: bool):
+        self.send("checkVoltage,"+str(int(checkVoltage))+"\n")
 
     def send(self, string):
         # print(string)
@@ -98,7 +105,6 @@ class Parser:
                 inputString = strin.split(",")
 
 
-                # sem.acquire()
 
 
                 if inputString[0] == "stat" and len(inputString) == 7:
@@ -120,25 +126,54 @@ class Parser:
                 
                 elif inputString[0] == "cam" and len(inputString) == 67:  
                     # print(inputString)
-                    for i in range(len(inputString)-3):
-                        val=int(inputString[i+2])
-                        if val >= 0:
-                            self.camValues[int(inputString[1])-1][i] = val
-                        else:
-                            self.camValues[int(inputString[1])-1][i] = 0
-                            # camValues[int(inputString[1])-1].append(prevCamValues[int(inputString[1])-1][i])
+                    cam = int(inputString[1])-1
+                    for j in range(8):              # j flip Vertical | k flip Horizontal
+                        for k in range(8):              
+                            if cam == 0:            #back
+                                pos = (7-j)*8+k      
+                            elif cam == 1:          #right  #5 wall
+                                pos = (7-j)*8+k
+                            elif cam == 2:          #front  
+                                pos = j*8+(7-k)
+                            elif cam == 3:          #left   #5 wall
+                                pos = j*8+(7-k)
+                            
+                            val=int(inputString[k*8+j+2])
+                            
+                            if val >= 0:
+                                self.camValues[cam][pos] = val
+                            else:
+                                self.camValues[cam][pos] = 0
 
-                    #print(str(camValues[int(inputString[1])-1]))
-                    # counter+=1
-                    # if (counter%30 == 0):
-                    #     self.printValues(self.camValues, int(inputString[1])-1)
-                    #     print(strin)
-                    
-                    prevCamValues[int(inputString[1])-1] = self.camValues[int(inputString[1])-1].copy()
+                elif inputString[0] == "cam" and len(inputString) == 19:  
+                    print(inputString)
+                    cam = int(inputString[1])-1
+                    for j in range(4):              # j flip Vertical | k flip Horizontal
+                        for k in range(4):              
+                            # if cam == 0:            #back
+                            #     pos = (3-j)*4+k      
+                            # elif cam == 1:          #right  #5 wall
+                            #     pos = (3-j)*4+k
+                            # elif cam == 2:          #front  
+                            pos = j*4+(3-k)
+                            # elif cam == 3:          #left   #5 wall
+                            #     pos = j*4+(3-k)
+                            
+                            val=int(inputString[k*4+j+2])
+                            
+                            if val >= 0:
+                                self.camValues[cam][pos] = val
+                            else:
+                                self.camValues[cam][pos] = 0                   
+                    prevCamValues[cam] = self.camValues[cam].copy()
+                elif inputString[0] == "lowVoltage" and len(inputString) == 3:
+                    self.voltage = float(inputString[1])
+                    self.lowVoltage = True
+                    time.sleep(4)
+                    call("sudo shutdown -h now", shell=True)
             except:
-                print("\n!!!! Pars Error !!!!\n")
+                print("\n!!!! Parsing Error !!!!\n")
             
-            # sem.release()
             # ime.sleep(0.01)
 
     def manualDrive(self):

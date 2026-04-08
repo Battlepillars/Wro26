@@ -1,5 +1,146 @@
 import time
 
+from parser import Parser
+
+class DriveController:
+    
+    backWall = 0
+    rightWall = 1
+    frontWall = 2
+    leftWall = 3
+    
+    def __init__(self, parser: Parser, stop_event):
+        self.acceleration = 1
+        self.deacceleration = 4
+        self.setpoint = 0
+        self.targetSpeed = 0
+        self.targetHeading = 0
+        self.lastTime = 0
+        self.parser = parser
+        self.stop_event = stop_event
+        self.pidSteer = PIDController(Kp=0.5, Ki=0, Kd=0, setpoint=0, min=-90, max=90)
+    
+    def end(self):
+        if self.stop_event.is_set():
+            self.parser.setSpeed(0)
+            self.parser.setSteer(90)
+            return True
+        return False
+    
+    def driveAwayFromWall(self, speed, heading, wallDir = backWall):
+        self.targetSpeed = speed
+        self.targetHeading = heading
+        
+        
+        noWallCount = 0
+        pos1 = 3+4*8
+        pos2 = 4+4*8
+        val = max(self.parser.camValues[wallDir][pos1],self.parser.camValues[wallDir][pos2])
+        
+        while noWallCount < 3 and not self.stop_event.is_set():
+            self.calcAccel()
+            val = max(self.parser.camValues[wallDir][pos1],self.parser.camValues[wallDir][pos2])
+        
+            if val <= 0 or val > 1000:
+                noWallCount += 1
+            elif noWallCount > 0:
+                noWallCount -= 1
+            print(str(val) + " " + str(noWallCount))
+        if self.end():
+            return
+    
+    def driveAlongWall(self, speed, heading, wallDir = rightWall):
+        self.targetSpeed = speed
+        self.targetHeading = heading
+        
+        
+        noWallCount = 0
+        pos = 3+3*8
+        val = self.parser.camValues[wallDir][pos]
+        
+        while noWallCount < 1 and not self.stop_event.is_set():
+            self.calcAccel()
+            val = self.parser.camValues[wallDir][pos]
+            
+            if val <= 0 or val > 1000:
+                noWallCount += 1
+            elif noWallCount > 0:
+                noWallCount -= 1
+            print(str(val) + " " + str(noWallCount))
+        if self.end():
+            return
+    
+    def driveDist(self, speed, heading, dist):
+        startDist = self.parser.distance
+        self.targetSpeed = speed
+        self.targetHeading = heading
+        while self.parser.distance-startDist < dist and not self.stop_event.is_set():
+            # print(self.parser.distance-startDist)
+            self.calcAccel()
+        if self.end():
+            return
+    
+    def brake(self):
+        self.targetSpeed = 0
+        while self.parser.speed > 0 and not self.stop_event.is_set():
+            self.calcAccel()
+        if self.end():
+            return
+
+
+    def driveSpeed(self, speed, heading):
+        self.targetSpeed = speed
+        self.targetHeading = heading
+        while not self.stop_event.is_set():
+            self.calcAccel()
+        if self.end():
+            return
+        
+
+    def calcAccel(self):
+        lastCycleTime = time.time() - self.lastTime
+        frq = 0.01
+
+        if (lastCycleTime) < frq:
+            time.sleep(frq-lastCycleTime)
+        self.lastTime = time.time()
+
+
+
+        errorAngle = -self.targetHeading + self.parser.gyro.euler[0]
+        
+        while errorAngle > 180:
+            errorAngle -= 360
+        while errorAngle < -180:
+            errorAngle += 360
+        
+        outputSteer = -(self.pidSteer.compute(errorAngle,1))+90
+
+        if self.setpoint < self.targetSpeed and self.setpoint >= 0:     # nach vorne Beschleunigen
+            self.setpoint += self.acceleration * frq
+            if self.setpoint > self.targetSpeed:
+                self.setpoint = self.targetSpeed
+        
+        elif self.setpoint > self.targetSpeed and self.setpoint <= 0:   # nach hinten Beschleunigen
+            self.setpoint -= self.acceleration * frq
+            if self.setpoint < self.targetSpeed:
+                self.setpoint = self.targetSpeed
+        
+        elif self.setpoint < self.targetSpeed and self.setpoint <= 0:   # nach hinten Bremsen
+            self.setpoint += self.deacceleration * frq
+            if self.setpoint > self.targetSpeed:
+                self.setpoint = self.targetSpeed
+        
+        elif self.setpoint > self.targetSpeed and self.setpoint >= 0:   # nach vorne Bremsen
+            self.setpoint -= self.deacceleration * frq
+            if self.setpoint < self.targetSpeed:
+                self.setpoint = self.targetSpeed
+        
+        if not self.stop_event.is_set():
+            self.parser.setSpeed(self.setpoint)
+            self.parser.setSteer(outputSteer)
+
+
 class PIDController:
     def __init__(self, Kp, Ki, Kd, setpoint, min, max, drive = 0):
         """@brief Initialize a PID controller instance.
@@ -87,96 +228,3 @@ class PIDController:
         #         slam.crash = 1
         
         return output
-
-class DriveController:
-    def __init__(self, parser, stop_event, checkVoltage):
-        self.acceleration = 0.5
-        self.deacceleration = 0.5
-        self.setpoint = 0
-        self.targetSpeed = 0
-        self.targetHeading = 0
-        self.lastTime = 0
-        self.parser = parser
-        self.stop_event = stop_event
-        self.pidSteer = PIDController(Kp=2, Ki=0, Kd=0, setpoint=0, min=-90, max=90)
-        self.checkVoltage = checkVoltage
-    
-    def end(self):
-        if self.stop_event.is_set():
-            self.parser.setSpeed(0)
-            self.parser.setSteer(90)
-            return True
-        return False
-        
-
-    def driveDist(self, speed, heading, dist):
-        startDist = self.parser.distance
-        self.targetSpeed = speed
-        self.heading = heading
-        while self.parser.distance-startDist < dist and not self.stop_event.is_set():
-            # print(self.parser.distance-startDist)
-            self.calcAccel()
-        if self.end():
-            return
-        self.brake()
-    
-    def brake(self):
-        self.targetSpeed = 0
-        while self.parser.speed > 0 and not self.stop_event.is_set():
-            self.calcAccel()
-        if self.end():
-            return
-
-
-    def driveSpeed(self, speed, heading):
-        self.targetSpeed = speed
-        self.heading = heading
-        while not self.stop_event.is_set():
-            self.calcAccel()
-        if self.end():
-            return
-            
-
-    def calcAccel(self):
-        lastCycleTime = time.time() - self.lastTime
-        frq = 0.01
-
-        if (lastCycleTime) < frq:
-            time.sleep(frq-lastCycleTime)
-        self.lastTime = time.time()
-
-
-
-        errorAngle = -self.targetHeading + self.parser.gyro.euler[0]
-        
-        while errorAngle > 180:
-            errorAngle -= 360
-        while errorAngle < -180:
-            errorAngle += 360
-        
-        outputSteer = -(self.pidSteer.compute(errorAngle,1))+90
-
-        if self.setpoint < self.targetSpeed and self.setpoint >= 0:     # nach vorne Beschleunigen
-            self.setpoint += self.acceleration * frq
-            if self.setpoint > self.targetSpeed:
-                self.setpoint = self.targetSpeed
-        
-        elif self.setpoint > self.targetSpeed and self.setpoint <= 0:   # nach hinten Beschleunigen
-            self.setpoint -= self.acceleration * frq
-            if self.setpoint < self.targetSpeed:
-                self.setpoint = self.targetSpeed
-        
-        elif self.setpoint < self.targetSpeed and self.setpoint <= 0:   # nach hinten Bremsen
-            self.setpoint += self.deacceleration * frq
-            if self.setpoint > self.targetSpeed:
-                self.setpoint = self.targetSpeed
-        
-        elif self.setpoint > self.targetSpeed and self.setpoint >= 0:   # nach vorne Bremsen
-            self.setpoint -= self.deacceleration * frq
-            if self.setpoint < self.targetSpeed:
-                self.setpoint = self.targetSpeed
-        
-        if not self.stop_event.is_set():
-            self.parser.setSpeed(self.setpoint)
-            self.parser.setSteer(outputSteer)
-        
