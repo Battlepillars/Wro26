@@ -9,6 +9,8 @@ from subprocess import call
 
 
 class Parser:
+    RED = 0
+    GREEN = 1
     def __init__(self):
 
         self.camValues = [[0 for x in range(64)], [0 for x in range(64)], [0 for x in range(64)], [0 for x in range(64)]]
@@ -20,6 +22,9 @@ class Parser:
         self.voltage = 12.6
         self.speed = 0
         self.distance = 0
+        self.obstacles = []
+        for i in range(12):
+            self.obstacles.append(None)
 
         i2c = busio.I2C(board.SCL, board.SDA)
         self.gyro = adafruit_bno055.BNO055_I2C(i2c, address=0x28)

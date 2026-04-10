@@ -72,7 +72,7 @@ class Ui:
         green = (0, 255, 0)
         blue = (0, 0, 128)
         
-        size=4
+        size=8
         
         for i in range(4):
             for j in range(size):
