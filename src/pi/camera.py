@@ -44,7 +44,7 @@ class Camera():
         #self.picam2.switch_mode_and_capture_array(self.config, delay=10)
         self.picam2.start()
     
-    def captureImage(self, checkHeightNear = False):
+    def captureImage(self, checkHeightNear = False, leftDist = 0, rightDist = 0, upDist = 0):
         """@brief Capture frame, extract scan band, detect RED/GREEN blobs.
 
         Performs blur, HSV conversion, masking for color ranges (including
@@ -58,21 +58,25 @@ class Camera():
         self.blocksAngleDraw = []
         self.blocksColorDraw = []
         imgclear = self.picam2.capture_array()
-        print(time.time()-timeStart)
+        # print(time.time()-timeStart)
         imgIn = cv.blur(imgclear,(10,10))
         checkHeight=30
-        checkStart=644                # Scanbalken einstellen, kleiner -> balken weiter oben
+        if upDist > 500:
+            upDist = 500
+        checkHeightStart = 644 + int(upDist)                     # smaller number    -> balken weiter oben
+        checkWidth = 1535 - int(rightDist)               # smaller number    -> balken startet weiter links
+        checkWidthStart = 0 + int(leftDist)              # bigger number     -> balken startet weiter rechts
         result = None
         
         
         if checkHeightNear:
-            checkStart += 150
+            checkHeightStart += 150
         
-        checkEnd=checkStart+checkHeight
+        checkEnd=checkHeightStart+checkHeight
         
         hsv = cv.cvtColor(imgIn, cv.COLOR_RGB2HSV)
         cv.imwrite(f'capture/hsvGanz{self.pictureNum}.jpg', hsv)
-        imgIn = imgIn[checkStart:checkEnd, 0:1535]
+        imgIn = imgIn[checkHeightStart:checkEnd, checkWidthStart:checkWidth]
 
         hsv = cv.cvtColor(imgIn, cv.COLOR_RGB2HSV)
         img = cv.cvtColor(imgIn, cv.COLOR_BGR2RGB)
@@ -111,8 +115,8 @@ class Camera():
         cntsred = imutils.grab_contours(cntsred)
         cntsgreen = imutils.grab_contours(cntsgreen)
 
-        cv.line(imgclear,(0,checkEnd),(1536,checkEnd),(255,0,0),2)
-        cv.line(imgclear,(0,checkStart),(1536,checkStart),(255,0,0),2)
+        cv.line(imgclear,(checkWidthStart,checkEnd),(checkWidth+1,checkEnd),(255,0,0),2)
+        cv.line(imgclear,(checkWidthStart,checkHeightStart),(checkWidth+1,checkHeightStart),(255,0,0),2)
         
         mid = 788       # This value sets the midpoint of the image, which is used as a reference to calculate the angle of detected blocks.
         split  = 19.12  # This value is used to scale the difference between the midpoint of the image and the x-coordinate of the detected block's center to calculate the angle.
@@ -158,8 +162,8 @@ class Camera():
         # cv.imwrite('capture/imgclear.jpg', imgclear)
         self.imgCam = imgclear
         self.pictureNum = self.pictureNum+1
-        print(time.time()-timeStart)
-        print()
+        # print(time.time()-timeStart)
+        # print()
         return result
 
 

@@ -23,6 +23,7 @@ class Parser:
         self.speed = 0
         self.distance = 0
         self.obstacles = []
+        self.currentCommand = ""
         for i in range(12):
             self.obstacles.append(None)
 

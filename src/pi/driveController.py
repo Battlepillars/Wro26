@@ -4,6 +4,7 @@ import math
 from parser import Parser
 
 class DriveController:
+    logCountetr = 0
     
     backWall = 0
     rightWall = 1
@@ -15,15 +16,17 @@ class DriveController:
     
     def __init__(self, parser: Parser, stop_event):
         self.acceleration = 1
-        self.deacceleration = 4
+        self.deacceleration = 8
         self.setpoint = 0
         self.targetSpeed = 0
         self.targetHeading = 0
         self.lastTime = 0
+        self.section = 0
         self.turnDir = self.auto
         self.parser = parser
         self.stop_event = stop_event
         self.pidSteer = PIDController(Kp=1, Ki=0, Kd=0, setpoint=0, min=-90, max=90)
+        self.pidSteer2 = PIDController(Kp=0.5, Ki=0, Kd=0, setpoint=0, min=-90, max=90)
     
     def end(self):
         if self.stop_event.is_set():
@@ -31,6 +34,8 @@ class DriveController:
             self.parser.setSteer(90)
             return True
         return False
+    
+    # start helper functions:
     
     def getDist(self, poses:list, row, wallDir = frontWall):
         val = 0
@@ -41,9 +46,26 @@ class DriveController:
                 val = tempVal
         return val
     
-    def turn(self, speed, heading, turnDir = auto):
+    def setCommand(self, command):
+        self.parser.currentCommand = command
+    
+    def setSpeed(self, speed):
         self.targetSpeed = speed
+    
+    def setTargetHeading(self, heading):
+        heading += self.section*-90         # rotating to match current section
+        while heading > 180:
+            heading -= 360
+        while heading < -180:
+            heading += 360
         self.targetHeading = heading
+    
+    # end helper functions
+    
+    def turn(self, speed, heading, turnDir = auto):
+        self.setCommand("turn")
+        self.setSpeed(speed)
+        self.setTargetHeading(heading)
         self.turnDir = turnDir
         
         errorAngle = 5
@@ -56,21 +78,28 @@ class DriveController:
             while errorAngle < -180:
                 errorAngle += 360
             
-            doPid = abs(errorAngle)<10*(speed*self.parser.speed*2)
-            # print("Error: "+str(errorAngle)+" Dopid: "+str(doPid)+" Speed: "+str(self.parser.speed))
+            # doPid = abs(errorAngle)<10*(speed*self.parser.speed*2)
+            doPid = abs(errorAngle)<50
             
-            self.calcAccel(doPid)
+            self.logCountetr += 1
+            if self.logCountetr %3==0 or True:
+                print("Turn: ","Error:",errorAngle,"\tDopid:",doPid,"Speed:",self.parser.speed,"Target heading:",self.targetHeading)
+            
+            self.calcAccel(doPid,2)
             if not doPid:
                 if errorAngle < 0:
                     self.parser.setSteer(0)
                 else:
                     self.parser.setSteer(180)
+
         if self.end():
             return
     
-    def driveToWall(self, speed, heading, dist, wallDir = rightWall):
-        self.targetSpeed = speed
-        self.targetHeading = heading
+    def driveToWall(self, speed, heading, dist, wallDir = rightWall, bigVisionRange = False):
+        self.setCommand("driveToWall")
+
+        self.setSpeed(speed)
+        self.setTargetHeading(heading)
         
         if wallDir == self.rightWall:
             pos1 = 6+6*8
@@ -79,31 +108,38 @@ class DriveController:
             pos1 = 0+6*8
             pos2 = 1+6*8
         elif wallDir == self.frontWall:
-            pos1 = 3+6*8
-            pos2 = 4+6*8
-        lastVal = 1000
+            pos1 = 3+3*8
+            pos2 = 4+3*8 
+        lastVal = 10000
+        
         
         while lastVal > (dist+20) and not self.stop_event.is_set():
             self.calcAccel()
-            val = max(self.parser.camValues[self.frontWall][pos1],self.parser.camValues[self.frontWall][pos2])
+            if wallDir == self.frontWall and bigVisionRange:
+                val = self.getDist([0,1,2,3,4,5,6,7],3,self.frontWall)
+            else:
+                val = max(self.parser.camValues[self.frontWall][pos1],self.parser.camValues[self.frontWall][pos2])
             # a = val * math.sin(heading*(math.pi/180))
             # val = math.sqrt(val**2-a**2)
-            
-            print(val)
+            self.logCountetr += 1
             if val > 0:
                 lastVal = val
+            if lastVal is not None: #self.logCountetr %3==0 and 
+                print("ToWall: "+str(lastVal))
         if self.end():
             return
     
     def driveAwayFromWall(self, speed, heading, dist, wallDir = backWall):
-        self.targetSpeed = speed
-        self.targetHeading = heading
+        self.setCommand("driveAwayFromWall")
+        self.setSpeed(speed)
+        self.setTargetHeading(heading)
         
         
         noWallCount = 0
         pos1 = 3+4*8
         pos2 = 4+4*8
         val = max(self.parser.camValues[wallDir][pos1],self.parser.camValues[wallDir][pos2])
+        
         
         while noWallCount < 3 and not self.stop_event.is_set():
             self.calcAccel()
@@ -113,14 +149,15 @@ class DriveController:
                 noWallCount += 1
             elif noWallCount > 0:
                 noWallCount -= 1
-            print(str(val) + " " + str(noWallCount))
-        print(str(val) + " " + str(noWallCount))
+            print("away: "+str(val) + " " + str(noWallCount))
+
         if self.end():
             return
     
     def driveAlongWall(self, speed, heading, wallDir = rightWall):
-        self.targetSpeed = speed
-        self.targetHeading = heading
+        self.setCommand("driveAlongWall")
+        self.setSpeed(speed)
+        self.setTargetHeading(heading)
         
         
         noWallCount = 0
@@ -140,9 +177,10 @@ class DriveController:
             return
     
     def driveDist(self, speed, heading, dist):
+        self.setCommand("driveDist")
         startDist = self.parser.distance
-        self.targetSpeed = speed
-        self.targetHeading = heading
+        self.setSpeed(speed)
+        self.setTargetHeading(heading)
         while self.parser.distance-startDist < dist and not self.stop_event.is_set():
             # print(self.parser.distance-startDist)
             self.calcAccel()
@@ -150,23 +188,26 @@ class DriveController:
             return
     
     def brake(self):
+        self.setCommand("brake")
         self.targetSpeed = 0
         while self.parser.speed > 0 and not self.stop_event.is_set():
             self.calcAccel()
+            print("Brake!!!: "+str(self.parser.speed)+"\n\n\n\n\n\n\n\n")
         if self.end():
             return
 
 
     def driveSpeed(self, speed, heading):
-        self.targetSpeed = speed
-        self.targetHeading = heading
+        self.setCommand("driveSpeed")
+        self.setSpeed(speed)
+        self.setTargetHeading(heading)
         while not self.stop_event.is_set():
             self.calcAccel()
         if self.end():
             return
         
 
-    def calcAccel(self, steer = True):
+    def calcAccel(self, steer = True, pid = 0):
         lastCycleTime = time.time() - self.lastTime
         frq = 0.01
 
@@ -183,7 +224,10 @@ class DriveController:
             while errorAngle < -180:
                 errorAngle += 360
             
-            outputSteer = -(self.pidSteer.compute(errorAngle,1))+90
+            if pid == 0:
+                outputSteer = -(self.pidSteer.compute(errorAngle,1))+90
+            elif pid == 2:
+                outputSteer = -(self.pidSteer2.compute(errorAngle,1))+90
 
         if self.setpoint < self.targetSpeed and self.setpoint >= 0:     # nach vorne Beschleunigen
             self.setpoint += self.acceleration * frq
