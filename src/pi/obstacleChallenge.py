@@ -5,6 +5,22 @@ from parser import Parser
 from driveController import DriveController
 from camera import Camera
 
+def wallDrive(dC: DriveController, dir, speedCurve, speedStraight, driveWall = False, angle = 45):
+    wall = dC.backWall
+    if dir == dC.rightWall:
+        dC.turn(speedCurve,angle)
+        dC.driveToWall(speedStraight,angle,310,wall)
+        dC.turn(speedCurve,0)
+        if driveWall:
+            dC.driveToWall(speedStraight,0,1000,wall)
+    else:
+        dC.turn(speedCurve,-angle)
+        dC.driveToWall(speedStraight,-angle,310,wall)
+        dC.turn(speedCurve,0)
+        if driveWall:
+            dC.driveToWall(speedStraight,0,1000,wall)
+
+
 
 def clockwise(parser: Parser, dC: DriveController, cam: Camera):
     speedStraight=2
@@ -20,8 +36,9 @@ def clockwise(parser: Parser, dC: DriveController, cam: Camera):
             parser.obstacles[0+dC.section*3] = cam.captureImage(leftDist = distRight/1.2)
         else:
             parser.obstacles[0+dC.section*3] = cam.captureImage(leftDist = distRight/1.2, upDist = backDist/2.3)
-            
-        if parser.obstacles[0+dC.section*3] == parser.GREEN:
+        
+        
+        if parser.obstacles[0+dC.section*3] == parser.GREEN:                #first row of obstacles green
             dC.driveAwayFromWall(speedStraight, 0, 150)
             distRight = dC.getDist([0,1,2,3,4,5,6,7],3,dC.rightWall)
             print("distright: "+str(distRight))
@@ -43,59 +60,36 @@ def clockwise(parser: Parser, dC: DriveController, cam: Camera):
             if parser.obstacles[2+dC.section*3] == parser.GREEN:
                 dC.driveDist(speedStraight,0,500)
             elif parser.obstacles[2+dC.section*3] == parser.RED:
-                dC.turn(speedCurve,90)
-                dC.driveToWall(speedStraight,90,310,dC.frontWall)
-                dC.turn(speedCurve,0)
-                dC.driveDist(speedStraight,0,500)
+                wallDrive(dC, dC.rightWall, speedCurve, speedStraight, True)
             elif parser.obstacles[2+dC.section*3] == None:
                 dC.driveDist(speedStraight,0,500)
 
-        elif parser.obstacles[0+dC.section*3] == parser.RED:
+        elif parser.obstacles[0+dC.section*3] == parser.RED:          #first row of obstacles red
             dC.driveAwayFromWall(speedStraight, 0, 150)
-            dC.turn(speedCurve,90)
-            distFront = dC.getDist([0,1,2,3,4,5,6,7],3,dC.frontWall)
-            print("Dist Front",distFront)
-            if distFront > 350:
-                dC.driveToWall(speedStraight, 90, 310, dC.frontWall)
-            dC.turn(speedCurve,0)
+            if distRight >= 250:
+                wallDrive(dC, dC.rightWall, speedCurve, speedStraight, False)
             dC.driveAwayFromWall(speedStraight, 0, 1000)
             # parser.obstacles[1+dC.section*3] = cam.captureImage()
             # if parser.obstacles[1+dC.section*3] == parser.RED:     # sharp turn
             #     pass
             dC.driveDist(speedStraight,0,700)
-            parser.obstacles[2+dC.section*3] = cam.captureImage()
-            if parser.obstacles[2+dC.section*3] == parser.GREEN:
-                dC.turn(speedCurve,-90)
-                dC.driveToWall(speedStraight,-90,310,dC.frontWall)
-                dC.turn(speedCurve,0)
-                dC.driveDist(speedStraight,0,500)
-            elif parser.obstacles[2+dC.section*3] == parser.RED:
-                dC.driveDist(speedStraight,0,500)
-            elif parser.obstacles[2+dC.section*3] == None:
-                dC.driveDist(speedStraight,0,500)
+            parser.obstacles[2+dC.section*3] = cam.captureImage(upDist=35)
+            if parser.obstacles[2+dC.section*3] == parser.GREEN:                # third row green
+                wallDrive(dC, dC.leftWall, speedCurve, speedStraight, True, 90)
+            elif parser.obstacles[2+dC.section*3] == parser.RED or parser.obstacles[2+dC.section*3] == None:    # third row red or nothing
+                dC.driveToWall(speedStraight,0,1000,dC.frontWall)
         
-        elif parser.obstacles[0+dC.section*3] == None:
+        elif parser.obstacles[0+dC.section*3] == None:              # second row of obstacles
             dC.driveAwayFromWall(speedStraight,0,700)
             parser.obstacles[1+dC.section*3] = cam.captureImage()
             if parser.obstacles[1+dC.section*3] == parser.GREEN:
                 if distRight <= 700:
-                    dC.turn(speedCurve,-70)
-                    dC.driveToWall(speedStraight,-70,310,dC.frontWall)
-                    dC.turn(speedCurve,0)
+                    wallDrive(dC, dC.leftWall, speedCurve, speedStraight, True)
                 else:
                     dC.driveDist(speedStraight,0,200)
-                dC.driveDist(speedStraight,0,500)
             elif parser.obstacles[1+dC.section*3] == parser.RED:
-                if distRight >= 400:
-                    distFront = dC.getDist([3,4],3,dC.rightWall)
-                    print("Dist Right",distFront)
-                    if distFront > 350:
-                        dC.turn(speedCurve,90)
-                        dC.driveToWall(speedStraight,90,310,dC.frontWall)
-                    else:
-                        dC.turn(speedCurve,45)
-                    dC.turn(speedCurve,0)
-                    dC.driveToWall(speedStraight,0,1000,dC.frontWall, True)
+                if distRight >= 250:
+                    wallDrive(dC, dC.rightWall, speedCurve, speedStraight, True)
                 else:
                     dC.driveDist(speedStraight,0,200)
                 dC.driveDist(speedStraight,0,500)
@@ -104,17 +98,12 @@ def clockwise(parser: Parser, dC: DriveController, cam: Camera):
                 parser.obstacles[2+dC.section*3] = cam.captureImage()
                 if parser.obstacles[2+dC.section*3] == parser.GREEN:
                     if distRight <= 700:
-                        dC.turn(speedCurve,-70)
-                        dC.driveToWall(speedStraight,-70,310,dC.frontWall)
-                        dC.turn(speedCurve,0)
+                        wallDrive(dC, dC.leftWall, speedCurve, speedStraight, True)
                     else:
                         dC.driveDist(speedStraight,0,200)
-                    dC.driveDist(speedStraight,0,500)
                 elif parser.obstacles[2+dC.section*3] == parser.RED:
-                    if distRight >= 300:
-                        dC.turn(speedCurve,90)
-                        dC.driveToWall(speedStraight,90,310,dC.frontWall)
-                        dC.turn(speedCurve,0)
+                    if distRight >= 250:
+                        wallDrive(dC, dC.rightWall, speedCurve, speedStraight, True)
                     else:
                         dC.driveDist(speedStraight,0,200)
                     dC.driveDist(speedStraight,0,500)

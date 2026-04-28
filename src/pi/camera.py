@@ -61,8 +61,8 @@ class Camera():
         # print(time.time()-timeStart)
         imgIn = cv.blur(imgclear,(10,10))
         checkHeight=30
-        if upDist > 500:
-            upDist = 500
+        if upDist > 300:
+            upDist = 300
         checkHeightStart = 644 + int(upDist)                     # smaller number    -> balken weiter oben
         checkWidth = 1535 - int(rightDist)               # smaller number    -> balken startet weiter links
         checkWidthStart = 0 + int(leftDist)              # bigger number     -> balken startet weiter rechts
@@ -87,7 +87,7 @@ class Camera():
         # in photo shop: rgb -> vsh
         
         # lower boundary RED color range values; Hue (0 - 10)
-        lower1 = np.array([0, 100, 20])
+        lower1 = np.array([0, 190, 190])
         upper1 = np.array([10, 255, 255])
         
         # upper boundary RED color range values; Hue (160 - 180)

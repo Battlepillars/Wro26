@@ -27,7 +27,7 @@ def main():
     
     
     clock = pygame.time.Clock()
-    screen = pygame.display.set_mode((1000, 500))
+    screen = pygame.display.set_mode((1220, 500))
 
     signal.signal(signal.SIGINT, handle_kb_interrupt)
     parserThread = threading.Thread(target=parser.pars, args=(), daemon=True)

@@ -18,5 +18,4 @@ while True:
     print("Quat:", bno.quaternion)
     print("Calibration:", bno.calibration_status)
     print("---")
- 
     time.sleep(0.4)

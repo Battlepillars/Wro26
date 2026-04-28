@@ -74,7 +74,7 @@ class Ui:
         
         size=8
         
-        for i in range(4):
+        for i in range(parser.amountSensors):
             for j in range(size):
                 for k in range(size):
                     pos = j*size+k
@@ -93,10 +93,10 @@ class Ui:
                     
                     text = self.font.render(text, True, green, blue)
 
-                    if i < 2:
+                    if i < int(parser.amountSensors/2):
                         screen.blit(text, (50*k+i*410, j * 20))
                     else:
-                        screen.blit(text, (50*k+(i-2)*410, j*20+180))
+                        screen.blit(text, (50*k+(i-int(parser.amountSensors/2))*410, j*20+180))
         
         # prints = 5
         # for i in range(prints):
@@ -115,7 +115,7 @@ class Ui:
             self.font.render(str(parser.voltage) + "v CPU: " + self.cpu_usage + " Temp: " + self.cpu_temp , True, green, blue),
             self.font.render("Speed: " + str(parser.speed)+" Head: "+str(parser.gyro.euler[0]), True, green, blue),
             self.font.render("Distance: " + str(parser.distance), True, green, blue),
-            self.font.render("Captures: "+ str(parser.sensorCaptures[0])+" / "+str(parser.sensorCaptures[1])+" / "+str(parser.sensorCaptures[2])+" / "+str(parser.sensorCaptures[3]), True, green, blue),
+            self.font.render("Captures: "+ str(parser.sensorCaptures[0])+" / "+str(parser.sensorCaptures[1])+" / "+str(parser.sensorCaptures[2])+" / "+str(parser.sensorCaptures[3])+" / "+str(parser.sensorCaptures[4])+" / "+str(parser.sensorCaptures[5]), True, green, blue),
             self.font.render("Command: " + parser.currentCommand, True, green, blue),
         ]
         for i in range(len(texts)):

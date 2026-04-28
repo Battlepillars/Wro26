@@ -62,6 +62,39 @@ class DriveController:
     
     # end helper functions
     
+    def quickTurn(self, speed, heading, turnDir = auto):
+        self.setCommand("turn")
+        self.setSpeed(speed)
+        self.setTargetHeading(heading)
+        self.turnDir = turnDir
+        
+        errorAngle = 5
+        
+        while abs(errorAngle) > 5 and not self.stop_event.is_set():
+            errorAngle = self.parser.gyro.euler[0] - self.targetHeading
+            
+            while errorAngle > 180:
+                errorAngle -= 360
+            while errorAngle < -180:
+                errorAngle += 360
+            
+            # doPid = abs(errorAngle)<10*(speed*self.parser.speed*2)
+            doPid = abs(errorAngle)<50
+            
+            self.logCountetr += 1
+            if self.logCountetr %3==0 or True:
+                print("Quick Turn: ","Error:",errorAngle,"\tDopid:",doPid,"Speed:",self.parser.speed,"Target heading:",self.targetHeading)
+            
+            self.calcAccel(doPid,2)
+            if not doPid:
+                if errorAngle < 0:
+                    self.parser.setSteer(0)
+                else:
+                    self.parser.setSteer(180)
+
+        if self.end():
+            return
+    
     def turn(self, speed, heading, turnDir = auto):
         self.setCommand("turn")
         self.setSpeed(speed)
@@ -104,12 +137,18 @@ class DriveController:
         if wallDir == self.rightWall:
             pos1 = 6+6*8
             pos2 = 7+6*8
+            wallDir = self.frontWall
         elif wallDir == self.leftWall:
             pos1 = 0+6*8
             pos2 = 1+6*8
+            wallDir = self.frontWall
         elif wallDir == self.frontWall:
             pos1 = 3+3*8
-            pos2 = 4+3*8 
+            pos2 = 4+3*8
+            wallDir = self.frontWall
+        elif wallDir == self.backWall:
+            pos1 = 3+6*8
+            pos2 = 4+6*8 
         lastVal = 10000
         
         
@@ -118,14 +157,14 @@ class DriveController:
             if wallDir == self.frontWall and bigVisionRange:
                 val = self.getDist([0,1,2,3,4,5,6,7],3,self.frontWall)
             else:
-                val = max(self.parser.camValues[self.frontWall][pos1],self.parser.camValues[self.frontWall][pos2])
+                val = max(self.parser.camValues[wallDir][pos1],self.parser.camValues[wallDir][pos2])
             # a = val * math.sin(heading*(math.pi/180))
             # val = math.sqrt(val**2-a**2)
             self.logCountetr += 1
             if val > 0:
                 lastVal = val
             if lastVal is not None: #self.logCountetr %3==0 and 
-                print("ToWall: "+str(lastVal))
+                print("ToWall: "+str(lastVal),"Heading:",heading)
         if self.end():
             return
     

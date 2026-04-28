@@ -11,10 +11,20 @@ from subprocess import call
 class Parser:
     RED = 0
     GREEN = 1
+    
+    amountSensors = 6
+    leftSensor = 0
+    frontSensor = 1
+    rightSensor = 2
+    backSensor = 4
+    angleRightSensor = 5
+    angleLeftSensor = 6
+    
     def __init__(self):
 
-        self.camValues = [[0 for x in range(64)], [0 for x in range(64)], [0 for x in range(64)], [0 for x in range(64)]]
-        self.sensorCaptures = [0,0,0,0]
+        self.camValues = []
+        self.camValues = [[0 for _ in range(64)] for _ in range(self.amountSensors)]
+        self.sensorCaptures = [0 for _ in range(self.amountSensors)]
         self.rps = 0
         self.count = 0
         self.output = 0
@@ -89,10 +99,10 @@ class Parser:
 
         global lastPrint
         lastPrint = time.time()
-        prevCamValues = [[], [], [], []]
+        prevCamValues = [[], [], [], [], [], []]
 
         for i in range(64):                         
-            for j in range(4):
+            for j in range(self.amountSensors):
                 prevCamValues[j].append(0)
 
         counter=0
@@ -113,9 +123,9 @@ class Parser:
 
 
 
-                if inputString[0] == "stat" and len(inputString) == 7:
+                if inputString[0] == "stat" and len(inputString) == (3 + self.amountSensors):
                     self.voltage = float(inputString[1])
-                    for i in range(4):
+                    for i in range(self.amountSensors):
                         self.sensorCaptures[i] = int(inputString[i+2])
                     
                     # print("Voltage: "+str(self.voltage))
@@ -133,16 +143,49 @@ class Parser:
                 elif inputString[0] == "cam" and len(inputString) == 67:  
                     # print(inputString)
                     cam = int(inputString[1])-1
-                    for j in range(8):              # j flip Vertical | k flip Horizontal
-                        for k in range(8):              
-                            if cam == 0:            #back
-                                pos = (7-j)*8+k      
-                            elif cam == 1:          #right  #5 wall
-                                pos = (7-j)*8+k
-                            elif cam == 2:          #front  
-                                pos = j*8+(7-k)
-                            elif cam == 3:          #left   #5 wall
-                                pos = j*8+(7-k)
+                    hflip = False
+                    vflip = False
+                    rotate = False
+                    
+                    # apply transformations to camera and move it to a new positon:
+                    if cam == 0:            # angle right  -> top right(2)
+                        vflip = True
+                        hflip = True
+                        cam = 2
+                    elif cam == 1:          # right  -> bottom right(5)
+                        rotate = True
+                        vflip = True
+                        cam = 5
+                    elif cam == 2:          # left  -> bottom left(3)
+                        rotate = True
+                        hflip = True
+                        cam = 3
+                    elif cam == 3:          # front  -> top middle(1)
+                        rotate = True
+                        hflip = True
+                        cam = 1
+                    elif cam == 4:          # angle left -> top left(0)
+                        vflip = True
+                        cam = 0
+                    elif cam == 5:          # back  -> bottom middle(4)
+                        rotate = True
+                        vflip = True
+                        cam = 4
+                    
+                    for j in range(8):              
+                        for k in range(8):          
+                            if not rotate:
+                                x = j
+                                y = k
+                            else:
+                                x = k
+                                y = j
+                            if hflip:
+                                x = 7-x
+                            if vflip:
+                                y = 7-y
+                            
+                            pos = x+8*y
                             
                             val=int(inputString[k*8+j+2])
                             
@@ -150,7 +193,6 @@ class Parser:
                                 self.camValues[cam][pos] = val
                             else:
                                 self.camValues[cam][pos] = 0
-
                 elif inputString[0] == "cam" and len(inputString) == 19:  
                     print(inputString)
                     cam = int(inputString[1])-1
