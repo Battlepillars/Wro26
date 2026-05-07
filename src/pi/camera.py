@@ -5,9 +5,10 @@ import libcamera # type: ignore
 import argparse
 import imutils # type: ignore
 
+
 from libcamera import Transform # type: ignore
 from picamera2 import Picamera2 # type: ignore
-from parser import Parser as parser
+from parser import Parser
 
 # rpicam-hello -t0   #zum testen der Kamera
 
@@ -30,12 +31,15 @@ class Camera():
     blocksColorDraw = []
     pictureNum = 0
     
-    def __init__(self):
+    def __init__(self, parser: Parser):
         """@brief Initialize Picamera2 and configure capture settings.
 
         Sets HDR mode, resolution, and starts the camera stream.
         @return None
         """
+        
+        self.parser = parser
+
         self.picam2 = Picamera2()
         self.picam2.set_controls({'HdrMode': libcamera.controls.HdrModeEnum.SingleExposure})
         resolution = (1536, 1152)
@@ -50,8 +54,16 @@ class Camera():
         Performs blur, HSV conversion, masking for color ranges (including
         wrap-around red hues), then records each contour's horizontal angle.
         @param checkHeightNear bool If True, lowers scan band for near obstacle perspective.
+        @param leftDist float Distance to left wall, used to shift scan band right.
+        @param rightDist float Distance to right wall, used to shift scan band left.
+        @param upDist float Distance to ceiling, used to lower scan band.
         @return None (populates blocksAngle/blocksColor + imgCam for drawing)
         """
+        if self.parser.endTime != 0:
+            print("\n\n\nCapture skipped: Challenge ended.\n\n\n")
+            return None
+        if not self.parser.debugCam:
+            print(f"Capturing image with leftDist={leftDist}, rightDist={rightDist}, upDist={upDist}")
         timeStart = time.time()
         self.blocksAngle = []
         self.blocksColor = []
@@ -63,7 +75,7 @@ class Camera():
         checkHeight=30
         if upDist > 300:
             upDist = 300
-        checkHeightStart = 644 + int(upDist)                     # smaller number    -> balken weiter oben
+        checkHeightStart = 680 + int(upDist)    #644     # smaller number    -> balken weiter oben
         checkWidth = 1535 - int(rightDist)               # smaller number    -> balken startet weiter links
         checkWidthStart = 0 + int(leftDist)              # bigger number     -> balken startet weiter rechts
         result = None
@@ -134,10 +146,10 @@ class Camera():
                 
                 #print("Green at: ", (mid - cX) / split)
                 self.blocksAngle.append((mid - cX) / split)
-                self.blocksColor.append(parser.GREEN)
+                self.blocksColor.append(self.parser.GREEN)
                 self.blocksAngleDraw.append((mid - cX) / split)
-                self.blocksColorDraw.append(parser.GREEN)
-                result = parser.GREEN
+                self.blocksColorDraw.append(self.parser.GREEN)
+                result = self.parser.GREEN
 
         for c in cntsred:
             # compute the center of the contour
@@ -152,10 +164,10 @@ class Camera():
                 
                 #print("Red at: ", (mid - cX) / split)
                 self.blocksAngle.append((mid - cX) / split)
-                self.blocksColor.append(parser.RED)
+                self.blocksColor.append(self.parser.RED)
                 self.blocksAngleDraw.append((mid - cX) / split)
-                self.blocksColorDraw.append(parser.RED)
-                result = parser.RED
+                self.blocksColorDraw.append(self.parser.RED)
+                result = self.parser.RED
         
         cv.imwrite(f'capture/hsvStreifen{self.pictureNum}.jpg', hsv)
         cv.imwrite(f'capture/capture{self.pictureNum}.jpg', imgclear)

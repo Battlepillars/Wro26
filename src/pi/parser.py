@@ -1,9 +1,9 @@
-import serial
+import serial # type: ignore
 import subprocess
 import time
-import board
-import busio
-import adafruit_bno055
+import board # type: ignore
+import busio # type: ignore
+import adafruit_bno055 # type: ignore
 
 from subprocess import call
 
@@ -16,11 +16,13 @@ class Parser:
     leftSensor = 0
     frontSensor = 1
     rightSensor = 2
-    backSensor = 4
-    angleRightSensor = 5
-    angleLeftSensor = 6
+    backSensor = 3
+    angleRightSensor = 4
+    angleLeftSensor = 5
     
     def __init__(self):
+        for i in range(self.amountSensors):
+            self.getPosForCam(i, setSensorIndex=True)
 
         self.camValues = []
         self.camValues = [[0 for _ in range(64)] for _ in range(self.amountSensors)]
@@ -32,10 +34,13 @@ class Parser:
         self.voltage = 12.6
         self.speed = 0
         self.distance = 0
+        self.time = 0
+        self.startTime = time.time()
+        self.endTime = 0
+        self.debugCam = False
         self.obstacles = []
         self.currentCommand = ""
-        for i in range(12):
-            self.obstacles.append(None)
+        self.obstacles = [None for _ in range(12)]
 
         i2c = busio.I2C(board.SCL, board.SDA)
         self.gyro = adafruit_bno055.BNO055_I2C(i2c, address=0x28)
@@ -48,13 +53,22 @@ class Parser:
         self.ser.parity = serial.PARITY_NONE
         self.ser.open()
 
+    def checkSection(self, section):
+        for i in range(3):
+            if self.obstacles[i+section*3] != None:
+                return self.obstacles[i+section*3]
+        return None
+
+    def assignMultibelObstacles(self, section, obstacleType, obstacles = [0,1,2]):
+        for i in range(len(obstacles)):
+            self.obstacles[i+section*3] = obstacleType
 
     def setSpeed(self, speed):
         speed = speed*5.165/30*1000
         self.send("speed,"+str(speed)+"\n")
     
     def setSteer(self, angle):
-        servoTrim = 4.4     # bigger nummer = more left
+        servoTrim = 0.1    # bigger nummer = more left
         angle += servoTrim
         self.send("servo,"+str(angle)+"\n")
     
@@ -90,6 +104,50 @@ class Parser:
             print("")
         print(len(camValues[3]))
         lastPrint = time.time()
+
+    def getPosForCam(self, cam, setSensorIndex = False):
+        hflip = False
+        vflip = False
+        rotate = False
+        
+        # apply transformations to camera and move it to a new positon:
+        if cam == 0:            # angle right  -> top right(2)
+            vflip = True
+            hflip = True
+            cam = 2
+            if setSensorIndex:
+                Parser.angleRightSensor = cam
+        elif cam == 1:          # right  -> bottom right(5)
+            rotate = True
+            vflip = True
+            cam = 5
+            if setSensorIndex:
+                Parser.rightSensor = cam
+        elif cam == 2:          # left  -> bottom left(3)
+            rotate = True
+            hflip = True
+            cam = 3
+            if setSensorIndex:
+                Parser.leftSensor = cam
+        elif cam == 3:          # front  -> top middle(1)
+            rotate = True
+            hflip = True
+            cam = 1
+            if setSensorIndex:
+                Parser.frontSensor = cam
+        elif cam == 4:          # angle left -> top left(0)
+            vflip = True
+            cam = 0
+            if setSensorIndex:
+                Parser.angleLeftSensor = cam
+        elif cam == 5:          # back  -> bottom middle(4)
+            rotate = True
+            vflip = True
+            cam = 4
+            if setSensorIndex:
+                Parser.backSensor = cam
+        
+        return cam, hflip, vflip, rotate
 
     def pars(self):           #(sem)
         
@@ -143,34 +201,8 @@ class Parser:
                 elif inputString[0] == "cam" and len(inputString) == 67:  
                     # print(inputString)
                     cam = int(inputString[1])-1
-                    hflip = False
-                    vflip = False
-                    rotate = False
                     
-                    # apply transformations to camera and move it to a new positon:
-                    if cam == 0:            # angle right  -> top right(2)
-                        vflip = True
-                        hflip = True
-                        cam = 2
-                    elif cam == 1:          # right  -> bottom right(5)
-                        rotate = True
-                        vflip = True
-                        cam = 5
-                    elif cam == 2:          # left  -> bottom left(3)
-                        rotate = True
-                        hflip = True
-                        cam = 3
-                    elif cam == 3:          # front  -> top middle(1)
-                        rotate = True
-                        hflip = True
-                        cam = 1
-                    elif cam == 4:          # angle left -> top left(0)
-                        vflip = True
-                        cam = 0
-                    elif cam == 5:          # back  -> bottom middle(4)
-                        rotate = True
-                        vflip = True
-                        cam = 4
+                    cam, hflip, vflip, rotate = self.getPosForCam(cam)
                     
                     for j in range(8):              
                         for k in range(8):          
@@ -193,6 +225,7 @@ class Parser:
                                 self.camValues[cam][pos] = val
                             else:
                                 self.camValues[cam][pos] = 0
+                
                 elif inputString[0] == "cam" and len(inputString) == 19:  
                     print(inputString)
                     cam = int(inputString[1])-1
