@@ -1,18 +1,32 @@
-import serial
+import serial # type: ignore
 import subprocess
 import time
-import board
-import busio
-import adafruit_bno055
+import board # type: ignore
+import busio # type: ignore
+import adafruit_bno055 # type: ignore
 
 from subprocess import call
 
 
 class Parser:
+    RED = 0
+    GREEN = 1
+    
+    amountSensors = 6
+    leftSensor = 0
+    frontSensor = 1
+    rightSensor = 2
+    backSensor = 3
+    angleRightSensor = 4
+    angleLeftSensor = 5
+    
     def __init__(self):
+        for i in range(self.amountSensors):
+            self.getPosForCam(i, setSensorIndex=True)
 
-        self.camValues = [[0 for x in range(64)], [0 for x in range(64)], [0 for x in range(64)], [0 for x in range(64)]]
-        self.sensorCaptures = [0,0,0,0]
+        self.camValues = []
+        self.camValues = [[0 for _ in range(64)] for _ in range(self.amountSensors)]
+        self.sensorCaptures = [0 for _ in range(self.amountSensors)]
         self.rps = 0
         self.count = 0
         self.output = 0
@@ -20,6 +34,13 @@ class Parser:
         self.voltage = 12.6
         self.speed = 0
         self.distance = 0
+        self.time = 0
+        self.startTime = time.time()
+        self.endTime = 0
+        self.debugCam = False
+        self.obstacles = []
+        self.currentCommand = ""
+        self.obstacles = [None for _ in range(12)]
 
         i2c = busio.I2C(board.SCL, board.SDA)
         self.gyro = adafruit_bno055.BNO055_I2C(i2c, address=0x28)
@@ -32,13 +53,22 @@ class Parser:
         self.ser.parity = serial.PARITY_NONE
         self.ser.open()
 
+    def checkSection(self, section):
+        for i in range(3):
+            if self.obstacles[i+section*3] != None:
+                return self.obstacles[i+section*3]
+        return None
+
+    def assignMultibelObstacles(self, section, obstacleType, obstacles = [0,1,2]):
+        for i in range(len(obstacles)):
+            self.obstacles[i+section*3] = obstacleType
 
     def setSpeed(self, speed):
         speed = speed*5.165/30*1000
         self.send("speed,"+str(speed)+"\n")
     
     def setSteer(self, angle):
-        servoTrim = 4.4     # bigger nummer = more left
+        servoTrim = 0.1    # bigger nummer = more left
         angle += servoTrim
         self.send("servo,"+str(angle)+"\n")
     
@@ -75,6 +105,50 @@ class Parser:
         print(len(camValues[3]))
         lastPrint = time.time()
 
+    def getPosForCam(self, cam, setSensorIndex = False):
+        hflip = False
+        vflip = False
+        rotate = False
+        
+        # apply transformations to camera and move it to a new positon:
+        if cam == 0:            # angle right  -> top right(2)
+            vflip = True
+            hflip = True
+            cam = 2
+            if setSensorIndex:
+                Parser.angleRightSensor = cam
+        elif cam == 1:          # right  -> bottom right(5)
+            rotate = True
+            vflip = True
+            cam = 5
+            if setSensorIndex:
+                Parser.rightSensor = cam
+        elif cam == 2:          # left  -> bottom left(3)
+            rotate = True
+            hflip = True
+            cam = 3
+            if setSensorIndex:
+                Parser.leftSensor = cam
+        elif cam == 3:          # front  -> top middle(1)
+            rotate = True
+            hflip = True
+            cam = 1
+            if setSensorIndex:
+                Parser.frontSensor = cam
+        elif cam == 4:          # angle left -> top left(0)
+            vflip = True
+            cam = 0
+            if setSensorIndex:
+                Parser.angleLeftSensor = cam
+        elif cam == 5:          # back  -> bottom middle(4)
+            rotate = True
+            vflip = True
+            cam = 4
+            if setSensorIndex:
+                Parser.backSensor = cam
+        
+        return cam, hflip, vflip, rotate
+
     def pars(self):           #(sem)
         
 
@@ -83,10 +157,10 @@ class Parser:
 
         global lastPrint
         lastPrint = time.time()
-        prevCamValues = [[], [], [], []]
+        prevCamValues = [[], [], [], [], [], []]
 
         for i in range(64):                         
-            for j in range(4):
+            for j in range(self.amountSensors):
                 prevCamValues[j].append(0)
 
         counter=0
@@ -107,9 +181,9 @@ class Parser:
 
 
 
-                if inputString[0] == "stat" and len(inputString) == 7:
+                if inputString[0] == "stat" and len(inputString) == (3 + self.amountSensors):
                     self.voltage = float(inputString[1])
-                    for i in range(4):
+                    for i in range(self.amountSensors):
                         self.sensorCaptures[i] = int(inputString[i+2])
                     
                     # print("Voltage: "+str(self.voltage))
@@ -127,16 +201,23 @@ class Parser:
                 elif inputString[0] == "cam" and len(inputString) == 67:  
                     # print(inputString)
                     cam = int(inputString[1])-1
-                    for j in range(8):              # j flip Vertical | k flip Horizontal
-                        for k in range(8):              
-                            if cam == 0:            #back
-                                pos = (7-j)*8+k      
-                            elif cam == 1:          #right  #5 wall
-                                pos = (7-j)*8+k
-                            elif cam == 2:          #front  
-                                pos = j*8+(7-k)
-                            elif cam == 3:          #left   #5 wall
-                                pos = j*8+(7-k)
+                    
+                    cam, hflip, vflip, rotate = self.getPosForCam(cam)
+                    
+                    for j in range(8):              
+                        for k in range(8):          
+                            if not rotate:
+                                x = j
+                                y = k
+                            else:
+                                x = k
+                                y = j
+                            if hflip:
+                                x = 7-x
+                            if vflip:
+                                y = 7-y
+                            
+                            pos = x+8*y
                             
                             val=int(inputString[k*8+j+2])
                             
@@ -144,7 +225,7 @@ class Parser:
                                 self.camValues[cam][pos] = val
                             else:
                                 self.camValues[cam][pos] = 0
-
+                
                 elif inputString[0] == "cam" and len(inputString) == 19:  
                     print(inputString)
                     cam = int(inputString[1])-1
