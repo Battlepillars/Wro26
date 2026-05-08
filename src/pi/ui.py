@@ -16,6 +16,7 @@ class Ui:
         self.cpu_throttled = "unknown"
         self._last_cpu_sample = None
         self._last_telemetry_refresh = 0.0
+        self.drawCounter = 0
 
     def _read_cpu_usage(self):
         try:
@@ -65,47 +66,73 @@ class Ui:
 
         self._last_telemetry_refresh = now
 
-    def draw(self, screen, parser):
-        self.updatePiTelemetry()
-        screen.fill("black")
+    def draw(self, screen, parser, cam):
+        if not parser.debugCam:
+            self.updatePiTelemetry()
+            screen.fill("black")
 
-        green = (0, 255, 0)
-        blue = (0, 0, 128)
-        
-        size=4
-        
-        for i in range(4):
-            for j in range(size):
-                for k in range(size):
-                    pos = j*size+k
-                    
-                    val = parser.camValues[i][pos]
-                    if val <= 0:
-                        text = "      -"
-                    elif val < 10:
-                        text = "      "+str(val)
-                    elif val < 100:
-                        text = "    "+str(val)
-                    elif val < 1000:
-                        text = "  "+str(val)
-                    else:
-                        text = str(val)
-                    
-                    text = self.font.render(text, True, green, blue)
+            green = (0, 255, 0)
+            blue = (0, 0, 128)
+            
+            size=8
+            
+            for i in range(parser.amountSensors):
+                for j in range(size):
+                    for k in range(size):
+                        pos = j*size+k
+                        
+                        val = parser.camValues[i][pos]
+                        if val <= 0:
+                            text = "      -"
+                        elif val < 10:
+                            text = "      "+str(val)
+                        elif val < 100:
+                            text = "    "+str(val)
+                        elif val < 1000:
+                            text = "  "+str(val)
+                        else:
+                            text = str(val)
+                        
+                        text = self.font.render(text, True, green, blue)
 
-                    if i < 2:
-                        screen.blit(text, (50*k+i*410, j * 20))
-                    else:
-                        screen.blit(text, (50*k+(i-2)*410, j*20+180))
+                        if i < int(parser.amountSensors/2):
+                            screen.blit(text, (50*k+i*410, j * 20))
+                        else:
+                            screen.blit(text, (50*k+(i-int(parser.amountSensors/2))*410, j*20+180))
+            
+            # prints = 5
+            # for i in range(prints):
+            #     if i == 0:
+            #         text = self.font.render(str(parser.voltage) + "v CPU: " + self.cpu_usage + " Temp: " + self.cpu_temp , True, green, blue)
+            #     if i == 1:
+            #         text = self.font.render("Speed: " + str(parser.speed)+" Head: "+str(parser.gyro.euler[0]), True, green, blue)             #26,5
+            #     if i == 2:
+            #         text = self.font.render("Distance: " + str(parser.distance), True, green, blue)             #26,5
+            #     if i == 3:
+            #         text = self.font.render("Captures: "+ str(parser.sensorCaptures[0])+" / "+str(parser.sensorCaptures[1])+" / "+str(parser.sensorCaptures[2])+" / "+str(parser.sensorCaptures[3]), True, green, blue)
+            #     if i == 4:
+            #         text = self.font.render("Command: " + parser.currentCommand, True, green, blue)
+            #     screen.blit(text, (0,i*20+360))
+
+            if parser.endTime != 0:
+                printTime = parser.endTime - parser.startTime
+            else:
+                printTime = time.time() - parser.startTime
+
+            texts = [
+                self.font.render(str(parser.voltage) + "v CPU: " + self.cpu_usage + " Temp: " + self.cpu_temp , True, green, blue),
+                self.font.render(f"Speed: {parser.speed:.2f} Head: {parser.gyro.euler[0]:.0f}", True, green, blue),
+                self.font.render(f"Distance: {parser.distance:.0f}", True, green, blue),
+                self.font.render("Captures: "+ str(parser.sensorCaptures[0])+" / "+str(parser.sensorCaptures[1])+" / "+str(parser.sensorCaptures[2])+" / "+str(parser.sensorCaptures[3])+" / "+str(parser.sensorCaptures[4])+" / "+str(parser.sensorCaptures[5]), True, green, blue),
+                self.font.render(f"Time: {printTime:.1f}s", True, green, blue),
+                self.font.render("Command: " + parser.currentCommand, True, green, blue),
+            ]
+            for i in range(len(texts)):
+                screen.blit(texts[i], (0,i*20+360))
+        else:
+            self.drawCounter += 1
+            if self.drawCounter >= 10:
+                image_surface = pygame.image.load(f"capture/capture{cam.pictureNum-1}.jpg").convert()
+                screen.blit(image_surface, (0, 0))
+                self.drawCounter = 0
         
-        prints = 4
-        for i in range(prints):
-            if i == 0:
-                text = self.font.render(str(parser.voltage) + "v CPU: " + self.cpu_usage + " Temp: " + self.cpu_temp , True, green, blue)
-            if i == 1:
-                text = self.font.render("Speed: " + str(parser.speed)+" Head: "+str(parser.gyro.euler[0]), True, green, blue)             #26,5
-            if i == 2:
-                text = self.font.render("Distance: " + str(parser.distance), True, green, blue)             #26,5
-            if i == 3:
-                text = self.font.render("Captures: "+ str(parser.sensorCaptures[0])+" / "+str(parser.sensorCaptures[1])+" / "+str(parser.sensorCaptures[2])+" / "+str(parser.sensorCaptures[3]), True, green, blue)
-            screen.blit(text, (0,i*20+360))
