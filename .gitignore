@@ -46,3 +46,5 @@ src/pi/capture/hsvStreifen8.jpg
 src/pi/capture/hsvStreifen9.jpg
 src/pi/capture/hsvStreifen10.jpg
 src/pi/capture/hsvStreifen11.jpg
+src/pi/__pycache__/camTest.cpython-313.pyc
+.gitignore
