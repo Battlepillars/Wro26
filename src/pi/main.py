@@ -56,7 +56,7 @@ def main():
                 if event.key == pygame.K_m:       # toggle manual mode
                     print("Toggling manual mode")
                     manual = not manual
-                    # stop_event.set()
+                    stop_event.set()
                     start_event.set()
                 if event.key == pygame.K_v:
                     start_event.set()
