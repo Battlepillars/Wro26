@@ -2,6 +2,7 @@ import time
 import math
 
 from parser import Parser
+from logger import Logger
 
 class DriveController:
     logCountetr = 0
@@ -18,7 +19,7 @@ class DriveController:
     smallest = 0
     biggest = 1
     
-    def __init__(self, parser: Parser, stop_event):
+    def __init__(self, parser: Parser, stop_event, logger: Logger = None):
         DriveController.angleLeftWall = parser.angleLeftSensor
         DriveController.angleRightWall = parser.angleRightSensor
         DriveController.frontWall = parser.frontSensor
@@ -37,6 +38,7 @@ class DriveController:
         self.stop_event = stop_event
         self.pidSteer = PIDController(Kp=1, Ki=0, Kd=0, setpoint=0, min=-90, max=90)
         self.pidSteer2 = PIDController(Kp=0.5, Ki=0, Kd=0, setpoint=0, min=-90, max=90)
+        self.logger = logger if logger is not None else Logger()
     
     def end(self):
         if self.stop_event.is_set():
@@ -91,7 +93,7 @@ class DriveController:
         startDist = self.parser.distance
         
         while self.parser.distance-startDist < dist and not self.stop_event.is_set():
-            print(f"CustomTurn: Angle: {angle} Dist: {dist} CurrenDist: {self.parser.distance-startDist}")
+            self.logger.log(f"CustomTurn: Angle: {angle} Dist: {dist} CurrenDist: {self.parser.distance-startDist}")
             self.calcAccel(False)
         if self.end():
             return
@@ -104,7 +106,7 @@ class DriveController:
         
         errorAngle = 500
 
-        print("Quick Turn: ","Error:",errorAngle,"\tSpeed:",self.parser.speed,"Target heading:",self.targetHeading)
+        self.logger.log(f"Quick Turn: Error:{errorAngle}\tSpeed:{self.parser.speed} Target heading:{self.targetHeading}")
 
         while abs(errorAngle) > 5 and not self.stop_event.is_set():
             errorAngle = self.parser.gyro.euler[0] - self.targetHeading
@@ -119,7 +121,7 @@ class DriveController:
             
             self.logCountetr += 1
             if self.logCountetr %3==0 or True:
-                print("Quick Turn: ","Error:",errorAngle,"\tDopid:",doPid,"Speed:",self.parser.speed,"Target heading:",self.targetHeading)
+                self.logger.log(f"Quick Turn: Error:{errorAngle}\tDopid:{doPid} Speed:{self.parser.speed} Target heading:{self.targetHeading}")
             
             self.calcAccel(doPid,2)
             if not doPid:
@@ -152,7 +154,7 @@ class DriveController:
             
             self.logCountetr += 1
             if self.logCountetr %3==0 or True:
-                print("Turn: ","Error:",errorAngle,"\tDopid:",doPid,"Speed:",self.parser.speed,"Target heading:",self.targetHeading)
+                self.logger.log(f"Turn: Error:{errorAngle}\tDopid:{doPid} Speed:{self.parser.speed} Target heading:{self.targetHeading}")
             
             self.calcAccel(doPid,2)
             if not doPid:
@@ -182,7 +184,7 @@ class DriveController:
             if val > 0:
                 lastVal = val
             if lastVal is not None: #self.logCountetr %3==0 and 
-                print("ToWall: "+str(lastVal),"Heading:",heading)
+                self.logger.log(f"ToWall: {lastVal} Heading:{heading}")
         if self.end():
             return
     
@@ -206,7 +208,7 @@ class DriveController:
                 noWallCount += 1
             elif noWallCount > 0:
                 noWallCount -= 1
-            print("away: "+str(val) + " " + str(noWallCount))
+            self.logger.log(f"away: {val} {noWallCount}")
 
         if self.end():
             return
@@ -229,7 +231,7 @@ class DriveController:
                 noWallCount += 1
             elif noWallCount > 0:
                 noWallCount -= 1
-            print(str(val) + " " + str(noWallCount))
+            self.logger.log(f"{val} {noWallCount}")
         if self.end():
             return
     
@@ -239,7 +241,7 @@ class DriveController:
         self.setSpeed(speed)
         self.setTargetHeading(heading)
         while self.parser.distance-startDist < dist and not self.stop_event.is_set():
-            print(f"DriveDist: Dist: {dist} CurrenDist: {self.parser.distance-startDist}")
+            self.logger.log(f"DriveDist: Dist: {dist} CurrenDist: {self.parser.distance-startDist}")
             self.calcAccel()
         if self.end():
             return
@@ -250,7 +252,7 @@ class DriveController:
         
         while self.parser.speed > 0 and not self.stop_event.is_set():
             self.calcAccel(False)
-            print("Brake: "+str(self.parser.speed))
+            self.logger.log(f"Brake: {self.parser.speed}")
         if self.end():
             return
 

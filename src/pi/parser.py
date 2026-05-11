@@ -68,7 +68,10 @@ class Parser:
         self.send("speed,"+str(speed)+"\n")
     
     def setSteer(self, angle):
-        servoTrim = 0.1    # bigger nummer = more left
+        # bigger nummer = more left
+
+        # servoTrim = 0.1    # battlecart 1
+        servoTrim = 4.5    # battlecart 2
         angle += servoTrim
         self.send("servo,"+str(angle)+"\n")
     
