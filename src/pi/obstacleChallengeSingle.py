@@ -46,24 +46,36 @@ def singleScan(parser: Parser, dC: DriveController, cam: Camera):
     speedStraight=2
     speedCurve=1
     
+    # cam.loadImage("capture/2-0baseImage.jpg")
+    # cam.pictureNum=2
+    # cam.getObstacles2()
+    # return
+
+    
     
     dC.customTurn(speedCurve, 180, 110)
     dC.brake()
     # time.sleep(2)
     cam.captureImage()
-    cam.getObstacles()
+    color1=cam.getObstacles1()
 
     dC.customTurn(speedCurve, 180, 70)
     dC.brake()
     # time.sleep(2)
     cam.captureImage()
-    cam.getObstacles()
+    color2=cam.getObstacles2()
 
-    dC.customTurn(speedCurve, 0,-80)
+    dC.customTurn(speedCurve, 0,-100)
     dC.brake()
     # time.sleep(2)
     cam.captureImage()
-    cam.getObstacles()
+    color3=cam.getObstacles3()
+    color4=cam.getObstacles4()
+    
+    print("Color 1:", parser.colorName(color1))
+    print("Color 2:", parser.colorName(color2))
+    print("Color 3:", parser.colorName(color3))
+    print("Color 4:", parser.colorName(color4))
 
 def clockwise(parser: Parser, dC: DriveController, cam: Camera):
     speedStraight=2
