@@ -60,13 +60,17 @@ def main():
                     start_event.set()
                 if event.key == pygame.K_v:
                     start_event.set()
+                if event.key == pygame.K_t:
+                    cam.getNearestObstacle(useOldPicture=True)
+                if event.key == pygame.K_u:
+                    cam.getNearestObstacle()
         
         if manual:
             keys = pygame.key.get_pressed()
             if keys[pygame.K_w]:
                 speed = 1
             elif keys[pygame.K_s]:
-                speed = -2
+                speed = -1
             else:
                 speed = 0
             if keys[pygame.K_a]:
@@ -103,8 +107,9 @@ def controllLoop(parser,cam):
     # dC.driveDist(0.2,90,1000)
     # openChallenge.clockwise(parser, dC)
     # obstacleChallenge.clockwise(parser, dC, cam)
-    obstacleChallengeSingle.clockwise(parser, dC, cam)
+    # obstacleChallengeSingle.clockwise(parser, dC, cam)
     # camTest.test(parser, dC, cam)
+    # cam.getNearestObstacle()
 
     
 

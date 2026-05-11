@@ -120,7 +120,7 @@ class Ui:
                 printTime = time.time() - parser.startTime
 
             texts = [
-                self.font.render(str(parser.voltage) + "v CPU: " + self.cpu_usage + " Temp: " + self.cpu_temp , True, green, blue),
+                self.font.render(f"{parser.voltage/3:.1f}v CPU: " + self.cpu_usage + " Temp: " + self.cpu_temp , True, green, blue),
                 self.font.render(f"Speed: {parser.speed:.2f} Head: {parser.gyro.euler[0]:.0f}", True, green, blue),
                 self.font.render(f"Distance: {parser.distance:.0f}", True, green, blue),
                 self.font.render("Captures: "+ str(parser.sensorCaptures[0])+" / "+str(parser.sensorCaptures[1])+" / "+str(parser.sensorCaptures[2])+" / "+str(parser.sensorCaptures[3])+" / "+str(parser.sensorCaptures[4])+" / "+str(parser.sensorCaptures[5]), True, green, blue),

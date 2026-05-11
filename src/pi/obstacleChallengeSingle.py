@@ -48,8 +48,9 @@ def clockwise(parser: Parser, dC: DriveController, cam: Camera):
     speedStraight=2
     speedCurve=1
     skipScan = False
+    sawRed = False
     
-    scanUpDist = -50
+    scanUpDist = 0
     
     unParkClockWise(parser, dC, cam)
     dC.section += 1
@@ -62,10 +63,12 @@ def clockwise(parser: Parser, dC: DriveController, cam: Camera):
         print("distright: "+str(distRight))
         backDist = dC.getDist([0,1,2,3,4,5,6,7],4,dC.backWall)
         print("Back dist:",backDist)
-        if not skipScan == parser.RED:
-            val = cam.captureImage(leftDist = distRight/1.5, upDist = scanUpDist )
-            if val is not None:
-                parser.assignMultibelObstacles(dC.section, val)
+        print("skipscan:", (not (skipScan == parser.RED)), skipScan, (skipScan == parser.RED))
+        if not sawRed and not skipScan:
+            upDistCalc = backDist-700
+            if upDistCalc < 0:
+                upDistCalc = 0
+            parser.assignMultibelObstacles(dC.section, cam.captureImage(upDist = upDistCalc))
         print("Obstacle detected:", parser.obstacles[0+dC.section*3])
 
         if parser.checkSection(dC.section) == parser.GREEN:                #obstacles green:
@@ -88,9 +91,9 @@ def clockwise(parser: Parser, dC: DriveController, cam: Camera):
             skipScan = True
 
         elif parser.checkSection(dC.section) == parser.RED:          #first row of obstacles red
-            if skipScan == parser.RED:
+            if sawRed:
                 wallDrive(dC, dC.rightWall, speedCurve, speedStraight, True, 90)
-                skipScan = False
+                sawRed = False
             else:
                 dC.driveAwayFromWall(speedStraight, 0, 150)
                 print("Dist right red: "+str(distRight))
@@ -99,6 +102,45 @@ def clockwise(parser: Parser, dC: DriveController, cam: Camera):
                     wallDrive(dC, dC.rightWall, speedCurve, speedStraight)
                 dC.driveAwayFromWall(speedStraight, 0, 1000)
                 dC.driveDist(speedStraight,0,700)
+                
+        
+        elif parser.obstacles[0+dC.section*3] == None:              # second row of obstacles
+            dC.driveAwayFromWall(speedStraight,0,850)
+            parser.assignMultibelObstacles(dC.section, cam.captureImage())
+            
+            if parser.obstacles[1+dC.section*3] == parser.GREEN:
+                skipScan = True
+                if distRight >= 800:
+                    dC.driveDist(speedStraight,0,500)
+                elif distRight >= 600:
+                    wallDrive(dC, dC.leftWall, speedCurve, speedStraight, True, 45)
+                elif distRight <= 600:
+                    wallDrive(dC, dC.leftWall, speedCurve, speedStraight, True, 90)    
+
+            elif parser.obstacles[1+dC.section*3] == parser.RED:
+                if distRight >= 600:
+                    wallDrive(dC, dC.rightWall, speedCurve, speedStraight, True, 90)
+                elif distRight >= 250:
+                    wallDrive(dC, dC.rightWall, speedCurve, speedStraight, True)
+                else:
+                    dC.driveDist(speedStraight,0,500)
+                
+            elif parser.obstacles[1+dC.section*3] == None:
+                dC.driveDist(speedStraight,0,500)
+                parser.assignMultibelObstacles(dC.section, cam.captureImage())
+                if parser.obstacles[2+dC.section*3] == parser.GREEN:
+                    skipScan = True
+                    if distRight <= 700:
+                        wallDrive(dC, dC.leftWall, speedCurve, speedStraight, True)
+                    else:
+                        dC.driveDist(speedStraight,0,200)
+                
+                elif parser.obstacles[2+dC.section*3] == parser.RED:
+                    if distRight >= 250:
+                        wallDrive(dC, dC.rightWall, speedCurve, speedStraight, True)
+                    else:
+                        dC.driveDist(speedStraight,0,200)        
+        
         
         if skipScan:
             dC.driveToWall(speedStraight,0,1200,dC.frontWall)
@@ -117,14 +159,14 @@ def clockwise(parser: Parser, dC: DriveController, cam: Camera):
                 if parser.checkSection(dC.nextSection()) == None:
                     skipScan = False
                 elif parser.checkSection(dC.nextSection()) == parser.RED:
-                    skipScan = parser.RED
+                    sawRed = True
         
-        if skipScan == parser.RED:
+        if sawRed:
             dC.turn(speedCurve,0)
         else:
             dC.turn(speedCurve,-90)
         dC.section = dC.nextSection()
         
-        print("\n\n!!!!!!!!!!!!!!!!!!!!! DONE !!!!!!!!!!!!!!!!!!!!\n\n")
+        print("!!!!!!!!!!!!!!!!!!!!! DONE !!!!!!!!!!!!!!!!!!!!")
     
     dC.brake()
