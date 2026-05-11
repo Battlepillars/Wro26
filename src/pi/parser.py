@@ -59,6 +59,15 @@ class Parser:
                 return self.obstacles[i+section*3]
         return None
 
+    def colorName(self, color):
+        if color == self.RED:
+            return "RED"
+        if color == self.GREEN:
+            return "GREEN"
+        if color is None:
+            return "NONE"
+        return str(color)
+
     def assignMultibelObstacles(self, section, obstacleType, obstacles = [0,1,2]):
         for i in range(len(obstacles)):
             self.obstacles[i+section*3] = obstacleType

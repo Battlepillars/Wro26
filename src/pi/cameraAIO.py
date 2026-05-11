@@ -25,10 +25,10 @@ class Camera():
     """
     
     imgCam = np.zeros((1536,846,3), np.uint8)
-    blocksAngle = []
+
     blocksColor = []
-    blocksAngleDraw = []
-    blocksColorDraw = []
+    blocksCx = []
+    blocksCy = []
     pictureNum = 0
     
     def __init__(self, parser: Parser):
@@ -56,8 +56,11 @@ class Camera():
         self.baseImage = self.picam2.capture_array()
         realColor = cv.cvtColor(self.baseImage, cv.COLOR_BGR2RGB)
         cv.imwrite(f'capture/{self.pictureNum}-0baseImage.jpg', realColor)
+    def loadImage(self, path):
+        realColor = cv.imread(path)
         
-    def getObstacles(self):
+        self.baseImage = cv.cvtColor(realColor, cv.COLOR_BGR2RGB)
+    def getObstacles2(self):
         """@brief Capture frame, extract scan band, detect RED/GREEN blobs.
 
         Performs blur, HSV conversion, masking for color ranges (including
@@ -70,6 +73,181 @@ class Camera():
         @return None (populates blocksAngle/blocksColor + imgCam for drawing)
         """
 
+        timeStart = time.time()
+        self.blocksCx = []
+        self.blocksCy = []
+        self.blocksColor = []
+
+
+        imgclear = self.baseImage.copy()
+
+
+        
+        # print(time.time()-timeStart)
+        imgIn = cv.blur(imgclear,(10,10))
+        hsv = cv.cvtColor(imgIn, cv.COLOR_RGB2HSV)
+        cv.imwrite(f'capture/{self.pictureNum}-0hsv.jpg', hsv)
+        img=imgIn
+        
+            
+
+        assert hsv is not None, "HSV color conversion failed"
+
+            # in photo shop: rgb -> vsh
+            
+        # lower boundary RED color range values; Hue (0 - 10)
+        lower1 = np.array([0, 190, 190])
+        upper1 = np.array([10, 255, 255])
+        
+        # upper boundary RED color range values; Hue (160 - 180)
+        lower2 = np.array([160,100,20])
+        upper2 = np.array([179,255,255])
+            
+        lower_mask = cv.inRange(hsv, lower1, upper1)
+        upper_mask = cv.inRange(hsv, lower2, upper2)
+
+        maskred = lower_mask + upper_mask
+
+        lowerGreen = np.array([35, 100, 20])
+        upperGreen = np.array([95, 255, 255])
+
+        maskgreen = cv.inRange(hsv, lowerGreen, upperGreen)
+
+        lowerBlack = np.array([0, 0, 0])        # H S V
+        upperBlack = np.array([255, 255, 90])     # Letzter wert hier ist die maximale Helligkeit für schwarze Wände
+        maskblack = cv.inRange(hsv, lowerBlack, upperBlack)
+        
+        cv.imwrite(f'capture/{self.pictureNum}-0walls.jpg', maskblack)
+
+        # Maske x: 500-1000, y: 300-800
+        regionMask = np.zeros(hsv.shape[:2], dtype=np.uint8)
+        regionMask[230:390, 300:1000] = 255
+        #               y          x
+ 
+
+        # Bitwise-AND mask and original image
+        
+        cv.imwrite(f'capture/{self.pictureNum}-1regionMask.jpg', regionMask)
+
+        
+        maskred   = cv.bitwise_and(maskred,   regionMask)
+        maskgreen = cv.bitwise_and(maskgreen, regionMask)
+
+        region = cv.bitwise_and(img, img, mask=regionMask)
+        cv.imwrite(f'capture/{self.pictureNum}-5imageRegion.jpg', region)
+        
+       
+            
+        imgRed = cv.bitwise_and(img, img, mask=maskred)
+        imgGreen = cv.bitwise_and(img, img, mask=maskgreen)
+
+
+
+        cv.imwrite(f'capture/{self.pictureNum}-7imgRed.jpg', imgRed)
+        cv.imwrite(f'capture/{self.pictureNum}-8imgGreen.jpg', imgGreen    )
+
+
+
+
+        cntsgreen = cv.findContours(maskgreen.copy(), cv.RETR_EXTERNAL,cv.CHAIN_APPROX_SIMPLE)
+        cntsred = cv.findContours(maskred.copy(), cv.RETR_EXTERNAL,cv.CHAIN_APPROX_SIMPLE)
+
+        cntsred = imutils.grab_contours(cntsred)
+        cntsgreen = imutils.grab_contours(cntsgreen)
+
+ 
+        for c in cntsgreen:
+            # compute the center of the contour
+            M = cv.moments(c)
+            if M["m00"] != 0:
+                cX = int(M["m10"] / M["m00"])
+                cY = int(M["m01"] / M["m00"])
+                # draw the contour and center of the shape on the image
+                cv.drawContours(imgclear, [c], -1, (0, 255, 0), 2)
+                # cv.line(imgclear,(cX,0),(cX,846),(0,255,0),3)
+                cv.circle(imgclear, (cX, cY), 7, (0, 255, 0), -1)
+                
+                #print("Green at: ", (mid - cX) / split)
+                self.blocksCx.append(cX)
+                self.blocksCy.append(cY)
+                self.blocksColor.append(self.parser.GREEN)
+
+                # result = self.parser.GREEN
+                # break
+
+        for c in cntsred:
+            # compute the center of the contour
+            M = cv.moments(c)
+            if M["m00"] != 0:
+                cX = int(M["m10"] / M["m00"])
+                cY = int(M["m01"] / M["m00"])
+                # draw the contour and center of the shape on the image
+                cv.drawContours(imgclear, [c], -1, (0, 255, 0), 2)
+                # cv.line(imgclear,(cX,0),(cX,846),(0,0,255),3)
+                cv.circle(imgclear, (cX, cY), 7, (0, 0, 255), -1)
+                
+                #print("Red at: ", (mid - cX) / split)
+                self.blocksCx.append(cX)
+                self.blocksCy.append(cY)
+                self.blocksColor.append(self.parser.RED)
+                # result = self.parser.RED
+                # break
+                
+        if (len(self.blocksCy) == 0):
+            return self.parser.RED
+        
+        lowestIndex = max(range(len(self.blocksCy)), key=self.blocksCy.__getitem__)
+        cX = self.blocksCx[lowestIndex]
+        cY = self.blocksCy[lowestIndex]
+        color=self.blocksColor[lowestIndex]
+        cv.line(imgclear,(cX,0),(cX,1150),(0,0,255),3)
+        
+        cv.imwrite(f'capture/{self.pictureNum}-9detection_result.jpg', imgclear)
+        
+        return color
+        
+    def getObstacles1(self):
+        
+        # Maske x: 500-1000, y: 300-800
+        regionMask = np.zeros(self.baseImage.shape[:2], dtype=np.uint8)
+        regionMask[200:500, 300:1000] = 255
+        #           y          x    
+        return self.getObstacles(regionMask,650,490,1)
+        #                             x   y
+    def getObstacles3(self):
+        
+        # Maske x: 500-1000, y: 300-800
+        regionMask = np.zeros(self.baseImage.shape[:2], dtype=np.uint8)
+        regionMask[200:500, 320:1000] = 255
+        #           y          x
+        
+        return self.getObstacles(regionMask,660,490,3)
+        #                             x   y
+    def getObstacles4(self):
+        self.pictureNum=4
+        # Maske x: 500-1000, y: 300-800
+        regionMask = np.zeros(self.baseImage.shape[:2], dtype=np.uint8)
+        regionMask[300:1100, 150:600] = 255
+        #           y          x
+        return self.getObstacles(regionMask,450,1090,4)
+        #                             x   y        
+    def getObstacles(self,regionMask,fillx,filly,regionNum):    
+        """@brief Capture frame, extract scan band, detect RED/GREEN blobs.
+
+        Performs blur, HSV conversion, masking for color ranges (including
+        wrap-around red hues), then records each contour's horizontal angle.
+        @param checkHeightNear bool If True, lowers scan band for near obstacle perspective.
+        @param leftDist float Distance to left wall, used to shift scan band right.
+        @param rightDist float Distance to right wall, used to shift scan band left.
+        @param upDist float Distance to ceiling, used to lower scan band.
+        @param downDistList list of float Distances to floor, used to raise scan band.
+        @return None (populates blocksAngle/blocksColor + imgCam for drawing)
+        """
+        self.blocksCx = []
+        self.blocksCy = []
+        self.blocksColor = []
+
+        
         timeStart = time.time()
         # imgclear = cv.imread(f'c:\\t\\capture0.jpg')
         imgclear = self.baseImage.copy()
@@ -112,12 +290,9 @@ class Camera():
         
         cv.imwrite(f'capture/{self.pictureNum}-0walls.jpg', maskblack)
 
-        # Maske x: 500-1000, y: 300-800
-        regionMask = np.zeros(hsv.shape[:2], dtype=np.uint8)
-        regionMask[200:500, 300:1000] = 255
-        
-        regionMaskInv = np.full(hsv.shape[:2], 255, dtype=np.uint8)
-        regionMaskInv[200:500, 300:1000] = 0        
+
+
+        regionMaskInv = cv.bitwise_not(regionMask)
         #               y          x
         
         
@@ -129,7 +304,7 @@ class Camera():
         # Floodfill maskblack starting at x=650, y=400
         floodMask = np.zeros((maskblack2.shape[0] + 2, maskblack2.shape[1] + 2), dtype=np.uint8)
         maskblackFilled = maskblack2.copy()
-        cv.floodFill(maskblackFilled, floodMask, (650, 400), 128)
+        cv.floodFill(maskblackFilled, floodMask, (fillx, filly), 128)
 
         # Maske aller Punkte mit Wert 128 aus maskblackFilled
         maskRegionFinal = np.where(maskblackFilled == 128, np.uint8(255), np.uint8(0))
@@ -187,16 +362,12 @@ class Camera():
                 cY = int(M["m01"] / M["m00"])
                 # draw the contour and center of the shape on the image
                 cv.drawContours(imgclear, [c], -1, (0, 255, 0), 2)
-                cv.line(imgclear,(cX,0),(cX,846),(0,255,0),3)
                 cv.circle(imgclear, (cX, cY), 7, (0, 255, 0), -1)
                 
-                #print("Green at: ", (mid - cX) / split)
-                self.blocksAngle.append((mid - cX) / split)
-                self.blocksColor.append(1)
-                self.blocksAngleDraw.append((mid - cX) / split)
-                self.blocksColorDraw.append(1)
-                # result = self.parser.GREEN
-                # break
+                self.blocksCx.append(cX)
+                self.blocksCy.append(cY)
+                self.blocksColor.append(self.parser.GREEN)
+                print("Green at: ", cX, cY)
 
         for c in cntsred:
             # compute the center of the contour
@@ -206,21 +377,28 @@ class Camera():
                 cY = int(M["m01"] / M["m00"])
                 # draw the contour and center of the shape on the image
                 cv.drawContours(imgclear, [c], -1, (0, 255, 0), 2)
-                cv.line(imgclear,(cX,0),(cX,846),(0,0,255),3)
+                # cv.line(imgclear,(cX,0),(cX,846),(0,0,255),3)
                 cv.circle(imgclear, (cX, cY), 7, (0, 0, 255), -1)
                 
-                #print("Red at: ", (mid - cX) / split)
-                self.blocksAngle.append((mid - cX) / split)
-                self.blocksColor.append(0)
-                self.blocksAngleDraw.append((mid - cX) / split)
-                self.blocksColorDraw.append(0)
-                # result = self.parser.RED
-                # break
+                self.blocksCx.append(cX)
+                self.blocksCy.append(cY)
+                self.blocksColor.append(self.parser.RED)
+                print("Red at: ", cX, cY)
+        if (len(self.blocksCx) == 0):
+            return self.parser.RED
+        if (regionNum == 1 or regionNum == 3):
+            index = max(range(len(self.blocksCx)), key=self.blocksCx.__getitem__)
+        else:
+            index = min(range(len(self.blocksCx)), key=self.blocksCx.__getitem__)
+        cX = self.blocksCx[index]
+        cY = self.blocksCy[index]
+        color=self.blocksColor[index]
+        cv.line(imgclear,(cX,0),(cX,1150),(0,0,255),3)
 
         cv.imwrite(f'capture/{self.pictureNum}-9detection_result.jpg', imgclear)
 
-        
-        
+        return color
+               
 
 
 
