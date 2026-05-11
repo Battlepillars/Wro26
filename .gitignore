@@ -10,3 +10,4 @@ src/pi/**/*.pyc
 src/pi/capture/
 src/pi/capture - Kopie/
 src/pi/logs/
+logs/

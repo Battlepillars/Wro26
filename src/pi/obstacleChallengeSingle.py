@@ -3,7 +3,8 @@ import math
 
 from parser import Parser
 from driveController import DriveController
-from camera import Camera
+# from camera import Camera
+from cameraAIO import Camera
 
 def wallDrive(dC: DriveController, dir, speedCurve, speedStraight, driveWall = False, angle = 45):
     dist = 310
@@ -41,8 +42,28 @@ def unParkClockWise(parser: Parser, dC: DriveController, cam: Camera):
     dC.driveDist(speedStraight,0,200)
     dC.turn(speedCurve, -90)
 
+def singleScan(parser: Parser, dC: DriveController, cam: Camera):
+    speedStraight=2
+    speedCurve=1
+    
+    
+    dC.customTurn(speedCurve, 180, 110)
+    dC.brake()
+    # time.sleep(2)
+    cam.captureImage()
+    cam.getObstacles()
 
+    dC.customTurn(speedCurve, 180, 70)
+    dC.brake()
+    # time.sleep(2)
+    cam.captureImage()
+    cam.getObstacles()
 
+    dC.customTurn(speedCurve, 0,-80)
+    dC.brake()
+    # time.sleep(2)
+    cam.captureImage()
+    cam.getObstacles()
 
 def clockwise(parser: Parser, dC: DriveController, cam: Camera):
     speedStraight=2
@@ -51,7 +72,11 @@ def clockwise(parser: Parser, dC: DriveController, cam: Camera):
     sawRed = False
     
     scanUpDist = 0
+    singleScan(parser, dC, cam)
     
+    time.sleep(100000)
+    
+            
     unParkClockWise(parser, dC, cam)
     dC.section += 1
     
