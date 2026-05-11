@@ -10,7 +10,7 @@ import obstacleChallengeSingle
 from parser import Parser
 from ui import Ui
 from driveController import DriveController
-from camera import Camera
+from cameraAIO import Camera
 
 stop_event = threading.Event()
 start_event = threading.Event()
@@ -88,7 +88,10 @@ def main():
         ui.draw(screen,parser,cam)
 
         pygame.display.flip()
-        clock.tick(60)
+        if manual:
+            clock.tick(30)
+        else:
+            clock.tick(3)
     pygame.quit()
 
 def handle_kb_interrupt(sig, frame):
@@ -107,7 +110,7 @@ def controllLoop(parser,cam):
     # dC.driveDist(0.2,90,1000)
     # openChallenge.clockwise(parser, dC)
     # obstacleChallenge.clockwise(parser, dC, cam)
-    # obstacleChallengeSingle.clockwise(parser, dC, cam)
+    obstacleChallengeSingle.clockwise(parser, dC, cam)
     # camTest.test(parser, dC, cam)
     # cam.getNearestObstacle()
 

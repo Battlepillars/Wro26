@@ -5,6 +5,8 @@ from parser import Parser
 from logger import Logger
 
 class DriveController:
+    """High-level motion helper for heading, speed, and wall-relative maneuvers."""
+
     logCountetr = 0
     
     backWall = 4
@@ -20,6 +22,7 @@ class DriveController:
     biggest = 1
     
     def __init__(self, parser: Parser, stop_event, logger: Logger = None):
+        """Initialize controller state and bind it to the live parser sensors and logger."""
         DriveController.angleLeftWall = parser.angleLeftSensor
         DriveController.angleRightWall = parser.angleRightSensor
         DriveController.frontWall = parser.frontSensor
@@ -41,6 +44,7 @@ class DriveController:
         self.logger = logger if logger is not None else Logger()
     
     def end(self):
+        """Stop the vehicle and report whether the external stop event requested shutdown."""
         if self.stop_event.is_set():
             self.parser.endTime = time.time()
             self.parser.setSpeed(0)
@@ -51,6 +55,7 @@ class DriveController:
     # start helper functions:
     
     def getDist(self, poses:list, row, wallDir = frontWall, mode = biggest):
+        """Return the selected distance sample from one camera row across the given column indices."""
         val = 0
         tempVal = 0
         for i in poses:
@@ -62,19 +67,22 @@ class DriveController:
         return val
 
     def nextSection(self):
-        """ returns current section +1 """
+        """Return the next course section index, wrapping from section 3 back to 0."""
         if self.section < 3:
             return self.section+1
         else:
             return 0
     
     def setCommand(self, command):
+        """Store the current high-level maneuver name on the parser for status reporting."""
         self.parser.currentCommand = command
     
     def setSpeed(self, speed):
+        """Update the target drive speed that `calcAccel` ramps toward."""
         self.targetSpeed = speed
     
     def setTargetHeading(self, heading):
+        """Normalize a heading into the current section's frame and clamp it to [-180, 180]."""
         heading += self.section*-90         # rotating to match current section
         while heading > 180:
             heading -= 360
@@ -85,20 +93,25 @@ class DriveController:
     # end helper functions
     
     def customTurn(self, speed, angle, dist):
+        """Drive a fixed steering angle until the requested travel distance has been covered."""
         self.setCommand("customTurn")
-        self.setSpeed(speed)
+        if (dist>0):
+            self.setSpeed(speed)
+        else:
+            self.setSpeed(-speed)
         
         self.parser.setSteer(angle)
         
         startDist = self.parser.distance
         
-        while self.parser.distance-startDist < dist and not self.stop_event.is_set():
+        while abs(self.parser.distance-startDist) < abs(dist) and not self.stop_event.is_set():
             self.logger.log(f"CustomTurn: Angle: {angle} Dist: {dist} CurrenDist: {self.parser.distance-startDist}")
             self.calcAccel(False)
         if self.end():
             return
     
     def quickTurn(self, speed, heading, turnDir = auto):
+        """Turn aggressively toward a target heading, switching to PID steering near the target."""
         self.setCommand("Quick turn")
         self.setSpeed(speed)
         self.setTargetHeading(heading)
@@ -134,6 +147,7 @@ class DriveController:
             return
     
     def turn(self, speed, heading, turnDir = auto):
+        """Turn toward a target heading with a wider PID handoff and tighter finish tolerance."""
         self.setCommand("turn")
         self.setSpeed(speed)
         self.setTargetHeading(heading)
@@ -167,6 +181,7 @@ class DriveController:
             return
     
     def driveToWall(self, speed, heading, dist, wallDir = frontWall, bigVisionRange = False):
+        """Drive toward a wall until camera depth reports the requested clearance."""
         self.setCommand("driveToWall")
         self.setSpeed(speed)
         self.setTargetHeading(heading)
@@ -189,6 +204,7 @@ class DriveController:
             return
     
     def driveAwayFromWall(self, speed, heading, dist, wallDir = backWall):
+        """Drive away from a wall until rear camera samples no longer detect it within range."""
         self.setCommand("driveAwayFromWall")
         self.setSpeed(speed)
         self.setTargetHeading(heading)
@@ -214,6 +230,7 @@ class DriveController:
             return
     
     def driveAlongWall(self, speed, heading, wallDir = rightWall):
+        """Follow a wall until the selected side camera samples indicate the wall is gone."""
         self.setCommand("driveAlongWall")
         self.setSpeed(speed)
         self.setTargetHeading(heading)
@@ -236,6 +253,7 @@ class DriveController:
             return
     
     def driveDist(self, speed, heading, dist):
+        """Drive straight for a measured encoder distance while holding the requested heading."""
         self.setCommand("driveDist")
         startDist = self.parser.distance
         self.setSpeed(speed)
@@ -247,10 +265,11 @@ class DriveController:
             return
     
     def brake(self):
+        """Ramp the target speed down to zero while keeping the steering centered."""
         self.setSpeed(0)
         self.parser.setSteer(90)
         
-        while self.parser.speed > 0 and not self.stop_event.is_set():
+        while abs(self.parser.speed) > 0 and not self.stop_event.is_set():
             self.calcAccel(False)
             self.logger.log(f"Brake: {self.parser.speed}")
         if self.end():
@@ -258,6 +277,7 @@ class DriveController:
 
 
     def driveSpeed(self, speed, heading):
+        """Hold a target speed and heading continuously until an external stop is requested."""
         self.setCommand("driveSpeed")
         self.setSpeed(speed)
         self.setTargetHeading(heading)
@@ -268,6 +288,7 @@ class DriveController:
         
 
     def calcAccel(self, steer = True, pid = 0):
+        """Run one control cycle: rate-limit, ramp speed, and optionally update steering PID output."""
         lastCycleTime = time.time() - self.lastTime
         frq = 0.01
 
