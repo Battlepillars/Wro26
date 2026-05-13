@@ -48,10 +48,12 @@ int amountDividers = 0;
 #define CS_PIN2 PB1
 #define CS_PIN3 PB7
 #define CS_PIN4 PB6
+#define CS_PIN5 PA2
+#define CS_PIN6 PA3
 #define LED1 PA2
 #define LED2 PA3
 uint8_t status;
-#define BUSSPEED 5000000
+#define BUSSPEED 3000000
 
 SPIClass DEV_SPI(SPI_MOSI_PIN, SPI_MISO_PIN, SPI_CLK_PIN);
 
@@ -59,6 +61,8 @@ VL53L8CX sensor_vl53l8cx_top1(&DEV_SPI, CS_PIN1, -1,  -1,  BUSSPEED);
 VL53L8CX sensor_vl53l8cx_top2(&DEV_SPI, CS_PIN2, -1,  -1,  BUSSPEED);
 VL53L8CX sensor_vl53l8cx_top3(&DEV_SPI, CS_PIN3, -1,  -1,  BUSSPEED);
 VL53L8CX sensor_vl53l8cx_top4(&DEV_SPI, CS_PIN4, -1,  -1,  BUSSPEED);
+VL53L8CX sensor_vl53l8cx_top5(&DEV_SPI, CS_PIN5, -1,  -1,  BUSSPEED);
+VL53L8CX sensor_vl53l8cx_top6(&DEV_SPI, CS_PIN6, -1,  -1,  BUSSPEED);
 int sensorCaptures[8] = {0,0,0,0,0,0,0,0};
 
 
@@ -70,7 +74,7 @@ void motorController100Hz();
 void waitForNewMessage();
 void parse();
 
-#define RESOLUTION VL53L8CX_RESOLUTION_4X4
+#define RESOLUTION VL53L8CX_RESOLUTION_8X8
 
 void initVL53(VL53L8CX * sensor, int speed)
 { 
@@ -80,15 +84,26 @@ void initVL53(VL53L8CX * sensor, int speed)
   status = sensor->begin();
   Serial1.println("Sensor Init");
   status = sensor->init();
-  Serial1.println("Sensor resolution");
-  status = sensor->set_resolution(RESOLUTION);
-  Serial1.println("Sensor Frquency");
-  sensor->set_ranging_frequency_hz(speed);
-  Serial1.println("Sensor ranging mode");
-  sensor->set_ranging_mode(VL53L8CX_RANGING_MODE_CONTINUOUS);
-  Serial1.println("Sensor start ranging");
-  status = sensor->start_ranging();
-  Serial1.println("Sensor init Done");
+  if (status!=0)
+  {
+      Serial1.println("Sensor Init failed  ----------------");
+
+  }
+  else
+  {
+    Serial1.println("Sensor Init succeeded  **************");
+    Serial1.println("Sensor resolution");
+    status = sensor->set_resolution(RESOLUTION);
+    Serial1.println("Sensor Frquency");
+    sensor->set_ranging_frequency_hz(speed);
+    Serial1.println("Sensor ranging mode");
+    sensor->set_ranging_mode(VL53L8CX_RANGING_MODE_CONTINUOUS);
+    Serial1.println("Sensor start ranging");
+    status = sensor->start_ranging();
+    Serial1.println("Sensor init Done");
+  }
+
+
 }
 
 int update(VL53L8CX * sensor, VL53L8CX_ResultsData * result) 
@@ -120,6 +135,19 @@ int update(VL53L8CX * sensor, VL53L8CX_ResultsData * result)
 /* Setup ---------------------------------------------------------------------*/
 void setup()
 {
+  pinMode(CS_PIN1, OUTPUT);
+  digitalWrite(CS_PIN1,HIGH);
+  pinMode(CS_PIN2, OUTPUT);
+  digitalWrite(CS_PIN2,HIGH);
+  pinMode(CS_PIN3, OUTPUT);
+  digitalWrite(CS_PIN3,HIGH);
+  pinMode(CS_PIN4, OUTPUT);
+  digitalWrite(CS_PIN4,HIGH);
+  pinMode(CS_PIN5, OUTPUT);
+  digitalWrite(CS_PIN5,HIGH);
+  pinMode(CS_PIN6, OUTPUT);
+  digitalWrite(CS_PIN6,HIGH);
+
 
   // Initialize serial for output.
   Serial1.begin(921600);
@@ -132,6 +160,7 @@ void setup()
   // pinMode(LED2, OUTPUT);
   // digitalWrite(LED1, HIGH);
   // digitalWrite(LED2, HIGH);
+
 
   // *** Hardware Encoder Setup (TIM2) ***
   encoder = new HardwareTimer(TIM2);
@@ -186,16 +215,21 @@ void setup()
   // Initialize SPI bus.
   Serial1.println("Sensor init start");
   DEV_SPI.begin();
+  delay(100);
 
-  Serial1.println("*** CS1 ***");
-  initVL53(&sensor_vl53l8cx_top1,60);
-  Serial1.println("*** CS2 ***");
-  initVL53(&sensor_vl53l8cx_top2,60);
-  Serial1.println("*** CS3 ***");
-  initVL53(&sensor_vl53l8cx_top3,60);
-  Serial1.println("*** CS4 ***");
-  initVL53(&sensor_vl53l8cx_top4,60);
-  Serial1.println("Sensor init end");
+  Serial1.println("***              CS1 ");
+  initVL53(&sensor_vl53l8cx_top1,40);
+  Serial1.println("***              CS2 ");
+  initVL53(&sensor_vl53l8cx_top2,40);
+  Serial1.println("***              CS3 ");
+  initVL53(&sensor_vl53l8cx_top3,40);
+  Serial1.println("***              CS4 ");
+  initVL53(&sensor_vl53l8cx_top4,40);
+  Serial1.println("***              CS5 ");
+  initVL53(&sensor_vl53l8cx_top5,40);
+  Serial1.println("***              CS6 ");
+  initVL53(&sensor_vl53l8cx_top6,40);
+ 
   servo.attach(PA5);
 }
 
@@ -204,18 +238,18 @@ void setSpeed(double speed)
 {
   if (speed > 0) 
   {
-    speed = constrain(speed, 0, 100);
+    speed = constrain(speed, 0, 95);
     analogWrite(PWM_PIN2, 0);
     analogWrite(PWM_PIN1, (1023*(speed/100.0)));
   } else if (speed < 0) 
   {
-    speed = constrain(speed, -100, 0);
+    speed = constrain(speed, -95, 0);
     analogWrite(PWM_PIN1, 0);
     analogWrite(PWM_PIN2, (1023*(abs(speed)/100.0)));
   } else 
   {
-    analogWrite(PWM_PIN1, 0);
-    analogWrite(PWM_PIN2, 0);
+    analogWrite(PWM_PIN1, 1023);
+    analogWrite(PWM_PIN2, 1023);
   }
 
   // analogWrite(PWM_PIN1, 200);
@@ -321,11 +355,15 @@ void loop()
   static VL53L8CX_ResultsData results2;
   static VL53L8CX_ResultsData results3;
   static VL53L8CX_ResultsData results4;
+  static VL53L8CX_ResultsData results5;
+  static VL53L8CX_ResultsData results6;
 
   int s1=0;
   int s2=0;
   int s3=0;
   int s4=0;
+  int s5=0;
+  int s6=0;
 
   static int d=0;
   d++;
@@ -336,80 +374,89 @@ void loop()
     s3=update(&sensor_vl53l8cx_top3, &results3);
   // if ((d+2)%3==0)
     s4=update(&sensor_vl53l8cx_top4, &results4);
-  // if (s1>0)
-  //   printSensorData(1,&results1);
-  // if (s2>0)
-  //   printSensorData(2,&results2);
-  // if (s3>0)
-  //   printSensorData(3,&results3);
-  // if (s4>0)
-  //   printSensorData(4,&results4);
-
+    s5=update(&sensor_vl53l8cx_top5, &results5);
+    s6=update(&sensor_vl53l8cx_top6, &results6);
+  if (s1>0)
+    printSensorData(1,&results1);
+  if (s2>0)
+    printSensorData(2,&results2);
   if (s3>0)
-  {
-    printMultiSensorData(3,&results3,0);    
-    printMultiSensorData(3,&results3,1);    
-    printMultiSensorData(3,&results3,2);    
-    printMultiSensorData(3,&results3,3);    
-  }
+    printSensorData(3,&results3);
+  if (s4>0)
+    printSensorData(4,&results4);
+  if (s5>0)
+    printSensorData(5,&results5);
+  if (s6>0)
+    printSensorData(6,&results6);
+
+  // if (s3>0)
+  // {
+  //   printMultiSensorData(3,&results3,0);    
+  //   printMultiSensorData(3,&results3,1);    
+  //   printMultiSensorData(3,&results3,2);    
+  //   printMultiSensorData(3,&results3,3);    
+  // }
         
   sensorCaptures[0]+=s1;
   sensorCaptures[1]+=s2;
   sensorCaptures[2]+=s3;
   sensorCaptures[3]+=s4;
+  sensorCaptures[4]+=s5;
+  sensorCaptures[5]+=s6;
 
   static int c=0;
   static unsigned long lastPrint=micros();
 
-  if (vBat<10.8 && checkVoltage)
+  static int lowBatCounter=0;
+  if (vBat<10.5)
   {
-    while (true)
+    lowBatCounter++;
+    if (lowBatCounter>100)
     {
-      if (micros()-lastPrint>500000) {
-        lastPrint=micros();
-        Setpoint = 0;
-        Serial1.print("lowVoltage,");
-        Serial1.print(vBat);  //Voltage
-        Serial1.print(",\n");
-        static int pos=0;
-        servo.write(90);
-        if (pos==0)
-          servo.write(0);
-        if (pos==1)
+      while (true)
+      {
+        if (micros()-lastPrint>500000) {
+          uint32_t ad = analogRead(PA4);
+          double vBat=(double)ad * 3.3*5.7 / 1023.0;
+          lastPrint=micros();
+          Setpoint = 0;
+          Serial1.print("lowVoltage,");
+          Serial1.print(vBat);  //Voltage
+          Serial1.print(",\n");
+          static int pos=0;
           servo.write(90);
-        if (pos==2)
-          servo.write(180);
-        if (pos==3)
-          servo.write(90);      
-        pos++;
-        if (pos>3)
-          pos=3;
+          if (pos==0)
+            servo.write(60);
+          if (pos==1)
+            servo.write(90);
+          if (pos==2)
+            servo.write(120);
+          if (pos==3)
+            servo.write(90);      
+          pos++;
+          if (pos>3)
+            pos=0;
+        }
       }
     }
+  }
+  else
+  {
+    lowBatCounter--;
+    if (lowBatCounter<0)
+      lowBatCounter=0;  
   }
 
 
   if (micros()-lastPrint>500000)
   {
-    // static int pos=0;
-    // servo.write(90);
-    // if (pos==0)
-    //   servo.write(0);
-    // if (pos==1)
-    //   servo.write(90);
-    // if (pos==2)
-    //   servo.write(180);
-    // if (pos==3)
-    //   servo.write(90);      
-    // pos++;
-    // if (pos>3)
-    //   pos=0;
+
   
     lastPrint = micros();
     // Serial1.printf("%i    %i  %i     ",impulse_diff,rotations_per_sec,(int)(Output*10)); 
     Serial1.print("stat,");
     Serial1.print(vBat);    //Voltage
-    for (int i=0;i<4;i++) 
+    for (int i=0;i<6;i++) 
     {
       Serial1.print(",");
       Serial1.print(sensorCaptures[i]*2);
@@ -433,20 +480,20 @@ void loop()
     // Setpoint+=dir*2;    
 
     Serial1.print("speed,");
-    Serial1.print(rotations_per_sec);   //Speed
+    Serial1.printf("%05i",rotations_per_sec);   //Speed
     Serial1.print(",");
-    Serial1.print(EncoderCountFull);    //Counter
+    Serial1.printf("%05i",EncoderCountFull);    //Counter
     Serial1.print(",");
-    Serial1.print(Output);    //Counter
+    Serial1.printf("%03i",(int)Output);    //Counter
     Serial1.print(",");    
-    Serial1.print(Setpoint);    //Counter
+    Serial1.printf("%03i",(int)Setpoint);    //Counter
     Serial1.print(",\n");
     newdata = false;
   }
 }
 
-// Cams 1/2/3/4:
-// Cam,1/2/3/4,value1,value2,...,value16/64;
+// Cams 1/2/3/4/5/6:
+// Cam,1/2/3/4/5/6,value1,value2,...,value16/64;
 
 // Speed,Counter,Voltage:
 // speed,value,value,value;
@@ -476,8 +523,15 @@ void motorController100Hz()
   int32_t rpm = impulses_per_sec * 60.0 /30;
 
   Input = (double)rotations_per_sec;
-  myPID.Compute();
 
+  myPID.Compute();
+  if (Setpoint==0)
+  {
+    Output=0;
+    myPID.Initialize();
+  }
+    
+  
   setSpeed(Output);
   lastEncoderCount = EncoderCount;  
   digitalWrite(PA15,0); 
