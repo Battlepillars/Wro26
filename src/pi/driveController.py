@@ -2,8 +2,12 @@ import time
 import math
 
 from parser import Parser
+from logger import Logger
+from subprocess import call
 
 class DriveController:
+    """High-level motion helper for heading, speed, and wall-relative maneuvers."""
+
     logCountetr = 0
     
     backWall = 4
@@ -17,8 +21,10 @@ class DriveController:
     turnLeft = 2
     smallest = 0
     biggest = 1
+    firstEnd = 0
     
-    def __init__(self, parser: Parser, stop_event):
+    def __init__(self, parser: Parser, stop_event, logger: Logger = None):
+        """Initialize controller state and bind it to the live parser sensors and logger."""
         DriveController.angleLeftWall = parser.angleLeftSensor
         DriveController.angleRightWall = parser.angleRightSensor
         DriveController.frontWall = parser.frontSensor
@@ -37,18 +43,25 @@ class DriveController:
         self.stop_event = stop_event
         self.pidSteer = PIDController(Kp=1, Ki=0, Kd=0, setpoint=0, min=-90, max=90)
         self.pidSteer2 = PIDController(Kp=0.5, Ki=0, Kd=0, setpoint=0, min=-90, max=90)
+        self.logger = logger if logger is not None else Logger()
     
     def end(self):
+        """Stop the vehicle and report whether the external stop event requested shutdown."""
         if self.stop_event.is_set():
-            self.parser.endTime = time.time()
             self.parser.setSpeed(0)
             self.parser.setSteer(90)
+            if self.parser.endTime == 0:
+                self.parser.endTime = time.time()
+            if DriveController.firstEnd == 0:
+                call("sudo systemctl restart smbd", shell=True)
+                DriveController.firstEnd = 1
             return True
         return False
     
     # start helper functions:
     
     def getDist(self, poses:list, row, wallDir = frontWall, mode = biggest):
+        """Return the selected distance sample from one camera row across the given column indices."""
         val = 0
         tempVal = 0
         for i in poses:
@@ -59,20 +72,46 @@ class DriveController:
                 val = tempVal
         return val
 
+    def wallToString(self, wall):
+        if wall == self.frontWall:
+            return "front wall"
+        elif wall == self.rightWall:
+            return "right wall"
+        elif wall == self.leftWall:
+            return "left wall"
+        elif wall == self.backWall:
+            return "back wall"
+        elif wall == self.angleLeftWall:
+            return "angle left wall"
+        elif wall == self.angleRightWall:
+            return "angle right wall"
+        else:
+            return "unknown wall"
+
     def nextSection(self):
-        """ returns current section +1 """
+        """Return the next course section index, wrapping from section 3 back to 0."""
         if self.section < 3:
             return self.section+1
         else:
             return 0
     
+    def prevSection(self):
+        """Return the previous course section index, wrapping from section 0 back to 3."""
+        if self.section > 0:
+            return self.section-1
+        else:
+            return 3
+    
     def setCommand(self, command):
+        """Store the current high-level maneuver name on the parser for status reporting."""
         self.parser.currentCommand = command
     
     def setSpeed(self, speed):
+        """Update the target drive speed that `calcAccel` ramps toward."""
         self.targetSpeed = speed
     
     def setTargetHeading(self, heading):
+        """Normalize a heading into the current section's frame and clamp it to [-180, 180]."""
         heading += self.section*-90         # rotating to match current section
         while heading > 180:
             heading -= 360
@@ -80,23 +119,31 @@ class DriveController:
             heading += 360
         self.targetHeading = heading
     
+    def logStuff(self, message):
+        self.logger.log(f"{message}, Section: {self.section}, Time: {time.time()-self.parser.startTime:.2f}")
+    
     # end helper functions
     
     def customTurn(self, speed, angle, dist):
+        """Drive a fixed steering angle until the requested travel distance has been covered."""
         self.setCommand("customTurn")
-        self.setSpeed(speed)
+        if (dist>0):
+            self.setSpeed(speed)
+        else:
+            self.setSpeed(-speed)
         
         self.parser.setSteer(angle)
         
         startDist = self.parser.distance
         
-        while self.parser.distance-startDist < dist and not self.stop_event.is_set():
-            print(f"CustomTurn: Angle: {angle} Dist: {dist} CurrenDist: {self.parser.distance-startDist}")
+        while abs(self.parser.distance-startDist) < abs(dist) and not self.stop_event.is_set():
+            self.logStuff(f"CustomTurn: Angle: {angle}, Dist: {dist}, CurrenDist: {self.parser.distance-startDist:.0f}")
             self.calcAccel(False)
         if self.end():
             return
     
     def quickTurn(self, speed, heading, turnDir = auto):
+        """Turn aggressively toward a target heading, switching to PID steering near the target."""
         self.setCommand("Quick turn")
         self.setSpeed(speed)
         self.setTargetHeading(heading)
@@ -104,10 +151,10 @@ class DriveController:
         
         errorAngle = 500
 
-        print("Quick Turn: ","Error:",errorAngle,"\tSpeed:",self.parser.speed,"Target heading:",self.targetHeading)
+        self.logStuff(f"Quick Turn: Error:{errorAngle:.0f}, Speed:{self.parser.speed:.2f}, Target heading:{self.targetHeading}")
 
         while abs(errorAngle) > 5 and not self.stop_event.is_set():
-            errorAngle = self.parser.gyro.euler[0] - self.targetHeading
+            errorAngle = self.parser.getHeading() - self.targetHeading
             
             while errorAngle > 180:
                 errorAngle -= 360
@@ -119,7 +166,7 @@ class DriveController:
             
             self.logCountetr += 1
             if self.logCountetr %3==0 or True:
-                print("Quick Turn: ","Error:",errorAngle,"\tDopid:",doPid,"Speed:",self.parser.speed,"Target heading:",self.targetHeading)
+                self.logStuff(f"Quick Turn: Error:{errorAngle:.0f}, Dopid:{doPid}, Speed:{self.parser.speed:.2f}, Target heading:{self.targetHeading}")
             
             self.calcAccel(doPid,2)
             if not doPid:
@@ -132,6 +179,7 @@ class DriveController:
             return
     
     def turn(self, speed, heading, turnDir = auto):
+        """Turn toward a target heading with a wider PID handoff and tighter finish tolerance."""
         self.setCommand("turn")
         self.setSpeed(speed)
         self.setTargetHeading(heading)
@@ -140,7 +188,7 @@ class DriveController:
         errorAngle = 5
         
         while abs(errorAngle) > 2 and not self.stop_event.is_set():
-            errorAngle = self.parser.gyro.euler[0] - self.targetHeading
+            errorAngle = self.parser.getHeading() - self.targetHeading
             
             while errorAngle > 180:
                 errorAngle -= 360
@@ -152,7 +200,7 @@ class DriveController:
             
             self.logCountetr += 1
             if self.logCountetr %3==0 or True:
-                print("Turn: ","Error:",errorAngle,"\tDopid:",doPid,"Speed:",self.parser.speed,"Target heading:",self.targetHeading)
+                self.logStuff(f"Turn: Error:{errorAngle:.0f}, Dopid:{doPid}, Speed:{self.parser.speed:.2f}, Target heading:{self.targetHeading}")
             
             self.calcAccel(doPid,2)
             if not doPid:
@@ -165,6 +213,7 @@ class DriveController:
             return
     
     def driveToWall(self, speed, heading, dist, wallDir = frontWall, bigVisionRange = False):
+        """Drive toward a wall until camera depth reports the requested clearance."""
         self.setCommand("driveToWall")
         self.setSpeed(speed)
         self.setTargetHeading(heading)
@@ -182,11 +231,12 @@ class DriveController:
             if val > 0:
                 lastVal = val
             if lastVal is not None: #self.logCountetr %3==0 and 
-                print("ToWall: "+str(lastVal),"Heading:",heading)
+                self.logStuff(f"ToWall: {lastVal:.0f}, Dist: {dist}, Heading:{heading}")
         if self.end():
             return
     
     def driveAwayFromWall(self, speed, heading, dist, wallDir = backWall):
+        """Drive away from a wall until rear camera samples no longer detect it within range."""
         self.setCommand("driveAwayFromWall")
         self.setSpeed(speed)
         self.setTargetHeading(heading)
@@ -206,12 +256,13 @@ class DriveController:
                 noWallCount += 1
             elif noWallCount > 0:
                 noWallCount -= 1
-            print("away: "+str(val) + " " + str(noWallCount))
+            self.logStuff(f"Drive Away From Wall: {val}, Target Dist: {dist}, Heading: {heading}, NoWallCount: {noWallCount}")
 
         if self.end():
             return
     
     def driveAlongWall(self, speed, heading, wallDir = rightWall):
+        """Follow a wall until the selected side camera samples indicate the wall is gone."""
         self.setCommand("driveAlongWall")
         self.setSpeed(speed)
         self.setTargetHeading(heading)
@@ -229,33 +280,36 @@ class DriveController:
                 noWallCount += 1
             elif noWallCount > 0:
                 noWallCount -= 1
-            print(str(val) + " " + str(noWallCount))
+            self.logStuff(f"Drive Along Wall: {val:.0f}, NoWallCount: {noWallCount}")
         if self.end():
             return
     
     def driveDist(self, speed, heading, dist):
+        """Drive straight for a measured encoder distance while holding the requested heading."""
         self.setCommand("driveDist")
         startDist = self.parser.distance
         self.setSpeed(speed)
         self.setTargetHeading(heading)
         while self.parser.distance-startDist < dist and not self.stop_event.is_set():
-            print(f"DriveDist: Dist: {dist} CurrenDist: {self.parser.distance-startDist}")
+            self.logStuff(f"DriveDist: Dist: {dist}, CurrenDist: {self.parser.distance-startDist:.0f}, Heading: {heading}")
             self.calcAccel()
         if self.end():
             return
     
     def brake(self):
+        """Ramp the target speed down to zero while keeping the steering centered."""
         self.setSpeed(0)
         self.parser.setSteer(90)
         
-        while self.parser.speed > 0 and not self.stop_event.is_set():
+        while abs(self.parser.speed) > 0 and not self.stop_event.is_set():
             self.calcAccel(False)
-            print("Brake: "+str(self.parser.speed))
+            self.logStuff(f"Brake: {self.parser.speed:.2f}")
         if self.end():
             return
 
 
     def driveSpeed(self, speed, heading):
+        """Hold a target speed and heading continuously until an external stop is requested."""
         self.setCommand("driveSpeed")
         self.setSpeed(speed)
         self.setTargetHeading(heading)
@@ -266,6 +320,7 @@ class DriveController:
         
 
     def calcAccel(self, steer = True, pid = 0):
+        """Run one control cycle: rate-limit, ramp speed, and optionally update steering PID output."""
         lastCycleTime = time.time() - self.lastTime
         frq = 0.01
 
@@ -275,7 +330,7 @@ class DriveController:
 
 
         if steer:
-            errorAngle = -self.targetHeading + self.parser.gyro.euler[0]
+            errorAngle = -self.targetHeading + self.parser.getHeading()
             
             while errorAngle > 180:
                 errorAngle -= 360

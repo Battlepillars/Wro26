@@ -10,7 +10,7 @@ import obstacleChallengeSingle
 from parser import Parser
 from ui import Ui
 from driveController import DriveController
-from camera import Camera
+from cameraAIO import Camera
 
 stop_event = threading.Event()
 start_event = threading.Event()
@@ -60,13 +60,17 @@ def main():
                     start_event.set()
                 if event.key == pygame.K_v:
                     start_event.set()
+                if event.key == pygame.K_t:
+                    cam.getNearestObstacle(useOldPicture=True)
+                if event.key == pygame.K_u:
+                    cam.getNearestObstacle()
         
         if manual:
             keys = pygame.key.get_pressed()
             if keys[pygame.K_w]:
                 speed = 1
             elif keys[pygame.K_s]:
-                speed = -2
+                speed = -1
             else:
                 speed = 0
             if keys[pygame.K_a]:
@@ -84,7 +88,10 @@ def main():
         ui.draw(screen,parser,cam)
 
         pygame.display.flip()
-        clock.tick(60)
+        if manual:
+            clock.tick(30)
+        else:
+            clock.tick(3)
     pygame.quit()
 
 def handle_kb_interrupt(sig, frame):
@@ -99,12 +106,15 @@ def controllLoop(parser,cam):
     parser.startTime = time.time()
     if stop_event.is_set():
         return
-    parser.setLowVoltageCheck(True)
+    
+    parser.resetGyro()
+
     # dC.driveDist(0.2,90,1000)
     # openChallenge.clockwise(parser, dC)
     # obstacleChallenge.clockwise(parser, dC, cam)
     obstacleChallengeSingle.clockwise(parser, dC, cam)
     # camTest.test(parser, dC, cam)
+    # cam.getNearestObstacle()
 
     
 

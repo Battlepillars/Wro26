@@ -105,7 +105,7 @@ class Ui:
             #     if i == 0:
             #         text = self.font.render(str(parser.voltage) + "v CPU: " + self.cpu_usage + " Temp: " + self.cpu_temp , True, green, blue)
             #     if i == 1:
-            #         text = self.font.render("Speed: " + str(parser.speed)+" Head: "+str(parser.gyro.euler[0]), True, green, blue)             #26,5
+            #         text = self.font.render("Speed: " + str(parser.speed)+" Head: "+str(parser.getHeading()), True, green, blue)             #26,5
             #     if i == 2:
             #         text = self.font.render("Distance: " + str(parser.distance), True, green, blue)             #26,5
             #     if i == 3:
@@ -120,8 +120,8 @@ class Ui:
                 printTime = time.time() - parser.startTime
 
             texts = [
-                self.font.render(str(parser.voltage) + "v CPU: " + self.cpu_usage + " Temp: " + self.cpu_temp , True, green, blue),
-                self.font.render(f"Speed: {parser.speed:.2f} Head: {parser.gyro.euler[0]:.0f}", True, green, blue),
+                self.font.render(f"{parser.voltage/3:.1f}v CPU: " + self.cpu_usage + " Temp: " + self.cpu_temp , True, green, blue),
+                self.font.render(f"Speed: {parser.speed:.2f} Head: {parser.getHeading():.2f}", True, green, blue),
                 self.font.render(f"Distance: {parser.distance:.0f}", True, green, blue),
                 self.font.render("Captures: "+ str(parser.sensorCaptures[0])+" / "+str(parser.sensorCaptures[1])+" / "+str(parser.sensorCaptures[2])+" / "+str(parser.sensorCaptures[3])+" / "+str(parser.sensorCaptures[4])+" / "+str(parser.sensorCaptures[5]), True, green, blue),
                 self.font.render(f"Time: {printTime:.1f}s", True, green, blue),
