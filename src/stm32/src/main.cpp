@@ -53,7 +53,7 @@ int amountDividers = 0;
 #define LED1 PA2
 #define LED2 PA3
 uint8_t status;
-#define BUSSPEED 3000000
+#define BUSSPEED 1500000
 
 SPIClass DEV_SPI(SPI_MOSI_PIN, SPI_MISO_PIN, SPI_CLK_PIN);
 
@@ -218,17 +218,17 @@ void setup()
   delay(100);
 
   Serial1.println("***              CS1 ");
-  initVL53(&sensor_vl53l8cx_top1,40);
+  initVL53(&sensor_vl53l8cx_top1,30);
   Serial1.println("***              CS2 ");
-  initVL53(&sensor_vl53l8cx_top2,40);
+  initVL53(&sensor_vl53l8cx_top2,30);
   Serial1.println("***              CS3 ");
-  initVL53(&sensor_vl53l8cx_top3,40);
+  initVL53(&sensor_vl53l8cx_top3,30);
   Serial1.println("***              CS4 ");
-  initVL53(&sensor_vl53l8cx_top4,40);
+  initVL53(&sensor_vl53l8cx_top4,30);
   Serial1.println("***              CS5 ");
-  initVL53(&sensor_vl53l8cx_top5,40);
+  initVL53(&sensor_vl53l8cx_top5,30);
   Serial1.println("***              CS6 ");
-  initVL53(&sensor_vl53l8cx_top6,40);
+  initVL53(&sensor_vl53l8cx_top6,30);
  
   servo.attach(PA5);
 }
