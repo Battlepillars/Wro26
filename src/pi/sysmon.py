@@ -18,6 +18,27 @@ def read_temp() -> float:
         return float("nan")
 
 
+_cpu_prev: tuple = (0, 0)   # (idle, total) from last sample
+
+
+def read_cpu_usage() -> float:
+    """Return overall CPU usage % since the last call (delta measurement)."""
+    global _cpu_prev
+    try:
+        with open("/proc/stat") as f:
+            fields = list(map(int, f.readline().split()[1:]))
+        idle  = fields[3]                     # idle + iowait
+        total = sum(fields)
+        d_idle  = idle  - _cpu_prev[0]
+        d_total = total - _cpu_prev[1]
+        _cpu_prev = (idle, total)
+        if d_total == 0:
+            return 0.0
+        return max(0.0, 100.0 * (1.0 - d_idle / d_total))
+    except OSError:
+        return float("nan")
+
+
 def read_throttled() -> str:
     """
     Return a human-readable throttle summary via vcgencmd.
@@ -84,13 +105,15 @@ class SysMonApp:
         # Remove window decorations for a minimal overlay feel
         root.overrideredirect(True)
 
-        self.lbl_temp    = tk.Label(root, font=self.FONT, bg=self.BG, anchor="w", width=22)
+        self.lbl_temp     = tk.Label(root, font=self.FONT, bg=self.BG, anchor="w", width=22)
+        self.lbl_cpu      = tk.Label(root, font=self.FONT, bg=self.BG, anchor="w", width=22)
         self.lbl_throttle = tk.Label(root, font=self.FONT, bg=self.BG, anchor="w", width=22)
         self.lbl_runtime  = tk.Label(root, font=self.FONT, bg=self.BG, anchor="w", width=22)
 
         self.lbl_temp.grid    (row=0, column=0, padx=6, pady=(4, 0), sticky="w")
-        self.lbl_throttle.grid(row=1, column=0, padx=6, pady=0,      sticky="w")
-        self.lbl_runtime.grid (row=2, column=0, padx=6, pady=(0, 4), sticky="w")
+        self.lbl_cpu.grid     (row=1, column=0, padx=6, pady=0,      sticky="w")
+        self.lbl_throttle.grid(row=2, column=0, padx=6, pady=0,      sticky="w")
+        self.lbl_runtime.grid (row=3, column=0, padx=6, pady=(0, 4), sticky="w")
 
         # Click-and-drag to reposition
         root.bind("<ButtonPress-1>",   self._drag_start)
@@ -104,6 +127,13 @@ class SysMonApp:
         if t >= 80:
             return self.FG_CRIT
         if t >= 70:
+            return self.FG_WARN
+        return self.FG_NORMAL
+
+    def _color_for_cpu(self, pct: float) -> str:
+        if pct >= 90:
+            return self.FG_CRIT
+        if pct >= 70:
             return self.FG_WARN
         return self.FG_NORMAL
 
@@ -124,12 +154,17 @@ class SysMonApp:
 
     def _update(self):
         temp     = read_temp()
+        cpu      = read_cpu_usage()
         throttle = read_throttled()
         elapsed  = time.monotonic() - self.start
 
         self.lbl_temp.config(
             text=f"Temp    : {temp:.1f} °C",
             fg=self._color_for_temp(temp),
+        )
+        self.lbl_cpu.config(
+            text=f"CPU     : {cpu:.1f} %",
+            fg=self._color_for_cpu(cpu),
         )
         self.lbl_throttle.config(
             text=f"Throttle: {throttle}",
