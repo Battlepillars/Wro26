@@ -11,3 +11,10 @@ src/pi/capture/
 src/pi/capture - Kopie/
 src/pi/logs/
 logs/
+
+# PlatformIO
+src/stm32/.pio/
+src/stm32/.pioenvs/
+src/stm32/.piolibdeps/
+src/stm32/.vscode/launch.json
+src/stm32/.vscode/c_cpp_properties.json
