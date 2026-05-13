@@ -106,7 +106,9 @@ def controllLoop(parser,cam):
     parser.startTime = time.time()
     if stop_event.is_set():
         return
-    parser.setLowVoltageCheck(True)
+    
+    parser.resetGyro()
+
     # dC.driveDist(0.2,90,1000)
     # openChallenge.clockwise(parser, dC)
     # obstacleChallenge.clockwise(parser, dC, cam)

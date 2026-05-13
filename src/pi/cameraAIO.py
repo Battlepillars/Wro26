@@ -194,7 +194,7 @@ class Camera():
                 # break
                 
         if (len(self.blocksCy) == 0):
-            return self.parser.RED
+            return None
         
         lowestIndex = max(range(len(self.blocksCy)), key=self.blocksCy.__getitem__)
         cX = self.blocksCx[lowestIndex]
@@ -385,7 +385,7 @@ class Camera():
                 self.blocksColor.append(self.parser.RED)
                 print("Red at: ", cX, cY)
         if (len(self.blocksCx) == 0):
-            return self.parser.RED
+            return None
         if (regionNum == 1 or regionNum == 3):
             index = max(range(len(self.blocksCx)), key=self.blocksCx.__getitem__)
         else:

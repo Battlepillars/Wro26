@@ -1,6 +1,8 @@
 import serial # type: ignore
 import subprocess
 import time
+import os
+import json
 import board # type: ignore
 import busio # type: ignore
 import adafruit_bno055 # type: ignore
@@ -41,9 +43,18 @@ class Parser:
         self.obstacles = []
         self.currentCommand = ""
         self.obstacles = [None for _ in range(12)]
+        self.lastHeading = 0
+        self.heading = 0
 
-        i2c = busio.I2C(board.SCL, board.SDA)
-        self.gyro = adafruit_bno055.BNO055_I2C(i2c, address=0x28)
+
+        self.i2c = busio.I2C(board.SCL, board.SDA)
+        self.gyro = adafruit_bno055.BNO055_I2C(self.i2c, address=0x28)
+
+
+        while not self.calibDone():
+            print("Waiting for gyro calibration:", self.gyro.calibration_status)
+            time.sleep(0.5)
+
 
         self.ser = serial.Serial()
         self.ser.port = "/dev/ttyAMA0"
@@ -52,6 +63,41 @@ class Parser:
         self.ser.stopbits = serial.STOPBITS_ONE
         self.ser.parity = serial.PARITY_NONE
         self.ser.open()
+
+
+    def calibDone(self):
+        _, gyroCalibration, _, magnetometerCalibration = self.gyro.calibration_status
+        return gyroCalibration == 3
+
+    def getHeading(self):
+        if not hasattr(self, 'gyro') or self.gyro is None:
+            return 0
+        
+        newHeading = self.gyro.euler[0]
+        diff=newHeading - self.lastHeading
+        if diff < -300:
+            diff += 360
+        elif diff > 300:
+            diff -= 360
+
+        if (diff>0):
+            diff *= 1
+        else:
+            diff /= 1
+        self.heading += diff
+        self.lastHeading = newHeading
+
+        return self.heading
+    def resetGyro(self):
+        del self.gyro
+        self.lastHeading = 0
+        self.heading=0
+        self.gyro = adafruit_bno055.BNO055_I2C(self.i2c, address=0x28)
+        self.gyro.mode = adafruit_bno055.IMUPLUS_MODE
+        while not self.calibDone():
+            print("Waiting for gyro calibration:", self.gyro.calibration_status)
+            time.sleep(0.1)
+        
 
     def checkSection(self, section):
         for i in range(3):
@@ -80,7 +126,7 @@ class Parser:
         # bigger nummer = more left
 
         # servoTrim = 0.1    # battlecart 1
-        servoTrim = 4.5    # battlecart 2
+        servoTrim = 5.5    # battlecart 2
         angle += servoTrim
         self.send("servo,"+str(angle)+"\n")
     
@@ -263,6 +309,7 @@ class Parser:
                     self.voltage = float(inputString[1])
                     self.lowVoltage = True
                     time.sleep(4)
+
                     call("sudo shutdown -h now", shell=True)
             except:
                 print("\n!!!! Parsing Error !!!!\n")
