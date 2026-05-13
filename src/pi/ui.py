@@ -121,7 +121,7 @@ class Ui:
 
             texts = [
                 self.font.render(f"{parser.voltage/3:.1f}v CPU: " + self.cpu_usage + " Temp: " + self.cpu_temp , True, green, blue),
-                self.font.render(f"Speed: {parser.speed:.2f} Head: {parser.getHeading():.0f}", True, green, blue),
+                self.font.render(f"Speed: {parser.speed:.2f} Head: {parser.getHeading():.2f}", True, green, blue),
                 self.font.render(f"Distance: {parser.distance:.0f}", True, green, blue),
                 self.font.render("Captures: "+ str(parser.sensorCaptures[0])+" / "+str(parser.sensorCaptures[1])+" / "+str(parser.sensorCaptures[2])+" / "+str(parser.sensorCaptures[3])+" / "+str(parser.sensorCaptures[4])+" / "+str(parser.sensorCaptures[5]), True, green, blue),
                 self.font.render(f"Time: {printTime:.1f}s", True, green, blue),

@@ -80,11 +80,23 @@ class Parser:
         elif diff > 300:
             diff -= 360
 
-        if (diff>0):
-            diff *= 1
-        else:
-            diff /= 1
+        cal=1.0041667 # calibration factor to match the heading with the real rotation of the robot. (360/358.5)
+                      # was calculated by comparing the gyro heading with the actual rotation of the robot. 
+                      # The robot was rotated 10 times and the average difference between the gyro heading and the
+                      # actual rotation was calculated to be 1.5 degrees per 360 degrees of rotation. This factor is used to correct the heading calculation.
+
+        # if (diff>0):
+        #     diff *= cal
+        # else:
+        #     diff /= cal
+
+        diff *= cal     # the gyro turns not enough in  both directions, so the factor is applied to both positive and negative differences.
+
         self.heading += diff
+        if (self.heading < 0):
+            self.heading += 360 
+        elif (self.heading >= 360):
+            self.heading -= 360
         self.lastHeading = newHeading
 
         return self.heading
