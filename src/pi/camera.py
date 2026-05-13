@@ -43,12 +43,28 @@ class Camera():
         self.picam2 = Picamera2()
         self.picam2.set_controls({'HdrMode': libcamera.controls.HdrModeEnum.SingleExposure})
         resolution = (1536, 1152)
+        self.ySize = resolution[1]
         self.config = self.picam2.create_still_configuration(transform=Transform(vflip=False,hflip=False),main={"size": resolution})   #hflip=True
         self.picam2.configure(self.config)
         #self.picam2.switch_mode_and_capture_array(self.config, delay=10)
         self.picam2.start()
     
-    def captureImage(self, checkHeightNear = False, leftDist = 0, rightDist = 0, upDist = 0):
+    def getNearestObstacle(self, useOldPicture = False):
+        distances={ 200 : 400,
+                    300 : 600,
+                    400 : 800,
+                    500 : 1000,
+                    600 : 1200,
+                    700 : 1400,
+                    800 : 1600,
+                    900 : 1800,
+                    1000: 2000 }
+        self.captureImage(downDistList=400, useOldPicture=useOldPicture)
+        # distance = distances[positon]color, positon = 200 ,300, 400, 500, 600, 700, 800, 900, 1000
+        
+        # print("Nearest obstacle color:", color, "position:", positon, "distance:", distance)
+    
+    def captureImage(self, checkHeightNear = False, leftDist = 0, rightDist = 0, upDist = 0, downDistList = [-1], useOldPicture = False):
         """@brief Capture frame, extract scan band, detect RED/GREEN blobs.
 
         Performs blur, HSV conversion, masking for color ranges (including
@@ -57,125 +73,156 @@ class Camera():
         @param leftDist float Distance to left wall, used to shift scan band right.
         @param rightDist float Distance to right wall, used to shift scan band left.
         @param upDist float Distance to ceiling, used to lower scan band.
+        @param downDistList list of float Distances to floor, used to raise scan band.
         @return None (populates blocksAngle/blocksColor + imgCam for drawing)
         """
         if self.parser.endTime != 0:
             print("\n\n\nCapture skipped: Challenge ended.\n\n\n")
             return None
-        if not self.parser.debugCam:
-            print(f"Capturing image with leftDist={leftDist}, rightDist={rightDist}, upDist={upDist}")
         timeStart = time.time()
         self.blocksAngle = []
         self.blocksColor = []
         self.blocksAngleDraw = []
         self.blocksColorDraw = []
-        imgclear = self.picam2.capture_array()
+        if not useOldPicture:
+            imgclear = self.picam2.capture_array()
+            imgOriginal = imgclear.copy()
+        else:
+            imgclear = cv.imread(f'capture/imgclear{0}.jpg')
+            if imgclear is None:
+                print("Error: could not read capture/imgclear0.jpg")
+                return None
+        
         # print(time.time()-timeStart)
         imgIn = cv.blur(imgclear,(10,10))
-        checkHeight=30
-        if upDist > 300:
-            upDist = 300
-        checkHeightStart = 680 + int(upDist)    #644     # smaller number    -> balken weiter oben
-        checkWidth = 1535 - int(rightDist)               # smaller number    -> balken startet weiter links
-        checkWidthStart = 0 + int(leftDist)              # bigger number     -> balken startet weiter rechts
-        result = None
-        
-        
-        if checkHeightNear:
-            checkHeightStart += 150
-        
-        checkEnd=checkHeightStart+checkHeight
-        
         hsv = cv.cvtColor(imgIn, cv.COLOR_RGB2HSV)
         cv.imwrite(f'capture/hsvGanz{self.pictureNum}.jpg', hsv)
-        imgIn = imgIn[checkHeightStart:checkEnd, checkWidthStart:checkWidth]
-
-        hsv = cv.cvtColor(imgIn, cv.COLOR_RGB2HSV)
-        img = cv.cvtColor(imgIn, cv.COLOR_BGR2RGB)
         imgclear = cv.cvtColor(imgclear, cv.COLOR_BGR2RGB)
-
-        assert hsv is not None, "HSV color conversion failed"
-
-        # in photo shop: rgb -> vsh
+        result = None
         
-        # lower boundary RED color range values; Hue (0 - 10)
-        lower1 = np.array([0, 190, 190])
-        upper1 = np.array([10, 255, 255])
-        
-        # upper boundary RED color range values; Hue (160 - 180)
-        lower2 = np.array([160,100,20])
-        upper2 = np.array([179,255,255])
-        
-        lower_mask = cv.inRange(hsv, lower1, upper1)
-        upper_mask = cv.inRange(hsv, lower2, upper2)
+        checkHeight=30
+        if not isinstance(downDistList, list):
+            downDistList = [downDistList]
+        for i in range(len(downDistList)):
+            downDist = downDistList[i]
+            
+            if not self.parser.debugCam and downDist >= 0:
+                print(f"Capture {self.pictureNum}: Number:{i} with leftDist={leftDist}, rightDist={rightDist}, upDist={upDist}, downDist={downDistList[i]}")
+            else:
+                print(f"Capture {self.pictureNum}: with leftDist={leftDist}, rightDist={rightDist}, upDist={upDist}, downDist={downDistList[i]}")
+            
+            if downDist >= 0:
+                downDist = self.ySize - downDist - checkHeight
+            
+            if upDist > 300:
+                upDist = 300
+            checkHeightStart = 400 + int(upDist)    #644     # smaller number    -> balken weiter oben
+            if downDist >= 0:
+                checkHeightStart = int(downDist)             # bigger number    -> balken weiter oben
+            checkWidth = 1535 - int(rightDist)               # smaller number    -> balken startet weiter links
+            checkWidthStart = 0 + int(leftDist)              # bigger number     -> balken startet weiter rechts
 
-        maskred = lower_mask + upper_mask
+            
+            if checkHeightNear:
+                checkHeightStart += 150
+            
+            checkEnd=checkHeightStart+checkHeight
+            imgIntemp = imgIn[checkHeightStart:checkEnd, checkWidthStart:checkWidth]
 
-        lowerGreen = np.array([35, 100, 20])
-        upperGreen = np.array([95, 255, 255])
+            hsv = cv.cvtColor(imgIntemp, cv.COLOR_RGB2HSV)
+            img = cv.cvtColor(imgIntemp, cv.COLOR_BGR2RGB)
+            
 
-        maskgreen = cv.inRange(hsv, lowerGreen, upperGreen)
+            assert hsv is not None, "HSV color conversion failed"
+
+            # in photo shop: rgb -> vsh
+            
+            # lower boundary RED color range values; Hue (0 - 10)
+            lower1 = np.array([0, 190, 190])
+            upper1 = np.array([10, 255, 255])
+            
+            # upper boundary RED color range values; Hue (160 - 180)
+            lower2 = np.array([160,100,20])
+            upper2 = np.array([179,255,255])
+            
+            lower_mask = cv.inRange(hsv, lower1, upper1)
+            upper_mask = cv.inRange(hsv, lower2, upper2)
+
+            maskred = lower_mask + upper_mask
+
+            lowerGreen = np.array([35, 100, 20])
+            upperGreen = np.array([95, 255, 255])
+
+            maskgreen = cv.inRange(hsv, lowerGreen, upperGreen)
 
 
-        # Bitwise-AND mask and original image
-        res = cv.bitwise_and(img, img, mask=maskred)
-        res2 = cv.bitwise_and(img, img, mask=maskgreen)
+            # Bitwise-AND mask and original image
+            res = cv.bitwise_and(img, img, mask=maskred)
+            res2 = cv.bitwise_and(img, img, mask=maskgreen)
 
-        cntsgreen = cv.findContours(maskgreen.copy(), cv.RETR_EXTERNAL,cv.CHAIN_APPROX_SIMPLE)
-        cntsred = cv.findContours(maskred.copy(), cv.RETR_EXTERNAL,cv.CHAIN_APPROX_SIMPLE)
+            cntsgreen = cv.findContours(maskgreen.copy(), cv.RETR_EXTERNAL,cv.CHAIN_APPROX_SIMPLE)
+            cntsred = cv.findContours(maskred.copy(), cv.RETR_EXTERNAL,cv.CHAIN_APPROX_SIMPLE)
 
-        cntsred = imutils.grab_contours(cntsred)
-        cntsgreen = imutils.grab_contours(cntsgreen)
+            cntsred = imutils.grab_contours(cntsred)
+            cntsgreen = imutils.grab_contours(cntsgreen)
 
-        cv.line(imgclear,(checkWidthStart,checkEnd),(checkWidth+1,checkEnd),(255,0,0),2)
-        cv.line(imgclear,(checkWidthStart,checkHeightStart),(checkWidth+1,checkHeightStart),(255,0,0),2)
-        
-        mid = 788       # This value sets the midpoint of the image, which is used as a reference to calculate the angle of detected blocks.
-        split  = 19.12  # This value is used to scale the difference between the midpoint of the image and the x-coordinate of the detected block's center to calculate the angle.
-        
-        for c in cntsgreen:
-            # compute the center of the contour
-            M = cv.moments(c)
-            if M["m00"] != 0:
-                cX = int(M["m10"] / M["m00"])
-                cY = int(M["m01"] / M["m00"])
-                # draw the contour and center of the shape on the image
-                cv.drawContours(imgclear, [c], -1, (0, 255, 0), 2)
-                cv.line(imgclear,(cX,0),(cX,846),(0,255,0),3)
-                cv.circle(imgclear, (cX, cY), 7, (0, 255, 0), -1)
-                
-                #print("Green at: ", (mid - cX) / split)
-                self.blocksAngle.append((mid - cX) / split)
-                self.blocksColor.append(self.parser.GREEN)
-                self.blocksAngleDraw.append((mid - cX) / split)
-                self.blocksColorDraw.append(self.parser.GREEN)
-                result = self.parser.GREEN
+            cv.line(imgclear,(checkWidthStart,checkEnd),(checkWidth+1,checkEnd),(255,0,0),2)
+            cv.line(imgclear,(checkWidthStart,checkHeightStart),(checkWidth+1,checkHeightStart),(255,0,0),2)
+            
+            mid = 788       # This value sets the midpoint of the image, which is used as a reference to calculate the angle of detected blocks.
+            split  = 19.12  # This value is used to scale the difference between the midpoint of the image and the x-coordinate of the detected block's center to calculate the angle.
+            
+            for c in cntsgreen:
+                # compute the center of the contour
+                M = cv.moments(c)
+                if M["m00"] != 0:
+                    cX = int(M["m10"] / M["m00"])
+                    cY = int(M["m01"] / M["m00"])
+                    # draw the contour and center of the shape on the image
+                    cv.drawContours(imgclear, [c], -1, (0, 255, 0), 2)
+                    cv.line(imgclear,(cX,0),(cX,846),(0,255,0),3)
+                    cv.circle(imgclear, (cX, cY), 7, (0, 255, 0), -1)
+                    
+                    #print("Green at: ", (mid - cX) / split)
+                    self.blocksAngle.append((mid - cX) / split)
+                    self.blocksColor.append(self.parser.GREEN)
+                    self.blocksAngleDraw.append((mid - cX) / split)
+                    self.blocksColorDraw.append(self.parser.GREEN)
+                    # result = self.parser.GREEN
+                    # break
 
-        for c in cntsred:
-            # compute the center of the contour
-            M = cv.moments(c)
-            if M["m00"] != 0:
-                cX = int(M["m10"] / M["m00"])
-                cY = int(M["m01"] / M["m00"])
-                # draw the contour and center of the shape on the image
-                cv.drawContours(imgclear, [c], -1, (0, 255, 0), 2)
-                cv.line(imgclear,(cX,0),(cX,846),(0,0,255),3)
-                cv.circle(imgclear, (cX, cY), 7, (0, 0, 255), -1)
-                
-                #print("Red at: ", (mid - cX) / split)
-                self.blocksAngle.append((mid - cX) / split)
-                self.blocksColor.append(self.parser.RED)
-                self.blocksAngleDraw.append((mid - cX) / split)
-                self.blocksColorDraw.append(self.parser.RED)
-                result = self.parser.RED
-        
+            for c in cntsred:
+                # compute the center of the contour
+                M = cv.moments(c)
+                if M["m00"] != 0:
+                    cX = int(M["m10"] / M["m00"])
+                    cY = int(M["m01"] / M["m00"])
+                    # draw the contour and center of the shape on the image
+                    cv.drawContours(imgclear, [c], -1, (0, 255, 0), 2)
+                    cv.line(imgclear,(cX,0),(cX,846),(0,0,255),3)
+                    cv.circle(imgclear, (cX, cY), 7, (0, 0, 255), -1)
+                    
+                    #print("Red at: ", (mid - cX) / split)
+                    self.blocksAngle.append((mid - cX) / split)
+                    self.blocksColor.append(self.parser.RED)
+                    self.blocksAngleDraw.append((mid - cX) / split)
+                    self.blocksColorDraw.append(self.parser.RED)
+                    # result = self.parser.RED
+                    # break
+            if result is not None:
+                if downDist >= 0:
+                    result = result, downDistList[i]
+                break
+            
         cv.imwrite(f'capture/hsvStreifen{self.pictureNum}.jpg', hsv)
         cv.imwrite(f'capture/capture{self.pictureNum}.jpg', imgclear)
-        # cv.imwrite('capture/imgclear.jpg', imgclear)
+        if not useOldPicture:
+            cv.imwrite(f'capture/imgclear{self.pictureNum}.jpg', imgOriginal)
         self.imgCam = imgclear
         self.pictureNum = self.pictureNum+1
         # print(time.time()-timeStart)
         # print()
+        
         return result
 
 
