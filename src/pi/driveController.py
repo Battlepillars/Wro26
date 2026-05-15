@@ -111,8 +111,13 @@ class DriveController:
         self.targetSpeed = speed
     
     def setTargetHeading(self, heading):
-        """Normalize a heading into the current section's frame and clamp it to [-180, 180]."""
-        heading += self.section*-90         # rotating to match current section
+        """Normalize a heading into the current section and clamp it to [-180, 180]."""
+        
+        if self.parser.Direction == self.parser.CW:      # rotating to match current section
+            heading = -heading + self.section*90   
+        else:
+            heading += self.section*-90       
+        
         while heading > 180:
             heading -= 360
         while heading < -180:
@@ -127,20 +132,61 @@ class DriveController:
     def customTurn(self, speed, angle, dist):
         """Drive a fixed steering angle until the requested travel distance has been covered."""
         self.setCommand("customTurn")
-        if (dist>0):
-            self.setSpeed(speed)
-        else:
-            self.setSpeed(-speed)
-        
+        self.setSpeed(speed)
         self.parser.setSteer(angle)
         
         startDist = self.parser.distance
         
-        while abs(self.parser.distance-startDist) < abs(dist) and not self.stop_event.is_set():
+        while abs(self.parser.distance-startDist) < dist and not self.stop_event.is_set():
             self.logStuff(f"CustomTurn: Angle: {angle}, Dist: {dist}, CurrenDist: {self.parser.distance-startDist:.0f}")
             self.calcAccel(False)
         if self.end():
             return
+    
+    
+    def tightTurn(self, speed, heading, turnDir = auto):
+        """Turn tight toward a target with maximum steering, slowing down as it approaches the target heading."""
+        self.setCommand("Tight turn")
+        self.setSpeed(speed)
+        self.setTargetHeading(heading)
+        self.turnDir = turnDir
+        
+        errorAngle = 500
+
+        self.logStuff(f"Quick Turn: Error:{errorAngle:.0f}, Speed:{self.parser.speed:.2f}, Target heading:{self.targetHeading}")
+
+        while abs(errorAngle) > 5 and not self.stop_event.is_set():
+            errorAngle = self.parser.getHeading() - self.targetHeading
+            
+            while errorAngle > 180:
+                errorAngle -= 360
+            while errorAngle < -180:
+                errorAngle += 360
+            
+            if (errorAngle>0) ==(speed>0):
+                self.parser.setSteer(180)
+            else:                
+                self.parser.setSteer(0)
+            
+            mySpeed=speed
+            
+            if abs(errorAngle) < 60:
+                mySpeed = speed*(abs(errorAngle-20)/40)
+            if abs(errorAngle) < 25:
+                mySpeed = 0.1 * (speed/abs(speed))
+            if abs(errorAngle) < 10:
+                mySpeed = 0.05 * (speed/abs(speed))
+            if abs(mySpeed) < 0.05:
+                mySpeed = 0.05 * (speed/abs(speed))
+            self.setSpeed(mySpeed)
+            self.logCountetr += 1
+            if self.logCountetr %3==0 or True:
+                self.logStuff(f"Tight Turn: Error:{errorAngle:.0f},  Speed:{mySpeed:.2f}, Actual Speed:{self.parser.speed:.2f}, Target heading:{self.targetHeading}")
+            
+            self.calcAccel(False,0)
+
+        if self.end():
+            return    
     
     def quickTurn(self, speed, heading, turnDir = auto):
         """Turn aggressively toward a target heading, switching to PID steering near the target."""
@@ -212,7 +258,7 @@ class DriveController:
         if self.end():
             return
     
-    def driveToWall(self, speed, heading, dist, wallDir = frontWall, bigVisionRange = False):
+    def driveToWall(self, speed, heading, dist, minDist = 0, wallDir = frontWall, bigVisionRange = False):
         """Drive toward a wall until camera depth reports the requested clearance."""
         self.setCommand("driveToWall")
         self.setSpeed(speed)
@@ -228,7 +274,7 @@ class DriveController:
                 val = self.getDist([3,4],3,wallDir)
             
             self.logCountetr += 1
-            if val > 0:
+            if val > 0 and val >= minDist:
                 lastVal = val
             if lastVal is not None: #self.logCountetr %3==0 and 
                 self.logStuff(f"ToWall: {lastVal:.0f}, Dist: {dist}, Heading:{heading}")
@@ -243,14 +289,12 @@ class DriveController:
         
         
         noWallCount = 0
-        pos1 = 3+4*8
-        pos2 = 4+4*8
-        val = max(self.parser.camValues[wallDir][pos1],self.parser.camValues[wallDir][pos2])
+        val = self.getDist([3,4],3,wallDir)
         
         
         while noWallCount < 3 and not self.stop_event.is_set():
             self.calcAccel()
-            val = max(self.parser.camValues[wallDir][pos1],self.parser.camValues[wallDir][pos2])
+            val = self.getDist([3,4],3,wallDir)
         
             if val <= 0 or val > dist:
                 noWallCount += 1
@@ -290,7 +334,7 @@ class DriveController:
         startDist = self.parser.distance
         self.setSpeed(speed)
         self.setTargetHeading(heading)
-        while self.parser.distance-startDist < dist and not self.stop_event.is_set():
+        while abs(self.parser.distance - startDist) < dist and not self.stop_event.is_set():
             self.logStuff(f"DriveDist: Dist: {dist}, CurrenDist: {self.parser.distance-startDist:.0f}, Heading: {heading}")
             self.calcAccel()
         if self.end():
@@ -319,7 +363,7 @@ class DriveController:
             return
         
 
-    def calcAccel(self, steer = True, pid = 0):
+    def calcAccel(self, steer = True, pid = 0,customAcc=0, customDeacc=0):
         """Run one control cycle: rate-limit, ramp speed, and optionally update steering PID output."""
         lastCycleTime = time.time() - self.lastTime
         frq = 0.01
@@ -328,6 +372,12 @@ class DriveController:
             time.sleep(frq-lastCycleTime)
         self.lastTime = time.time()
 
+        myAcc=self.acceleration
+        myDeacc=self.deacceleration
+        if customAcc != 0:
+            myAcc = customAcc
+        if customDeacc != 0:
+            myDeacc = customDeacc
 
         if steer:
             errorAngle = -self.targetHeading + self.parser.getHeading()
@@ -343,29 +393,32 @@ class DriveController:
                 outputSteer = -(self.pidSteer2.compute(errorAngle,1))+90
 
         if self.setpoint < self.targetSpeed and self.setpoint >= 0:     # nach vorne Beschleunigen
-            self.setpoint += self.acceleration * frq
+            self.setpoint += myAcc * frq
             if self.setpoint > self.targetSpeed:
                 self.setpoint = self.targetSpeed
         
         elif self.setpoint > self.targetSpeed and self.setpoint <= 0:   # nach hinten Beschleunigen
-            self.setpoint -= self.acceleration * frq
+            self.setpoint -= myAcc * frq
             if self.setpoint < self.targetSpeed:
                 self.setpoint = self.targetSpeed
         
         elif self.setpoint < self.targetSpeed and self.setpoint <= 0:   # nach hinten Bremsen
-            self.setpoint += self.deacceleration * frq
+            self.setpoint += myDeacc * frq
             if self.setpoint > self.targetSpeed:
                 self.setpoint = self.targetSpeed
         
         elif self.setpoint > self.targetSpeed and self.setpoint >= 0:   # nach vorne Bremsen
-            self.setpoint -= self.deacceleration * frq
+            self.setpoint -= myDeacc * frq
             if self.setpoint < self.targetSpeed:
                 self.setpoint = self.targetSpeed
         
         if not self.stop_event.is_set():
             self.parser.setSpeed(self.setpoint)
             if steer:
-                self.parser.setSteer(outputSteer)
+                if self.targetSpeed >= 0:
+                    self.parser.setSteer(outputSteer)
+                else:
+                    self.parser.setSteer(180-outputSteer)
 
 
 class PIDController:

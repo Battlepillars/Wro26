@@ -9,19 +9,25 @@ class Logger:
         self._file = open(self._next_log_path(), "w", encoding="utf-8")
         print(f"Logging to {self._file.name}")
 
+    MAX_LOGS = 10
+
     def _next_log_path(self) -> str:
+        # Shift existing logs up by one (log_1 → log_2, …), drop any beyond MAX_LOGS
         existing = [
             f for f in os.listdir(self.LOG_DIR)
             if f.startswith("log_") and f.endswith(".txt")
         ]
-        numbers = []
-        for name in existing:
-            try:
-                numbers.append(int(name[4:-4]))
-            except ValueError:
-                pass
-        next_num = max(numbers, default=0) + 1
-        return os.path.join(self.LOG_DIR, f"log_{next_num}.txt")
+        numbers = sorted(
+            (int(name[4:-4]) for name in existing if name[4:-4].isdigit()),
+            reverse=True,
+        )
+        for n in numbers:
+            src = os.path.join(self.LOG_DIR, f"log_{n}.txt")
+            if n + 1 > self.MAX_LOGS:
+                os.remove(src)
+            else:
+                os.rename(src, os.path.join(self.LOG_DIR, f"log_{n + 1}.txt"))
+        return os.path.join(self.LOG_DIR, "log_1.txt")
 
     def log(self, message: str):
         self._file.write(message + "\n")

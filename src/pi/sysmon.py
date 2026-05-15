@@ -99,11 +99,11 @@ class SysMonApp:
         root.wm_attributes("-topmost", True)
         root.wm_attributes("-alpha", 0.88)
 
-        # Position at top-left with a small margin
-        root.geometry("+4+4")
-
         # Remove window decorations for a minimal overlay feel
         root.overrideredirect(True)
+
+        # Position at bottom-right after the window has been rendered
+        root.after(0, self._position_bottom_right)
 
         self.lbl_temp     = tk.Label(root, font=self.FONT, bg=self.BG, anchor="w", width=22)
         self.lbl_cpu      = tk.Label(root, font=self.FONT, bg=self.BG, anchor="w", width=22)
@@ -122,6 +122,16 @@ class SysMonApp:
         root.bind("<ButtonRelease-3>",  lambda _: root.destroy())
 
         self._update()
+
+    def _position_bottom_right(self):
+        self.root.update_idletasks()
+        sw = self.root.winfo_screenwidth()
+        sh = self.root.winfo_screenheight()
+        ww = self.root.winfo_reqwidth()
+        wh = self.root.winfo_reqheight()
+        x = sw - ww - 4
+        y = sh - wh - 4
+        self.root.geometry(f"+{x}+{y}")
 
     def _color_for_temp(self, t: float) -> str:
         if t >= 80:

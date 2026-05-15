@@ -6,8 +6,8 @@ import json
 import board # type: ignore
 import busio # type: ignore
 import adafruit_bno055 # type: ignore
-
 from subprocess import call
+from gyro85 import gyroBNO085
 
 
 class Parser:
@@ -21,6 +21,8 @@ class Parser:
     backSensor = 3
     angleRightSensor = 4
     angleLeftSensor = 5
+    CW = 0
+    CCW = 1
     
     def __init__(self):
         for i in range(self.amountSensors):
@@ -45,11 +47,13 @@ class Parser:
         self.obstacles = [None for _ in range(12)]
         self.lastHeading = 0
         self.heading = 0
+        self.round = 0
+        self.Direction = Parser.CW
 
 
-        self.i2c = busio.I2C(board.SCL, board.SDA)
-        self.gyro = adafruit_bno055.BNO055_I2C(self.i2c, address=0x28)
-
+        # self.i2c = busio.I2C(board.SCL, board.SDA)
+        # self.gyro = adafruit_bno055.BNO055_I2C(self.i2c, address=0x28)
+        self.gyro85 = gyroBNO085()
 
         while not self.calibDone():
             print("Waiting for gyro calibration:", self.gyro.calibration_status)
@@ -66,13 +70,38 @@ class Parser:
 
 
     def calibDone(self):
-        _, gyroCalibration, _, magnetometerCalibration = self.gyro.calibration_status
-        return gyroCalibration == 3
+        return True
+        # _, gyroCalibration, _, magnetometerCalibration = self.gyro.calibration_status
+        # return gyroCalibration == 3
 
     def getHeading(self):
-        if not hasattr(self, 'gyro') or self.gyro is None:
-            return 0
+        # return self.gyro85.get_heading()
+    
+        # if not hasattr(self, 'gyro') or self.gyro is None:
+        #     return 0
         
+        # angle = self.gyro.euler[0]
+        angle = self.gyro85.get_heading()
+        
+        if angle is None:
+            angle = 0
+        
+        if self.Direction == self.CCW:
+            if self.round == 0:
+                angle += 0
+            elif self.round == 1:
+                angle += -3
+            elif self.round == 2:
+                angle += -6
+        else:
+            if self.round == 0:
+                angle += 0
+            elif self.round == 1:
+                angle += 2
+            elif self.round == 2:
+                angle += 4
+        
+        return angle
         newHeading = self.gyro.euler[0]
         diff=newHeading - self.lastHeading
         if diff < -300:
@@ -80,7 +109,7 @@ class Parser:
         elif diff > 300:
             diff -= 360
 
-        cal=1.0041667 # calibration factor to match the heading with the real rotation of the robot. (360/358.5)
+        cal=1.00 #1.0041667 # calibration factor to match the heading with the real rotation of the robot. (360/358.5)
                       # was calculated by comparing the gyro heading with the actual rotation of the robot. 
                       # The robot was rotated 10 times and the average difference between the gyro heading and the
                       # actual rotation was calculated to be 1.5 degrees per 360 degrees of rotation. This factor is used to correct the heading calculation.
@@ -101,17 +130,24 @@ class Parser:
 
         return self.heading
     def resetGyro(self):
-        del self.gyro
-        self.lastHeading = 0
-        self.heading=0
-        self.gyro = adafruit_bno055.BNO055_I2C(self.i2c, address=0x28)
-        self.gyro.mode = adafruit_bno055.IMUPLUS_MODE
-        while not self.calibDone():
-            print("Waiting for gyro calibration:", self.gyro.calibration_status)
-            time.sleep(0.1)
+        self.gyro85.reset_heading()
+        # del self.gyro
+        # self.lastHeading = 0
+        # self.heading=0
+        # self.gyro = adafruit_bno055.BNO055_I2C(self.i2c, address=0x28)
+        # self.gyro.mode = adafruit_bno055.IMUPLUS_MODE
+        # while not self.calibDone():
+        #     print("Waiting for gyro calibration:", self.gyro.calibration_status)
+        #     time.sleep(0.1)
         
 
-    def checkSection(self, section):
+    def checkSection(self, section, mirror = False):
+        if mirror:
+            if section == 1:
+                section = 3
+            elif section == 3:
+                section = 1
+        
         for i in range(3):
             if self.obstacles[i+section*3] != None:
                 return self.obstacles[i+section*3]
@@ -129,6 +165,26 @@ class Parser:
     def assignMultibelObstacles(self, section, obstacleType, obstacles = [0,1,2]):
         for i in range(len(obstacles)):
             self.obstacles[i+section*3] = obstacleType
+
+    def assignAllObstacles(self, colors: tuple):
+        if len(colors) == 4:
+            color1, color2, color3, color4 = colors
+        else: 
+            color1, color2, color3, color4, color4Left = colors
+        
+        if color4 is not None:
+            self.obstacles[0] = color4
+        else:
+            self.obstacles[2] = color4Left
+        self.assignMultibelObstacles(1, color1)
+        self.assignMultibelObstacles(2, color2)
+        self.assignMultibelObstacles(3, color3)
+        
+    def assignAllObstaclesCustom(self, color4, color2, color3, color1):
+        self.assignMultibelObstacles(0, color4)
+        self.assignMultibelObstacles(1, color1)
+        self.assignMultibelObstacles(2, color2)
+        self.assignMultibelObstacles(3, color3)
 
     def setSpeed(self, speed):
         speed = speed*5.165/30*1000

@@ -1,3 +1,5 @@
+import os
+import shutil
 import time
 import cv2 as cv # type: ignore
 import numpy as np # type: ignore
@@ -40,6 +42,18 @@ class Camera():
         
         self.parser = parser
 
+        # Rotate capture folders: capture → capture1, capture1 → capture2, …
+        MAX_CAPTURE_DIRS = 10
+        for n in range(MAX_CAPTURE_DIRS, 0, -1):
+            src = "capture" + (str(n) if n > 1 else "")
+            dst = f"capture{n + 1}"
+            if os.path.isdir(src):
+                if n >= MAX_CAPTURE_DIRS:
+                    shutil.rmtree(src)
+                else:
+                    os.rename(src, dst)
+        os.makedirs("capture", exist_ok=True)
+
         self.picam2 = Picamera2()
         self.picam2.set_controls({'HdrMode': libcamera.controls.HdrModeEnum.SingleExposure})
         resolution = (1536, 1152)
@@ -60,7 +74,7 @@ class Camera():
         realColor = cv.imread(path)
         
         self.baseImage = cv.cvtColor(realColor, cv.COLOR_BGR2RGB)
-    def getObstacles2(self):
+    def getObstacles2(self, mask = [230,390, 300,1000]):
         """@brief Capture frame, extract scan band, detect RED/GREEN blobs.
 
         Performs blur, HSV conversion, masking for color ranges (including
@@ -121,8 +135,8 @@ class Camera():
 
         # Maske x: 500-1000, y: 300-800
         regionMask = np.zeros(hsv.shape[:2], dtype=np.uint8)
-        regionMask[230:390, 300:1000] = 255
-        #               y          x
+        regionMask[mask[0]:mask[1], mask[2]:mask[3]] = 255
+        #                 y                  x
  
 
         # Bitwise-AND mask and original image
@@ -164,16 +178,18 @@ class Camera():
                 cY = int(M["m01"] / M["m00"])
                 # draw the contour and center of the shape on the image
                 cv.drawContours(imgclear, [c], -1, (0, 255, 0), 2)
-                # cv.line(imgclear,(cX,0),(cX,846),(0,255,0),3)
+               
                 cv.circle(imgclear, (cX, cY), 7, (0, 255, 0), -1)
+                area = cv.contourArea(c)
                 
-                #print("Green at: ", (mid - cX) / split)
-                self.blocksCx.append(cX)
-                self.blocksCy.append(cY)
-                self.blocksColor.append(self.parser.GREEN)
-
-                # result = self.parser.GREEN
-                # break
+                cv.putText(imgclear, str(int(area)), (cX + 20, cY), cv.FONT_HERSHEY_SIMPLEX, 0.6, (0, 255, 0), 2)
+                
+                if area> 200:
+                    self.blocksCx.append(cX)
+                    self.blocksCy.append(cY)
+                    self.blocksColor.append(self.parser.GREEN)
+                print("Green at: ", cX, cY, "Area: ", area) 
+                
 
         for c in cntsred:
             # compute the center of the contour
@@ -181,19 +197,22 @@ class Camera():
             if M["m00"] != 0:
                 cX = int(M["m10"] / M["m00"])
                 cY = int(M["m01"] / M["m00"])
-                # draw the contour and center of the shape on the image
-                cv.drawContours(imgclear, [c], -1, (0, 255, 0), 2)
-                # cv.line(imgclear,(cX,0),(cX,846),(0,0,255),3)
-                cv.circle(imgclear, (cX, cY), 7, (0, 0, 255), -1)
                 
-                #print("Red at: ", (mid - cX) / split)
-                self.blocksCx.append(cX)
-                self.blocksCy.append(cY)
-                self.blocksColor.append(self.parser.RED)
-                # result = self.parser.RED
-                # break
+                cv.drawContours(imgclear, [c], -1, (0, 255, 0), 2)
+                
+                cv.circle(imgclear, (cX, cY), 7, (0, 0, 255), -1)
+                area = cv.contourArea(c)
+                
+                cv.putText(imgclear, str(int(area)), (cX + 20, cY), cv.FONT_HERSHEY_SIMPLEX, 0.6, (0, 0, 255), 2)
+                
+                if area> 200:
+                    self.blocksCx.append(cX)
+                    self.blocksCy.append(cY)
+                    self.blocksColor.append(self.parser.RED)
+                print("Red at: ", cX, cY, "Area: ", area)
                 
         if (len(self.blocksCy) == 0):
+            cv.imwrite(f'capture/{self.pictureNum}-9detection_result.jpg', imgclear)
             return None
         
         lowestIndex = max(range(len(self.blocksCy)), key=self.blocksCy.__getitem__)
@@ -210,28 +229,51 @@ class Camera():
         
         # Maske x: 500-1000, y: 300-800
         regionMask = np.zeros(self.baseImage.shape[:2], dtype=np.uint8)
-        regionMask[200:500, 300:1000] = 255
+        regionMask[250:550, 400:1150] = 255
         #           y          x    
-        return self.getObstacles(regionMask,650,490,1)
-        #                             x   y
+        return self.getObstacles(regionMask,650,540,1)
+        #                                    x   y
+    def getObstacles1b(self):
+        self.pictureNum += 1
+        # Maske x: 500-1000, y: 300-800
+        regionMask = np.zeros(self.baseImage.shape[:2], dtype=np.uint8) 
+        return self.getObstacles2([600,1000, 400,1150])
+        #      
     def getObstacles3(self):
         
         # Maske x: 500-1000, y: 300-800
         regionMask = np.zeros(self.baseImage.shape[:2], dtype=np.uint8)
-        regionMask[200:500, 320:1000] = 255
+        regionMask[200:450, 500:1400] = 255
         #           y          x
         
-        return self.getObstacles(regionMask,660,490,3)
+        return self.getObstacles(regionMask,800,440,3)
         #                             x   y
     def getObstacles4(self):
         self.pictureNum=4
         # Maske x: 500-1000, y: 300-800
         regionMask = np.zeros(self.baseImage.shape[:2], dtype=np.uint8)
-        regionMask[300:1100, 150:600] = 255
+        regionMask[250:900, 300:1150] = 255
         #           y          x
-        return self.getObstacles(regionMask,450,1090,4)
-        #                             x   y        
-    def getObstacles(self,regionMask,fillx,filly,regionNum):    
+        return self.getObstacles(regionMask,759,890,4)
+        #                                     x   y    
+    def getObstacles3b(self):
+        
+        # Maske x: 500-1000, y: 300-800
+        regionMask = np.zeros(self.baseImage.shape[:2], dtype=np.uint8)
+        regionMask[200:450, 500:1400] = 255
+        #           y          x
+        
+        return self.getObstacles(regionMask,800,440,3)
+        #                             x   y
+    def getObstacles4b(self):
+        self.pictureNum=5
+        # Maske x: 500-1000, y: 300-800
+        regionMask = np.zeros(self.baseImage.shape[:2], dtype=np.uint8)
+        regionMask[320:700, 280:800] = 255
+        #           y          x
+        return self.getObstacles(regionMask,400,690,4,3500)
+        #                                     x   y 
+    def getObstacles(self,regionMask,fillx,filly,regionNum,minSize=200):    
         """@brief Capture frame, extract scan band, detect RED/GREEN blobs.
 
         Performs blur, HSV conversion, masking for color ranges (including
@@ -246,6 +288,7 @@ class Camera():
         self.blocksCx = []
         self.blocksCy = []
         self.blocksColor = []
+        self.blocksDist = []
 
         
         timeStart = time.time()
@@ -364,10 +407,16 @@ class Camera():
                 cv.drawContours(imgclear, [c], -1, (0, 255, 0), 2)
                 cv.circle(imgclear, (cX, cY), 7, (0, 255, 0), -1)
                 
-                self.blocksCx.append(cX)
-                self.blocksCy.append(cY)
-                self.blocksColor.append(self.parser.GREEN)
-                print("Green at: ", cX, cY)
+                area = cv.contourArea(c)
+                cv.putText(imgclear, str(int(area)), (cX + 20, cY), cv.FONT_HERSHEY_SIMPLEX, 0.6, (0, 0, 255), 2)
+                
+                if area> minSize:
+                    self.blocksCx.append(cX)
+                    self.blocksCy.append(cY)
+                    self.blocksColor.append(self.parser.GREEN)
+                    _h, _w = imgclear.shape[:2]
+                    self.blocksDist.append(((cX - _w // 2) ** 2 + (cY - _h) ** 2) ** 0.5)
+                print("Green at: ", cX, cY, "Area: ", area)
 
         for c in cntsred:
             # compute the center of the contour
@@ -379,17 +428,23 @@ class Camera():
                 cv.drawContours(imgclear, [c], -1, (0, 255, 0), 2)
                 # cv.line(imgclear,(cX,0),(cX,846),(0,0,255),3)
                 cv.circle(imgclear, (cX, cY), 7, (0, 0, 255), -1)
+                area = cv.contourArea(c)
+                cv.putText(imgclear, str(int(area)), (cX + 20, cY), cv.FONT_HERSHEY_SIMPLEX, 0.6, (0, 0, 255), 2)
                 
-                self.blocksCx.append(cX)
-                self.blocksCy.append(cY)
-                self.blocksColor.append(self.parser.RED)
-                print("Red at: ", cX, cY)
+                if area> minSize:
+                    self.blocksCx.append(cX)
+                    self.blocksCy.append(cY)
+                    self.blocksColor.append(self.parser.RED)
+                    _h, _w = imgclear.shape[:2]
+                    self.blocksDist.append(((cX - _w // 2) ** 2 + (cY - _h) ** 2) ** 0.5)
+                print("Red at: ", cX, cY, "Area: ", area)
         if (len(self.blocksCx) == 0):
+            cv.imwrite(f'capture/{self.pictureNum}-9detection_result.jpg', imgclear)
             return None
         if (regionNum == 1 or regionNum == 3):
             index = max(range(len(self.blocksCx)), key=self.blocksCx.__getitem__)
         else:
-            index = min(range(len(self.blocksCx)), key=self.blocksCx.__getitem__)
+            index = min(range(len(self.blocksDist)), key=self.blocksDist.__getitem__)
         cX = self.blocksCx[index]
         cY = self.blocksCy[index]
         color=self.blocksColor[index]
