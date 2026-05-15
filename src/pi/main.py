@@ -47,7 +47,7 @@ def main():
                 screen = pygame.display.set_mode((event.w, event.h), pygame.RESIZABLE)
             elif event.type == pygame.KEYDOWN:
                 if event.key == pygame.K_SPACE:   # stop driving
-                    manual = not manual
+                    manual = True
                     stop_event.set()
                     start_event.set()
                 if event.key == pygame.K_c:       # exit
@@ -91,7 +91,7 @@ def main():
         if manual:
             clock.tick(30)
         else:
-            clock.tick(3)
+            clock.tick(30)
     pygame.quit()
 
 def handle_kb_interrupt(sig, frame):
@@ -112,7 +112,9 @@ def controllLoop(parser,cam):
     # dC.driveDist(0.2,90,1000)
     # openChallenge.clockwise(parser, dC)
     # obstacleChallenge.clockwise(parser, dC, cam)
-    obstacleChallengeSingle.clockwise(parser, dC, cam)
+    # obstacleChallengeSingle.clockwise(parser, dC, cam)
+    # obstacleChallengeSingle.counterClockwise(parser, dC, cam)
+    obstacleChallengeSingle.obstacleChallengeSingle(parser, dC, cam)
     # camTest.test(parser, dC, cam)
     # cam.getNearestObstacle()
 

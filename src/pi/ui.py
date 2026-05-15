@@ -118,17 +118,41 @@ class Ui:
                 printTime = parser.endTime - parser.startTime
             else:
                 printTime = time.time() - parser.startTime
-
+            myHead= parser.getHeading()
+            if myHead>180:
+                myHead=myHead-360
             texts = [
                 self.font.render(f"{parser.voltage/3:.1f}v CPU: " + self.cpu_usage + " Temp: " + self.cpu_temp , True, green, blue),
-                self.font.render(f"Speed: {parser.speed:.2f} Head: {parser.getHeading():.2f}", True, green, blue),
+                self.font.render(f"Speed: {parser.speed:.2f} Head: {myHead:.2f}", True, green, blue),
                 self.font.render(f"Distance: {parser.distance:.0f}", True, green, blue),
                 self.font.render("Captures: "+ str(parser.sensorCaptures[0])+" / "+str(parser.sensorCaptures[1])+" / "+str(parser.sensorCaptures[2])+" / "+str(parser.sensorCaptures[3])+" / "+str(parser.sensorCaptures[4])+" / "+str(parser.sensorCaptures[5]), True, green, blue),
                 self.font.render(f"Time: {printTime:.1f}s", True, green, blue),
                 self.font.render("Command: " + parser.currentCommand, True, green, blue),
+                
             ]
             for i in range(len(texts)):
                 screen.blit(texts[i], (0,i*20+360))
+
+            # Section color indicators – compass layout (0=right, 1=top, 2=left, 3=bottom)
+            sec_y = len(texts) * 20 + 360
+            # sec_label = self.font.render("Sections:", True, green, blue)
+            # screen.blit(sec_label, (0, sec_y))
+            _sec_palette = {
+                0: (220, 50,  50),   # RED
+                1: (50,  220, 50),   # GREEN
+            }
+            _cx, _cy, _sq = 550, sec_y - 50, 25
+            # Precomputed top-left offsets per section relative to _cx/_cy
+            # (r=28, sq=20): right, top, left, bottom
+            _sec_offsets = [(-10, 18), (18, -10), (-10, -38), (-38, -10)]
+            for sec in range(4):
+                dx, dy = _sec_offsets[sec]
+                px, py = _cx + dx, _cy + dy
+                col = parser.checkSection(sec)
+                rect_color = _sec_palette.get(col, (80, 80, 80))
+                pygame.draw.rect(screen, rect_color, (px, py, _sq, _sq))
+                num = self.font.render(str(sec), True, (0, 0, 0))
+                screen.blit(num, (px + 4, py))
         else:
             self.drawCounter += 1
             if self.drawCounter >= 10:
