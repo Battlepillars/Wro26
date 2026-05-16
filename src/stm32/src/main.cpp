@@ -225,10 +225,10 @@ void setup()
   initVL53(&sensor_vl53l8cx_top3,30);
   Serial1.println("***              CS4 ");
   initVL53(&sensor_vl53l8cx_top4,30);
-  Serial1.println("***              CS5 ");
-  initVL53(&sensor_vl53l8cx_top5,30);
-  Serial1.println("***              CS6 ");
-  initVL53(&sensor_vl53l8cx_top6,30);
+  // Serial1.println("***              CS5 ");
+  // initVL53(&sensor_vl53l8cx_top5,30);
+  // Serial1.println("***              CS6 ");
+  // initVL53(&sensor_vl53l8cx_top6,30);
  
   servo.attach(PA5);
 }
@@ -355,8 +355,8 @@ void loop()
   static VL53L8CX_ResultsData results2;
   static VL53L8CX_ResultsData results3;
   static VL53L8CX_ResultsData results4;
-  static VL53L8CX_ResultsData results5;
-  static VL53L8CX_ResultsData results6;
+  // static VL53L8CX_ResultsData results5;
+  // static VL53L8CX_ResultsData results6;
 
   int s1=0;
   int s2=0;
@@ -374,8 +374,8 @@ void loop()
     s3=update(&sensor_vl53l8cx_top3, &results3);
   // if ((d+2)%3==0)
     s4=update(&sensor_vl53l8cx_top4, &results4);
-    s5=update(&sensor_vl53l8cx_top5, &results5);
-    s6=update(&sensor_vl53l8cx_top6, &results6);
+    // s5=update(&sensor_vl53l8cx_top5, &results5);
+    // s6=update(&sensor_vl53l8cx_top6, &results6);
   if (s1>0)
     printSensorData(1,&results1);
   if (s2>0)
@@ -384,10 +384,10 @@ void loop()
     printSensorData(3,&results3);
   if (s4>0)
     printSensorData(4,&results4);
-  if (s5>0)
-    printSensorData(5,&results5);
-  if (s6>0)
-    printSensorData(6,&results6);
+  // if (s5>0)
+  //   printSensorData(5,&results5);
+  // if (s6>0)
+  //   printSensorData(6,&results6);
 
   // if (s3>0)
   // {
