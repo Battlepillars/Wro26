@@ -271,7 +271,7 @@ class Camera():
         regionMask = np.zeros(self.baseImage.shape[:2], dtype=np.uint8)
         regionMask[320:700, 280:800] = 255
         #           y          x
-        return self.getObstacles(regionMask,400,690,4,3500)
+        return self.getObstacles(regionMask,400,690,4)
         #                                     x   y 
     def getObstacles(self,regionMask,fillx,filly,regionNum,minSize=200):    
         """@brief Capture frame, extract scan band, detect RED/GREEN blobs.

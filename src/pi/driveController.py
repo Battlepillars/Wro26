@@ -328,6 +328,41 @@ class DriveController:
         if self.end():
             return
     
+    def findeDirection(self, speed, heading):
+        """Follow a wall until the the wall is gone."""
+        self.setCommand("findeDirection")
+        self.setSpeed(speed)
+        self.setTargetHeading(heading)
+        
+        
+        noWallLeftCount = 0
+        noWallRightCount = 0
+        
+        
+        while noWallLeftCount < 1 and noWallRightCount < 1 and not self.stop_event.is_set():
+            self.calcAccel()
+            leftVal = self.getDist([3,4],3,self.leftWall)
+            rightVal = self.getDist([3,4],3,self.rightWall)
+            
+            if leftVal <= 0 or leftVal > 1000:
+                noWallLeftCount += 1
+            elif noWallLeftCount > 0:
+                noWallLeftCount -= 1
+
+            if rightVal <= 0 or rightVal > 1000:
+                noWallRightCount += 1
+            elif noWallRightCount > 0:
+                noWallRightCount -= 1
+
+            self.logStuff(f"Drive Along Wall: LeftVal: {leftVal:.0f}, RightVal: {rightVal:.0f}, NoWallLeftCount: {noWallLeftCount}, NoWallRightCount: {noWallRightCount}")
+        self.end()
+        if noWallLeftCount > noWallRightCount:
+            self.parser.Direction = self.parser.CCW
+            return self.leftWall
+        else:
+            self.parser.Direction = self.parser.CW
+            return self.rightWall
+    
     def driveDist(self, speed, heading, dist):
         """Drive straight for a measured encoder distance while holding the requested heading."""
         self.setCommand("driveDist")
