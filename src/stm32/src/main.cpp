@@ -48,10 +48,11 @@ int amountDividers = 0;
 #define CS_PIN2 PB1
 #define CS_PIN3 PB7
 #define CS_PIN4 PB6
-#define CS_PIN5 PA2
-#define CS_PIN6 PA3
-#define LED1 PA2
-#define LED2 PA3
+// #define CS_PIN5 PA2
+// #define CS_PIN6 PA3
+#define LED2 PB0
+#define LED1 PB2
+#define BUTTON PA2
 uint8_t status;
 #define BUSSPEED 1500000
 
@@ -61,9 +62,12 @@ VL53L8CX sensor_vl53l8cx_top1(&DEV_SPI, CS_PIN1, -1,  -1,  BUSSPEED);
 VL53L8CX sensor_vl53l8cx_top2(&DEV_SPI, CS_PIN2, -1,  -1,  BUSSPEED);
 VL53L8CX sensor_vl53l8cx_top3(&DEV_SPI, CS_PIN3, -1,  -1,  BUSSPEED);
 VL53L8CX sensor_vl53l8cx_top4(&DEV_SPI, CS_PIN4, -1,  -1,  BUSSPEED);
-VL53L8CX sensor_vl53l8cx_top5(&DEV_SPI, CS_PIN5, -1,  -1,  BUSSPEED);
-VL53L8CX sensor_vl53l8cx_top6(&DEV_SPI, CS_PIN6, -1,  -1,  BUSSPEED);
+// VL53L8CX sensor_vl53l8cx_top5(&DEV_SPI, CS_PIN5, -1,  -1,  BUSSPEED);
+// VL53L8CX sensor_vl53l8cx_top6(&DEV_SPI, CS_PIN6, -1,  -1,  BUSSPEED);
 int sensorCaptures[8] = {0,0,0,0,0,0,0,0};
+
+int started = 0;
+int ready = 0;
 
 
 double Setpoint=0, Input, Output;
@@ -143,14 +147,25 @@ void setup()
   digitalWrite(CS_PIN3,HIGH);
   pinMode(CS_PIN4, OUTPUT);
   digitalWrite(CS_PIN4,HIGH);
-  pinMode(CS_PIN5, OUTPUT);
-  digitalWrite(CS_PIN5,HIGH);
-  pinMode(CS_PIN6, OUTPUT);
-  digitalWrite(CS_PIN6,HIGH);
+  // pinMode(CS_PIN5, OUTPUT);
+  // digitalWrite(CS_PIN5,HIGH);
+  // pinMode(CS_PIN6, OUTPUT);
+  // digitalWrite(CS_PIN6,HIGH);
+  pinMode(LED1, OUTPUT);
+  pinMode(LED2, OUTPUT);
+  pinMode(BUTTON, INPUT_PULLUP);
+  digitalWrite(LED1, LOW);
+  digitalWrite(LED2, LOW);
 
-
-  // Initialize serial for output.
   Serial1.begin(921600);
+
+  // while(1)
+  // {
+  //   bool pressed = digitalRead(BUTTON);
+  //   Serial1.print("button,");
+  //   Serial1.printf(" %01i \n",pressed);   // Button state  
+  // }
+    
 
   Serial1.println("Startup");
   pinMode(LED_BUILTIN, OUTPUT);
@@ -327,6 +342,14 @@ void parse()
   {
     checkVoltage = strinList[1].toInt()>0;
   }
+  else if (strinList[0] == "ready" && amountDividers==1) 
+  {
+    ready = 1;
+  }
+  else if (strinList[0] == "start" && amountDividers==1) 
+  {
+    started = 1;
+  }
 
   for (int i=0;i<=amountDividers;i++)
   {
@@ -350,7 +373,24 @@ void loop()
   static unsigned long lastTime = 0;
   static bool ledState = false;
 
-  
+  // Serial1.println("Button: " + String(digitalRead(BUTTON)));
+  if (started==0)
+  {
+    if (ready == 1)
+    {
+      bool pressed = digitalRead(BUTTON)==LOW;
+      Serial1.print("button,");
+      Serial1.printf("%01i",pressed);   // Button state
+      Serial1.print(",\n");
+      digitalWrite(LED1, HIGH);
+      digitalWrite(LED2, LOW);
+    } 
+    else 
+    {
+      digitalWrite(LED1, LOW);
+      digitalWrite(LED2, HIGH);
+    }
+  }
   static VL53L8CX_ResultsData results1;
   static VL53L8CX_ResultsData results2;
   static VL53L8CX_ResultsData results3;
