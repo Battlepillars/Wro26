@@ -10,7 +10,7 @@ from adafruit_bno08x.i2c import BNO08X_I2C
 class gyroBNO085:
     """Interface to the BNO085 IMU over I2C using the Adafruit BNO08x library."""
 
-    def __init__(self, address: int = 0x4A, use_magnetometer: bool = False):
+    def __init__(self, address: int = 0x4B, use_magnetometer: bool = False):
         """
         Initialise the sensor.
 
@@ -20,6 +20,7 @@ class gyroBNO085:
         """
         self._i2c = busio.I2C(board.SCL, board.SDA)
         self._bno = BNO08X_I2C(self._i2c, address=address)
+        time.sleep(0.5)  # BNO086 needs time to finish its startup sequence
 
         self._use_mag = use_magnetometer
         self._heading_offset: float = 0.0
@@ -31,11 +32,21 @@ class gyroBNO085:
     # ------------------------------------------------------------------
 
     def _enable_reports(self) -> None:
-        """Enable the appropriate rotation report on the sensor."""
-        if self._use_mag:
-            self._bno.enable_feature(BNO_REPORT_ROTATION_VECTOR)
-        else:
-            self._bno.enable_feature(BNO_REPORT_GAME_ROTATION_VECTOR)
+        """Enable the appropriate rotation report on the sensor.
+
+        Retries on 'Unprocessable Batch bytes' which the BNO086 emits during
+        its startup flush before settling into normal operation.
+        """
+        report = BNO_REPORT_ROTATION_VECTOR if self._use_mag else BNO_REPORT_GAME_ROTATION_VECTOR
+        for attempt in range(5):
+            try:
+                self._bno.enable_feature(report)
+                return
+            except RuntimeError as exc:
+                if "Unprocessable Batch bytes" in str(exc) and attempt < 4:
+                    time.sleep(0.1)
+                    continue
+                raise
 
     @staticmethod
     def _quaternion_to_heading(i: float, j: float, k: float, real: float) -> float:
