@@ -49,6 +49,8 @@ class Parser:
         self.heading = 0
         self.round = 0
         self.Direction = Parser.CW
+        self.button = False
+        self.started = False
 
 
         # self.i2c = busio.I2C(board.SCL, board.SDA)
@@ -140,6 +142,11 @@ class Parser:
         #     print("Waiting for gyro calibration:", self.gyro.calibration_status)
         #     time.sleep(0.1)
         
+    def sendReadySignal(self):
+        self.send("ready,1\n")
+
+    def sendStartSignal(self):
+        self.send("start,1\n")
 
     def checkSection(self, section, mirror = False):
         if mirror:
@@ -237,7 +244,7 @@ class Parser:
         rotate = False
         
         # apply transformations to camera and move it to a new positon:
-        if cam == 0:            # angle right  -> top right(2)
+        if cam == 5:            # angle right  -> top right(2)
             vflip = True
             hflip = True
             cam = 2
@@ -266,7 +273,7 @@ class Parser:
             cam = 0
             if setSensorIndex:
                 Parser.angleLeftSensor = cam
-        elif cam == 5:          # back  -> bottom middle(4)
+        elif cam == 0:          # back  -> bottom middle(4)
             rotate = True
             vflip = True
             cam = 4
@@ -379,6 +386,13 @@ class Parser:
                     time.sleep(4)
 
                     call("sudo shutdown -h now", shell=True)
+                elif inputString[0] == "button" and len(inputString) == 3:
+                    if inputString[1] == "1":
+                        self.button = True
+                    if self.started:
+                        self.sendStartSignal()
+                    # print("Button:",self.button)
+                    
             except:
                 print("\n!!!! Parsing Error !!!!\n")
             

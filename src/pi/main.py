@@ -38,6 +38,7 @@ def main():
     clThread = threading.Thread(target=controllLoop, args=(parser, cam), daemon=True)
     clThread.start()
 
+    parser.sendReadySignal()
 
     while running:
         for event in pygame.event.get():
@@ -65,6 +66,10 @@ def main():
                 if event.key == pygame.K_u:
                     cam.getNearestObstacle()
         
+        if parser.button and not parser.started:
+            parser.started = True
+            start_event.set()
+
         if manual:
             keys = pygame.key.get_pressed()
             if keys[pygame.K_w]:
@@ -109,12 +114,14 @@ def controllLoop(parser,cam):
     
     parser.resetGyro()
 
+    print("Started")
     # dC.driveDist(0.2,90,1000)
     # openChallenge.clockwise(parser, dC)
     # obstacleChallenge.clockwise(parser, dC, cam)
     # obstacleChallengeSingle.clockwise(parser, dC, cam)
     # obstacleChallengeSingle.counterClockwise(parser, dC, cam)
-    obstacleChallengeSingle.obstacleChallengeSingle(parser, dC, cam)
+    # obstacleChallengeSingle.obstacleChallengeSingle(parser, dC, cam)
+    # openChallenge.openChallenge(parser, dC)
     # camTest.test(parser, dC, cam)
     # cam.getNearestObstacle()
 
