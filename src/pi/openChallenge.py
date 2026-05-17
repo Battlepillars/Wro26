@@ -1,24 +1,37 @@
+import time
+
 from parser import Parser
 from driveController import DriveController
 
-def clockwise(Parser: Parser, dC: DriveController):
-    turnSpeed=2
+
+def openChallenge(parser: Parser, dC: DriveController):
+    turnSpeed=1.3
     speed=2
     for i in range(3):
-        dC.driveAlongWall(speed,0,dC.leftWall)
+        if i == 0:
+            wall = dC.findeDirection(speed,0)
+            print("Wall:", wall)
+        else:
+            dC.driveAlongWall(speed,0,wall)
         dC.turn(turnSpeed,-90)
         dC.driveDist(speed,-90,750)
-        dC.driveAlongWall(speed,-90,dC.leftWall)
+        dC.driveAlongWall(speed,-90,wall)
         dC.turn(turnSpeed,-180)
         dC.driveDist(speed,-180,750)
-        dC.driveAlongWall(speed,-180,dC.leftWall)
+        dC.driveAlongWall(speed,-180,wall)
         dC.turn(turnSpeed,90)
         dC.driveDist(speed,90,750)
-        dC.driveAlongWall(speed,90,dC.leftWall)
+        dC.driveAlongWall(speed,90,wall)
         dC.turn(turnSpeed,0)
-        dC.driveDist(speed,0,750)
-
+        if i == 2:
+            dC.driveAwayFromWall(speed, 0, 1100)
+        else:
+            dC.driveDist(speed,0,750)
+        parser.round += 1
+    parser.endTime = time.time()
     dC.brake()
+    
+
 
 # def clockwise(parser: Parser, dC: DriveController):
 #     speed = 3
