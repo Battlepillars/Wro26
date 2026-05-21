@@ -6,6 +6,7 @@ import openChallenge
 import obstacleChallenge
 import camTest
 import obstacleChallengeSingle
+import autoChallenge
 
 from parser import Parser
 from ui import Ui
@@ -122,6 +123,7 @@ def controllLoop(parser,cam):
     # obstacleChallengeSingle.counterClockwise(parser, dC, cam)
     # obstacleChallengeSingle.obstacleChallengeSingle(parser, dC, cam)
     # openChallenge.openChallenge(parser, dC)
+    autoChallenge.autoChallenge(parser, dC, cam)
     # camTest.test(parser, dC, cam)
     # cam.getNearestObstacle()
 
