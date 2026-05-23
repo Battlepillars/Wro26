@@ -92,16 +92,16 @@ class Parser:
             if self.round == 0:
                 angle += 0
             elif self.round == 1:
-                angle += -3
+                angle += -1
             elif self.round == 2:
-                angle += -6
+                angle += -2                     # kleinere Zahl (mehr negativ)  = er steuer mehr nach rechts
         else:
             if self.round == 0:
                 angle += 0
             elif self.round == 1:
-                angle += 2
+                angle += 1
             elif self.round == 2:
-                angle += 4
+                angle += 2
         
         return angle
         newHeading = self.gyro.euler[0]
@@ -174,6 +174,7 @@ class Parser:
             self.obstacles[i+section*3] = obstacleType
 
     def assignAllObstacles(self, colors: tuple):
+        color4Left = None
         if len(colors) == 4:
             color1, color2, color3, color4 = colors
         else: 

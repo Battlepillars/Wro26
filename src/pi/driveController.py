@@ -1,5 +1,6 @@
 import time
 import math
+import traceback
 
 from parser import Parser
 from logger import Logger
@@ -127,10 +128,18 @@ class DriveController:
     def logStuff(self, message):
         self.logger.log(f"{message}, Section: {self.section}, Time: {time.time()-self.parser.startTime:.2f}")
     
+    def logCaller(self):
+        _stack = traceback.extract_stack()
+        _this_file = __file__
+        _fn_name = _stack[-2].name
+        _caller = next((f for f in reversed(_stack[:-2]) if f.filename != _this_file), None)
+        self.logStuff(f"{_fn_name} called from {_caller.filename}:{_caller.lineno} in {_caller.name}" if _caller else f"{_fn_name}: caller unknown")
+      
     # end helper functions
     
     def customTurn(self, speed, angle, dist):
         """Drive a fixed steering angle until the requested travel distance has been covered."""
+        self.logCaller()
         self.setCommand("customTurn")
         self.setSpeed(speed)
         self.parser.setSteer(angle)
@@ -146,6 +155,9 @@ class DriveController:
     
     def tightTurn(self, speed, heading, turnDir = auto):
         """Turn tight toward a target with maximum steering, slowing down as it approaches the target heading."""
+        self.logCaller()
+      
+        
         self.setCommand("Tight turn")
         self.setSpeed(speed)
         self.setTargetHeading(heading)
@@ -190,6 +202,7 @@ class DriveController:
     
     def quickTurn(self, speed, heading, turnDir = auto):
         """Turn aggressively toward a target heading, switching to PID steering near the target."""
+        self.logCaller()
         self.setCommand("Quick turn")
         self.setSpeed(speed)
         self.setTargetHeading(heading)
@@ -226,6 +239,7 @@ class DriveController:
     
     def turn(self, speed, heading, turnDir = auto):
         """Turn toward a target heading with a wider PID handoff and tighter finish tolerance."""
+        self.logCaller()
         self.setCommand("turn")
         self.setSpeed(speed)
         self.setTargetHeading(heading)
@@ -258,31 +272,54 @@ class DriveController:
         if self.end():
             return
     
-    def driveToWall(self, speed, heading, dist, minDist = 0, wallDir = frontWall, bigVisionRange = False):
+    def driveToWall(self, speed, heading, dist, minDist = 0, wallDir = frontWall, avoidWall = False, bigVisionRange = False,minTravel = 0):
         """Drive toward a wall until camera depth reports the requested clearance."""
+        self.logCaller()
         self.setCommand("driveToWall")
         self.setSpeed(speed)
         self.setTargetHeading(heading)
         
         lastVal = 10000
+        remaining = 10000
         
-        while lastVal > (dist+20) and not self.stop_event.is_set():
-            self.calcAccel()
+        
+        startDist = self.parser.distance
+        
+        traveled = abs(self.parser.distance - startDist)
+
+        
+        while ((lastVal > (dist+20)) or (traveled < minTravel )) and not self.stop_event.is_set():
+            if avoidWall and lastVal > 1000 and lastVal != 10000:
+                self.calcAccel(avoidWall=True)
+            else:
+                self.calcAccel()
+                
+            traveled = abs(self.parser.distance - startDist)
+            
             if bigVisionRange:
                 val = self.getDist([0,1,2,3,4,5,6,7],3,wallDir)
             else:
                 val = self.getDist([3,4],3,wallDir)
             
             self.logCountetr += 1
+            diff=0
+            if  (val > 0):
+                diff = lastVal-val
+                remaining=val-dist
+
+                
             if val > 0 and val >= minDist:
                 lastVal = val
             if lastVal is not None: #self.logCountetr %3==0 and 
-                self.logStuff(f"ToWall: {lastVal:.0f}, Dist: {dist}, Heading:{heading}")
+                self.logStuff(f"ToWall: {lastVal:.0f}, Dist: {dist},remaining: {remaining:3.0f},diff: {diff:2.0f},minDist: {minDist}, Heading:{heading}, Speed: {self.parser.speed:.2f}, traveled: {traveled:.0f}, minTravel: {minTravel} ")
+        self.logger.logTof(self.parser, wallDir)
+
         if self.end():
             return
     
     def driveAwayFromWall(self, speed, heading, dist, wallDir = backWall):
         """Drive away from a wall until rear camera samples no longer detect it within range."""
+        self.logCaller()
         self.setCommand("driveAwayFromWall")
         self.setSpeed(speed)
         self.setTargetHeading(heading)
@@ -307,6 +344,7 @@ class DriveController:
     
     def driveAlongWall(self, speed, heading, wallDir = rightWall):
         """Follow a wall until the selected side camera samples indicate the wall is gone."""
+        self.logCaller()
         self.setCommand("driveAlongWall")
         self.setSpeed(speed)
         self.setTargetHeading(heading)
@@ -330,6 +368,7 @@ class DriveController:
     
     def findeDirection(self, speed, heading):
         """Follow a wall until the the wall is gone."""
+        self.logCaller()
         self.setCommand("findeDirection")
         self.setSpeed(speed)
         self.setTargetHeading(heading)
@@ -365,6 +404,7 @@ class DriveController:
     
     def driveDist(self, speed, heading, dist):
         """Drive straight for a measured encoder distance while holding the requested heading."""
+        self.logCaller()
         self.setCommand("driveDist")
         startDist = self.parser.distance
         self.setSpeed(speed)
@@ -377,6 +417,7 @@ class DriveController:
     
     def brake(self):
         """Ramp the target speed down to zero while keeping the steering centered."""
+        self.logCaller()
         self.setSpeed(0)
         self.parser.setSteer(90)
         
@@ -398,7 +439,7 @@ class DriveController:
             return
         
 
-    def calcAccel(self, steer = True, pid = 0,customAcc=0, customDeacc=0):
+    def calcAccel(self, steer = True, pid = 0,customAcc=0, customDeacc=0, avoidWall = None):
         """Run one control cycle: rate-limit, ramp speed, and optionally update steering PID output."""
         lastCycleTime = time.time() - self.lastTime
         frq = 0.01
@@ -415,7 +456,32 @@ class DriveController:
             myDeacc = customDeacc
 
         if steer:
-            errorAngle = -self.targetHeading + self.parser.getHeading()
+            avoidWallSteer = 0
+            if avoidWall:
+                if self.parser.Direction == self.parser.CW:
+                    wall = self.rightWall
+                else:
+                    wall = self.leftWall    
+                distSide = self.getDist([3,4],3,wall)
+                print(f"DistSide: {distSide}")
+                
+                minDist = 150
+                maxDist = 350
+                outsideDist = 500
+                angle = 8
+                
+                if distSide < minDist:
+                    avoidWallSteer = angle
+                    print("Too close to wall, steering away")
+                elif distSide > maxDist and distSide < outsideDist:
+                    avoidWallSteer = -angle
+                    print("Too far from wall, steering towards")
+                    
+                if wall == self.leftWall:
+                    avoidWallSteer *= -1
+            
+                
+            errorAngle = (-self.targetHeading + avoidWallSteer) + self.parser.getHeading()
             
             while errorAngle > 180:
                 errorAngle -= 360
@@ -488,7 +554,7 @@ class PIDController:
         self.integral = 0
         
 
-    def compute(self, process_variable, dt, slam=None):
+    def compute(self, process_variable, dt):
         """@brief Compute PID output for current process variable.
 
         Applies anti-windup clamping for integral term then combines P,I,D.
