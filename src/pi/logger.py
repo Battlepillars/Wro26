@@ -33,5 +33,26 @@ class Logger:
         self._file.write(message + "\n")
         self._file.flush()
 
+    def logTof(self, parser, camera: int):
+        """Log the 8x8 ToF grid for one sensor index, mirroring the ui.py layout."""
+        size = 8
+        lines = [f"ToF sensor {camera}:"]
+        for j in range(size):
+            row = ""
+            for k in range(size):
+                val = parser.camValues[camera][j * size + k]
+                if val <= 0:
+                    row += "     - "
+                elif val < 10:
+                    row += f"     {val} "
+                elif val < 100:
+                    row += f"    {val} "
+                elif val < 1000:
+                    row += f"   {val} "
+                else:
+                    row += f"  {val} "
+            lines.append(row)
+        self.log("\n".join(lines))
+
     def close(self):
         self._file.close()
