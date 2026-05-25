@@ -6,7 +6,8 @@ class Logger:
 
     def __init__(self):
         os.makedirs(self.LOG_DIR, exist_ok=True)
-        self._file = open(self._next_log_path(), "w", encoding="utf-8")
+        self._file = open(self._next_log_path(), "w+", encoding="utf-8")
+        self.lineCount = 0
         print(f"Logging to {self._file.name}")
 
     MAX_LOGS = 10
@@ -30,7 +31,19 @@ class Logger:
         return os.path.join(self.LOG_DIR, "log_1.txt")
 
     def log(self, message: str):
-        self._file.write(message + "\n")
+        self._file.write(f"{self.lineCount} {message}\n")
+        self._file.flush()
+        self.lineCount += 1
+
+    def logAppend(self, message: str):
+        """Append message to the current last line instead of starting a new line."""
+        end = self._file.seek(0, 2)
+        if end > 0:
+            self._file.seek(end - 1)
+            if self._file.read(1) == "\n":
+                self._file.seek(end - 1)
+                self._file.truncate()
+        self._file.write(" " + message + "\n")
         self._file.flush()
 
     def logTof(self, parser, camera: int):

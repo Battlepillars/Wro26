@@ -56,20 +56,65 @@ class Camera():
 
         self.picam2 = Picamera2()
         self.picam2.set_controls({'HdrMode': libcamera.controls.HdrModeEnum.SingleExposure})
+        # self.picam2.set_controls({'HdrMode': libcamera.controls.HdrModeEnum.Off})     
+        # 
+        # 
+        #  to enable custom hdr , enable the line above (disable single exposure)and the captureHdr() method below
+        #
+        #
         resolution = (1536, 1152)
         self.ySize = resolution[1]
         self.config = self.picam2.create_still_configuration(transform=Transform(vflip=False,hflip=False),main={"size": resolution})   #hflip=True
         self.picam2.configure(self.config)
-        #self.picam2.switch_mode_and_capture_array(self.config, delay=10)
         self.picam2.start()
         
 
     
+    # Exposure times (microseconds) used for custom HDR fusion.
+    # Tune these for your lighting conditions: dark scene → lower values,
+    # bright scene → higher values. Three stops apart is a good starting point.
+    HDR_EXPOSURES_US = [500, 4000, 32000]
+
     def captureImage(self):
+        # self.captureHdr()
+        # return
+        
+        # 
+        # 
+        #  to enable custom hdr , enable the 2 line above and  switch from SingleExposure to HdrModeEnum.Off in __init_
+        #
+        #       
+        
         self.pictureNum = self.pictureNum+1
         self.baseImage = self.picam2.capture_array()
         realColor = cv.cvtColor(self.baseImage, cv.COLOR_BGR2RGB)
         cv.imwrite(f'capture/{self.pictureNum}-0baseImage.jpg', realColor)
+
+    def captureHdr(self):
+        """Capture multiple frames at different exposures and merge with Mertens
+        fusion. Result is stored in self.baseImage like captureImage().
+        Slower than captureImage (~3x frames) but handles high-contrast scenes.
+        """
+        self.pictureNum += 1
+        frames = []
+        for exposure_us in self.HDR_EXPOSURES_US:
+            self.picam2.set_controls({
+                'AeEnable': False,
+                'ExposureTime': exposure_us,
+            })
+            # Wait two frames so the new exposure takes effect
+            self.picam2.capture_array()
+            self.picam2.capture_array()
+            frame = self.picam2.capture_array()
+            frames.append(cv.cvtColor(frame, cv.COLOR_RGB2BGR))
+
+        # Re-enable auto exposure for subsequent normal captures
+        self.picam2.set_controls({'AeEnable': True})
+
+        merged = cv.createMergeMertens().process(frames)
+        merged_8u = np.clip(merged * 255, 0, 255).astype(np.uint8)
+        self.baseImage = cv.cvtColor(merged_8u, cv.COLOR_BGR2RGB)
+        cv.imwrite(f'capture/{self.pictureNum}-0baseImage.jpg', merged_8u)
     def loadImage(self, path):
         realColor = cv.imread(path)
         
@@ -184,7 +229,7 @@ class Camera():
                 
                 cv.putText(imgclear, str(int(area)), (cX + 20, cY), cv.FONT_HERSHEY_SIMPLEX, 0.6, (0, 255, 0), 2)
                 
-                if area> 200:
+                if area> 100:
                     self.blocksCx.append(cX)
                     self.blocksCy.append(cY)
                     self.blocksColor.append(self.parser.GREEN)
@@ -205,7 +250,7 @@ class Camera():
                 
                 cv.putText(imgclear, str(int(area)), (cX + 20, cY), cv.FONT_HERSHEY_SIMPLEX, 0.6, (0, 0, 255), 2)
                 
-                if area> 200:
+                if area> 100:
                     self.blocksCx.append(cX)
                     self.blocksCy.append(cY)
                     self.blocksColor.append(self.parser.RED)
@@ -229,9 +274,9 @@ class Camera():
         
         # Maske x: 500-1000, y: 300-800
         regionMask = np.zeros(self.baseImage.shape[:2], dtype=np.uint8)
-        regionMask[250:550, 400:1150] = 255
+        regionMask[300:550, 400:1150] = 255
         #           y          x    
-        return self.getObstacles(regionMask,650,540,1)
+        return self.getObstacles(regionMask,800,540,1)
         #                                    x   y
     def getObstacles1b(self):
         self.pictureNum += 1
@@ -269,7 +314,7 @@ class Camera():
         self.pictureNum=5
         # Maske x: 500-1000, y: 300-800
         regionMask = np.zeros(self.baseImage.shape[:2], dtype=np.uint8)
-        regionMask[320:700, 280:800] = 255
+        regionMask[360:700, 280:800] = 255
         #           y          x
         return self.getObstacles(regionMask,400,690,4)
         #                                     x   y 
@@ -310,25 +355,37 @@ class Camera():
             # in photo shop: rgb -> vsh
             
         # lower boundary RED color range values; Hue (0 - 10)
-        lower1 = np.array([0, 190, 190])
+        #                  H     S    V
+        lower1 = np.array([0,  190, 190])
         upper1 = np.array([10, 255, 255])
         
         # upper boundary RED color range values; Hue (160 - 180)
-        lower2 = np.array([160,100,20])
-        upper2 = np.array([179,255,255])
+        #                    H    S   V
+        lower2 = np.array([160, 100, 20])
+        upper2 = np.array([179, 255,255])
             
         lower_mask = cv.inRange(hsv, lower1, upper1)
         upper_mask = cv.inRange(hsv, lower2, upper2)
 
         maskred = lower_mask + upper_mask
 
-        lowerGreen = np.array([35, 100, 20])
-        upperGreen = np.array([95, 255, 255])
+
+        #                       H     S    V 
+        lowerGreen = np.array([35,  100,  20])
+        upperGreen = np.array([95,  255,  255])
 
         maskgreen = cv.inRange(hsv, lowerGreen, upperGreen)
 
-        lowerBlack = np.array([0, 0, 0])        # H S V
-        upperBlack = np.array([255, 255, 90])     # Letzter wert hier ist die maximale Helligkeit für schwarze Wände
+
+
+        #                        H    S   V
+        lowerBlack = np.array([  0,   0,  0])     # H S V Min Wert für Schwarz
+        upperBlack = np.array([255, 255, 90])     # Max Wert für Schwarz, 
+                                                  # Letzter wert hier ist die maximale Helligkeit für schwarze Wände
+                                                  # in Photoshop :
+                                                  #   R = Value       - Helligkeit
+                                                  #   B = Saturation  - Farbintensität
+                                                  #   B = Hue         - Farbton 
         maskblack = cv.inRange(hsv, lowerBlack, upperBlack)
         
         cv.imwrite(f'capture/{self.pictureNum}-0walls.jpg', maskblack)
