@@ -42,16 +42,18 @@ def unParkcounterClockwise(parser: Parser, dC: DriveController, cam: Camera):
     speedStraight=2
     speedCurve=1
     
-    dC.customTurn(speedCurve, 180, 110)
-    dC.turn(speedCurve, 0)
-    dC.driveDist(speedStraight,0,200)
-    dC.turn(speedCurve, -90)
+    dC.quickTurn(speedCurve, 0)
+    if parser.checkSection(1) == parser.GREEN:
+        dC.brake()
+        dC.driveDist(-speedStraight,0,200)
+        dC.brake()
     
 def unParkAfterScan(parser: Parser, dC: DriveController, cam: Camera):
     speedStraight=2
     speedCurve=1
     
     dC.turn(speedCurve, 0)
+    
 
 
 def singleScanCounterClockwise(parser: Parser, dC: DriveController, cam: Camera):
@@ -65,7 +67,7 @@ def singleScanCounterClockwise(parser: Parser, dC: DriveController, cam: Camera)
     # return
     
     
-    dC.tightTurn(0.75, -55)
+    dC.tightTurn(0.75, -65  )
     dC.brake()
     time.sleep(0.2)
     cam.captureImage()
@@ -166,9 +168,10 @@ def parkCCW(parser: Parser, dC: DriveController):
     speedCurve=1
     
     print("Parking")
-    dC.driveToWall(speedStraight,0,1200,800)
+    dC.logger.log("Parking counterclockwise")
+    dC.driveToWall(speedStraight,0,1100,800,minTravel=800)
     dC.brake()
-    dC.driveAwayFromWall(-0.5, 0, 1150, dC.frontWall)
+    dC.driveAwayFromWall(-0.5, 0, 1080, dC.frontWall)
     dC.brake()
     time.sleep(3)
     dC.quickTurn(0.5,90)
@@ -194,7 +197,7 @@ def parkCW(parser: Parser, dC: DriveController):
             dC.brake()
         dC.driveAwayFromWall(0.5, 0, 1000)
     else:
-        dC.driveAlongWall(-0.5,0,dC.rightWall) c
+        dC.driveAlongWall(-0.5,0,dC.rightWall)
         dC.brake()
         dC.driveDist(0.5,0,220)
     
@@ -215,7 +218,7 @@ def counterClockwise(parser: Parser, dC: DriveController, cam: Camera):
     parser.assignAllObstacles(singleScanCounterClockwise(parser, dC, cam))
     # parser.assignAllObstaclesCustom(Parser.GREEN, Parser.GREEN, Parser.GREEN, Parser.RED)
       
-    unParkAfterScan(parser, dC, cam)
+    unParkcounterClockwise(parser, dC, cam)
 
     dC.section += 1
     for j in range(3):
@@ -226,23 +229,37 @@ def counterClockwise(parser: Parser, dC: DriveController, cam: Camera):
                 wallDriveDist = 450
                 
             print("Obstacle:", parser.colorName(parser.checkSection(dC.section)))
-
+            
+            wallLost = False
+            
             if parser.checkSection(dC.section) == parser.GREEN:                # obstacles green:
                 dC.turn(speedCurve,0)
                 dC.driveAwayFromWall(speedStraight, 0, 1000)
-                # dC.driveDist(speedStraight,0,500)
+
+                
+                if not (i == 3 and j == 2):
+                    wallLost = dC.driveToWall(speedStraight,0,1100,900,avoidWall=dC.leftWall,minTravel=750 )
+                
+                # bei fahrt von innen nach innen (red-red) wenn die Wand verlorengeht
+                # rettumgsmove starten
+                    if wallLost and parser.checkSection(dC.nextSection(), True) == parser.GREEN:
+                        dC.brake()
+                        dC.driveDist(-1,0,510)
+                        dC.brake()
+                else:
+                    parkCCW(parser, dC)
 
             elif parser.checkSection(dC.section) in (parser.RED, None):          # obstacles red or unknown
                 print(f"Color thingy: {parser.colorName(parser.checkSection(dC.prevSection()))}")
                 dC.driveToWall(speedStraight,90,wallDriveDist)
                 dC.turn(speedCurve,0)
                 dC.driveAwayFromWall(speedStraight, 0, 1000)
-                # dC.driveDist(speedStraight,0,500)
+
             
-            if i == 3 and j == 2:
-                parkCCW(parser, dC)
-            else:
-                dC.driveToWall(speedStraight,0,1050, 900, avoidWall=True, minTravel=750)
+                if i == 3 and j == 2:
+                    parkCCW(parser, dC)
+                else:
+                    dC.driveToWall(speedStraight,0,1050, 900, avoidWall=None, minTravel=750)
             
             dC.section = dC.nextSection()
             
