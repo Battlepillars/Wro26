@@ -40,7 +40,8 @@ class gyroBNO085:
         report = BNO_REPORT_ROTATION_VECTOR if self._use_mag else BNO_REPORT_GAME_ROTATION_VECTOR
         for attempt in range(5):
             try:
-                self._bno.enable_feature(report)
+                # self._bno.enable_feature(report)
+                self._bno.enable_feature(report, report_interval=5000)  # 200 Hz
                 return
             except RuntimeError as exc:
                 if "Unprocessable Batch bytes" in str(exc) and attempt < 4:
@@ -79,7 +80,8 @@ class gyroBNO085:
             quat = self._bno.game_quaternion   # (i, j, k, real)
 
         if quat is None:
-            raise RuntimeError("BNO085: no quaternion data available yet")
+            return 0
+            # raise RuntimeError("BNO085: no quaternion data available yet")
 
         raw = self._quaternion_to_heading(*quat)
         return 360-((raw - self._heading_offset) % 360.0)
