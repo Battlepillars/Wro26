@@ -251,7 +251,7 @@ class DriveController:
         
         errorAngle = 5
         
-        while abs(errorAngle) > 2 and not self.stop_event.is_set():
+        while abs(errorAngle) > 4 and not self.stop_event.is_set():
             errorAngle = self.parser.getHeading() - self.targetHeading
             
             while errorAngle > 180:
@@ -364,7 +364,7 @@ class DriveController:
                     noWallCount += 1
                     if noWallCount > 2:
                         reached = True    
-                    self.logStuff(f"Drive Away From Wall Nearl there:          {val}, Target Dist: {dist}, Heading: {heading}, NoWallCount: {noWallCount}")       
+                    self.logStuff(f"Drive Away From Wall Nearly there:         {val}, Target Dist: {dist}, Heading: {heading}, NoWallCount: {noWallCount}")       
                 else:                               # Keine Wand mehr erkannt, aber auch Zielentfernung noch nicht erreicht, merken was noch zu fahren wäre
                     if noWallCount > 0:                   
                         noWallCount -= 1

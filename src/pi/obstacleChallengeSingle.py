@@ -181,9 +181,23 @@ def parkCW(parser: Parser, dC: DriveController):
     print("Parking")
     dC.turn(speedCurve,0)
     dC.brake()
-    dC.driveDist(-0.5,0,300)
-    dC.driveAwayFromWall(0.5, 0, 1070)
-    dC.brake()
+    
+    right = dC.getDist([3,4],3,dC.rightWall)
+    dC.logger.log(f"Right Wall before parking: {right}")
+    if (right<= 0 or right>400):
+        
+        val = dC.getDist([3,4],3,dC.backWall)
+        dC.logger.log(f"Distance back wall before parking: {val}")
+        if val==0 or val > 800:
+            dC.logger.log("Distance back wall before parking is out of expected range, trying to fix it")
+            dC.driveDist(-0.5,0,550)
+            dC.brake()
+        dC.driveAwayFromWall(0.5, 0, 1000)
+    else:
+        dC.driveAlongWall(-0.5,0,dC.rightWall) c
+        dC.brake()
+        dC.driveDist(0.5,0,220)
+    
     dC.quickTurn(0.5,90)
     dC.brake()
     time.sleep(3)
@@ -257,7 +271,7 @@ def clockwise(parser: Parser, dC: DriveController, cam: Camera):
     
     if parser.obstacles[2] == parser.GREEN:
         dC.turn(speedCurve,45)
-        dC.driveDist(speedStraight,45,100)
+        # dC.driveDist(speedStraight,45,100)
         dC.turn(speedCurve,0)
         dC.driveToWall(speedStraight,0,1000)
     elif parser.obstacles[2] == parser.RED:
@@ -272,7 +286,7 @@ def clockwise(parser: Parser, dC: DriveController, cam: Camera):
     for j in range(3):
         for i in range(4):
             if i == 3:
-                wallDriveDist = 600
+                wallDriveDist = 630
             else:
                 wallDriveDist = 400
                 
@@ -283,9 +297,17 @@ def clockwise(parser: Parser, dC: DriveController, cam: Camera):
                 if parser.checkSection(dC.section, True) == parser.RED:                # obstacles red:
                     dC.turn(speedCurve,0)
                     dC.driveAwayFromWall(speedStraight, 0, 1000)				
-                    # dC.driveDist(speedStraight,0,500)
                     
                     wallLost = dC.driveToWall(speedStraight,0,1100,900,avoidWall=dC.rightWall,minTravel=750 )
+                    
+                    
+                    # bei fahrt von innen nach innen (red-red) wenn die Wand verlorengeht
+                    # rettumgsmove starten
+                    if wallLost and parser.checkSection(dC.nextSection(), True) == parser.RED:
+                        dC.brake()
+                        dC.driveDist(-1,0,510)
+                        dC.brake()
+                
 
                 elif parser.checkSection(dC.section, True) in (parser.GREEN, None):          # obstacles green or unknown
                     print(f"Color thingy: {parser.colorName(parser.checkSection(dC.prevSection()))}")
@@ -296,11 +318,7 @@ def clockwise(parser: Parser, dC: DriveController, cam: Camera):
                     wallLost = dC.driveToWall(speedStraight,0,1100,900,avoidWall=dC.leftWall,minTravel=750 )
                 
                 
-                if wallLost:
-                    dC.brake()
-                    dC.driveDist(-1,0,530)
-                    dC.brake()
-                
+
                 dC.section = dC.nextSection()
             else:
                 if parser.obstacles[0] == parser.GREEN:
