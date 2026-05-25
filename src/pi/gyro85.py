@@ -74,17 +74,20 @@ class gyroBNO085:
         Return the current heading in degrees [0, 360), adjusted for any
         zero-offset set by reset_heading().
         """
-        if self._use_mag:
-            quat = self._bno.quaternion        # (i, j, k, real)
-        else:
-            quat = self._bno.game_quaternion   # (i, j, k, real)
+        try:
+            if self._use_mag:
+                quat = self._bno.quaternion        # (i, j, k, real)
+            else:
+                quat = self._bno.game_quaternion   # (i, j, k, real)
+        except RuntimeError:
+            return self._last_heading if hasattr(self, '_last_heading') else 0.0
 
         if quat is None:
-            return 0
-            # raise RuntimeError("BNO085: no quaternion data available yet")
+            return self._last_heading if hasattr(self, '_last_heading') else 0.0
 
         raw = self._quaternion_to_heading(*quat)
-        return 360-((raw - self._heading_offset) % 360.0)
+        self._last_heading = 360 - ((raw - self._heading_offset) % 360.0)
+        return self._last_heading
 
     def reset_heading(self) -> None:
         """

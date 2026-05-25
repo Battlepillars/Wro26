@@ -288,7 +288,7 @@ class Camera():
         
         # Maske x: 500-1000, y: 300-800
         regionMask = np.zeros(self.baseImage.shape[:2], dtype=np.uint8)
-        regionMask[200:450, 500:1400] = 255
+        regionMask[275:450, 500:1350] = 255
         #           y          x
         
         return self.getObstacles(regionMask,800,440,3)
@@ -297,7 +297,7 @@ class Camera():
         self.pictureNum=4
         # Maske x: 500-1000, y: 300-800
         regionMask = np.zeros(self.baseImage.shape[:2], dtype=np.uint8)
-        regionMask[250:900, 300:1150] = 255
+        regionMask[340:900, 300:1150] = 255
         #           y          x
         return self.getObstacles(regionMask,759,890,4)
         #                                     x   y    
