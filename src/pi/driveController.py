@@ -24,6 +24,7 @@ class DriveController:
     biggest = 1
     firstEnd = 0
     
+    
     def __init__(self, parser: Parser, stop_event, logger: Logger = None):
         """Initialize controller state and bind it to the live parser sensors and logger."""
         DriveController.angleLeftWall = parser.angleLeftSensor
@@ -32,6 +33,7 @@ class DriveController:
         DriveController.rightWall = parser.rightSensor
         DriveController.leftWall = parser.leftSensor
         DriveController.backWall = parser.backSensor
+        
         self.acceleration = 1
         self.deacceleration = 8
         self.setpoint = 0
@@ -45,7 +47,8 @@ class DriveController:
         self.pidSteer = PIDController(Kp=1, Ki=0, Kd=0, setpoint=0, min=-90, max=90)
         self.pidSteer2 = PIDController(Kp=0.5, Ki=0, Kd=0, setpoint=0, min=-90, max=90)
         self.logger = logger if logger is not None else Logger()
-    
+        self.resetAvoidWall()
+        
     def end(self):
         """Stop the vehicle and report whether the external stop event requested shutdown."""
         if self.stop_event.is_set():
@@ -105,7 +108,8 @@ class DriveController:
     
     def setCommand(self, command):
         """Store the current high-level maneuver name on the parser for status reporting."""
-        self.parser.currentCommand = command
+        self.parser.currentCommand = f"{command} @{self.logger.lineCount}"
+        
     
     def setSpeed(self, speed):
         """Update the target drive speed that `calcAccel` ramps toward."""
@@ -180,16 +184,16 @@ class DriveController:
             else:                
                 self.parser.setSteer(0)
             
-            mySpeed=speed
+            mySpeed=0.3 * (speed/abs(speed))
             
             if abs(errorAngle) < 60:
-                mySpeed = speed*(abs(errorAngle-20)/40)
-            if abs(errorAngle) < 25:
+                mySpeed = 0.2 * (speed/abs(speed))#speed*((abs(errorAngle)-20)/60)
+            if abs(errorAngle) < 30:
                 mySpeed = 0.1 * (speed/abs(speed))
-            if abs(errorAngle) < 10:
-                mySpeed = 0.05 * (speed/abs(speed))
-            if abs(mySpeed) < 0.05:
-                mySpeed = 0.05 * (speed/abs(speed))
+            # if abs(errorAngle) < 10:
+            #     mySpeed = 0.05 * (speed/abs(speed))
+            # if abs(mySpeed) < 0.05:
+            #     mySpeed = 0.05 * (speed/abs(speed))
             self.setSpeed(mySpeed)
             self.logCountetr += 1
             if self.logCountetr %3==0 or True:
@@ -272,9 +276,10 @@ class DriveController:
         if self.end():
             return
     
-    def driveToWall(self, speed, heading, dist, minDist = 0, wallDir = frontWall, avoidWall = False, bigVisionRange = False,minTravel = 0):
+    def driveToWall(self, speed, heading, dist, minDist = 0, wallDir = frontWall, avoidWall = None, bigVisionRange = False,minTravel = 0):
         """Drive toward a wall until camera depth reports the requested clearance."""
         self.logCaller()
+        self.logger.log("Parameters: " + f"Speed: {speed}, Heading: {heading}, Dist: {dist}, MinDist: {minDist}, WallDir: {self.wallToString(wallDir)}, AvoidWall: {avoidWall}, BigVisionRange: {bigVisionRange}, MinTravel: {minTravel}")
         self.setCommand("driveToWall")
         self.setSpeed(speed)
         self.setTargetHeading(heading)
@@ -282,17 +287,23 @@ class DriveController:
         lastVal = 10000
         remaining = 10000
         
-        
+        distSide = 10000
         startDist = self.parser.distance
         
         traveled = abs(self.parser.distance - startDist)
 
-        
-        while ((lastVal > (dist+20)) or (traveled < minTravel )) and not self.stop_event.is_set():
-            if avoidWall and lastVal > 1000 and lastVal != 10000:
-                self.calcAccel(avoidWall=True)
-            else:
-                self.calcAccel()
+        self.resetAvoidWall()
+        while ((lastVal > (dist+20)) or (traveled < minTravel ) or (lastVal<minDist)) and not self.stop_event.is_set():
+            
+            # if avoidWall and lastVal > 1000 and lastVal != 10000:
+            #     self.calcAccel(avoidWall=True)
+            # else:
+            #     self.calcAccel()
+                
+            distSide = self.calcAccel( avoidWall=avoidWall)
+            if distSide == 10000 and (avoidWall is not None) and traveled > minTravel:
+                self.logger.log("\n\n                   Side Wall lost       \n")
+                return True
                 
             traveled = abs(self.parser.distance - startDist)
             
@@ -300,22 +311,27 @@ class DriveController:
                 val = self.getDist([0,1,2,3,4,5,6,7],3,wallDir)
             else:
                 val = self.getDist([3,4],3,wallDir)
-            
+            if (val==0):
+                val=10000
+                
             self.logCountetr += 1
             diff=0
-            if  (val > 0):
+            if  (val < 10000):
                 diff = lastVal-val
                 remaining=val-dist
 
                 
-            if val > 0 and val >= minDist:
-                lastVal = val
-            if lastVal is not None: #self.logCountetr %3==0 and 
-                self.logStuff(f"ToWall: {lastVal:.0f}, Dist: {dist},remaining: {remaining:3.0f},diff: {diff:2.0f},minDist: {minDist}, Heading:{heading}, Speed: {self.parser.speed:.2f}, traveled: {traveled:.0f}, minTravel: {minTravel} ")
+            
+            lastVal = val
+            
+            self.logStuff(f"ToWall: {lastVal:.0f}, Dist: {dist},minDist: {minDist}, Heading:{heading} / {self.parser.getHeading():.0f}, Speed: {self.parser.speed:.2f}, traveled: {traveled:.0f}, minTravel: {minTravel} ")
         self.logger.logTof(self.parser, wallDir)
 
+
+        self.resetAvoidWall()
+        
         if self.end():
-            return
+            return False
     
     def driveAwayFromWall(self, speed, heading, dist, wallDir = backWall):
         """Drive away from a wall until rear camera samples no longer detect it within range."""
@@ -323,21 +339,40 @@ class DriveController:
         self.setCommand("driveAwayFromWall")
         self.setSpeed(speed)
         self.setTargetHeading(heading)
-        
-        
+        leftToDrive=0
+        startDist = self.parser.distance
         noWallCount = 0
+        reached= False
         val = self.getDist([3,4],3,wallDir)
         
         
-        while noWallCount < 3 and not self.stop_event.is_set():
+        while not reached and not self.stop_event.is_set():
             self.calcAccel()
             val = self.getDist([3,4],3,wallDir)
         
-            if val <= 0 or val > dist:
+            if val <= 0:                        # Keine Wand erkannt
                 noWallCount += 1
-            elif noWallCount > 0:
-                noWallCount -= 1
-            self.logStuff(f"Drive Away From Wall: {val}, Target Dist: {dist}, Heading: {heading}, NoWallCount: {noWallCount}")
+                if (noWallCount > 2):
+                    if (leftToDrive == 0):          # LeftToDrive wurde nicht gesetzt, also nie eine Wand erkannt, dann einfach verlassen
+                        reached = True
+                    else:
+                        if (abs(self.parser.distance - startDist) > leftToDrive):       # Weiterfahren bis der Rest gefahren wurde
+                            reached = True
+                self.logStuff(f"Drive Away From Wall driving leftToDrive:  {val}, Target Dist: {dist}, Heading: {heading}, NoWallCount: {noWallCount} LeftToDrive: {leftToDrive:.0f}, Left traveled: {abs(self.parser.distance - startDist):.0f}")
+            else:
+                if  val > dist:                         # Entfernung erreicht
+                    noWallCount += 1
+                    if noWallCount > 2:
+                        reached = True    
+                    self.logStuff(f"Drive Away From Wall Nearl there:          {val}, Target Dist: {dist}, Heading: {heading}, NoWallCount: {noWallCount}")       
+                else:                               # Keine Wand mehr erkannt, aber auch Zielentfernung noch nicht erreicht, merken was noch zu fahren wäre
+                    if noWallCount > 0:                   
+                        noWallCount -= 1
+                    leftToDrive = dist - val
+                    startDist = self.parser.distance
+                    self.logStuff(f"Drive Away From Wall:                      {val}, Target Dist: {dist}, Heading: {heading}, NoWallCount: {noWallCount}, LeftToDrive: {leftToDrive:.0f}   ")
+                    
+            
 
         if self.end():
             return
@@ -410,7 +445,7 @@ class DriveController:
         self.setSpeed(speed)
         self.setTargetHeading(heading)
         while abs(self.parser.distance - startDist) < dist and not self.stop_event.is_set():
-            self.logStuff(f"DriveDist: Dist: {dist}, CurrenDist: {self.parser.distance-startDist:.0f}, Heading: {heading}")
+            self.logStuff(f"DriveDist: Dist: {dist}, CurrenDist: {abs(self.parser.distance - startDist):.0f}, Heading: {heading}")
             self.calcAccel()
         if self.end():
             return
@@ -423,7 +458,7 @@ class DriveController:
         
         while abs(self.parser.speed) > 0 and not self.stop_event.is_set():
             self.calcAccel(False)
-            self.logStuff(f"Brake: {self.parser.speed:.2f}")
+            self.logStuff(f"Brake: {self.parser.speed:.2f} Heading: {self.parser.getHeading():.0f}")
         if self.end():
             return
 
@@ -437,7 +472,13 @@ class DriveController:
             self.calcAccel()
         if self.end():
             return
-        
+    
+    
+    def resetAvoidWall(self):
+        self.avoidState = 0
+        self.wallStartDist = 0
+        self.avoidStartDist = 0
+        self.avoidWallSteer = 0    
 
     def calcAccel(self, steer = True, pid = 0,customAcc=0, customDeacc=0, avoidWall = None):
         """Run one control cycle: rate-limit, ramp speed, and optionally update steering PID output."""
@@ -454,34 +495,58 @@ class DriveController:
             myAcc = customAcc
         if customDeacc != 0:
             myDeacc = customDeacc
-
+        distSide = 0
         if steer:
-            avoidWallSteer = 0
-            if avoidWall:
-                if self.parser.Direction == self.parser.CW:
-                    wall = self.rightWall
-                else:
-                    wall = self.leftWall    
-                distSide = self.getDist([3,4],3,wall)
-                print(f"DistSide: {distSide}")
+
+            if avoidWall is not None:
+                # if self.parser.Direction == self.parser.CW:
+                #     wall = self.rightWall
+                # else:
+                #     wall = self.leftWall    
+                distSide = self.getDist([3,4],3,avoidWall)
                 
-                minDist = 150
-                maxDist = 350
-                outsideDist = 500
-                angle = 8
                 
-                if distSide < minDist:
-                    avoidWallSteer = angle
-                    print("Too close to wall, steering away")
-                elif distSide > maxDist and distSide < outsideDist:
-                    avoidWallSteer = -angle
-                    print("Too far from wall, steering towards")
+                if (distSide==0):
+                    distSide=10000
+                
+                if (distSide < 500 and self.wallStartDist == 0):
+                    self.wallStartDist = self.parser.distance
+                 
+                 
+                 
+                self.logger.logAppend(f" - DistSide: {distSide}  avoidState: {self.avoidState}  wallTravel: {(self.wallStartDist>0)*abs(self.parser.distance-self.wallStartDist):.0f} avoidTravel: {(self.avoidStartDist>0)*abs(self.parser.distance-self.avoidStartDist):.0f} ")
+
+                if (self.avoidState == 1):
+                    if (abs(self.parser.distance-self.avoidStartDist)>250):
+                        self.avoidState = 0
+                        self.avoidWallSteer = 0
+                        self.logger.log("-----  Finished avoiding wall")
+                        
                     
-                if wall == self.leftWall:
-                    avoidWallSteer *= -1
+    
+                if (abs(self.parser.distance-self.wallStartDist) < 300  and self.avoidState == 0):
+                
+                    minDist = 150
+                    maxDist = 350
+                    outsideDist = 500
+                    angle = 8
+                    
+                    if distSide < minDist:
+                        self.avoidWallSteer = angle
+                        self.avoidState=1
+                        self.avoidStartDist = self.parser.distance
+                        self.logger.log("-----  Too close to wall, steering away")
+                    elif distSide > maxDist and distSide < outsideDist:
+                        self.avoidWallSteer = -angle
+                        self.avoidState=1
+                        self.avoidStartDist = self.parser.distance
+                        self.logger.log("-----  Too far from wall, steering towards")
+                        
+                    if avoidWall == self.leftWall:
+                        self.avoidWallSteer *= -1
             
                 
-            errorAngle = (-self.targetHeading + avoidWallSteer) + self.parser.getHeading()
+            errorAngle = (-self.targetHeading + self.avoidWallSteer) + self.parser.getHeading()
             
             while errorAngle > 180:
                 errorAngle -= 360
@@ -520,7 +585,7 @@ class DriveController:
                     self.parser.setSteer(outputSteer)
                 else:
                     self.parser.setSteer(180-outputSteer)
-
+        return distSide
 
 class PIDController:
     def __init__(self, Kp, Ki, Kd, setpoint, min, max, drive = 0):

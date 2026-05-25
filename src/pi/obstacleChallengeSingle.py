@@ -105,7 +105,7 @@ def singleScanClockwise(parser: Parser, dC: DriveController, cam: Camera):
     # time.sleep(500)
 
     
-    dC.tightTurn(0.6, -100)
+    dC.tightTurn(0.6, -120)
     dC.brake()
     time.sleep(0.2)
     cam.captureImage()
@@ -116,7 +116,7 @@ def singleScanClockwise(parser: Parser, dC: DriveController, cam: Camera):
     dC.brake()
     time.sleep(0.2)
     cam.captureImage()
-    color2=cam.getObstacles2([230,390, 250,1000]) 
+    color2=cam.getObstacles2([250,350, 250,950]) 
     
     
     dC.tightTurn(0.6, -30)
@@ -151,7 +151,7 @@ def obstacleChallengeSingle(parser: Parser, dC: DriveController, cam: Camera):
     dC.logger.logTof(parser, parser.rightSensor)
     
     
-    if distRight < 400:
+    if distRight >0 and distRight < 400:
         print("counterClockwise")
         dC.logger.log("Obstacle Challenge Single: counterClockwise")
         counterClockwise(parser, dC, cam)
@@ -180,7 +180,9 @@ def parkCW(parser: Parser, dC: DriveController):
     
     print("Parking")
     dC.turn(speedCurve,0)
-    dC.driveAwayFromWall(0.5, 0, 1050)
+    dC.brake()
+    dC.driveDist(-0.5,0,300)
+    dC.driveAwayFromWall(0.5, 0, 1070)
     dC.brake()
     dC.quickTurn(0.5,90)
     dC.brake()
@@ -226,7 +228,7 @@ def counterClockwise(parser: Parser, dC: DriveController, cam: Camera):
             if i == 3 and j == 2:
                 parkCCW(parser, dC)
             else:
-                dC.driveToWall(speedStraight,0,1050, 950, avoidWall=True, minTravel=750)
+                dC.driveToWall(speedStraight,0,1050, 900, avoidWall=True, minTravel=750)
             
             dC.section = dC.nextSection()
             
@@ -277,23 +279,32 @@ def clockwise(parser: Parser, dC: DriveController, cam: Camera):
             print("Obstacle:", parser.colorName(parser.checkSection(dC.section, True)))
 
             if not (i == 3 and j == 2):
+                wallLost = False
                 if parser.checkSection(dC.section, True) == parser.RED:                # obstacles red:
                     dC.turn(speedCurve,0)
                     dC.driveAwayFromWall(speedStraight, 0, 1000)				
                     # dC.driveDist(speedStraight,0,500)
+                    
+                    wallLost = dC.driveToWall(speedStraight,0,1100,900,avoidWall=dC.rightWall,minTravel=750 )
 
                 elif parser.checkSection(dC.section, True) in (parser.GREEN, None):          # obstacles green or unknown
                     print(f"Color thingy: {parser.colorName(parser.checkSection(dC.prevSection()))}")
                     dC.driveToWall(speedStraight,90,wallDriveDist)
                     dC.turn(speedCurve,0)
                     dC.driveAwayFromWall(speedStraight, 0, 1000)
+                    
+                    wallLost = dC.driveToWall(speedStraight,0,1100,900,avoidWall=dC.leftWall,minTravel=750 )
                 
-                dC.driveToWall(speedStraight,0,1100,avoidWall=True)
+                
+                if wallLost:
+                    dC.brake()
+                    dC.driveDist(-1,0,530)
+                    dC.brake()
                 
                 dC.section = dC.nextSection()
             else:
                 if parser.obstacles[0] == parser.GREEN:
-                    dC.driveToWall(speedStraight,90,wallDriveDist,minTravel=750)
+                    dC.driveToWall(speedStraight,90,wallDriveDist)
                 parkCW(parser, dC)
                 
             
