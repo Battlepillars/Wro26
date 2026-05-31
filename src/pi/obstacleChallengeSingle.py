@@ -131,10 +131,16 @@ def singleScanClockwise(parser: Parser, dC: DriveController, cam: Camera):
     
    
     
-    print("Color 1:", parser.colorName(color1))     # section 1
-    print("Color 2:", parser.colorName(color2))     # section 2
-    print("Color 3:", parser.colorName(color3))     # section 3
-    print("Color 4:", parser.colorName(color4))     # section 0
+    print("Color 1:", parser.colorName(color1))            # section 1
+    print("Color 2:", parser.colorName(color2))            # section 2
+    print("Color 3:", parser.colorName(color3))            # section 3
+    print("Color 4:", parser.colorName(color4))            # section 0
+    print("Color 4 Left:", parser.colorName(color4Left))     # section 0
+    dC.logger.log("Color 1: " + parser.colorName(color1))            # section 1
+    dC.logger.log("Color 2: " + parser.colorName(color2))            # section 2
+    dC.logger.log("Color 3: " + parser.colorName(color3))            # section 3
+    dC.logger.log("Color 4: " + parser.colorName(color4))            # section 0
+    dC.logger.log("Color 4 Left: " + parser.colorName(color4Left))     # section 0
     
     return color1, color2, color3, color4, color4Left
 
@@ -185,18 +191,19 @@ def parkCW(parser: Parser, dC: DriveController):
     dC.turn(speedCurve,0)
     dC.brake()
     
-    right = dC.getDist([3,4],3,dC.rightWall)
-    dC.logger.log(f"Right Wall before parking: {right}")
-    if (right<= 0 or right>400):
-        
-        val = dC.getDist([3,4],3,dC.backWall)
-        dC.logger.log(f"Distance back wall before parking: {val}")
-        if val==0 or val > 800:
+    dC.logger.log(f"Obstacle before parking: {parser.colorName(parser.checkSection(dC.prevSection(), True))}")
+    
+    if parser.obstacles[0] == parser.GREEN:
+        backDist = dC.getDist([3,4],3,dC.backWall)
+        dC.logger.log(f"Distance back wall before parking: {backDist}")
+        if backDist==0 or backDist > 800:
             dC.logger.log("Distance back wall before parking is out of expected range, trying to fix it")
             dC.driveDist(-0.5,0,550)
             dC.brake()
         dC.driveAwayFromWall(0.5, 0, 1000)
     else:
+        if parser.checkSection(dC.prevSection(), True) == parser.GREEN:
+            dC.driveDist(speedStraight,0,600)
         dC.driveAlongWall(-0.5,0,dC.rightWall)
         dC.brake()
         dC.driveDist(0.5,0,220)
