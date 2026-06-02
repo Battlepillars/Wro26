@@ -7,6 +7,7 @@ from parser import Parser
 from driveController import DriveController
 # from camera import Camera
 from cameraAIO import Camera
+from subprocess import call
 
 def wallDrive(dC: DriveController, dir, speedCurve, speedStraight, driveWall = False, angle = 45, dist = 310, skipTurn = False, skipWallDrive = False):    
     wall = dC.frontWall
@@ -96,6 +97,37 @@ def singleScanCounterClockwise(parser: Parser, dC: DriveController, cam: Camera)
     print("Color 4:", parser.colorName(color4))     # section 0
     
     return color1, color2, color3, color4
+
+
+def scanClockwiseSimulation(parser: Parser, dC: DriveController, cam: Camera):
+    cam.loadImage("captureStore/1-0baseImage.jpg")
+    cam.pictureNum=1
+    color1=cam.getObstacles1()
+    color4=cam.getObstacles1b()
+    
+    
+    cam.loadImage("captureStore/3-0baseImage.jpg")
+    cam.pictureNum = cam.pictureNum+1
+    color2=cam.getObstacles2([250,350, 250,950]) 
+    
+    cam.loadImage("captureStore/4-0baseImage.jpg")
+    cam.pictureNum = cam.pictureNum+1
+    color2=cam.getObstacles2([250,350, 250,950]) 
+    color3=cam.getObstacles3b() 
+    color4Left=cam.getObstacles4b()
+
+
+    print("Color 1:", parser.colorName(color1))            # section 1
+    print("Color 2:", parser.colorName(color2))            # section 2
+    print("Color 3:", parser.colorName(color3))            # section 3
+    print("Color 4:", parser.colorName(color4))            # section 0
+    print("Color 4 Left:", parser.colorName(color4Left))     # section 0
+
+    call("sudo systemctl restart smbd", shell=True)
+
+    time.sleep(500) 
+
+
 
 def singleScanClockwise(parser: Parser, dC: DriveController, cam: Camera):
     speedStraight=2
@@ -192,15 +224,15 @@ def parkCW(parser: Parser, dC: DriveController):
     dC.brake()
     
     dC.logger.log(f"Obstacle before parking: {parser.colorName(parser.checkSection(dC.prevSection(), True))}")
+
     
     if parser.obstacles[0] == parser.GREEN:
-        backDist = dC.getDist([3,4],3,dC.backWall)
-        dC.logger.log(f"Distance back wall before parking: {backDist}")
-        if backDist==0 or backDist > 800:
-            dC.logger.log("Distance back wall before parking is out of expected range, trying to fix it")
+        if parser.checkSection(dC.prevSection()) == parser.RED:
+            time.sleep(3)
             dC.driveDist(-0.5,0,550)
             dC.brake()
-        dC.driveAwayFromWall(0.5, 0, 1000)
+        dC.driveUntilWall(0.5,0,dC.rightWall,300)
+        dC.driveDist(0.5,0,100)
     else:
         if parser.checkSection(dC.prevSection(), True) == parser.GREEN:
             dC.driveDist(speedStraight,0,600)
@@ -210,12 +242,11 @@ def parkCW(parser: Parser, dC: DriveController):
     
     dC.quickTurn(0.5,90)
     dC.brake()
-    time.sleep(3)
     dC.driveToWall(0.5,90,70)
     
     
     
-   
+    
 def counterClockwise(parser: Parser, dC: DriveController, cam: Camera):
     speedStraight=2
     speedCurve=1
@@ -224,7 +255,7 @@ def counterClockwise(parser: Parser, dC: DriveController, cam: Camera):
     
     parser.assignAllObstacles(singleScanCounterClockwise(parser, dC, cam))
     # parser.assignAllObstaclesCustom(Parser.GREEN, Parser.GREEN, Parser.GREEN, Parser.RED)
-      
+    
     unParkcounterClockwise(parser, dC, cam)
 
     dC.section += 1
@@ -339,7 +370,7 @@ def clockwise(parser: Parser, dC: DriveController, cam: Camera):
                     dC.turn(speedCurve,0)
                     dC.driveAwayFromWall(speedStraight, 0, 1000)
                     
-                    wallLost = dC.driveToWall(speedStraight,0,1100,900,avoidWall=dC.leftWall,minTravel=750 )
+                    wallLost = dC.driveToWall(speedStraight,0,1100,800,avoidWall=dC.leftWall,minTravel=750 )
                 
                 
 

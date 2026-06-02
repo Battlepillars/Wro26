@@ -138,7 +138,7 @@ class DriveController:
         _fn_name = _stack[-2].name
         _caller = next((f for f in reversed(_stack[:-2]) if f.filename != _this_file), None)
         self.logStuff(f"{_fn_name} called from {_caller.filename}:{_caller.lineno} in {_caller.name}" if _caller else f"{_fn_name}: caller unknown")
-      
+    
     # end helper functions
     
     def customTurn(self, speed, angle, dist):
@@ -160,7 +160,7 @@ class DriveController:
     def tightTurn(self, speed, heading, turnDir = auto):
         """Turn tight toward a target with maximum steering, slowing down as it approaches the target heading."""
         self.logCaller()
-      
+        
         
         self.setCommand("Tight turn")
         self.setSpeed(speed)
@@ -376,6 +376,24 @@ class DriveController:
 
         if self.end():
             return
+    
+    def driveUntilWall(self, speed, heading, wallDir, maxDist):
+        self.logCaller()
+        self.setCommand("driveUntilWall")
+        self.setSpeed(speed)
+        self.setTargetHeading(heading)
+        
+        wall = False
+        
+        while not wall and not self.stop_event.is_set():
+            self.calcAccel()
+            val = self.getDist([3,4],3,wallDir)
+            if val > 0 and val < maxDist:
+                wall = True
+            self.logStuff(f"Drive Until Wall: {val:.0f}, Target Dist: {maxDist}, Heading: {heading}, Speed: {self.parser.speed:.2f}")
+        if self.end():
+            return
+    
     
     def driveAlongWall(self, speed, heading, wallDir = rightWall):
         """Follow a wall until the selected side camera samples indicate the wall is gone."""
