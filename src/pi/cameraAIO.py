@@ -6,6 +6,7 @@ import numpy as np # type: ignore
 import libcamera # type: ignore
 import argparse
 import imutils # type: ignore
+from subprocess import call
 
 
 from libcamera import Transform # type: ignore
@@ -32,6 +33,11 @@ class Camera():
     blocksCx = []
     blocksCy = []
     pictureNum = 0
+    
+    # Exposure times (microseconds) used for custom HDR fusion.
+    # Tune these for your lighting conditions: dark scene → lower values,
+    # bright scene → higher values. Three stops apart is a good starting point.
+    HDR_EXPOSURES_US = [500, 4000, 32000]
     
     def __init__(self, parser: Parser):
         """@brief Initialize Picamera2 and configure capture settings.
@@ -68,12 +74,31 @@ class Camera():
         self.picam2.configure(self.config)
         self.picam2.start()
         
+        
+        # lower boundary RED color range values; Hue (0 - 10)
+        #                          H    S    V
+        self.redlower1 = np.array([0,  150, 120])
+        self.redupper1 = np.array([10, 255, 255])
+        
+        # upper boundary RED color range values; Hue (160 - 180)
+        #                           H    S   V
+        self.redlower2 = np.array([160, 100, 20])
+        self.redupper2 = np.array([179, 255,255])
 
-    
-    # Exposure times (microseconds) used for custom HDR fusion.
-    # Tune these for your lighting conditions: dark scene → lower values,
-    # bright scene → higher values. Three stops apart is a good starting point.
-    HDR_EXPOSURES_US = [500, 4000, 32000]
+        #                           H     S    V 
+        self.lowerGreen = np.array([35,  80,  20])
+        self.upperGreen = np.array([95,  255,  255])
+
+
+        #                             H    S   V
+        self.lowerBlack = np.array([  0,   0,  0])  # H S V Min Wert für Schwarz
+        self.upperBlack = np.array([255, 255, 40])  # Max Wert für Schwarz,   v = 90
+                                                    # Letzter wert hier ist die maximale Helligkeit für schwarze Wände
+                                                    # in Photoshop :
+                                                    #   R = Value       - Helligkeit
+                                                    #   G = Saturation  - Farbintensität
+                                                    #   B = Hue         - Farbton 
+
 
     def captureImage(self):
         # self.captureHdr()
@@ -152,29 +177,13 @@ class Camera():
 
         assert hsv is not None, "HSV color conversion failed"
 
-            # in photo shop: rgb -> vsh
-            
-        # lower boundary RED color range values; Hue (0 - 10)
-        lower1 = np.array([0, 190, 190])
-        upper1 = np.array([10, 255, 255])
+
+        lower_mask = cv.inRange(hsv, self.redlower1, self.redupper1)
+        upper_mask = cv.inRange(hsv, self.redlower2, self.redupper2)
         
-        # upper boundary RED color range values; Hue (160 - 180)
-        lower2 = np.array([160,100,20])
-        upper2 = np.array([179,255,255])
-            
-        lower_mask = cv.inRange(hsv, lower1, upper1)
-        upper_mask = cv.inRange(hsv, lower2, upper2)
-
         maskred = lower_mask + upper_mask
-
-        lowerGreen = np.array([35, 100, 20])
-        upperGreen = np.array([95, 255, 255])
-
-        maskgreen = cv.inRange(hsv, lowerGreen, upperGreen)
-
-        lowerBlack = np.array([0, 0, 0])        # H S V
-        upperBlack = np.array([255, 255, 90])     # Letzter wert hier ist die maximale Helligkeit für schwarze Wände
-        maskblack = cv.inRange(hsv, lowerBlack, upperBlack)
+        maskgreen = cv.inRange(hsv, self.lowerGreen, self.upperGreen)
+        maskblack = cv.inRange(hsv, self.lowerBlack, self.upperBlack)
         
         cv.imwrite(f'capture/{self.pictureNum}-0walls.jpg', maskblack)
 
@@ -182,7 +191,7 @@ class Camera():
         regionMask = np.zeros(hsv.shape[:2], dtype=np.uint8)
         regionMask[mask[0]:mask[1], mask[2]:mask[3]] = 255
         #                 y                  x
- 
+
 
         # Bitwise-AND mask and original image
         
@@ -195,7 +204,7 @@ class Camera():
         region = cv.bitwise_and(img, img, mask=regionMask)
         cv.imwrite(f'capture/{self.pictureNum}-5imageRegion.jpg', region)
         
-       
+        
             
         imgRed = cv.bitwise_and(img, img, mask=maskred)
         imgGreen = cv.bitwise_and(img, img, mask=maskgreen)
@@ -214,7 +223,7 @@ class Camera():
         cntsred = imutils.grab_contours(cntsred)
         cntsgreen = imutils.grab_contours(cntsgreen)
 
- 
+
         for c in cntsgreen:
             # compute the center of the contour
             M = cv.moments(c)
@@ -223,7 +232,7 @@ class Camera():
                 cY = int(M["m01"] / M["m00"])
                 # draw the contour and center of the shape on the image
                 cv.drawContours(imgclear, [c], -1, (0, 255, 0), 2)
-               
+                
                 cv.circle(imgclear, (cX, cY), 7, (0, 255, 0), -1)
                 area = cv.contourArea(c)
                 
@@ -258,7 +267,7 @@ class Camera():
                 
         if (len(self.blocksCy) == 0):
             cv.imwrite(f'capture/{self.pictureNum}-9detection_result.jpg', imgclear)
-            return None
+            return self.parser.GREEN
         
         lowestIndex = max(range(len(self.blocksCy)), key=self.blocksCy.__getitem__)
         cX = self.blocksCx[lowestIndex]
@@ -348,45 +357,16 @@ class Camera():
         cv.imwrite(f'capture/{self.pictureNum}-0hsv.jpg', hsv)
         img=imgIn
         
-            
+        
 
         assert hsv is not None, "HSV color conversion failed"
 
-            # in photo shop: rgb -> vsh
-            
-        # lower boundary RED color range values; Hue (0 - 10)
-        #                  H     S    V
-        lower1 = np.array([0,  190, 190])
-        upper1 = np.array([10, 255, 255])
+        lower_mask = cv.inRange(hsv, self.redlower1, self.redupper1)
+        upper_mask = cv.inRange(hsv, self.redlower2, self.redupper2)
         
-        # upper boundary RED color range values; Hue (160 - 180)
-        #                    H    S   V
-        lower2 = np.array([160, 100, 20])
-        upper2 = np.array([179, 255,255])
-            
-        lower_mask = cv.inRange(hsv, lower1, upper1)
-        upper_mask = cv.inRange(hsv, lower2, upper2)
-
         maskred = lower_mask + upper_mask
-
-
-        #                       H     S    V 
-        lowerGreen = np.array([35,  100,  20])
-        upperGreen = np.array([95,  255,  255])
-
-        maskgreen = cv.inRange(hsv, lowerGreen, upperGreen)
-
-
-
-        #                        H    S   V
-        lowerBlack = np.array([  0,   0,  0])     # H S V Min Wert für Schwarz
-        upperBlack = np.array([255, 255, 90])     # Max Wert für Schwarz, 
-                                                  # Letzter wert hier ist die maximale Helligkeit für schwarze Wände
-                                                  # in Photoshop :
-                                                  #   R = Value       - Helligkeit
-                                                  #   B = Saturation  - Farbintensität
-                                                  #   B = Hue         - Farbton 
-        maskblack = cv.inRange(hsv, lowerBlack, upperBlack)
+        maskgreen = cv.inRange(hsv, self.lowerGreen, self.upperGreen)
+        maskblack = cv.inRange(hsv, self.lowerBlack, self.upperBlack)
         
         cv.imwrite(f'capture/{self.pictureNum}-0walls.jpg', maskblack)
 
@@ -437,7 +417,7 @@ class Camera():
 
 
         cv.imwrite(f'capture/{self.pictureNum}-7imgRed.jpg', imgRed)
-        cv.imwrite(f'capture/{self.pictureNum}-8imgGreen.jpg', imgGreen    )
+        cv.imwrite(f'capture/{self.pictureNum}-8imgGreen.jpg', imgGreen)
 
 
 
@@ -497,7 +477,7 @@ class Camera():
                 print("Red at: ", cX, cY, "Area: ", area)
         if (len(self.blocksCx) == 0):
             cv.imwrite(f'capture/{self.pictureNum}-9detection_result.jpg', imgclear)
-            return None
+            return self.parser.RED
         if (regionNum == 1 or regionNum == 3):
             index = max(range(len(self.blocksCx)), key=self.blocksCx.__getitem__)
         else:

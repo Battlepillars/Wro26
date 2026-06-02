@@ -116,6 +116,9 @@ def controllLoop(parser,cam):
     parser.resetGyro()
 
     print("Started")
+    
+    
+    # obstacleChallengeSingle.scanClockwiseSimulation(parser, dC, cam )
     # dC.driveDist(0.2,90,1000)
     # openChallenge.clockwise(parser, dC)
     # obstacleChallenge.clockwise(parser, dC, cam)
@@ -123,11 +126,14 @@ def controllLoop(parser,cam):
     # obstacleChallengeSingle.counterClockwise(parser, dC, cam)
     # obstacleChallengeSingle.obstacleChallengeSingle(parser, dC, cam)
     # openChallenge.openChallenge(parser, dC)
+    
+    
     autoChallenge.autoChallenge(parser, dC, cam)
+    
+    
     # camTest.test(parser, dC, cam)
     # cam.getNearestObstacle()
 
-    
 
 
 
