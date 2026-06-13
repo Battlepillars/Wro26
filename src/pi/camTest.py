@@ -7,7 +7,7 @@ from camera import Camera
 
 
 def test(parser: Parser, dC: DriveController, cam: Camera):
-    parser.debugCam = True
+    parser.uiType = parser.Capture_1_Only
     while True:
         distRight = dC.getDist([0,1,2,3,4,5,6,7],3,dC.rightWall,dC.smallest)
         backDist = dC.getDist([0,1,2,3,4,5,6,7],3,dC.backWall)

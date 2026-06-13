@@ -1,5 +1,6 @@
 import time
 import math
+import os
 
 from numpy import angle
 
@@ -40,21 +41,15 @@ def wallDrive(dC: DriveController, dir, speedCurve, speedStraight, driveWall = F
 
 
 def unParkcounterClockwise(parser: Parser, dC: DriveController, cam: Camera):
-    speedStraight=2
-    speedCurve=1
-    
-    dC.quickTurn(speedCurve, 0)
-    if parser.checkSection(1) == parser.GREEN:
-        dC.brake()
-        dC.driveDist(-speedStraight,0,200)
-        dC.brake()
-    
-def unParkAfterScan(parser: Parser, dC: DriveController, cam: Camera):
-    speedStraight=2
+    speedStraight = dC.topSpeed
     speedCurve=1
     
     dC.turn(speedCurve, 0)
-    
+    if parser.checkSection(1) == parser.GREEN:
+        dC.brake()
+        #dC.driveDist(-speedStraight,0,200)
+        dC.driveAwayFromWall(-1, 0, 750, dC.frontWall)
+        dC.brake()
 
 
 def singleScanCounterClockwise(parser: Parser, dC: DriveController, cam: Camera):
@@ -73,8 +68,8 @@ def singleScanCounterClockwise(parser: Parser, dC: DriveController, cam: Camera)
     time.sleep(0.2)
     cam.captureImage()
     color1=cam.getObstacles1()
-   
-   
+
+
     dC.tightTurn(1, -90)
     dC.driveDist(speedStraight,-90,150)
     dC.brake()
@@ -89,7 +84,7 @@ def singleScanCounterClockwise(parser: Parser, dC: DriveController, cam: Camera)
     color3=cam.getObstacles3() 
     color4=cam.getObstacles4() 
     
-   
+    
     
     print("Color 1:", parser.colorName(color1))     # section 1
     print("Color 2:", parser.colorName(color2))     # section 2
@@ -98,8 +93,17 @@ def singleScanCounterClockwise(parser: Parser, dC: DriveController, cam: Camera)
     
     return color1, color2, color3, color4
 
+def scanSimulation(parser: Parser, cam: Camera):
+    path1 = os.path.isfile("captureStore/1-0baseImage.jpg")
+    path2 = os.path.isfile("captureStore/2-0baseImage.jpg")
+    path3 = os.path.isfile("captureStore/3-0baseImage.jpg")
+    path4 = os.path.isfile("captureStore/4-0baseImage.jpg")
+    if path1 and path2 and path3:
+        scanCounterClockwiseSimulation(parser, cam)
+    else: # path1 and path3 and path4
+        scanClockwiseSimulation(parser, cam)
 
-def scanClockwiseSimulation(parser: Parser, dC: DriveController, cam: Camera):
+def scanClockwiseSimulation(parser: Parser, cam: Camera):
     cam.loadImage("captureStore/1-0baseImage.jpg")
     cam.pictureNum=1
     color1=cam.getObstacles1()
@@ -125,12 +129,31 @@ def scanClockwiseSimulation(parser: Parser, dC: DriveController, cam: Camera):
 
     call("sudo systemctl restart smbd", shell=True)
 
-    time.sleep(500) 
+def scanCounterClockwiseSimulation(parser: Parser, cam: Camera):
+    cam.loadImage("captureStore/1-0baseImage.jpg")
+    cam.pictureNum=1
+    color1=cam.getObstacles1()
 
+    cam.loadImage("captureStore/2-0baseImage.jpg")
+    cam.pictureNum = cam.pictureNum+1
+    color2=cam.getObstacles2() 
+    
+    cam.loadImage("captureStore/3-0baseImage.jpg")
+    cam.pictureNum = cam.pictureNum+1
+    color3=cam.getObstacles3() 
+    color4=cam.getObstacles4() 
+
+
+    print("Color 1:", parser.colorName(color1))     # section 1
+    print("Color 2:", parser.colorName(color2))     # section 2
+    print("Color 3:", parser.colorName(color3))     # section 3
+    print("Color 4:", parser.colorName(color4))     # section 0
+
+    call("sudo systemctl restart smbd", shell=True)
 
 
 def singleScanClockwise(parser: Parser, dC: DriveController, cam: Camera):
-    speedStraight=2
+    speedStraight = dC.topSpeed
     speedCurve=1
     
     # cam.loadImage("captureStore/3-0baseImage.jpg")
@@ -145,7 +168,7 @@ def singleScanClockwise(parser: Parser, dC: DriveController, cam: Camera):
     cam.captureImage()
     color1=cam.getObstacles1()
     color4=cam.getObstacles1b()
-   
+    
     dC.tightTurn(-0.5, -90)
     dC.brake()
     time.sleep(0.2)
@@ -161,7 +184,7 @@ def singleScanClockwise(parser: Parser, dC: DriveController, cam: Camera):
     color4Left=cam.getObstacles4b()
     
     
-   
+    
     
     print("Color 1:", parser.colorName(color1))            # section 1
     print("Color 2:", parser.colorName(color2))            # section 2
@@ -207,11 +230,14 @@ def parkCCW(parser: Parser, dC: DriveController):
     
     print("Parking")
     dC.logger.log("Parking counterclockwise")
+    dC.brake()
+    dC.driveDist(speedStraight,0,100)
+    dC.brake()
+    time.sleep(3)
     dC.driveToWall(speedStraight,0,1100,800,minTravel=800)
     dC.brake()
     dC.driveAwayFromWall(-0.5, 0, 1080, dC.frontWall)
     dC.brake()
-    time.sleep(3)
     dC.quickTurn(0.5,90)
     dC.driveToWall(0.5,90,70)
     
@@ -227,28 +253,29 @@ def parkCW(parser: Parser, dC: DriveController):
 
     
     if parser.obstacles[0] == parser.GREEN:
-        if parser.checkSection(dC.prevSection()) == parser.RED:
+        if parser.checkSection(dC.prevSection(), True) == parser.RED:
             time.sleep(3)
             dC.driveDist(-0.5,0,550)
             dC.brake()
         dC.driveUntilWall(0.5,0,dC.rightWall,300)
         dC.driveDist(0.5,0,100)
+        dC.quickTurn(0.5,90)
+        dC.driveToWall(1,90,70)
     else:
         if parser.checkSection(dC.prevSection(), True) == parser.GREEN:
             dC.driveDist(speedStraight,0,600)
+        dC.brake()
+        time.sleep(3)
         dC.driveAlongWall(-0.5,0,dC.rightWall)
         dC.brake()
         dC.driveDist(0.5,0,220)
-    
-    dC.quickTurn(0.5,90)
-    dC.brake()
-    dC.driveToWall(0.5,90,70)
-    
-    
-    
-    
+        dC.quickTurn(0.5,90)
+        dC.driveToWall(0.5,90,70)
+
+
+
 def counterClockwise(parser: Parser, dC: DriveController, cam: Camera):
-    speedStraight=2
+    speedStraight = dC.topSpeed
     speedCurve=1
     speedCurveSlow=0.65
     parser.Direction = parser.CCW
@@ -314,28 +341,24 @@ def counterClockwise(parser: Parser, dC: DriveController, cam: Camera):
 
 
 def clockwise(parser: Parser, dC: DriveController, cam: Camera):
-    speedStraight=2
-    speedCurve=1
+    speedStraight = dC.topSpeed
+    speedCurve = 1
     speedCurveSlow=0.65
     parser.Direction = parser.CW
 
     parser.assignAllObstacles(singleScanClockwise(parser, dC, cam))
     # parser.assignAllObstaclesCustom(Parser.GREEN, Parser.RED, Parser.GREEN, Parser.RED)
-            
-    unParkAfterScan(parser, dC, cam)
     
-    if parser.obstacles[2] == parser.GREEN:
-        dC.turn(speedCurve,45)
-        # dC.driveDist(speedStraight,45,100)
-        dC.turn(speedCurve,0)
-        dC.driveToWall(speedStraight,0,1000)
-    elif parser.obstacles[2] == parser.RED:
+    
+    if parser.obstacles[2] == parser.RED:
         dC.turn(speedCurve,-60)
+        dC.driveDist(speedStraight,-60,200)
         dC.turn(speedCurve,0)
         dC.driveToWall(speedStraight,0,1000)
     else:
+        dC.turn(speedCurve,0)
         dC.driveToWall(speedStraight,0,1000)
-        
+    
     
     dC.section += 1
     for j in range(3):
@@ -343,7 +366,7 @@ def clockwise(parser: Parser, dC: DriveController, cam: Camera):
             if i == 3:
                 wallDriveDist = 630
             else:
-                wallDriveDist = 400
+                wallDriveDist = 430
                 
             print("Obstacle:", parser.colorName(parser.checkSection(dC.section, True)))
 

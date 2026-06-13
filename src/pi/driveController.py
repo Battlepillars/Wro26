@@ -34,6 +34,7 @@ class DriveController:
         DriveController.leftWall = parser.leftSensor
         DriveController.backWall = parser.backSensor
         
+        self.topSpeed = 1.8
         self.acceleration = 1
         self.deacceleration = 8
         self.setpoint = 0
