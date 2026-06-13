@@ -6,6 +6,7 @@ import json
 import board # type: ignore
 import busio # type: ignore
 import adafruit_bno055 # type: ignore
+from glob import glob
 from subprocess import call
 from gyro85 import gyroBNO085
 
@@ -23,6 +24,11 @@ class Parser:
     angleLeftSensor = 5
     CW = 0
     CCW = 1
+    Default = 0
+    Capture_1_Only = 1
+    Capture_Dynamic = 2
+    All = 0
+    HSV = 1
     
     def __init__(self):
         for i in range(self.amountSensors):
@@ -41,7 +47,7 @@ class Parser:
         self.time = 0
         self.startTime = time.time()
         self.endTime = 0
-        self.debugCam = False
+        self.uiType = Parser.Default
         self.obstacles = []
         self.currentCommand = ""
         self.obstacles = [None for _ in range(12)]
@@ -69,7 +75,15 @@ class Parser:
         self.ser.stopbits = serial.STOPBITS_ONE
         self.ser.parity = serial.PARITY_NONE
         self.ser.open()
+        
+        self.imageType = Parser.All
+        self.currentImage = 0
+        self.images = sorted(glob("capture/*.jpg"))         # get all files in captureStore ending with .jpg
+        self.hsvImages = sorted(glob("capture/*hsv.jpg"))   # get all files in captureStore ending with hsv.jpg
 
+    def loadImages(self):
+        self.images = sorted(glob("capture/*.jpg"))         # get all files in captureStore ending with .jpg
+        self.hsvImages = sorted(glob("capture/*hsv.jpg"))   # get all files in captureStore ending with hsv.jpg
 
     def calibDone(self):
         return True
@@ -112,9 +126,9 @@ class Parser:
             diff -= 360
 
         cal=1.00 #1.0041667 # calibration factor to match the heading with the real rotation of the robot. (360/358.5)
-                      # was calculated by comparing the gyro heading with the actual rotation of the robot. 
-                      # The robot was rotated 10 times and the average difference between the gyro heading and the
-                      # actual rotation was calculated to be 1.5 degrees per 360 degrees of rotation. This factor is used to correct the heading calculation.
+                            # was calculated by comparing the gyro heading with the actual rotation of the robot. 
+                            # The robot was rotated 10 times and the average difference between the gyro heading and the
+                            # actual rotation was calculated to be 1.5 degrees per 360 degrees of rotation. This factor is used to correct the heading calculation.
 
         # if (diff>0):
         #     diff *= cal

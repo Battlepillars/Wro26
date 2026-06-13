@@ -67,7 +67,7 @@ class Ui:
         self._last_telemetry_refresh = now
 
     def draw(self, screen, parser, cam):
-        if not parser.debugCam:
+        if parser.uiType == parser.Default:
             self.updatePiTelemetry()
             screen.fill("black")
 
@@ -153,10 +153,31 @@ class Ui:
                 pygame.draw.rect(screen, rect_color, (px, py, _sq, _sq))
                 num = self.font.render(str(sec), True, (0, 0, 0))
                 screen.blit(num, (px + 4, py))
-        else:
+        elif parser.uiType == parser.Capture_1_Only:
             self.drawCounter += 1
             if self.drawCounter >= 10:
                 image_surface = pygame.image.load(f"capture/capture{cam.pictureNum-1}.jpg").convert()
                 screen.blit(image_surface, (0, 0))
                 self.drawCounter = 0
-        
+        elif parser.uiType == parser.Capture_Dynamic:
+            green = (0, 255, 0)
+            blue = (0, 0, 128)
+            self.drawCounter += 1
+            # vsh
+            if len(parser.images) > 0 and self.drawCounter >= 5:
+                if parser.imageType == parser.All:
+                    path = f"{parser.images[parser.currentImage]}"
+                else:
+                    path = f"{parser.hsvImages[parser.currentImage]}"
+                pygame.display.set_caption(path[path.find("/")+1:])
+                image_surface = pygame.image.load(path).convert()
+                screen.blit(image_surface, (0, 0))
+                mousePos = pygame.mouse.get_pos()
+                if image_surface.get_width() > mousePos[0] >= 0 and image_surface.get_height() > mousePos[1] >= 0:
+                    rgbValues = image_surface.get_at(mousePos)
+                    if path[-7:] == "hsv.jpg":
+                        rgbText = self.font.render(f"H: {rgbValues[2]}, S: {rgbValues[1]}, V: {rgbValues[0]}", True, green)
+                    else:
+                        rgbText = self.font.render(f"R: {rgbValues[0]}, G: {rgbValues[1]}, B: {rgbValues[2]}", True, green)
+                    screen.blit(rgbText, (mousePos[0]+30, mousePos[1]))
+                    self.drawCounter = 0

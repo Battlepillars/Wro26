@@ -6,8 +6,10 @@ import openChallenge
 import obstacleChallenge
 import camTest
 import obstacleChallengeSingle
-import autoChallenge
+import os
+import shutil
 
+from autoChallenge import autoChallenge
 from parser import Parser
 from ui import Ui
 from driveController import DriveController
@@ -32,7 +34,7 @@ def main():
     
     clock = pygame.time.Clock()
     screen = pygame.display.set_mode((1220, 500), pygame.RESIZABLE)
-
+    
     signal.signal(signal.SIGINT, handle_kb_interrupt)
     parserThread = threading.Thread(target=parser.pars, args=(), daemon=True)
     parserThread.start()
@@ -46,7 +48,9 @@ def main():
             if event.type == pygame.QUIT:
                 running = False
             elif event.type == pygame.VIDEORESIZE:
-                screen = pygame.display.set_mode((event.w, event.h), pygame.RESIZABLE)
+                #screen = pygame.display.set_mode((event.w, event.h), pygame.RESIZABLE)
+                # pygame.transform.scale(screen, (event.w, event.h))
+                pass
             elif event.type == pygame.KEYDOWN:
                 if event.key == pygame.K_SPACE:   # stop driving
                     manual = True
@@ -63,9 +67,30 @@ def main():
                 if event.key == pygame.K_v:
                     start_event.set()
                 if event.key == pygame.K_t:
-                    cam.getNearestObstacle(useOldPicture=True)
+                    if parser.uiType != parser.Capture_Dynamic:
+                        parser.loadImages
+                        parser.uiType = parser.Capture_Dynamic
+                    else:
+                        parser.uiType = parser.Default
                 if event.key == pygame.K_u:
                     cam.getNearestObstacle()
+            if event.type == pygame.MOUSEBUTTONDOWN:
+                length = len(parser.images) if parser.imageType == parser.All else len(parser.hsvImages)
+                if event.button == 1 and parser.currentImage > 0:
+                    parser.currentImage -= 1
+                if event.button == 3 and parser.currentImage < length - 1:
+                    parser.currentImage += 1
+                
+                if event.button == 2:
+                    if parser.imageType == parser.All:
+                        parser.imageType = parser.HSV
+                        # path = f"{parser.images[parser.currentImage]}"
+                        # parser.currentImage = findCloesetHsvImage(parser.images, path)
+                        parser.currentImage = 0
+                    else:
+                        parser.imageType = parser.All
+                        path = f"{parser.hsvImages[parser.currentImage]}"
+                        parser.currentImage = parser.images.index(path)
         
         if parser.button and not parser.started:
             parser.started = True
@@ -100,6 +125,10 @@ def main():
             clock.tick(30)
     pygame.quit()
 
+def findCloesetHsvImage(images, path):
+    indexes = [i for i, value in enumerate(images) if value == path]
+    return indexes[0] if indexes else 0
+
 def handle_kb_interrupt(sig, frame):
     global running
     running = False
@@ -114,26 +143,32 @@ def controllLoop(parser,cam):
         return
     
     parser.resetGyro()
+    shiftCaptures()
 
     print("Started")
     
-    
-    # obstacleChallengeSingle.scanClockwiseSimulation(parser, dC, cam )
-    # dC.driveDist(0.2,90,1000)
-    # openChallenge.clockwise(parser, dC)
-    # obstacleChallenge.clockwise(parser, dC, cam)
-    # obstacleChallengeSingle.clockwise(parser, dC, cam)
-    # obstacleChallengeSingle.counterClockwise(parser, dC, cam)
-    # obstacleChallengeSingle.obstacleChallengeSingle(parser, dC, cam)
-    # openChallenge.openChallenge(parser, dC)
-    
-    
-    autoChallenge.autoChallenge(parser, dC, cam)
+    # obstacleChallengeSingle.scanSimulation(parser, cam)
+    # obstacleChallengeSingle.scanClockwiseSimulation(parser, cam)
+    # obstacleChallengeSingle.scanCounterClockwiseSimulation(parser, cam )
+    autoChallenge(parser, dC, cam)
     
     
     # camTest.test(parser, dC, cam)
     # cam.getNearestObstacle()
 
+
+def shiftCaptures():
+    # Shift capture folders: capture → capture1, capture1 → capture2, …
+    MAX_CAPTURE_DIRS = 10
+    for n in range(MAX_CAPTURE_DIRS, 0, -1):
+        src = "capture" + (str(n) if n > 1 else "")
+        dst = f"capture{n + 1}"
+        if os.path.isdir(src):
+            if n >= MAX_CAPTURE_DIRS:
+                shutil.rmtree(src)
+            else:
+                os.rename(src, dst)
+    os.makedirs("capture", exist_ok=True)
 
 
 

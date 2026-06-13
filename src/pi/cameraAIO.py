@@ -1,5 +1,3 @@
-import os
-import shutil
 import time
 import cv2 as cv # type: ignore
 import numpy as np # type: ignore
@@ -48,18 +46,6 @@ class Camera():
         
         self.parser = parser
 
-        # Rotate capture folders: capture → capture1, capture1 → capture2, …
-        MAX_CAPTURE_DIRS = 10
-        for n in range(MAX_CAPTURE_DIRS, 0, -1):
-            src = "capture" + (str(n) if n > 1 else "")
-            dst = f"capture{n + 1}"
-            if os.path.isdir(src):
-                if n >= MAX_CAPTURE_DIRS:
-                    shutil.rmtree(src)
-                else:
-                    os.rename(src, dst)
-        os.makedirs("capture", exist_ok=True)
-
         self.picam2 = Picamera2()
         self.picam2.set_controls({'HdrMode': libcamera.controls.HdrModeEnum.SingleExposure})
         # self.picam2.set_controls({'HdrMode': libcamera.controls.HdrModeEnum.Off})     
@@ -74,10 +60,11 @@ class Camera():
         self.picam2.configure(self.config)
         self.picam2.start()
         
+        self.defaultColor = self.parser.GREEN
         
         # lower boundary RED color range values; Hue (0 - 10)
         #                          H    S    V
-        self.redlower1 = np.array([0,  150, 120])
+        self.redlower1 = np.array([0,  150, 100]) #v 120->100
         self.redupper1 = np.array([10, 255, 255])
         
         # upper boundary RED color range values; Hue (160 - 180)
@@ -144,7 +131,7 @@ class Camera():
         realColor = cv.imread(path)
         
         self.baseImage = cv.cvtColor(realColor, cv.COLOR_BGR2RGB)
-    def getObstacles2(self, mask = [230,390, 300,1000]):
+    def getObstacles2(self, mask = [230,390, 300,1000], defaultColor=20):
         """@brief Capture frame, extract scan band, detect RED/GREEN blobs.
 
         Performs blur, HSV conversion, masking for color ranges (including
@@ -162,6 +149,8 @@ class Camera():
         self.blocksCy = []
         self.blocksColor = []
 
+        if defaultColor == 20:
+            defaultColor = self.defaultColor
 
         imgclear = self.baseImage.copy()
 
@@ -267,7 +256,7 @@ class Camera():
                 
         if (len(self.blocksCy) == 0):
             cv.imwrite(f'capture/{self.pictureNum}-9detection_result.jpg', imgclear)
-            return self.parser.GREEN
+            return defaultColor
         
         lowestIndex = max(range(len(self.blocksCy)), key=self.blocksCy.__getitem__)
         cX = self.blocksCx[lowestIndex]
@@ -291,7 +280,7 @@ class Camera():
         self.pictureNum += 1
         # Maske x: 500-1000, y: 300-800
         regionMask = np.zeros(self.baseImage.shape[:2], dtype=np.uint8) 
-        return self.getObstacles2([600,1000, 400,1150])
+        return self.getObstacles2([600,1000, 400,1150],None)
         #      
     def getObstacles3(self):
         
@@ -477,7 +466,7 @@ class Camera():
                 print("Red at: ", cX, cY, "Area: ", area)
         if (len(self.blocksCx) == 0):
             cv.imwrite(f'capture/{self.pictureNum}-9detection_result.jpg', imgclear)
-            return self.parser.RED
+            return self.defaultColor
         if (regionNum == 1 or regionNum == 3):
             index = max(range(len(self.blocksCx)), key=self.blocksCx.__getitem__)
         else:
@@ -490,7 +479,6 @@ class Camera():
         cv.imwrite(f'capture/{self.pictureNum}-9detection_result.jpg', imgclear)
 
         return color
-               
 
 
 
