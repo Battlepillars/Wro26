@@ -224,8 +224,8 @@
 
 # **The team** 
 <div align="center">
-    <a href="img/teamname.jpg" target="_blank">
-        <img width="800" src="img/teamname.jpg">
+    <a href="img/freigestellt.png" target="_blank">
+        <img width="800" src="img/freigestellt.png">
     </a>
 </div>
 In this repository, you’ll find the documentation for the robot created by the "Battlepillars" for the 2025 World Robot Olympiad Future Engineers competition. The robot was the result of a collaborative effort by three students.
@@ -234,7 +234,8 @@ In this repository, you’ll find the documentation for the robot created by the
 
 <div align="center">
     <a href="img/nils.jpg" target="_blank">
-        <img width="300" src="img/nils.jpg">
+        <img width="300" src="img/nils.jpg"
+    >
     </a>
 </div>
 
@@ -283,42 +284,11 @@ My part of the team effort is the documentation and images you'll see below.
 <br><br><br>
 
 # **The robot**
-## **Photos of the robot**
+## **Photo of the robot**
 <div align="center">
-    <a href="img/vorne.jpg" target="_blank">
-        <img width="500" src="img/vorne.jpg">
+    <a href="img/sechs_ansichten Kopie.jpg" target="_blank">
+        <img width="500" src="img/sechs_ansichten Kopie.jpg">
     </a>
-</div>
-<br>
-<div align="center">
-    <a href="img/links.jpg" target="_blank">
-        <img width="500" src="img/links.jpg">
-    </a>
-</div>
-<br>
-<div align="center">
-    <a href="img/rechts.jpg" target="_blank">
-        <img width="500" src="img/rechts.jpg">
-    </a>
-</div>
-<br>
-<div align="center">
-    <a href="img/hinten.jpg" target="_blank">
-        <img width="500" src="img/hinten.jpg">
-    </a>
-</div>
-<br>
-<div align="center">
-    <a href="img/oben.jpg" target="_blank">
-        <img width="500" src="img/oben.jpg">
-    </a>
-</div>
-<br>
-<div align="center">
-    <a href="img/unten.jpg" target="_blank">
-        <img width="500" src="img/unten.jpg">
-    </a>
-</div>
 <br><br><br>
 
 # **1. Mobilität und Mechanik**
