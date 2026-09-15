@@ -18,7 +18,6 @@ src/stm32/.pioenvs/
 src/stm32/.piolibdeps/
 src/stm32/.vscode/launch.json
 src/stm32/.vscode/c_cpp_properties.json
-*.jpg
 src/pi/autolog.txt
 .vscode/settings.json
 src/pi/.vscode/settings.json
