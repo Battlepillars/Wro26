@@ -224,8 +224,8 @@
 
 # **The team** 
 <div align="center">
-    <a href="img/teamname.jpg" target="_blank">
-        <img width="800" src="img/teamname.jpg">
+    <a href="img/freigestellt.png" target="_blank">
+        <img width="800" src="img/freigestellt.png">
     </a>
 </div>
 In this repository, you’ll find the documentation for the robot created by the "Battlepillars" for the 2026 World Robot Olympiad Future Engineers competition. The robot was the result of a collaborative effort by three students.
@@ -234,7 +234,8 @@ In this repository, you’ll find the documentation for the robot created by the
 
 <div align="center">
     <a href="img/nils.jpg" target="_blank">
-        <img width="300" src="img/nils.jpg">
+        <img width="300" src="img/nils.jpg"
+    >
     </a>
 </div>
 
@@ -276,12 +277,11 @@ My part of the team effort is the documentation and images you'll see below.
 
 
 # **The robot**
-## **Photos of the robot**
+## **Photo of the robot**
 <div align="center">
     <a href="img/sechs_ansichten Kopie.jpg" target="_blank">
         <img width="500" src="img/sechs_ansichten Kopie.jpg">
     </a>
-</div>
 <br><br><br>
 
 # **1. Mobilität und Mechanik**
