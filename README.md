@@ -228,7 +228,7 @@
         <img width="800" src="img/teamname.jpg">
     </a>
 </div>
-In this repository, you’ll find the documentation for the robot created by the "Battlepillars" for the 2025 World Robot Olympiad Future Engineers competition. The robot was the result of a collaborative effort by three students.
+In this repository, you’ll find the documentation for the robot created by the "Battlepillars" for the 2026 World Robot Olympiad Future Engineers competition. The robot was the result of a collaborative effort by three students.
 
 ## **Nils Stauff**
 
@@ -268,55 +268,18 @@ My part of the team effort is the documentation and images you'll see below.
 ## **Team photo**
 
 <div align="center">
-    <a href="img/team.jpg" target="_blank">
-        <img width="500" src="img/team.jpg">
+    <a href="img/team.png" target="_blank">
+        <img width="500" src="img/team.png">
     </a>
 </div>
 
-## **Funny team photo**
 
-<div align="center">
-    <a href="img/teamfoto2.jpg" target="_blank">
-        <img width="500" src="img/teamfoto2.jpg">
-    </a>
-</div>
-<br><br><br>
 
 # **The robot**
 ## **Photos of the robot**
 <div align="center">
-    <a href="img/vorne.jpg" target="_blank">
-        <img width="500" src="img/vorne.jpg">
-    </a>
-</div>
-<br>
-<div align="center">
-    <a href="img/links.jpg" target="_blank">
-        <img width="500" src="img/links.jpg">
-    </a>
-</div>
-<br>
-<div align="center">
-    <a href="img/rechts.jpg" target="_blank">
-        <img width="500" src="img/rechts.jpg">
-    </a>
-</div>
-<br>
-<div align="center">
-    <a href="img/hinten.jpg" target="_blank">
-        <img width="500" src="img/hinten.jpg">
-    </a>
-</div>
-<br>
-<div align="center">
-    <a href="img/oben.jpg" target="_blank">
-        <img width="500" src="img/oben.jpg">
-    </a>
-</div>
-<br>
-<div align="center">
-    <a href="img/unten.jpg" target="_blank">
-        <img width="500" src="img/unten.jpg">
+    <a href="img/sechs_ansichten Kopie.jpg" target="_blank">
+        <img width="500" src="img/sechs_ansichten Kopie.jpg">
     </a>
 </div>
 <br><br><br>
@@ -325,110 +288,334 @@ My part of the team effort is the documentation and images you'll see below.
 
 ## **Entwicklungsziel**
 In der Saison 2025 haben wir bereits erfolgreich an der Kategorie Future Engineers teilgenommen und im Weltfinale in beiden Wertungsläufen die höchstmögliche Punktzahl erreicht. 
-Ziel der Saison 2026 war es, nicht mehr nur zuverlässig die maximale Punktzahl zu erreichen, sondern die Strecke in möglichst kurzer Zeit zu absolvieren. Daraus ergaben sich drei zentrale mechanische Entwicklungsziele: ein kleineres und leichteres Chassis, ein schnellerer und effizienterer Antrieb sowie eine präzisere Lenkung. Diese Ziele führten zu einer vollständigen Neukonstruktion von Chassis, Antrieb, Vorderachse und Elektroniklayout.
+<br><br>
+**Ziel der Saison 2026** war es, nicht mehr nur zuverlässig die maximale Punktzahl zu erreichen, sondern die **Strecke in möglichst kurzer Zeit** zu absolvieren. Daraus ergaben sich drei zentrale mechanische Entwicklungsziele: ein kleineres und leichteres Chassis, ein schnellerer und effizienterer Antrieb sowie eine präzisere Lenkung. Diese Ziele führten zu einer vollständigen Neukonstruktion von Chassis, Antrieb, Vorderachse und Elektroniklayout.
+<br><br>
 Die kleinere Bauform sollte mehrere Vorteile bringen: Durch die kleine Größe des Autos sind kleinere Kurvenradien möglich und somit eine höhere Wendigkeit. Außerdem hat das Auto beim Hindernisrennen bei der Durchfahrt enger Passagen mehr Abstand zu den Hindernissen, was die Fahrt fehlertoleranter macht und höhere Geschwindigkeiten erlaubt.
 <br>
 
 ## **Chassis und mechanischer Aufbau**
 
-### **Konstruktion der Chassis**
-Das Chassis wurde in Fusion 360 konstruiert. Während der Entwicklung wurde als Filament einfaches PLA verwendet, da es kostengünstig und einfach zu drucken ist. Allerdings funktionierte die Motorhalterung in PLA nicht zuverlässig, da das PLA kriecht (sich unter konstantem Druck verformt) und das Zahnflankenspiel am Motor dadurch nicht mehr passte. 
-In der finalen Version wurde das Chassis aus PPA-CF-Filament gefertigt. PPA-CF ist deutlich steifer und kriecht nicht. Dadurch verändern sich die Winkel von Kamera und Sensoren nicht durch ein Durchbiegen des Chassis. Das verbessert die Reproduzierbarkeit der Sensordaten und sorgt für konsistentere Messwerte über den gesamten Lauf. 
-Allerdings ergab sich dadurch ein neues Problem. Wenn die Radaufhängung nicht ganz genau gleich hoch war oder die Bodenplatte minimal verzogen war, schwebte ein Rad durch die extreme Steifheit des Materials leicht in der Luft und drehte durch. Bei den vorherigen Versionen in PLA wurde diese Problematik durch die federnden Eigenschaften des Materials ausgeglichen. Da wir aber auf die positiven Eigenschaften des PPA-CF-Filaments in Bezug auf die Sensordaten nicht verzichten wollten, erhitzten wir die Bodenplatte mit einem Heißluftfön und bogen diese vorsichtig, bis alle Räder guten Bodenkontakt hatten.
+### **Konstruktion des Chassis**
+Das **Chassis** wurde in Fusion 360 konstruiert. Während der Entwicklung wurde als Filament **einfaches PLA** verwendet, da es kostengünstig und einfach zu drucken ist. Allerdings funktionierte die Motorhalterung in PLA nicht zuverlässig, da das PLA kriecht (sich unter konstantem Druck verformt) und das Zahnflankenspiel am Motor dadurch nicht mehr passte. 
 <br><br>
+In der finalen Version wurde das Chassis aus **PPA-CF-Filament** gefertigt. PPA-CF ist deutlich steifer und kriecht nicht. Dadurch verändern sich die Winkel von Kamera und Sensoren nicht durch ein Durchbiegen des Chassis. Das verbessert die Reproduzierbarkeit der Sensordaten und sorgt für konsistentere Messwerte über den gesamten Lauf. 
+<br><br>
+Allerdings ergab sich dadurch ein neues Problem. Wenn die Radaufhängung nicht ganz genau gleich hoch war oder die Bodenplatte minimal verzogen war, schwebte ein Rad durch die extreme Steifheit des Materials leicht in der Luft und drehte durch. Bei den vorherigen Versionen in PLA wurde diese Problematik durch die federnden Eigenschaften des Materials ausgeglichen. Da wir aber auf die positiven Eigenschaften des PPA-CF-Filaments in Bezug auf die Sensordaten nicht verzichten wollten, erhitzten wir die Bodenplatte mit einem Heißluftfön und bogen diese vorsichtig, bis alle Räder guten Bodenkontakt hatten.
+<br>
 
 ### **Iteration der Bodenplatte**
 
-Zu Beginn bestand die Bodenplatte nur aus einem einfachen Rechteck. Diese erste Version diente dazu, die wichtigsten mechanischen Komponenten grob zu positionieren und die benötigte Grundfläche abzuschätzen. Als erster Anhaltspunkt dienten die Abmessungen der Hinterachse mit Kugeldifferential, die wir als vormontierte Baugruppe mit fest angebauter Hinterachse und Radnaben eingekauft hatten. Diese bestimmte den Radstand und damit die Breite der Bodenplatte. Die Länge der Bodenplatte wurde hingegen durch die Abmessungen der selbst entwickelten Platine vorgegeben, da diese als flächenmäßig größte Komponente längs ins Chassis eingebaut wurde. Für die Hinterachse haben wir ein Kugeldifferential aus dem Modellbau verwendet, da ein Differential in dieser Größe nur schwer zuverlässig zu drucken ist. Anschließend wurde die Bodenplatte schrittweise an die tatsächlichen mechanischen Anforderungen angepasst. Während dieses Prozesses wurden über fünfzehn Versionen der Bodenplatte erstellt und gedruckt, bis die finale Version mit allen notwendigen Aussparungen, Befestigungspunkten und Anpassungen für die Achsen, Räder, Sensoren und Elektronik fertiggestellt war (vgl. Anhang 5.1: Abbildung A1 „Wichtigste Versionen der Bodenplatte“). Für Lenkung und Radaufhängung wurden insgesamt zehn Kugellager verbaut.
+Zu Beginn bestand die **Bodenplatte** nur aus einem einfachen Rechteck. Diese erste Version diente dazu, die wichtigsten mechanischen Komponenten grob zu positionieren und die benötigte Grundfläche abzuschätzen. Als erster Anhaltspunkt dienten die Abmessungen der Hinterachse mit Kugeldifferential, die wir als vormontierte Baugruppe mit fest angebauter Hinterachse und Radnaben eingekauft hatten. Diese bestimmte den Radstand und damit die Breite der Bodenplatte. Die Länge der Bodenplatte wurde hingegen durch die Abmessungen der selbst entwickelten Platine vorgegeben, da diese als flächenmäßig größte Komponente längs ins Chassis eingebaut wurde. Für die Hinterachse haben wir ein Kugeldifferential aus dem Modellbau verwendet, da ein Differential in dieser Größe nur schwer zuverlässig zu drucken ist. Anschließend wurde die Bodenplatte schrittweise an die tatsächlichen mechanischen Anforderungen angepasst. Während dieses Prozesses wurden über fünfzehn Versionen der Bodenplatte erstellt und gedruckt, bis die finale Version mit allen notwendigen Aussparungen, Befestigungspunkten und Anpassungen für die Achsen, Räder, Sensoren und Elektronik fertiggestellt war. Für Lenkung und Radaufhängung wurden insgesamt zehn Kugellager verbaut.
+
+#### Abbildung 1: Iterationen der Bodenplatte:
+
+<div align="center">
+    <a href="img/iterationen_bodenplatte_eng.png" target="_blank">
+        <img width="500" src="img/iterationen_bodenplatte_eng.png" alt="Obstacle’s acceptable angle window">
+    </a>
+</div>
 
 ### **Aufbau des Chassis**
 
-Das Chassis ist in drei Ebenen aufgeteilt, die eine kompakte und übersichtliche Integration aller Komponenten ermöglichen: Die Bodenplatte trägt Antrieb, Akku, Differential und Lenkung, die Mittelplatte beherbergt Platine, den Raspberry Pi CM5 das Gyroskop und den Microcontroller, und das Oberdeck beinhaltet die Kamera und die ToF-Sensoren. Auf den folgenden Bildern ist zu erkennen, wie der Roboter zusammengebaut wird. Die zugehörigen Konstruktionsdateien sind in unserem GitHub hinterlegt (https://github.com/Battlepillars/Wro26).
-Das fertige Fahrzeug mit allen Komponenten (Platine, Akku, Raspberry Pi CM5, Sensoren, Kamera) hat ein Gesamtgewicht von ca. 450 g. 
+Das **Chassis ist in drei Ebenen** aufgeteilt, die eine kompakte und übersichtliche Integration aller Komponenten ermöglichen: 
+<br>
+<li>Die Bodenplatte trägt Antrieb, Akku, Differential und Lenkung.</li>
+<li>Die Mittelplatte beherbergt Platine, den Raspberry Pi CM5 das Gyroskop und den Microcontroller.
+<li>Das Oberdeck beinhaltet die Kamera und die ToF-Sensoren.</li>
+<br>
+
+Das fertige Fahrzeug mit allen Komponenten (Platine, Akku, Raspberry Pi CM5, Sensoren, Kamera) hat ein **Gesamtgewicht von ca. 450 g**. 
+<br><br>
+#### Abbildung 2: Aufbau des Roboters:
+
+<div align="center">
+    <a href="img/ebenen_eng.png" target="_blank">
+        <img width="500" src="img/ebenen_eng.png" alt="Obstacle’s acceptable angle window">
+    </a>
+</div>
+
 
 
 
 
 ## **Antriebskonzept und Motorauswahl**
 
-Unser Ziel war es, eine Runde in ungefähr 10 Sekunden zu fahren – ein Rennen besteht aus drei Runden, das wir damit in etwa 30 Sekunden absolvieren wollen. Die WRO-Strecke hat pro Runde einen Umfang (je nach Streckenführung) von etwa 8 m. Daraus ergibt sich eine benötigte Zielgeschwindigkeit von 8 m / 10 s = 0,8 m/s.  Allerdings können wir nicht permanent mit voller Geschwindigkeit fahren. Es braucht Zeit zum Beschleunigen und Abbremsen und für langsamere Kurvenfahrten. Außerdem geht Zeit zum Parken und für die Hinderniserkennung verloren. Diese Faktoren sind schwer zu berechnen, deswegen haben wir für unser Auto eine Zielgeschwindigkeit von 2m/s als Höchstgeschwindigkeit abgeschätzt.
-Auf Grundlage der gewählten Räder (Durchmesser ca. 27 mm, Umfang ca. 84,8 mm) muss das Rad dafür ungefähr 23,7 Umdrehungen pro Sekunde (= 1410 RPM) ausführen. Um die benötigte Raddrehzahl von etwa 1410 RPM zu erreichen, muss der Getriebeausgang des Motors aufgrund der externen Übersetzung von 2,44:1 eine Drehzahl von ungefähr 3384 RPM liefern. Das ist die erste Anforderung an den Motor.
-Die zweite Anforderung betrifft das Drehmoment. Ein Motor muss nicht nur eine hohe Drehzahl erreichen, sondern auch genug Drehmoment liefern, um das Fahrzeug unter realen Bedingungen zuverlässig zu beschleunigen. Das notwendige Drehmoment schätzten wir auf Basis des Fahrzeuggewichts von ca. 450 g ab. Bei einem angenommenen Rollreibungskoeffizienten von 0,05 und einem Radradius von 13,5 mm ergibt sich:
-
-++ S. Dokument S.3 (graue Leiste)
+Unser Ziel war es, **eine Runde in ungefähr 10 Sekunden zu fahren** – ein Rennen besteht aus drei Runden, das wir damit in etwa 30 Sekunden absolvieren wollen. Die WRO-Strecke hat pro Runde einen Umfang (je nach Streckenführung) von etwa 8 m. Daraus ergibt sich eine benötigte Zielgeschwindigkeit von 8 m / 10 s = 0,8 m/s.  Allerdings können wir nicht permanent mit voller Geschwindigkeit fahren. Es braucht Zeit zum Beschleunigen und Abbremsen und für langsamere Kurvenfahrten. Außerdem geht Zeit zum Parken und für die Hinderniserkennung verloren. Diese Faktoren sind schwer zu berechnen, deswegen haben wir für unser Auto eine Zielgeschwindigkeit von **2m/s als Höchstgeschwindigkeit** abgeschätzt.
+<br><br>
+Auf Grundlage der gewählten Räder (Durchmesser ca. 27 mm, Umfang ca. 84,8 mm) muss das Rad dafür ungefähr 23,7 Umdrehungen pro Sekunde (= 1410 RPM) ausführen. Um die benötigte Raddrehzahl von etwa 1410 RPM zu erreichen, muss der Getriebeausgang des Motors aufgrund der externen Übersetzung von 2,44:1 eine **Drehzahl** von ungefähr 3384 RPM liefern. Das ist die erste Anforderung an den Motor.
+<br><br>
+Die zweite Anforderung betrifft das **Drehmoment**. Ein Motor muss nicht nur eine hohe Drehzahl erreichen, sondern auch genug Drehmoment liefern, um das Fahrzeug unter realen Bedingungen zuverlässig zu beschleunigen. Das notwendige Drehmoment schätzten wir auf Basis des Fahrzeuggewichts von ca. 450 g ab. Bei einem angenommenen Rollreibungskoeffizienten von 0,05 und einem Radradius von 13,5 mm ergibt sich:
+<br>
+<div style="background-color: #B8D8EE; padding: 8px; text-align: center; color: #000000; margin-bottom: 20px;">
+Rollwiderstandskraft: F<sub>roll</sub> = 0,45 kg × 9,81 m/s² × 0,05 ≈ 0,22 N<br>
+Drehmoment am Rad: M<sub>rad</sub> = 0,22 N × 0,0135 m ≈ 3,0 mNm
+</div>
 
 Nach Rückrechnung durch die externe Getriebeübersetzung muss der Motor mindestens 3,0 / 2,44 ≈ 1,2 mNm Drehmoment aufbringen, zuzüglich Reserve für Kurvenfahrten und Beschleunigung.
-Um einen geeigneten Motor zu finden, haben wir mehrere kleine Motoren der N20/N30-Klasse gekauft, die laut Datenblatt hohe Drehzahlen bei vertretbarem Drehmoment versprechen, und diese direkt im Fahrzeug getestet. Dafür haben wir ein Testprogramm geschrieben, das die Fahrgeschwindigkeit über den Encoder am Motor berechnet. Der STM32 liest einen Quadratur-Encoder aus und berechnet die Drehzahl. Die Umrechnung des Encoder-Zählerwerts in eine Fahrgeschwindigkeit erfolgt über den empirisch kalibrierten Faktor: 
 
-++ S. Dokument S.4 (graue Leiste)
+Um einen geeigneten Motor zu finden, haben wir mehrere kleine Motoren der N20/N30-Klasse gekauft, die laut Datenblatt hohe Drehzahlen bei vertretbarem Drehmoment versprechen, und diese direkt im Fahrzeug getestet. Dafür haben wir ein **Testprogramm** geschrieben, das die Fahrgeschwindigkeit über den Encoder am Motor berechnet. Der STM32 liest einen Quadratur-Encoder aus und berechnet die Drehzahl. Die Umrechnung des Encoder-Zählerwerts in eine Fahrgeschwindigkeit erfolgt über den empirisch kalibrierten Faktor: 
+
+<div style="background-color: #B8D8EE; padding: 8px; text-align: center; color: #000000; margin-bottom: 20px;">
+v [m/s] = Encoder-Zählwert × 30 / (5,165 × 1000)</div>
 
 Der Faktor 5,165 wurde anhand von  Referenzmessungen bei bekannten Strecken bestimmt.
 
-++ S. Dokument S.4 (Tabelle)
+ #### Tabelle 1: Vergleich der getesteten Motoren
 
-Wir haben uns für den N30 6V 1500 rpm entschieden, da er im Fahrzeug mit ca. 2 m/s die höchste reale Geschwindigkeit erreichte. Sein Nenndrehmoment von ca. 3 mNm liegt über dem berechneten Mindestbedarf von 1,2 mNm und liefert ausreichend Reserve. Laut Datenblatt erreicht er bei 6 V 1500 RPM; hochskaliert auf die Betriebsspannung von 11,1 V (3S-LiPo) ergibt sich eine extrapolierte Leerlaufdrehzahl von ca. 2775 RPM.  
+<table align="center" border="1" style="border-collapse: collapse; border: 2px solid black;">
+
+  <!-- Tabellenkopf -->
+  <tr>
+    <th bgcolor="#4A90C2" width="120" style="border: 1px solid black; border-bottom: 3px solid black; padding: 8px; color: white;">Motor</th>
+    <th bgcolor="#4A90C2" width="160" style="border: 1px solid black; border-bottom: 3px solid black; padding: 8px; color: white;">Leerlauf-Drehzahl<br>(Datenblatt)</th>
+    <th bgcolor="#4A90C2" width="160" style="border: 1px solid black; border-bottom: 3px solid black; padding: 8px; color: white;">Nenndrehmoment<br>(Datenblatt)</th>
+    <th bgcolor="#4A90C2" width="160" style="border: 1px solid black; border-bottom: 3px solid black; padding: 8px; color: white;">Gemessene<br>Geschwindigkeit</th>
+    <th bgcolor="#4A90C2" width="260" style="border: 1px solid black; border-bottom: 3px solid black; padding: 8px; color: white;">Beobachtungen</th>
+    <th bgcolor="#4A90C2" width="120" style="border: 1px solid black; border-bottom: 3px solid black; padding: 8px; color: white;">Entscheidung</th>
+  </tr>
+
+  <!-- N20 6V 600 rpm -->
+  <tr>
+    <td bgcolor="#EAF4FB" style="border: 1px solid black; padding: 8px;"><b>N20 6V<br>600 rpm</b></td>
+    <td bgcolor="#EAF4FB" style="border: 1px solid black; padding: 8px; text-align: center;">600 rpm</td>
+    <td bgcolor="#EAF4FB" style="border: 1px solid black; padding: 8px; text-align: center;">ca. 5 mNm</td>
+    <td bgcolor="#EAF4FB" style="border: 1px solid black; padding: 8px; text-align: center;">ca. 0,7 m/s</td>
+    <td bgcolor="#EAF4FB" style="border: 1px solid black; padding: 8px;">
+      • zu langsam<br>
+      • Drehmoment ausreichend
+    </td>
+    <td bgcolor="#EAF4FB" style="border: 1px solid black; padding: 8px; text-align: center;">verworfen</td>
+  </tr>
+
+  <!-- N20 6V 1500 rpm -->
+  <tr>
+    <td style="border: 1px solid black; padding: 8px;"><b>N20 6V<br>1500 rpm</b></td>
+    <td style="border: 1px solid black; padding: 8px; text-align: center;">1500 rpm</td>
+    <td style="border: 1px solid black; padding: 8px; text-align: center;">ca. 2 mNm</td>
+    <td style="border: 1px solid black; padding: 8px; text-align: center;">ca. 1,5 m/s</td>
+    <td style="border: 1px solid black; padding: 8px;">
+      • Motor wird sehr heiß<br>
+      • Drehmoment zu gering
+    </td>
+    <td style="border: 1px solid black; padding: 8px; text-align: center;">verworfen</td>
+  </tr>
+
+  <!-- N30 6V 500 rpm -->
+  <tr>
+    <td bgcolor="#EAF4FB" style="border: 1px solid black; padding: 8px;"><b>N30 6V<br>500 rpm</b></td>
+    <td bgcolor="#EAF4FB" style="border: 1px solid black; padding: 8px; text-align: center;">500 rpm</td>
+    <td bgcolor="#EAF4FB" style="border: 1px solid black; padding: 8px; text-align: center;">ca. 9 mNm</td>
+    <td bgcolor="#EAF4FB" style="border: 1px solid black; padding: 8px; text-align: center;">ca. 0,8 m/s</td>
+    <td bgcolor="#EAF4FB" style="border: 1px solid black; padding: 8px;">
+      • hohes Drehmoment<br>
+      • zu geringe Geschwindigkeit
+    </td>
+    <td bgcolor="#EAF4FB" style="border: 1px solid black; padding: 8px; text-align: center;">verworfen</td>
+  </tr>
+
+  <!-- N30 6V 1500 rpm – verwendeter Motor -->
+  <tr>
+    <td style="border: 1px solid black; border-top: 3px solid black; padding: 8px;"><b>N30 6V<br>1500 rpm</b></td>
+    <td style="border: 1px solid black; border-top: 3px solid black; padding: 8px; text-align: center;">1500 rpm</td>
+    <td style="border: 1px solid black; border-top: 3px solid black; padding: 8px; text-align: center;">ca. 3 mNm</td>
+    <td style="border: 1px solid black; border-top: 3px solid black; padding: 8px; text-align: center;"><b>ca. 2,1 m/s</b></td>
+    <td style="border: 1px solid black; border-top: 3px solid black; padding: 8px;">
+      • beste Geschwindigkeit
+    </td>
+    <td style="border: 1px solid black; border-top: 3px solid black; padding: 8px; text-align: center;"><b>verwendet</b></td>
+  </tr>
+
+</table>
+
+
+
+Wir haben uns für den **N30 6V 1500 rpm** entschieden, da er im Fahrzeug mit ca. 2 m/s die höchste reale Geschwindigkeit erreichte. Sein Nenndrehmoment von ca. 3 mNm liegt über dem berechneten Mindestbedarf von 1,2 mNm und liefert ausreichend Reserve. Laut Datenblatt erreicht er bei 6 V 1500 RPM; hochskaliert auf die Betriebsspannung von 11,1 V (3S-LiPo) ergibt sich eine extrapolierte Leerlaufdrehzahl von ca. 2775 RPM.  
 
 
 ## **Hinterachse und Differential**
+#### Abbildung 3: Aufbau der Hinterachse:
+<div align="center">
+    <a href="img/hinterachse.jpeg" target="_blank">
+        <img width="400" src="img/hinterachse.jpeg">
+    </a>
+</div>
 
-TDer Motor treibt die Hinterräder nicht direkt an. Stattdessen verwenden wir ein Kugeldifferential an der Hinterachse. 
-Der verwendete N30-Motor ist ein Getriebemotor mit interner Übersetzung von 1:10. Zusätzlich überträgt ein externes Zahnradpaar die Kraft auf die Hinterachse: Das Antriebsritzel am Motorausgang hat 18 Zähne, das Differentialzahnrad 44 Zähne, was einer zweiten Übersetzung von ≈ 2,44:1 entspricht. Insgesamt ergibt sich somit eine Gesamtuntersetzung von etwa 24,4:1 zwischen dem eigentlichen Elektromotor und der Hinterachse. 
+Der Motor treibt die Hinterräder nicht direkt an. Stattdessen verwenden wir ein **Kugeldifferential** an der Hinterachse. 
 
-Das Nenndrehmoment des N30-Motors liegt laut Datenblatt nach der internen Übersetzung bei ca. 3 mNm. Durch die zusätzliche externe Übersetzung erhöht sich das verfügbare Drehmoment auf  etwa 7,2 mNm an der Hinterachse. 		                   
-Die Konstruktion der Hinterachse erfolgte in Fusion 360 auf Basis des Kugeldifferential. Eine Schwierigkeit war, dass sowohl die Motorhalterung als auch die Halterung des Differentials mechanisch präzise gefertigt werden mussten, damit das Zahnflankenspiel zwischen Motorritzel und Differentialzahnrad stimmte. Dies war durch Messen und Konstruieren praktisch allein nicht möglich, da die Maßhaltigkeit der gedruckten Teile nicht hoch genug war. Also wurde der richtige Abstand experimentell ermittelt, indem wir die Konstruktionsparameter änderten und die Bodenplatte neu druckten, bis es gepasst hat. 
+Der verwendete N30-Motor ist ein Getriebemotor mit interner Übersetzung von 1:10. Zusätzlich überträgt ein externes Zahnradpaar die Kraft auf die Hinterachse: Das Antriebsritzel am Motorausgang hat 18 Zähne, das Differentialzahnrad 44 Zähne, was einer zweiten Übersetzung von ≈ 2,44:1 entspricht. Insgesamt ergibt sich somit eine **Gesamtuntersetzung** von etwa 24,4:1 zwischen dem eigentlichen Elektromotor und der Hinterachse. 
+
+Das **Nenndrehmoment** des N30-Motors liegt laut Datenblatt nach der internen Übersetzung bei ca. 3 mNm. Durch die zusätzliche externe Übersetzung erhöht sich das verfügbare Drehmoment auf  etwa 7,2 mNm an der Hinterachse. 	
+
+Die **Konstruktion** der Hinterachse erfolgte in Fusion 360 auf Basis des Kugeldifferential. Eine Schwierigkeit war, dass sowohl die Motorhalterung als auch die Halterung des Differentials mechanisch präzise gefertigt werden mussten, damit das Zahnflankenspiel zwischen Motorritzel und Differentialzahnrad stimmte. Dies war durch Messen und Konstruieren praktisch allein nicht möglich, da die Maßhaltigkeit der gedruckten Teile nicht hoch genug war. Also wurde der richtige Abstand experimentell ermittelt, indem wir die Konstruktionsparameter änderten und die Bodenplatte neu druckten, bis es gepasst hat. 
 
 ## **Vorderachse und Lenkung**
-Für die Vorderachse haben wir uns wie schon im letzten Jahr für eine Ackermann-Lenkung entschieden. Bei einer einfachen Parallellenkung drehen beide Vorderräder um denselben Winkel – das führt in Kurven zu seitlichem Schlupf, weil das kurveninnere Rad einen kleineren Radius fährt als das äußere und daher stärker einlenken müsste. Die Ackermann-Lenkung löst dieses Problem, indem die Lenkgeometrie so ausgelegt wird, dass sich die verlängerten Radachsen beider Vorderräder auf der Verlängerung der Hinterachse in einem gemeinsamen Punkt schneiden. Die ideale Bedingung dafür lautet:
 
-++ S. Dokument S.5 (graue Leiste)
+### Ackermann-Bedingung bei unserer Lenkung
+Für die Vorderachse haben wir uns wie schon im letzten Jahr für eine **Ackermann-Lenkung** entschieden. Bei einer einfachen Parallellenkung drehen beide Vorderräder um denselben Winkel – das führt in Kurven zu seitlichem Schlupf, weil das kurveninnere Rad einen kleineren Radius fährt als das äußere und daher stärker einlenken müsste. Die Ackermann-Lenkung löst dieses Problem, indem die Lenkgeometrie so ausgelegt wird, dass sich die verlängerten Radachsen beider Vorderräder auf der Verlängerung der Hinterachse in einem gemeinsamen Punkt schneiden. Die ideale Bedingung dafür lautet:
 
-Mit unserer Spurbreite t = 65 mm und dem Radstand L = 80 mm ergibt sich ein Zielwert von t/L = 0,81.
-Da für unsere kompakte Bauform keine geeigneten Fertigteile verfügbar waren, konstruierten wir die gesamte Vorderachse in Fusion 360 selbst und testeten verschiedene Varianten der Lenkgeometrie im 3D-Druck. Bei maximalem Lenkeinschlag erreicht das kurveninnere Rad 45° und das kurvenäußere 35°, woraus sich ergibt:
+<div style="background-color: #B8D8EE; padding: 8px; text-align: center; color: #000000; margin-bottom: 20px;">cot(δ<sub>außen</sub>) − cot(δ<sub>innen</sub>) = Spurbreite t / Radstand L</div>
 
-++ S. Dokument S.5 (graue Leiste)
+Mit unserer Spurbreite t = 65 mm und dem Radstand L = 80 mm ergibt sich ein **Zielwert von t/L = 0,81.**
 
-Der erreichte Wert von 0,43 liegt deutlich unter dem Idealwert von 0,81. Bei unverändertem Außenwinkel von 35° müsste das Innenrad theoretisch etwa 58,5° erreichen, um die Ackermann-Bedingung vollständig zu erfüllen. Das ist jedoch konstruktiv nicht möglich, da das Innenrad bei 45° bereits am mechanischen Anschlag ist und ein größerer Winkel den verfügbaren Bauraum überschreiten würde. Alternativ müsste bei unverändertem Innenwinkel von 45° der Außenwinkel auf etwa 29° reduziert werden, wodurch das Auto weniger stark einlenken könnte. Die Lenkung erfüllt die ideale Ackermann-Bedingung daher nur teilweise. Dadurch schneiden sich die verlängerten Radachsen der Vorderräder nicht exakt in einem gemeinsamen Kurvenmittelpunkt, wodurch in engen Kurven leichter seitlicher Schlupf an den Vorderrädern entstehen kann (vgl. Anhang 5.2: Abbildung A2 „Ackermann-Lenkgeometrie“). 
+Da für unsere kompakte Bauform keine geeigneten Fertigteile verfügbar waren, konstruierten wir die gesamte Vorderachse in Fusion 360 selbst und testeten verschiedene Varianten der Lenkgeometrie im 3D-Druck. 
+
+#### Abbildung 4: Einstellung der Lenkgeometrie:
+<div align="center">
+    <a href="img/Einstellung_Lenkung2.jpg" target="_blank">
+        <img width="400" src="img/Einstellung_Lenkung2.jpg">
+    </a>
+</div>
+
+#### Abbildung 5: Experimentelle Validierung der Ackermann-Lenkgeometrie anhand verschiedener Lenkwinkel und Fahrkurven
+<div align="center">
+    <a href="img/ackermann_radien.jpg" target="_blank">
+        <img width="400" src="img/ackermann_radien.jpg">
+    </a>
+</div>
+
+Bei maximalem Lenkeinschlag erreicht das kurveninnere Rad 45° und das kurvenäußere 35°, woraus sich ergibt:
+
+<div style="background-color: #B8D8EE; padding: 8px; text-align: center; color: #000000; margin-bottom: 20px;">
+cot(35°) − cot(45°) = 1,43 − 1,00 = 0,43
+</div>
+
+Der erreichte Wert von 0,43 liegt deutlich unter dem Idealwert von 0,81. Bei unverändertem Außenwinkel von 35° müsste das Innenrad theoretisch etwa 58,5° erreichen, um die Ackermann-Bedingung vollständig zu erfüllen. Das ist jedoch konstruktiv nicht möglich, da das Innenrad bei 45° bereits am mechanischen Anschlag ist und ein größerer Winkel den verfügbaren Bauraum überschreiten würde. Alternativ müsste bei unverändertem Innenwinkel von 45° der Außenwinkel auf etwa 29° reduziert werden, wodurch das Auto weniger stark einlenken könnte. Die Lenkung erfüllt die ideale Ackermann-Bedingung daher nur teilweise. Dadurch schneiden sich die verlängerten Radachsen der Vorderräder nicht exakt in einem gemeinsamen Kurvenmittelpunkt, wodurch in engen Kurven leichter seitlicher Schlupf an den Vorderrädern entstehen kann:
+
+#### Abbildung 5: Ackermann-Bedingung bei unserer Lenkung:
+<div align="center">
+    <a href="img/ackermann_englisch.png" target="_blank">
+        <img width="400" src="img/ackermann_englisch.png">
+    </a>
+</div>
+
+
+
+### Minimaler Kurvenradius bei unserer Lenkung
+
 Der minimale Kurvenradius (gemessen von Hinterachsmitte bis Kurvenmittelpunkt) berechnet sich so:
 
-++ S. Dokument S.5 (graue Leiste)
+<div style="background-color: #B8D8EE; padding: 8px; text-align: center; color: #000000; margin-bottom: 20px;">
+Minimaler Kurvenradius = Radstand / tan(δ<sub>außen</sub>)
 
-Der minimale Kurvenradius beträgt bei unserem Auto näherungsweise 114 mm (Saison 2025: 172mm). Für die Anforderungen der WRO-Strecke ist dieser Kurvenradius vollkommen ausreichend. In den Fahrversuchen zeigte sich, dass das Fahrzeug Kurven zuverlässig und stabil durchfährt. 
-Neben der Lenkgeometrie ist jedoch auch die mechanische Präzision der Lagerung entscheidend dafür, ob die berechneten Winkel im Fahrbetrieb tatsächlich reproduzierbar erreicht werden. Im letzten Jahr hatte unser Auto nur ein Kugellager pro Rad. Die Achsschenkel wurden in Gleitlagern gehalten. Dadurch hatten die Räder deutliches Spiel und sie wackelten seitlich hin und her. Um das Lenkspiel zu minimieren, verwendeten wir für die Lagerung der Vorderachse insgesamt acht Kugellager. Zwei pro Seite lagern die Achsschenkel, zwei weitere pro Seite lagern die Räder. Diese Kugellager sorgen für eine präzise Lenkung mit wenig Spiel sowie einen geringen Rollwiderstand.
+</div>
 
+Der **minimale Kurvenradius** beträgt bei unserem Auto näherungsweise **114 mm** (Saison 2025: 172mm). Für die Anforderungen der WRO-Strecke ist dieser Kurvenradius vollkommen ausreichend. In den Fahrversuchen zeigte sich, dass das Fahrzeug Kurven zuverlässig und stabil durchfährt. 
+
+### Mechanische Präzision unserer Lenkung
+Neben der Lenkgeometrie ist jedoch auch die **mechanische Präzision der Lagerung** entscheidend dafür, ob die berechneten Winkel im Fahrbetrieb tatsächlich reproduzierbar erreicht werden. Im letzten Jahr hatte unser Auto nur ein Kugellager pro Rad. Die Achsschenkel wurden in Gleitlagern gehalten. Dadurch hatten die Räder deutliches Spiel und sie wackelten seitlich hin und her. Um das Lenkspiel zu minimieren, verwendeten wir für die Lagerung der Vorderachse insgesamt acht Kugellager. Zwei pro Seite lagern die Achsschenkel, zwei weitere pro Seite lagern die Räder. Diese Kugellager sorgen für eine präzise Lenkung mit wenig Spiel sowie einen geringen Rollwiderstand.
+
+#### Abbildung 6: Schnitt der Vorderachse:
+<div align="center">
+    <a href="img/schnitt schraeg.png" target="_blank">
+        <img width="400" src="img/schnitt schraeg.png">
+    </a>
+</div><div align="center">
+    <a href="img/schnitt_gerade_eng.png" target="_blank">
+        <img width="400" src="img/schnitt_gerade_eng.png">
+    </a>
+</div>
 <br>
 
 ## **Auswahl und Position des Servos**
 
-Bei der Auswahl des Lenkservos waren neben der Baugröße vor allem die schnelle Beschaffbarkeit ausschlaggebend. Zunächst kam ein besonders kompakter und kostengünstiger Servo (ca. 2 €) mit Vollkunststoffgetriebe zum Einsatz. Das ausgeprägte Lenkspiel von schätzungsweise 5° erwies sich jedoch als unzureichend für eine präzise Regelung, weshalb der INJORA N30 Nano mit Coreless-Motor, Metallgetriebe und Aluminiumgehäuse als Ersatz gewählt wurde. Mit einem Gewicht von 7 g und den Abmessungen 15,2 × 13,0 × 21,3 mm bleibt er äußerst kompakt; bei 6 V stellt er ein Drehmoment von 1,3 kg·cm bei einer Stellgeschwindigkeit von 0,05 s/60° bereit. Da die Anforderungen an Kraft und Reaktionszeit im vorliegenden Anwendungsfall gering sind, hätte nahezu jeder handelsübliche Servo die Spezifikation erfüllt – entscheidend war allein das spielfreie Metallgetriebe.
-Die Positionierung des Servos stellte eine eigenständige konstruktive Herausforderung dar. Die bei Modellfahrzeugen übliche Anordnung – Servo und Gestänge mittig im Fahrzeug – schied aus, weil wir für eine hohe Wendigkeit einen relativ kurzen Radstand benötigten und wir für einen niedrigen Schwerpunkt den Akku zwischen Vorder- und Hinterräder einbauen wollten. Nach dem Evaluieren zahlreicher Konfigurationen wurde der Servo vor die Vorderachse verlagert, das Gestänge hinter ihr geführt. So ließ sich der Bumperbereich konstruktiv nutzen, ohne Akku oder Platine umzuplatzieren; der Schwerpunkt blieb tief und zentral, und der erforderliche Lenkeinschlag wurde kollisionsfrei erreicht.
+Bei der **Auswahl** des Lenkservos waren neben der Baugröße vor allem die schnelle Beschaffbarkeit ausschlaggebend. Zunächst kam ein besonders kompakter und kostengünstiger Servo (ca. 2 €) mit Vollkunststoffgetriebe zum Einsatz. Das ausgeprägte Lenkspiel von schätzungsweise 5° erwies sich jedoch als unzureichend für eine präzise Regelung, weshalb der **INJORA N30 Nano** mit Coreless-Motor, Metallgetriebe und Aluminiumgehäuse als Ersatz gewählt wurde. Mit einem Gewicht von 7 g und den Abmessungen 15,2 × 13,0 × 21,3 mm bleibt er äußerst kompakt; bei 6 V stellt er ein Drehmoment von 1,3 kg·cm bei einer Stellgeschwindigkeit von 0,05 s/60° bereit. Da die Anforderungen an Kraft und Reaktionszeit im vorliegenden Anwendungsfall gering sind, hätte nahezu jeder handelsübliche Servo die Spezifikation erfüllt – entscheidend war allein das spielfreie Metallgetriebe.
+
+Die **Positionierung des Servos** stellte eine eigenständige konstruktive Herausforderung dar. Die bei Modellfahrzeugen übliche Anordnung – Servo und Gestänge mittig im Fahrzeug – schied aus, weil wir für eine hohe Wendigkeit einen relativ kurzen Radstand benötigten und wir für einen niedrigen Schwerpunkt den Akku zwischen Vorder- und Hinterräder einbauen wollten. Nach dem Evaluieren zahlreicher Konfigurationen wurde der Servo vor die Vorderachse verlagert, das Gestänge hinter ihr geführt. So ließ sich der Bumperbereich konstruktiv nutzen, ohne Akku oder Platine umzuplatzieren; der Schwerpunkt blieb tief und zentral, und der erforderliche Lenkeinschlag wurde kollisionsfrei erreicht.
 
 # **2. Energie und Sensoren**
 
 ## **Konzept**
 Um das Designziel eines kleinen und schnellen Fahrzeugs zu erreichen, war ein grundlegender Umbau der Elektronik notwendig. Das Vorjahressystem nutzte einen RPLiDAR S2 zur Umfelderkennung sowie zwei optische Odometrie-Sensoren zur Positionsbestimmung. Die Steuerung war vollständig koordinatenbasiert – Fahrbefehle lauteten sinngemäß „Gehe zu Koordinate X/Y". Der LIDAR lieferte jedoch nur ~10 Updates pro Sekunde mit einer Verzögerung von 100–200 ms, weshalb Positionskorrekturen nur im Stillstand zuverlässig funktionierten. Die Odometrie übernahm die Positionsverfolgung während der Fahrt, begrenzte die Maximalgeschwindigkeit aber auf 0,5 m/s – darüber wurden ihre Messungen unzuverlässig.
-Für das neue Fahrzeug wurde daher ein grundlegend anderer Ansatz gewählt: Mehrere Time-of-Flight-Sensoren (VL53L8CX) messen mit 30 Hz kontinuierlich die Abstände zu den Wänden und ermöglichen so eine Steuerung ohne Anhalten. Die Steuerlogik ist nun eventbasiert – statt „Gehe zu Koordinate X/Y" lautet ein Fahrbefehl beispielsweise „Fahre auf die Wand zu, bis der Abstand 20 cm beträgt". Da keine Stopps zur Positionskorrektur mehr nötig sind, fährt das Fahrzeug deutlich flüssiger und schneller.
-Das Ergebnis: 2025 benötigte unser Fahrzeug im Hindernisrennen durchschnittlich 160 s für einen Lauf, 2026 erreichen wir je nach Aufbau zwischen ca. 35 s und 45 s. Damit haben wir unser Designziel von 30 Sekunden pro Runde zwar nicht ganz erreicht, aber unsere Rundenzeit immerhin um den Faktor 4 verbessert.
 
+Für das neue Fahrzeug wurde daher ein grundlegend anderer Ansatz gewählt: Mehrere **Time-of-Flight-Sensoren** (VL53L8CX) messen mit 30 Hz kontinuierlich die Abstände zu den Wänden und ermöglichen so eine Steuerung ohne Anhalten. Die Steuerlogik ist nun eventbasiert – statt „Gehe zu Koordinate X/Y" lautet ein Fahrbefehl beispielsweise „Fahre auf die Wand zu, bis der Abstand 20 cm beträgt". Da keine Stopps zur Positionskorrektur mehr nötig sind, fährt das Fahrzeug deutlich flüssiger und schneller.
 
+Das Ergebnis: 2025 benötigte unser Fahrzeug im Hindernisrennen durchschnittlich 160 s für einen Lauf, 2026 erreichen wir je nach Aufbau zwischen ca. 35 s und 45 s. Damit haben wir unser Designziel von 30 Sekunden pro Runde zwar nicht ganz erreicht, aber unsere **Rundenzeit** immerhin **um den Faktor 4 verbessert**.
 <br>
 
 ## **Aufbau der Elektronik**
 
-Für die Elektronik wurde zunächst ein Testaufbau auf einem Breadboard aufgebaut. Damit konnten wir prüfen, ob die wichtigsten Komponenten grundsätzlich funktionieren, bevor wir eine eigene Platine fertigen ließen. Getestet wurden dabei unter anderem Mikrocontroller, Motor, Motor-Encoder, Motortreiber, Servo, Time-of-Flight-Sensoren und Kamera. Den vollständigen Aufbau der Elektronik zeigt der Verdrahtungsplan (vgl. Anhang 5.3: Abbildung A3 „Verdrahtungsplan“). Er stellt alle Verbindungen zwischen Baseboard, Raspberry Pi CM5, STM32, Sensoren, Motortreiber und Servo dar.
+Für die Elektronik wurde zunächst ein Testaufbau auf einem **Breadboard** aufgebaut. Damit konnten wir prüfen, ob die wichtigsten Komponenten grundsätzlich funktionieren, bevor wir eine eigene Platine fertigen ließen. Getestet wurden dabei unter anderem Mikrocontroller, Motor, Motor-Encoder, Motortreiber, Servo, Time-of-Flight-Sensoren und Kamera. Den vollständigen Aufbau der Elektronik zeigt der Verdrahtungsplan (vgl. Anhang 5.3: Abbildung A3 „Verdrahtungsplan“). Er stellt alle Verbindungen zwischen Baseboard, Raspberry Pi CM5, STM32, Sensoren, Motortreiber und Servo dar.
+
+#### Abbildung 7: Verdrahtungsplan
+
+</div><div align="center">
+    <a href="img/plan_gesamt_Kopie.jpg" target="_blank">
+        <img width="400" src="img/plan_gesamt Kopie.jpg">
+    </a>
+</div>
 
 
 ## **Kamera: Verwendung der Kamera und Kalibrierung**
 
 ### **Verwendung der Kamera** 
-Wie im Vorjahr setzen wir auf die Raspberry Pi Camera Module 3 Wide (12 MP), da sie sich bewährt hat. Drei Wochen vor dem Regionalwettbewerb entschieden wir uns, die Kamera auf 27 cm Höhe – knapp unter der Maximalhöhe – zu montieren. So kann das Fahrzeug vom Startplatz aus über die Bande hinweg alle Hindernisse auf einmal erfassen (Vollscanstrategie) und die optimale Route bereits vor der Abfahrt berechnen. Die Erkennung der Hindernisse ist so zwar deutlich anspruchsvoller (vgl. Kapitel 3.7.1 Maskenpipeline), das Abfahren des Kurses ist aber viel einfacher und schneller, da keine Zeit mehr verloren geht, um günstige Kamerapositionen anzufahren. Die durchschnittliche Rundenzeit sank dadurch nochmals von 56 s auf 38 s.
+Wie im Vorjahr setzen wir auf die **Raspberry Pi Camera Module 3 Wide (12 MP)**, da sie sich bewährt hat. Drei Wochen vor dem Regionalwettbewerb entschieden wir uns, die Kamera auf 27 cm Höhe – knapp unter der Maximalhöhe – zu montieren. So kann das Fahrzeug vom Startplatz aus über die Bande hinweg alle Hindernisse auf einmal erfassen (**Vollscanstrategie**) und die optimale Route bereits vor der Abfahrt berechnen. Die Erkennung der Hindernisse ist so zwar deutlich anspruchsvoller (vgl. Kapitel 3.7.1 Maskenpipeline), das Abfahren des Kurses ist aber viel einfacher und schneller, da keine Zeit mehr verloren geht, um günstige Kamerapositionen anzufahren. Die durchschnittliche Rundenzeit sank dadurch nochmals von 56 s auf 38 s.
 
 
 ### **Kalibrierungsverfahren**
 
-Die Kamera kalibriert Belichtungszeit, Weißabgleich und Verstärkung automatisch. Je nach Lichtverhältnissen vor Ort können jedoch manuelle Anpassungen der Farbmasken in cameraAIO.py nötig sein – insbesondere die Erkennung der schwarzen Wände reagiert empfindlich auf Beleuchtungsänderungen.
+Die Kamera **kalibriert** Belichtungszeit, Weißabgleich und Verstärkung automatisch. Je nach Lichtverhältnissen vor Ort können jedoch manuelle Anpassungen der Farbmasken in <code>cameraAIO.py</code> nötig sein – insbesondere die Erkennung der schwarzen Wände reagiert empfindlich auf Beleuchtungsänderungen.
+
 Vor jedem Wettbewerbslauf nehmen wir ein Testbild auf und prüfen im Debug-Bild, ob die Hindernisse vollständig in der Maske liegen und die schwarzen Wände eine geschlossene Flood-Fill-Barriere bilden. Falls nicht, passen wir zuerst den V-Maximalwert der Schwarzmaske und anschließend die H/S/V-Werte der Rot- und Grünmasken an. Da der Hue-Bereich in OpenCV von 0 bis 179° reicht und Rot als einzige Farbe an beiden Enden der Skala erscheint, werden für die Roterkennung zwei separate Masken erzeugt und anschließend addiert.
 
-++ S. Dokument S.6 (Tabelle)
+#### Tabelle 2: HSV-Farbmasken und Kalibrierparameter
+
+<table align="center" border="1" style="border-collapse: collapse; border: 2px solid black;">
+
+  <!-- Tabellenkopf -->
+  <tr>
+    <th bgcolor="#4A90C2" width="120" style="border: 1px solid black; border-bottom: 3px solid black; padding: 8px; color: white;">Farbe</th>
+    <th bgcolor="#4A90C2" width="140" style="border: 1px solid black; border-bottom: 3px solid black; padding: 8px; color: white;">H (min–max)</th>
+    <th bgcolor="#4A90C2" width="140" style="border: 1px solid black; border-bottom: 3px solid black; padding: 8px; color: white;">S (min–max)</th>
+    <th bgcolor="#4A90C2" width="140" style="border: 1px solid black; border-bottom: 3px solid black; padding: 8px; color: white;">V (min–max)</th>
+    <th bgcolor="#4A90C2" width="400" style="border: 1px solid black; border-bottom: 3px solid black; padding: 8px; color: white;">Begründung</th>
+  </tr>
+
+  <!-- Rot 1 -->
+  <tr>
+    <td bgcolor="#EAF4FB" style="border: 1px solid black; padding: 8px; text-align: center;"><b>Rot 1</b></td>
+    <td bgcolor="#EAF4FB" style="border: 1px solid black; padding: 8px; text-align: center;">0–10</td>
+    <td bgcolor="#EAF4FB" style="border: 1px solid black; padding: 8px; text-align: center;">190–255</td>
+    <td bgcolor="#EAF4FB" style="border: 1px solid black; padding: 8px; text-align: center;">190–255</td>
+    <td bgcolor="#EAF4FB" style="border: 1px solid black; padding: 8px;">
+      Sattes, helles Rot (Hue nahe 0°); hohe S- und V-Schwellen filtern blasse Farbtöne
+    </td>
+  </tr>
+
+  <!-- Rot 2 -->
+  <tr>
+    <td style="border: 1px solid black; padding: 8px; text-align: center;"><b>Rot 2</b></td>
+    <td style="border: 1px solid black; padding: 8px; text-align: center;">160–179</td>
+    <td style="border: 1px solid black; padding: 8px; text-align: center;">100–255</td>
+    <td style="border: 1px solid black; padding: 8px; text-align: center;">20–255</td>
+    <td style="border: 1px solid black; padding: 8px;">
+      Rot am oberen Hue-Ende (Wrap-around bei 180°); breitere S/V-Grenzen, da diese Rottöne im Foto dunkler erscheinen
+    </td>
+  </tr>
+
+  <!-- Grün -->
+  <tr>
+    <td bgcolor="#EAF4FB" style="border: 1px solid black; padding: 8px; text-align: center;"><b>Grün</b></td>
+    <td bgcolor="#EAF4FB" style="border: 1px solid black; padding: 8px; text-align: center;">35–95</td>
+    <td bgcolor="#EAF4FB" style="border: 1px solid black; padding: 8px; text-align: center;">100–255</td>
+    <td bgcolor="#EAF4FB" style="border: 1px solid black; padding: 8px; text-align: center;">20–255</td>
+    <td bgcolor="#EAF4FB" style="border: 1px solid black; padding: 8px;">
+      Weiter Bereich von Gelbgrün bis Blaugrün; deckt unterschiedliche Beleuchtungstemperaturen ab
+    </td>
+  </tr>
+
+  <!-- Schwarz -->
+  <tr>
+    <td style="border: 1px solid black; padding: 8px; text-align: center;"><b>Schwarz<br>(Wände)</b></td>
+    <td style="border: 1px solid black; padding: 8px; text-align: center;">0–255</td>
+    <td style="border: 1px solid black; padding: 8px; text-align: center;">0–255</td>
+    <td style="border: 1px solid black; padding: 8px; text-align: center;">0–90</td>
+    <td style="border: 1px solid black; padding: 8px;">
+      Nur über den Helligkeitskanal V definiert
+    </td>
+  </tr>
+
+</table>
 
 Der kritischste Parameter ist der V-Maximalwert der Schwarzmaske (Standardwert: 90 – s. Tabelle). Bei starkem Umgebungslicht reflektieren schwarze Wände mehr Licht und erscheinen heller; der Wert muss dann auf 110–120 erhöht werden. Bei schwacher Beleuchtung kann er auf 70–80 gesenkt werden, um Fehldetektionen durch dunkle Schatten auf dem weißen Boden zu vermeiden. Problematisch ist teilweises Sonnenlicht: Schwarze Wände im direkten Sonnenlicht können einen höheren V-Wert erreichen als der weiße Boden im Schatten – eine Konstellation, für die wir bislang keine zuverlässige Lösung gefunden haben.
 
@@ -438,140 +625,1208 @@ Der kritischste Parameter ist der V-Maximalwert der Schwarzmaske (Standardwert: 
 
 Für die Erkennung der Umgebung verwenden wir optische Entfernungssensoren beziehungsweise Time-of-Flight-Sensoren. Diese messen die Entfernung zu Objekten auf optischer Basis. Zur konkreten Auswahl verglichen wir die Datenblätter von unterschiedlichen  Sensoren.
 
-++ S. Dokument S.7 (Tabelle)
+<table align="center" border="1" style="border-collapse: collapse; border: 2px solid black;">
 
-Bei der Sensorauswahl war entscheidend, dass einzelne Messzonen möglichst klein sind, um Wände aus größerer Entfernung vom Boden unterscheiden zu können (FOV/Zone in der Tabelle). Der VL53L9CX wäre aufgrund seiner höheren Auflösung ideal gewesen, war zum Entwicklungszeitpunkt jedoch noch nicht erhältlich. Zwischen VL53L8CX und TMF8828 fiel die Wahl auf den VL53L8CX, da dessen maximale Messfrequenz laut Datenblatt deutlich höher war und wir uns davon schnellere Reaktionszeiten der Hinderniserkennung versprachen. In der Praxis zeigte sich jedoch, dass im 8×8-Modus nur ~30 Hz erreichbar waren – womit der TMF8828 rückblickend vielleicht die bessere Wahl gewesen wäre. Ein Sensorwechsel war zu diesem Zeitpunkt aufgrund des fortgeschrittenen Entwicklungsstands jedoch nicht mehr realistisch.
+  <!-- Tabellenkopf -->
+  <tr>
+    <th bgcolor="#4A90C2" width="130" style="border: 1px solid black; border-bottom: 3px solid black; padding: 8px; color: white;">Sensor</th>
+    <th bgcolor="#4A90C2" width="150" style="border: 1px solid black; border-bottom: 3px solid black; padding: 8px; color: white;">Hersteller</th>
+    <th bgcolor="#4A90C2" width="150" style="border: 1px solid black; border-bottom: 3px solid black; padding: 8px; color: white;">Zonen-<br>Auflösung</th>
+    <th bgcolor="#4A90C2" width="130" style="border: 1px solid black; border-bottom: 3px solid black; padding: 8px; color: white;">FOV<br>(gesamt)</th>
+    <th bgcolor="#4A90C2" width="130" style="border: 1px solid black; border-bottom: 3px solid black; padding: 8px; color: white;">FOV/Zone</th>
+    <th bgcolor="#4A90C2" width="120" style="border: 1px solid black; border-bottom: 3px solid black; padding: 8px; color: white;">Max.<br>Frequenz</th>
+    <th bgcolor="#4A90C2" width="130" style="border: 1px solid black; border-bottom: 3px solid black; padding: 8px; color: white;">Reichweite</th>
+    <th bgcolor="#4A90C2" width="140" style="border: 1px solid black; border-bottom: 3px solid black; padding: 8px; color: white;">Strom-<br>verbrauch</th>
+    <th bgcolor="#4A90C2" width="130" style="border: 1px solid black; border-bottom: 3px solid black; padding: 8px; color: white;">Schnittstelle</th>
+  </tr>
+
+  <!-- VL53L9CX -->
+  <tr>
+    <td bgcolor="#EAF4FB" style="border: 1px solid black; padding: 8px; text-align: center;"><b>🟥 VL53L9CX<br>angekündigt</b></td>
+    <td bgcolor="#EAF4FB" style="border: 1px solid black; padding: 8px; text-align: center;">STMicro-<br>electronics</td>
+    <td bgcolor="#EAF4FB" style="border: 1px solid black; padding: 8px; text-align: center;">54×42<br>(2268 Zonen)</td>
+    <td bgcolor="#EAF4FB" style="border: 1px solid black; padding: 8px; text-align: center;">55°×42°<br>(71° diag.)</td>
+    <td bgcolor="#EAF4FB" style="border: 1px solid black; padding: 8px; text-align: center;">🟩 ~1,0°<br>(laut ST)</td>
+    <td bgcolor="#EAF4FB" style="border: 1px solid black; padding: 8px; text-align: center;">🟩 100 Hz</td>
+    <td bgcolor="#EAF4FB" style="border: 1px solid black; padding: 8px; text-align: center;">bis 880 cm</td>
+    <td bgcolor="#EAF4FB" style="border: 1px solid black; padding: 8px; text-align: center;">~150 mW</td>
+    <td bgcolor="#EAF4FB" style="border: 1px solid black; padding: 8px; text-align: center;">I3C /<br>MIPI CSI</td>
+  </tr>
+
+  <!-- VL53L1X -->
+  <tr>
+    <td style="border: 1px solid black; padding: 8px; text-align: center;"><b>VL53L1X</b></td>
+    <td style="border: 1px solid black; padding: 8px; text-align: center;">STMicro-<br>electronics</td>
+    <td style="border: 1px solid black; padding: 8px; text-align: center;">1 Zone</td>
+    <td style="border: 1px solid black; padding: 8px; text-align: center;">27°</td>
+    <td style="border: 1px solid black; padding: 8px; text-align: center;">27°<br>(1 Zone)</td>
+    <td style="border: 1px solid black; padding: 8px; text-align: center;">50 Hz</td>
+    <td style="border: 1px solid black; padding: 8px; text-align: center;">bis 400 cm</td>
+    <td style="border: 1px solid black; padding: 8px; text-align: center;">~20 mW</td>
+    <td style="border: 1px solid black; padding: 8px; text-align: center;">I²C</td>
+  </tr>
+
+  <!-- VL53L4CD -->
+  <tr>
+    <td bgcolor="#EAF4FB" style="border: 1px solid black; padding: 8px; text-align: center;"><b>VL53L4CD</b></td>
+    <td bgcolor="#EAF4FB" style="border: 1px solid black; padding: 8px; text-align: center;">STMicro-<br>electronics</td>
+    <td bgcolor="#EAF4FB" style="border: 1px solid black; padding: 8px; text-align: center;">1 Zone</td>
+    <td bgcolor="#EAF4FB" style="border: 1px solid black; padding: 8px; text-align: center;">18°<br>diagonal</td>
+    <td bgcolor="#EAF4FB" style="border: 1px solid black; padding: 8px; text-align: center;">18°<br>(1 Zone)</td>
+    <td bgcolor="#EAF4FB" style="border: 1px solid black; padding: 8px; text-align: center;">100 Hz</td>
+    <td bgcolor="#EAF4FB" style="border: 1px solid black; padding: 8px; text-align: center;">bis 120 cm</td>
+    <td bgcolor="#EAF4FB" style="border: 1px solid black; padding: 8px; text-align: center;">0,15 mW<br>(ULP)</td>
+    <td bgcolor="#EAF4FB" style="border: 1px solid black; padding: 8px; text-align: center;">I²C</td>
+  </tr>
+
+  <!-- TMF8828 -->
+  <tr>
+    <td style="border: 1px solid black; padding: 8px; text-align: center;"><b>🟨 TMF8828<br>engere Wahl</b></td>
+    <td style="border: 1px solid black; padding: 8px; text-align: center;">ams-OSRAM</td>
+    <td style="border: 1px solid black; padding: 8px; text-align: center;">8×8<br>(64 Zonen)</td>
+    <td style="border: 1px solid black; padding: 8px; text-align: center;">~45°<br>diagonal</td>
+    <td style="border: 1px solid black; padding: 8px; text-align: center;">🟨 ~4,0°<br>(32°÷8)</td>
+    <td style="border: 1px solid black; padding: 8px; text-align: center;">🟨 30 Hz</td>
+    <td style="border: 1px solid black; padding: 8px; text-align: center;">bis 500 cm</td>
+    <td style="border: 1px solid black; padding: 8px; text-align: center;">~75 mW</td>
+    <td style="border: 1px solid black; padding: 8px; text-align: center;">I²C / SPI</td>
+  </tr>
+
+  <!-- TMF8821 -->
+  <tr>
+    <td bgcolor="#EAF4FB" style="border: 1px solid black; padding: 8px; text-align: center;"><b>TMF8821</b></td>
+    <td bgcolor="#EAF4FB" style="border: 1px solid black; padding: 8px; text-align: center;">ams-OSRAM</td>
+    <td bgcolor="#EAF4FB" style="border: 1px solid black; padding: 8px; text-align: center;">3×3<br>(9 Zonen)</td>
+    <td bgcolor="#EAF4FB" style="border: 1px solid black; padding: 8px; text-align: center;">~41°<br>diagonal</td>
+    <td bgcolor="#EAF4FB" style="border: 1px solid black; padding: 8px; text-align: center;">~9,7°<br>(29°÷3)</td>
+    <td bgcolor="#EAF4FB" style="border: 1px solid black; padding: 8px; text-align: center;">30 Hz</td>
+    <td bgcolor="#EAF4FB" style="border: 1px solid black; padding: 8px; text-align: center;">bis 500 cm</td>
+    <td bgcolor="#EAF4FB" style="border: 1px solid black; padding: 8px; text-align: center;">~90 mW</td>
+    <td bgcolor="#EAF4FB" style="border: 1px solid black; padding: 8px; text-align: center;">I²C / SPI</td>
+  </tr>
+
+  <!-- VL53L8CX -->
+  <tr>
+    <td style="border: 1px solid black; border-top: 3px solid black; padding: 8px; text-align: center;"><b>🟩 VL53L8CX<br>ausgewählt</b></td>
+    <td style="border: 1px solid black; border-top: 3px solid black; padding: 8px; text-align: center;">STMicro-<br>electronics</td>
+    <td style="border: 1px solid black; border-top: 3px solid black; padding: 8px; text-align: center;">8×8<br>(64 Zonen)</td>
+    <td style="border: 1px solid black; border-top: 3px solid black; padding: 8px; text-align: center;">65°<br>diagonal</td>
+    <td style="border: 1px solid black; border-top: 3px solid black; padding: 8px; text-align: center;">🟩 ~5,75°<br>(46°÷8)</td>
+    <td style="border: 1px solid black; border-top: 3px solid black; padding: 8px; text-align: center;">🟩 60 Hz</td>
+    <td style="border: 1px solid black; border-top: 3px solid black; padding: 8px; text-align: center;">bis 400 cm</td>
+    <td style="border: 1px solid black; border-top: 3px solid black; padding: 8px; text-align: center;">~28 mW<br>(15 Hz, 8×8)</td>
+    <td style="border: 1px solid black; border-top: 3px solid black; padding: 8px; text-align: center;">I²C / SPI</td>
+  </tr>
+
+</table>
+
+Bei der Sensorauswahl war entscheidend, dass einzelne Messzonen möglichst klein sind, um Wände aus größerer Entfernung vom Boden unterscheiden zu können (FOV/Zone in der Tabelle). Der VL53L9CX wäre aufgrund seiner höheren Auflösung ideal gewesen, war zum Entwicklungszeitpunkt jedoch noch nicht erhältlich. Zwischen VL53L8CX und TMF8828 fiel die Wahl auf den **VL53L8CX**, da dessen maximale Messfrequenz laut Datenblatt deutlich höher war und wir uns davon schnellere Reaktionszeiten der Hinderniserkennung versprachen. In der Praxis zeigte sich jedoch, dass im 8×8-Modus nur ~30 Hz erreichbar waren – womit der TMF8828 rückblickend vielleicht die bessere Wahl gewesen wäre. Ein Sensorwechsel war zu diesem Zeitpunkt aufgrund des fortgeschrittenen Entwicklungsstands jedoch nicht mehr realistisch.
 
 ### **Sensorevaluierung**
 
-Der VL53L8CX bietet zwei Betriebsmodi: Im 4×4-Modus liefert er ein Messraster aus 16 Zonen bei höherer Messfrequenz, im 8×8-Modus stehen 64 Zonen bei geringerer Frequenz zur Verfügung. Um den für unser Fahrzeug geeigneten Modus zu bestimmen, haben wir beide Varianten systematisch getestet.
-Ein Problem bei der Sensorplatzierung ist die Einbauhöhe über dem Boden. Sitzt der Sensor zu tief, erfassen einzelne Messzonen den Boden statt die Wand, was zu Fehlmessungen führt. Sitzt er zu hoch, kann er die untere Kante einer Wand nicht mehr zuverlässig erfassen. Wir haben verschiedene Sensorhöhen getestet und gemessen, ab welchem Abstand die Wand sicher erkannt wird und ob Bodenreflexionen die Messung stören. 
-Neben der Höhe untersuchten wir auch den Einfluss der Messfrequenz auf die maximale sichere Erkennungsreichweite. Eine höhere Frequenz ist für die Fahrstrategie vorteilhaft, da der STM32 häufiger aktualisierte Abstände erhält und früher reagieren kann. Allerdings kann eine höhere Frequenz zu erhöhtem Rauschen führen, was die maximale zuverlässige Reichweite reduziert. Die Tabelle 3 fasst die Ergebnisse zusammen.
+Der VL53L8CX bietet **zwei Betriebsmodi**: Im 4×4-Modus liefert er ein Messraster aus 16 Zonen bei höherer Messfrequenz, im 8×8-Modus stehen 64 Zonen bei geringerer Frequenz zur Verfügung. Um den für unser Fahrzeug geeigneten Modus zu bestimmen, haben wir beide Varianten systematisch getestet.
 
-++ S. Dokument S.7 (Tabelle)
+#### Abbildung 7: Testaufbau zur Sensorevaluierung
 
-Die Tests zeigten, dass der 4x4 Modus zwar eine höhere Messfrequenz liefert, aber leider die schmalen Wände nur auf eine zu kurze Distanz sicher erkennt. Ein einzelner Messpunkt ist dann so groß, dass er nicht nur die Wand erfasst, sondern zusätzlich den Boden. Deswegen haben wir den 8x8 Modus mit 30Hz gewählt und die Sensoren wurden auf 60mm Höhe eingebaut, weil dort die größte Reichweite erreicht wurde (s. Tabelle).
+</div><div align="center">
+    <a href="img/Sensorpruefung (1).jpg" target="_blank">
+        <img width="400" src="img/Sensorpruefung (1).jpg">
+    </a>
+</div>
+
+Ein Problem bei der **Sensorplatzierung** ist die Einbauhöhe über dem Boden. Sitzt der Sensor zu tief, erfassen einzelne Messzonen den Boden statt die Wand, was zu Fehlmessungen führt. Sitzt er zu hoch, kann er die untere Kante einer Wand nicht mehr zuverlässig erfassen. Wir haben verschiedene Sensorhöhen getestet und gemessen, ab welchem Abstand die Wand sicher erkannt wird und ob Bodenreflexionen die Messung stören. 
+
+Neben der Höhe untersuchten wir auch den Einfluss der Messfrequenz auf die maximale sichere Erkennungsreichweite. Eine höhere Frequenz ist für die Fahrstrategie vorteilhaft, da der STM32 häufiger aktualisierte Abstände erhält und früher reagieren kann. Allerdings kann eine höhere Frequenz zu erhöhtem Rauschen führen, was die maximale zuverlässige Reichweite reduziert. Die Tabelle 4 fasst die Ergebnisse zusammen.
+
+#### Tabelle 4: Erkennungszuverlässigkeit bei verschiedenen Sensorhöhen 
+
+<table align="center" border="1" style="border-collapse: collapse; border: 2px solid black;">
+
+  <!-- Tabellenkopf -->
+  <tr>
+    <th bgcolor="#4A90C2" width="160" style="border: 1px solid black; border-bottom: 3px solid black; padding: 8px; color: white;">Sensorhöhe in mm</th>
+    <th bgcolor="#4A90C2" width="170" style="border: 1px solid black; border-bottom: 3px solid black; padding: 8px; color: white;">Reichweite 4×4<br>60 Hz in cm</th>
+    <th bgcolor="#4A90C2" width="170" style="border: 1px solid black; border-bottom: 3px solid black; padding: 8px; color: white;">Reichweite 4×4<br>30 Hz in cm</th>
+    <th bgcolor="#4A90C2" width="170" style="border: 1px solid black; border-bottom: 3px solid black; padding: 8px; color: white;">Reichweite 8×8<br>50 Hz in cm</th>
+    <th bgcolor="#4A90C2" width="170" style="border: 1px solid black; border-bottom: 3px solid black; padding: 8px; color: white;">Reichweite 8×8<br>30 Hz in cm</th>
+  </tr>
+
+  <!-- 30 mm -->
+  <tr>
+    <td bgcolor="#EAF4FB" style="border: 1px solid black; padding: 8px; text-align: center;">30</td>
+    <td bgcolor="#EAF4FB" style="border: 1px solid black; padding: 8px; text-align: center;">40</td>
+    <td bgcolor="#EAF4FB" style="border: 1px solid black; padding: 8px; text-align: center;">40</td>
+    <td bgcolor="#EAF4FB" style="border: 1px solid black; padding: 8px; text-align: center;">40</td>
+    <td bgcolor="#EAF4FB" style="border: 1px solid black; padding: 8px; text-align: center;">70</td>
+  </tr>
+
+  <!-- 40 mm -->
+  <tr>
+    <td style="border: 1px solid black; padding: 8px; text-align: center;">40</td>
+    <td style="border: 1px solid black; padding: 8px; text-align: center;">50</td>
+    <td style="border: 1px solid black; padding: 8px; text-align: center;">50</td>
+    <td style="border: 1px solid black; padding: 8px; text-align: center;">40</td>
+    <td style="border: 1px solid black; padding: 8px; text-align: center;">90</td>
+  </tr>
+
+  <!-- 50 mm -->
+  <tr>
+    <td bgcolor="#EAF4FB" style="border: 1px solid black; padding: 8px; text-align: center;">50</td>
+    <td bgcolor="#EAF4FB" style="border: 1px solid black; padding: 8px; text-align: center;">60</td>
+    <td bgcolor="#EAF4FB" style="border: 1px solid black; padding: 8px; text-align: center;">60</td>
+    <td bgcolor="#EAF4FB" style="border: 1px solid black; padding: 8px; text-align: center;">50</td>
+    <td bgcolor="#EAF4FB" style="border: 1px solid black; padding: 8px; text-align: center;">100</td>
+  </tr>
+
+  <!-- 60 mm -->
+  <tr>
+    <td style="border: 1px solid black; padding: 8px; text-align: center;"><b>🟩 60</b></td>
+    <td style="border: 1px solid black; padding: 8px; text-align: center;">60</td>
+    <td style="border: 1px solid black; padding: 8px; text-align: center;">60</td>
+    <td style="border: 1px solid black; padding: 8px; text-align: center;">70</td>
+    <td style="border: 1px solid black; padding: 8px; text-align: center;"><b>🟩 130</b></td>
+  </tr>
+
+  <!-- 70 mm -->
+  <tr>
+    <td bgcolor="#EAF4FB" style="border: 1px solid black; padding: 8px; text-align: center;">70</td>
+    <td bgcolor="#EAF4FB" style="border: 1px solid black; padding: 8px; text-align: center;">60</td>
+    <td bgcolor="#EAF4FB" style="border: 1px solid black; padding: 8px; text-align: center;">60</td>
+    <td bgcolor="#EAF4FB" style="border: 1px solid black; padding: 8px; text-align: center;">70</td>
+    <td bgcolor="#EAF4FB" style="border: 1px solid black; padding: 8px; text-align: center;">120</td>
+  </tr>
+
+  <!-- 80 mm -->
+  <tr>
+    <td style="border: 1px solid black; padding: 8px; text-align: center;">80</td>
+    <td style="border: 1px solid black; padding: 8px; text-align: center;">60</td>
+    <td style="border: 1px solid black; padding: 8px; text-align: center;">60</td>
+    <td style="border: 1px solid black; padding: 8px; text-align: center;">60</td>
+    <td style="border: 1px solid black; padding: 8px; text-align: center;">110</td>
+  </tr>
+
+  <!-- 90 mm -->
+  <tr>
+    <td bgcolor="#EAF4FB" style="border: 1px solid black; padding: 8px; text-align: center;">90</td>
+    <td bgcolor="#EAF4FB" style="border: 1px solid black; padding: 8px; text-align: center;">50</td>
+    <td bgcolor="#EAF4FB" style="border: 1px solid black; padding: 8px; text-align: center;">50</td>
+    <td bgcolor="#EAF4FB" style="border: 1px solid black; padding: 8px; text-align: center;">60</td>
+    <td bgcolor="#EAF4FB" style="border: 1px solid black; padding: 8px; text-align: center;">90</td>
+  </tr>
+
+</table>
+
+Die Tests zeigten, dass der 4x4 Modus zwar eine höhere Messfrequenz liefert, aber leider die schmalen Wände nur auf eine zu kurze Distanz sicher erkennt. Ein einzelner Messpunkt ist dann so groß, dass er nicht nur die Wand erfasst, sondern zusätzlich den Boden. Deswegen haben wir den **8x8 Modus mit 30Hz** gewählt und die Sensoren wurden auf **60mm Höhe** eingebaut, weil dort die größte Reichweite erreicht wurde (s. Tabelle).
 
 ### **Sensorenplatzierung im Roboter**
-Die verwendeten Time-of-Flight-Sensoren haben einen Erfassungswinkel von ca. 60°. Ursprünglich waren vier Sensoren geplant (vgl. Abbildung4), jedoch zeigte sich in Fahrtests ein Problem: Bei einer Annäherung an eine Wand im 45°-Winkel entstand ein toter Winkel schräg vor dem Fahrzeug, da weder der vordere noch der seitliche Sensor diesen Bereich ausreichend abdeckten. 
-Um dieses Problem zu lösen, wurden zwei zusätzliche Sensoren ergänzt, die im 45°-Winkel nach vorne ausgerichtet sind. Diese sollten Wände bei schräger Anfahrt früher erkennen. Die Platzierung vorne am Fahrzeug erwies sich jedoch als problematisch, da die Sensoren das Kamerabild verdeckten. Da die Kamera zu diesem Zeitpunkt noch nicht erhöht montiert war, wurde nach einer Alternativlösung gesucht. Um Platz zu sparen, stiegen wir auf kleinere PCBs (vgl. Abbildung5) um, die mechanisch besser ins kompakte Chassis passten. In Tests stellte sich jedoch heraus, dass diese kleinere Variante nicht zuverlässig genug arbeitete – bei mehr als zwei Sensoren brach die SPI-Kommunikation zusammen. 
-Wir kehrten zu den größeren PCBs zurück und platzierten diese stattdessen hinten am Fahrzeug, um das Kamerabild freizuhalten. Aufgrund des begrenzten Platzes wurden sie dort hochkant verbaut (vgl. Abbildung6). 
-Nach der Umstellung der Hinderniserkennung auf Vollscan (vgl. Kapitel 2.3 Kamera, 3.5 Fahrstrategie Hindernisrennen - Strategiewechsel) konnten wir auf die zusätzlichen Sensoren verzichten (vgl. Abbildung 10). Dadurch, dass keine günstigen Kamerapositionen angefahren werden müssen, nähert sich der Roboter keiner Wand im 45°-Winkel. 
+Die verwendeten Time-of-Flight-Sensoren haben einen **Erfassungswinkel von ca. 60°**. Ursprünglich waren vier Sensoren geplant.
+
+#### Abbildung 8: Frühe Version des Roboters mit vier Sensoren
+
+</div><div align="center">
+    <a href="img/fruehe version roboter.jpg" target="_blank">
+        <img width="400" src="img/fruehe version roboter.jpg">
+    </a>
+</div>
+
+
+
+Jedoch zeigte sich in Fahrtests ein Problem: Bei einer Annäherung an eine Wand im 45°-Winkel entstand ein toter Winkel schräg vor dem Fahrzeug, da weder der vordere noch der seitliche Sensor diesen Bereich ausreichend abdeckten. 
+
+#### Abbildung 9: Sensorabdeckung bei vier Sensoren
+
+</div><div align="center">
+    <a href="img/winkel_vier.png" target="_blank">
+        <img width="400" src="img/winkel_vier.png">
+    </a>
+</div>
+
+Um dieses Problem zu lösen, wurden vorne zwei zusätzliche Sensoren ergänzt, die im 45°-Winkel nach vorne ausgerichtet sind. Diese sollten Wände bei schräger Anfahrt früher erkennen. Die Platzierung vorne am Fahrzeug erwies sich jedoch als problematisch, da die Sensoren das Kamerabild verdeckten, da die Kamera zu diesem Zeitpunkt noch nicht erhöht montiert war.
+
+#### Abbildung 10: Abdeckung des 45°-Totwinkels durch zwei zusätzliche Sensoren vorne
+
+ </div><div align="center">
+    <a href="img/bild2.png" target="_blank">
+        <img width="400" src="img/bild2.png">
+    </a>
+</div>
+
+ Somit wurde nach einer Alternativlösung gesucht. Um Platz zu sparen, stiegen wir auf kleinere PCBs um, die mechanisch besser ins kompakte Chassis passten und bauten diese ein.
+
+#### Abbildung 10: Größenvergleich der Sensor-PCBs
+
+ </div><div align="center">
+    <a href="img/bild1.png" target="_blank">
+        <img width="400" src="img/bild1.png">
+    </a>
+</div>
+
+
+#### Abbildung 11: Testposition eines zusätzlichen schräg nach vorne gerichteten Sensors
+
+</div><div align="center">
+    <a href="img/schraeg.jpg" target="_blank">
+        <img width="400" src="img/schraeg.jpg">
+    </a>
+</div>
+ 
+ In Tests stellte sich jedoch heraus, dass diese kleinere Variante nicht zuverlässig genug arbeitete – bei mehr als zwei Sensoren brach die SPI-Kommunikation zusammen. 
+Wir kehrten zu den größeren PCBs zurück und platzierten diese stattdessen hinten am Fahrzeug, um das Kamerabild freizuhalten. Aufgrund des begrenzten Platzes wurden sie dort hochkant verbaut. 
+
+#### Abbildung 11: Position der schrägen ToF-Sensoren am Heck zur Abdeckung des 45°-Totwinkels
+
+</div><div align="center">
+    <a href="img/roboter spaetere version.jpg" target="_blank">
+        <img width="400" src="img/roboter spaetere version.jpg">
+    </a>
+</div>
+
+
+#### Abbildung 10: Abdeckung des 45°-Totwinkels durch zwei zusätzliche Sensoren hinten
+
+ </div><div align="center">
+    <a href="img/bild3.png" target="_blank">
+        <img width="400" src="img/bild3.png">
+    </a>
+</div>
+
+
+Nach der Umstellung der Hinderniserkennung auf Vollscan (vgl. Kapitel 2.3 Kamera, 3.5 Fahrstrategie Hindernisrennen - Strategiewechsel) konnten wir auf die zusätzlichen Sensoren verzichten. Dadurch, dass keine günstigen Kamerapositionen angefahren werden müssen, nähert sich der Roboter keiner Wand im 45°-Winkel. 
+
+#### Abbildung 12: Finaler Roboter mit vier Sensoren
+
+</div><div align="center">
+    <a href="img/rechts.jpg" target="_blank">
+        <img width="400" src="img/rechts.jpg">
+    </a>
+</div>
 
 
 ## **Gyro**
-Im Vorjahr hatten wir das Problem, dass der Gyro über die Dauer einer Mission mehrere Grad Drift entwickelte. Dieser Drift führte zu ernsthaften Problemen bei der Orientierung des Roboters. In dieser Saison  wollten wir deshalb einen BNO055 mit eingebautem Magnetometer verwenden. Wenn das Magnetometer zuverlässig funktioniert, kann es den Drift theoretisch komplett ausgleichen. Unsere Tests haben allerdings gezeigt, dass das Magnetometer viel zu ungenau und unzuverlässig funktioniert. Es kam zu Abweichungen von 5 – 10 Grad, weswegen wir es deaktivieren mussten. Mit dieser Einschränkung funktioniert der BNO055 noch schlechter als der Gyro vom letzten Jahr. Pro gefahrener Runde hatten wir eine Abweichung von ca. zwei Grad, am Ende des Kurses von ca. sechs Grad. Die Abweichung ist über mehrere Läufe nicht konstant, und lässt sich deswegen nicht wegkalibrieren. Damit ist kein Navigieren mehr möglich. 
-Deswegen sind wir kurzfristig auf einen BNO086 umgestiegen. Diesen verwenden wir auch ohne Magnetometer, allerdings zeigt dieser Gyro einen deutlich geringeren und konstanteren Fehler. Eine Bias-Kalibrierung (Nullpunkt der Drehratensensoren) führen wir automatisch bei Programmstart durch, die Rate-Kalibrierung ermitteln wir von Hand, indem wir das Auto zehnmal um 360 Grad drehen. Dann vergleichen wir gemessene und reale Drehrate und ermitteln einen Korrekturfaktor. 
+Im Vorjahr hatten wir das Problem, dass der **Gyro** über die Dauer einer Mission mehrere Grad Drift entwickelte. Dieser Drift führte zu ernsthaften Problemen bei der Orientierung des Roboters. In dieser Saison  wollten wir deshalb einen **BNO055** mit eingebautem Magnetometer verwenden. Wenn das Magnetometer zuverlässig funktioniert, kann es den Drift theoretisch komplett ausgleichen. Unsere Tests haben allerdings gezeigt, dass das Magnetometer viel zu ungenau und unzuverlässig funktioniert. Es kam zu Abweichungen von 5 – 10 Grad, weswegen wir es deaktivieren mussten. Mit dieser Einschränkung funktioniert der BNO055 noch schlechter als der Gyro vom letzten Jahr. Pro gefahrener Runde hatten wir eine Abweichung von ca. zwei Grad, am Ende des Kurses von ca. sechs Grad. Die Abweichung ist über mehrere Läufe nicht konstant, und lässt sich deswegen nicht wegkalibrieren. Damit ist kein Navigieren mehr möglich. 
 
-++ S. Dokumentation S.9 (graue Leiste)
+Deswegen sind wir kurzfristig auf einen **BNO086** umgestiegen. Diesen verwenden wir auch ohne Magnetometer, allerdings zeigt dieser Gyro einen deutlich geringeren und konstanteren Fehler. Eine **Bias-Kalibrierung** (Nullpunkt der Drehratensensoren) führen wir automatisch bei Programmstart durch, die **Rate-Kalibrierung** ermitteln wir von Hand, indem wir das Auto zehnmal um 360 Grad drehen. Dann vergleichen wir gemessene und reale Drehrate und ermitteln einen Korrekturfaktor. 
 
-Damit kommen wir auf eine Abweichung von ca. einem Grad nach drei gefahrenen Runden. In der Praxis hat sich gezeigt, dass der Roboter bei dieser Abweichung die Strecke noch sauber abfahren kann.
+<div style="background-color: #B8D8EE; padding: 8px; text-align: center; color: #000000; margin-bottom: 20px;">
+Korrekturfaktor = gemessene Drehung / erwartete Drehung
+
+</div>
+
+#### Tabelle 5: Zusammenfassung Gyro-Evaluierung
+
+<table align="center" border="1" style="border-collapse: collapse; border: 2px solid black;">
+
+  <!-- Tabellenkopf -->
+  <tr>
+    <th bgcolor="#4A90C2" width="130" style="border: 1px solid black; border-bottom: 3px solid black; padding: 8px; color: white;">Sensor</th>
+    <th bgcolor="#4A90C2" width="220" style="border: 1px solid black; border-bottom: 3px solid black; padding: 8px; color: white;">Konfiguration</th>
+    <th bgcolor="#4A90C2" width="150" style="border: 1px solid black; border-bottom: 3px solid black; padding: 8px; color: white;">Abw. nach<br>1 Runde</th>
+    <th bgcolor="#4A90C2" width="170" style="border: 1px solid black; border-bottom: 3px solid black; padding: 8px; color: white;">Abw. nach<br>3 Runden</th>
+    <th bgcolor="#4A90C2" width="170" style="border: 1px solid black; border-bottom: 3px solid black; padding: 8px; color: white;">Konstant<br>kalibrierbar?</th>
+  </tr>
+
+  <!-- BNO055 mit Magnetometer -->
+  <tr>
+    <td bgcolor="#EAF4FB" style="border: 1px solid black; padding: 8px; text-align: center;"><b>BNO055</b></td>
+    <td bgcolor="#EAF4FB" style="border: 1px solid black; padding: 8px;">mit Magnetometer</td>
+    <td bgcolor="#EAF4FB" style="border: 1px solid black; padding: 8px; text-align: center;">~5–10°</td>
+    <td bgcolor="#EAF4FB" style="border: 1px solid black; padding: 8px; text-align: center;">nicht messbar<br>(Ausreißer)</td>
+    <td bgcolor="#EAF4FB" style="border: 1px solid black; padding: 8px; text-align: center;">❌ Nein</td>
+  </tr>
+
+  <!-- BNO055 ohne Magnetometer -->
+  <tr>
+    <td style="border: 1px solid black; padding: 8px; text-align: center;"><b>BNO055</b></td>
+    <td style="border: 1px solid black; padding: 8px;">ohne Magnetometer</td>
+    <td style="border: 1px solid black; padding: 8px; text-align: center;">~2°</td>
+    <td style="border: 1px solid black; padding: 8px; text-align: center;">~6°</td>
+    <td style="border: 1px solid black; padding: 8px; text-align: center;">❌ Nein</td>
+  </tr>
+
+  <!-- BNO086 -->
+  <tr>
+    <td bgcolor="#EAF4FB" style="border: 1px solid black; padding: 8px; text-align: center;"><b>BNO086</b></td>
+    <td bgcolor="#EAF4FB" style="border: 1px solid black; padding: 8px;">ohne Magnetometer<br>mit Rate-Kalibrierung</td>
+    <td bgcolor="#EAF4FB" style="border: 1px solid black; padding: 8px; text-align: center;">~0,3°</td>
+    <td bgcolor="#EAF4FB" style="border: 1px solid black; padding: 8px; text-align: center;">~1°</td>
+    <td bgcolor="#EAF4FB" style="border: 1px solid black; padding: 8px; text-align: center;">✅ Ja</td>
+  </tr>
+
+</table>
+
+
+Die Tabelle fasst die Ergebnisse unserer Gyro-Evaluierung zusammen. Jeder Wert ist der Durchschnitt aus fünf gemessenen Läufen auf unserem Testparcours. Der BNO086 war der einzige Sensor, bei dem die Abweichung über mehrere Läufe hinweg konstant und damit durch unseren Korrekturfaktor kompensierbar war. Damit kommen wir auf eine Abweichung von ca. einem Grad nach drei gefahrenen Runden. In der Praxis hat sich gezeigt, dass der Roboter bei dieser Abweichung die Strecke noch sauber abfahren kann.
 
 ## **Stromversorgung und Leistungsverbrauch**
-Letztes Jahr verwendeten wir einen 2S 2200mAh Akku. Dieser ist für unser neues Auto viel zu groß, außerdem ist die Spannung nicht ausreichend, da unser neuer  Motortreiber bei 6,5V abschaltet. Mit Leitungsverlusten und unter Lastspitzen war beim Testen ein zuverlässiger Betrieb mit einem 2S Akku bei nachlassender Akkuspannung nicht mehr möglich, sodass wir früh auf einen 3S Akku wechselten. Dieser gibt uns auch mehr Leistungsreserve für höhere Geschwindigkeiten beim Motor. 
-Nach der Spannung war das wichtigste Auswahlkriterium die Einbaugröße bei möglichst großer Kapazität. Unsere Wahl fiel auf einen 3S-LiPo-Akku mit 550 mAh. Das ist der größte Akku, den wir im Chassis unterbringen konnten. Um zu ermitteln, ob der Akku brauchbar ist, hatten wir zunächst die Laufzeit theoretisch berechnet, dann praktisch gemessen (s. unten). 
+Letztes Jahr verwendeten wir einen 2S 2200mAh Akku. Dieser ist für unser neues Auto viel zu groß, außerdem ist die **Spannung** nicht ausreichend, da unser neuer  Motortreiber bei 6,5V abschaltet. Mit Leitungsverlusten und unter Lastspitzen war beim Testen ein zuverlässiger Betrieb mit einem 2S Akku bei nachlassender Akkuspannung nicht mehr möglich, sodass wir früh auf einen 3S Akku wechselten. Dieser gibt uns auch mehr Leistungsreserve für höhere Geschwindigkeiten beim Motor. 
 
-++ S. Dokument S.9 (Tabelle)
+Nach der Spannung war das wichtigste Auswahlkriterium die **Einbaugröße** bei möglichst großer Kapazität. Unsere Wahl fiel auf einen **3S-LiPo-Akku mit 550 mAh**. Das ist der größte Akku, den wir im Chassis unterbringen konnten. Um zu ermitteln, ob der Akku brauchbar ist, hatten wir zunächst die Laufzeit theoretisch berechnet, dann praktisch gemessen (s. unten).
+
+#### Tabelle 6: Leistungsverbrauch der eingesetzten Komponenten nach Datenblatt
+
+<table align="center" border="1" style="border-collapse: collapse; border: 2px solid black;">
+
+  <!-- Tabellenkopf -->
+  <tr>
+    <th bgcolor="#4A90C2" width="230" style="border: 1px solid black; border-bottom: 3px solid black; padding: 8px; color: white;">Komponente</th>
+    <th bgcolor="#4A90C2" width="170" style="border: 1px solid black; border-bottom: 3px solid black; padding: 8px; color: white;">Betriebsspannung</th>
+    <th bgcolor="#4A90C2" width="170" style="border: 1px solid black; border-bottom: 3px solid black; padding: 8px; color: white;">Typischer Strom</th>
+    <th bgcolor="#4A90C2" width="150" style="border: 1px solid black; border-bottom: 3px solid black; padding: 8px; color: white;">Typische<br>Leistung</th>
+    <th bgcolor="#4A90C2" width="380" style="border: 1px solid black; border-bottom: 3px solid black; padding: 8px; color: white;">Hinweis</th>
+  </tr>
+
+  <!-- Raspberry Pi Compute Module 5 -->
+  <tr>
+    <td bgcolor="#EAF4FB" style="border: 1px solid black; padding: 8px;"><b>Raspberry Pi Compute Module 5</b></td>
+    <td bgcolor="#EAF4FB" style="border: 1px solid black; padding: 8px; text-align: center;">5 V</td>
+    <td bgcolor="#EAF4FB" style="border: 1px solid black; padding: 8px; text-align: center;">600–1600 mA</td>
+    <td bgcolor="#EAF4FB" style="border: 1px solid black; padding: 8px; text-align: center;">3–8 W</td>
+    <td bgcolor="#EAF4FB" style="border: 1px solid black; padding: 8px;">Hauptrechner; abhängig von CPU-Auslastung</td>
+  </tr>
+
+  <!-- Raspberry Pi Camera Module 3 -->
+  <tr>
+    <td style="border: 1px solid black; padding: 8px;"><b>Raspberry Pi Camera Module 3</b></td>
+    <td style="border: 1px solid black; padding: 8px; text-align: center;">intern via CM5</td>
+    <td style="border: 1px solid black; padding: 8px; text-align: center;">ca. 200–400 mA<br>äquivalent</td>
+    <td style="border: 1px solid black; padding: 8px; text-align: center;">ca. 1 W</td>
+    <td style="border: 1px solid black; padding: 8px;">Versorgung direkt über MIPI-CSI des CM5; keine externe Spannungsquelle</td>
+  </tr>
+
+  <!-- 4x VL53L8CX -->
+  <tr>
+    <td bgcolor="#EAF4FB" style="border: 1px solid black; padding: 8px;"><b>4× VL53L8CX Time-of-Flight-Sensor</b></td>
+    <td bgcolor="#EAF4FB" style="border: 1px solid black; padding: 8px; text-align: center;">3,3 V (AVDD) über eigenen Spannungsregler</td>
+    <td bgcolor="#EAF4FB" style="border: 1px solid black; padding: 8px; text-align: center;">je ca. 85 mA</td>
+    <td bgcolor="#EAF4FB" style="border: 1px solid black; padding: 8px; text-align: center;">gesamt<br>ca. 1,1 W</td>
+    <td bgcolor="#EAF4FB" style="border: 1px solid black; padding: 8px;">Dauerbetrieb 30 Hz, 8×8; laut ST-Datenblatt DS13349</td>
+  </tr>
+
+  <!-- BNO086 -->
+  <tr>
+    <td style="border: 1px solid black; padding: 8px;"><b>BNO086 IMU</b></td>
+    <td style="border: 1px solid black; padding: 8px; text-align: center;">3,3 V</td>
+    <td style="border: 1px solid black; padding: 8px; text-align: center;">ca. 4 mA</td>
+    <td style="border: 1px solid black; padding: 8px; text-align: center;">ca. 13 mW</td>
+    <td style="border: 1px solid black; padding: 8px;">Vollständiger Fusions-Modus (NDOF); laut Herstellerdatenblatt</td>
+  </tr>
+
+  <!-- STM32F411 -->
+  <tr>
+    <td bgcolor="#EAF4FB" style="border: 1px solid black; padding: 8px;"><b>STM32F411 Black-Pill</b></td>
+    <td bgcolor="#EAF4FB" style="border: 1px solid black; padding: 8px; text-align: center;">3,3 V</td>
+    <td bgcolor="#EAF4FB" style="border: 1px solid black; padding: 8px; text-align: center;">ca. 45 mA</td>
+    <td bgcolor="#EAF4FB" style="border: 1px solid black; padding: 8px; text-align: center;">ca. 150 mW</td>
+    <td bgcolor="#EAF4FB" style="border: 1px solid black; padding: 8px;">100 MHz Betrieb, alle Peripherien aktiv; laut ST DS10314</td>
+  </tr>
+
+  <!-- N30 Motor -->
+  <tr>
+    <td style="border: 1px solid black; padding: 8px;"><b>N30-Motor mit Encoder</b></td>
+    <td style="border: 1px solid black; padding: 8px; text-align: center;">11,1 V via DRV8871</td>
+    <td style="border: 1px solid black; padding: 8px; text-align: center;">50–200 mA</td>
+    <td style="border: 1px solid black; padding: 8px; text-align: center;">0,5–2 W</td>
+    <td style="border: 1px solid black; padding: 8px;">Stark lastabhängig; Spitzenstrom bei Anfahrt</td>
+  </tr>
+
+  <!-- DRV8871 -->
+  <tr>
+    <td bgcolor="#EAF4FB" style="border: 1px solid black; padding: 8px;"><b>DRV8871 Motortreiber</b></td>
+    <td bgcolor="#EAF4FB" style="border: 1px solid black; padding: 8px; text-align: center;">11,1 V</td>
+    <td bgcolor="#EAF4FB" style="border: 1px solid black; padding: 8px; text-align: center;">Ruhestrom<br>ca. 5 mA</td>
+    <td bgcolor="#EAF4FB" style="border: 1px solid black; padding: 8px; text-align: center;">ca. 55 mW</td>
+    <td bgcolor="#EAF4FB" style="border: 1px solid black; padding: 8px;">H-Brücke, 6,5–45 V, max. 3,6 A; Motorstrom fließt direkt durch Treiber</td>
+  </tr>
+
+  <!-- Servo -->
+  <tr>
+    <td style="border: 1px solid black; padding: 8px;"><b>Servo (Lenkung)</b></td>
+    <td style="border: 1px solid black; padding: 8px; text-align: center;">5 V</td>
+    <td style="border: 1px solid black; padding: 8px; text-align: center;">150–800 mA<br>kurzzeitig</td>
+    <td style="border: 1px solid black; padding: 8px; text-align: center;">0,5–2 W<br>kurzzeitig</td>
+    <td style="border: 1px solid black; padding: 8px;">Stromspitzen bei Lenkbewegungen; Ruhestrom gering</td>
+  </tr>
+
+</table>
 
 ### **Gemessener Gesamtleistungsbedarf**
-Der gemessene Gesamtleistungsbedarf des Systems liegt im Betrieb zwischen etwa 7 W (geringe Last) und 10 W (volle Rechenlast mit Fahrt).
+Der **gemessene Gesamtleistungsbedarf** des Systems liegt im Betrieb zwischen etwa 7 W (geringe Last) und 10 W (volle Rechenlast mit Fahrt).
 
-### **Berechnung der Laufzeit und Vermeidung von Tiefentladungen**
-Energieinhalt Akku: 	11,1 V × 0,55 Ah = 6,1 Wh
-Stromverbrauch: 7 bis 10 Watt <br>
-Laufzeit theoretisch:	Daraus folgt eine Laufzeit von 36 bis 52 Minuten. <br>
-Laufzeit praktisch:	Im Testbetrieb beträgt die gemessene Laufzeit bis zur Abschaltschwelle (3,5V/Zelle) meist ca. 40 Minuten und deckt sich damit gut mit den theoretischen Berechnungen. <br>
-Um Tiefentladungen zu vermeiden, misst der STM32 die Akkuspannung, schaltet bei einer Zellspannung von 3,5 Volt den Motor aus und sendet ein Signal an den Raspberry, worauf dieser herunterfährt. Weiterhin bewegt er zyklisch den Lenkservo um auf die leere Batterie hinzuweisen.
+### **Berechnung der Laufzeit** 
+- **Energieinhalt Akku:** 11,1 V × 0,55 Ah = 6,1 Wh<br>
+- **Stromverbrauch:** 7 bis 10 Watt <br>
+- **Laufzeit theoretisch:** Daraus folgt eine Laufzeit von 36 bis 52 Minuten. <br>
+- **Laufzeit praktisch:** Im Testbetrieb beträgt die gemessene Laufzeit bis zur Abschaltschwelle (3,5V/Zelle) meist ca. 40 Minuten und deckt sich damit gut mit den theoretischen Berechnungen.
+
+### **Vermeidung von Tiefentladungen**
+Um **Tiefentladungen** zu vermeiden, misst der STM32 die Akkuspannung, schaltet bei einer Zellspannung von 3,5 Volt den Motor aus und sendet ein Signal an den Raspberry, worauf dieser herunterfährt. Weiterhin bewegt er zyklisch den Lenkservo um auf die leere Batterie hinzuweisen.
 
 ### **Spannungsversorgung der einzelnen Komponenten**
-- 11,1 V direkt: N30-Motor über den DRV8871-Motortreiber (H-Brücke, 6,5–45 V, max. 3,6 A)
-- 5 V über DC-DC Converter: Raspberry Pi CM5 über die 100-Pin-Steckverbinder auf dem selbst entwickelten Baseboard; Servo und alle vier VL53L8CX ToF-Sensoren
-- 3,3 V über Linearregler (AMS1117-3.3): STM32F411, BNO086; Eingangsversorgung des AMS1117 kommt von der 5-V-Schiene über den GPIO-Header
-- Das Raspberry Pi Camera Module 3 wird ausschließlich über die MIPI-CSI-Schnittstelle des CM5 versorgt; keine externe Verdrahtung notwendig
-
+- **11,1 V direkt**: N30-Motor über den DRV8871-Motortreiber (H-Brücke, 6,5–45 V, max. 3,6 A)
+- **5 V über DC-DC Converter:** Raspberry Pi CM5 über die 100-Pin-Steckverbinder auf dem selbst entwickelten Baseboard; Servo und alle vier VL53L8CX ToF-Sensoren
+- **3,3 V über Linearregler (AMS1117-3.3):** STM32F411, BNO086; Eingangsversorgung des AMS1117 kommt von der 5-V-Schiene über den GPIO-Header
+- Das Raspberry Pi Camera Module wird ausschließlich über die **MIPI-CSI-Schnittstelle des CM5** versorgt; keine externe Verdrahtung notwendig
+<br><br>
 
 # **3. Entwicklung des Codes**
 ## **Softwarearchitektur**
-Die Software ist in zwei getrennte Verarbeitungsebenen aufgeteilt. Auf dem Raspberry Pi Compute Module 5 (CM5) läuft die High-Level-Logik: Fahrstrategie, Bildverarbeitung, Gyro-Auswertung, Benutzeroberfläche und Logging. Auf dem STM32F411 liegt die Low-Level-Regelung: Motoransteuerung, Encoder-Auswertung, Servoansteuerung und das Einlesen der vier VL53L8CX Time-of-Flight-Sensoren mit fester Zykluszeit.
+Die Software ist in **zwei getrennte Verarbeitungsebenen** aufgeteilt. 
+
+Auf dem Raspberry Pi Compute Module 5 (CM5) läuft die **High-Level-Logik**: Fahrstrategie, Bildverarbeitung, Gyro-Auswertung, Benutzeroberfläche und Logging. 
+
+Auf dem STM32F411 liegt die **Low-Level-Regelung**: Motoransteuerung, Encoder-Auswertung, Servoansteuerung und das Einlesen der vier VL53L8CX Time-of-Flight-Sensoren mit fester Zykluszeit.
+
 Diese Aufteilung hat zwei Vorteile: Der STM32 übernimmt zeitkritische Aufgaben ohne Betriebssystem-Overhead. Der CM5 kann gleichzeitig rechenintensive Aufgaben wie Bildverarbeitung und Gyro-Fusion ausführen, ohne die Sensor-Regelschleife zu blockieren. Die Kommunikation zwischen beiden Prozessoren erfolgt über UART mit 921 600 Baud.
 
-++ S. Dokument S.10 (Tabelle, Bild)
+#### Abbildung X: Übersicht über die Systemarchitektur
+
+</div><div align="center">
+    <a href="img/blockschaltbild_englisch.png" target="_blank">
+        <img width="500" src="img/blockschaltbild_englisch.png">
+    </a>
+</div>
+
+#### Tabelle X: Aufgabenverteilung der Softwaremodule
+
+<table align="center" border="1" style="border-collapse: collapse; border: 2px solid black;">
+
+  <!-- Tabellenkopf -->
+  <tr>
+    <th bgcolor="#4A90C2" width="240" style="border: 1px solid black; border-bottom: 3px solid black; padding: 8px; color: white;">Modul / Datei</th>
+    <th bgcolor="#4A90C2" width="180" style="border: 1px solid black; border-bottom: 3px solid black; padding: 8px; color: white;">Prozessor</th>
+    <th bgcolor="#4A90C2" width="520" style="border: 1px solid black; border-bottom: 3px solid black; padding: 8px; color: white;">Hauptaufgabe</th>
+  </tr>
+
+  <!-- main.py -->
+  <tr>
+    <td bgcolor="#EAF4FB" style="border: 1px solid black; padding: 8px;"><code>main.py</code></td>
+    <td bgcolor="#EAF4FB" style="border: 1px solid black; padding: 8px;">Raspberry Pi CM5</td>
+    <td bgcolor="#EAF4FB" style="border: 1px solid black; padding: 8px;">Systemstart, Threads starten</td>
+  </tr>
+
+  <!-- parser.py -->
+  <tr>
+    <td style="border: 1px solid black; padding: 8px;"><code>parser.py</code></td>
+    <td style="border: 1px solid black; padding: 8px;">Raspberry Pi CM5</td>
+    <td style="border: 1px solid black; padding: 8px;">Serielle Kommunikation mit STM32, BNO086-Gyro einlesen</td>
+  </tr>
+
+  <!-- driveController.py -->
+  <tr>
+    <td bgcolor="#EAF4FB" style="border: 1px solid black; padding: 8px;"><code>driveController.py</code></td>
+    <td bgcolor="#EAF4FB" style="border: 1px solid black; padding: 8px;">Raspberry Pi CM5</td>
+    <td bgcolor="#EAF4FB" style="border: 1px solid black; padding: 8px;">Fahrprimitive: Wandfolge, Kurven, Distanzfahrt, P-Regler-Lenkung</td>
+  </tr>
+
+  <!-- openChallenge.py -->
+  <tr>
+    <td style="border: 1px solid black; padding: 8px;"><code>openChallenge.py</code></td>
+    <td style="border: 1px solid black; padding: 8px;">Raspberry Pi CM5</td>
+    <td style="border: 1px solid black; padding: 8px;">Ablaufsteuerung Eröffnungsrennen (3 Runden)</td>
+  </tr>
+
+  <!-- obstacleChallengeSingle.py -->
+  <tr>
+    <td bgcolor="#EAF4FB" style="border: 1px solid black; padding: 8px;"><code>obstacleChallengeSingle.py</code></td>
+    <td bgcolor="#EAF4FB" style="border: 1px solid black; padding: 8px;">Raspberry Pi CM5</td>
+    <td bgcolor="#EAF4FB" style="border: 1px solid black; padding: 8px;">Scan-Phase, feste Routenausführung um Hindernisse</td>
+  </tr>
+
+  <!-- cameraIO.py -->
+  <tr>
+    <td style="border: 1px solid black; padding: 8px;"><code>cameraIO.py</code></td>
+    <td style="border: 1px solid black; padding: 8px;">Raspberry Pi CM5</td>
+    <td style="border: 1px solid black; padding: 8px;">Kamerabild einlesen, HSV-Masken, Flood-Fill, Konturanalyse</td>
+  </tr>
+
+  <!-- ui.py -->
+  <tr>
+    <td bgcolor="#EAF4FB" style="border: 1px solid black; padding: 8px;"><code>ui.py</code></td>
+    <td bgcolor="#EAF4FB" style="border: 1px solid black; padding: 8px;">Raspberry Pi CM5</td>
+    <td bgcolor="#EAF4FB" style="border: 1px solid black; padding: 8px;">Statusanzeige, Benutzereingaben</td>
+  </tr>
+
+  <!-- logger.py -->
+  <tr>
+    <td style="border: 1px solid black; padding: 8px;"><code>logger.py</code></td>
+    <td style="border: 1px solid black; padding: 8px;">Raspberry Pi CM5</td>
+    <td style="border: 1px solid black; padding: 8px;">Testprotokollierung</td>
+  </tr>
+
+  <!-- main.cpp -->
+  <tr>
+    <td bgcolor="#EAF4FB" style="border: 1px solid black; padding: 8px;"><code>main.cpp (STM32)</code></td>
+    <td bgcolor="#EAF4FB" style="border: 1px solid black; padding: 8px;">STM32F411</td>
+    <td bgcolor="#EAF4FB" style="border: 1px solid black; padding: 8px;">Motor-PWM, Encoder, Servo, ToF-Sensordaten über JSON senden</td>
+  </tr>
+
+</table>
 
 ## **Threading und Systemablauf**
 
 Im Raspberry-Pi-Code laufen drei funktionale Ebenen parallel:
-Der UI-Hauptthread zeigt Statusdaten an und reagiert auf Tastatureingaben zum Starten und Stoppen. 
-Der Parser-Thread liest kontinuierlich die serielle Schnittstelle und aktualisiert die gemeinsam genutzten Sensorwerte: Distanzfelder aller sechs Sensoren, Drehzahl, Batteriespannung und Fahrtrichtung. 
-Der Control-Loop führt die eigentliche Fahrlogik aus und schreibt Sollwerte für Geschwindigkeit und Lenkwinkel zurück in die serielle Schnittstelle. 
+
+- Der **UI-Hauptthread** zeigt Statusdaten an und reagiert auf Tastatureingaben zum Starten und Stoppen. 
+- Der **Parser-Thread** liest kontinuierlich die serielle Schnittstelle und aktualisiert die gemeinsam genutzten Sensorwerte: Distanzfelder aller sechs Sensoren, Drehzahl, Batteriespannung und Fahrtrichtung. 
+- Der **Control-Loop** führt die eigentliche Fahrlogik aus und schreibt Sollwerte für Geschwindigkeit und Lenkwinkel zurück in die serielle Schnittstelle. 
 
 
 ## **Fahrprimitiven in driveController.py**
-driveController.py bildet die Abstraktionsschicht zwischen rohen Sensorwerten und den Challenge-Skripten. Es stellt eine Bibliothek von Fahrprimitiven bereit, die intern Heading-Regelung und Beschleunigungsrampen kombinieren.
-Die Beschleunigungsrampe begrenzt den Beschleunigungswert auf 1 m/s² und die Bremsbeschleunigung auf 8 m/s². Das verhindert, dass die Reifen durchdrehen oder blockieren, was die Odometriewerte und die gemessene Geschwindigkeit verfälschen würde.
-Die Lenkung nutzt zwei P-Regler: pidSteer (Kp = 1,0) für das normale Fahren und pidSteer2 (Kp = 0,5) für weichere Kurvenführung mit weniger Überschwingen. 
+<code>driveController.py</code> bildet die Abstraktionsschicht zwischen rohen Sensorwerten und den Challenge-Skripten. Es stellt eine **Bibliothek von Fahrprimitiven** bereit, die intern Heading-Regelung und Beschleunigungsrampen kombinieren.
+
+Die **Beschleunigungsrampe** begrenzt den Beschleunigungswert auf 1 m/s² und die Bremsbeschleunigung auf 8 m/s². Das verhindert, dass die Reifen durchdrehen oder blockieren, was die Odometriewerte und die gemessene Geschwindigkeit verfälschen würde.
+
+Die **Lenkung** nutzt zwei P-Regler: <code>pidSteer (Kp = 1,0)</code> für das normale Fahren und <code>pidSteer2 (Kp = 0,5)</code> für weichere Kurvenführung mit weniger Überschwingen.
+
 Bedeutung der Kp-Werte: Der Regler berechnet den Lenkwinkel-Offset (0–180°, Mitte = 90°) direkt aus dem Heading-Fehler in Grad:
 
-++ S. Dokument S.10 (graue Leiste) <br>
+<div style="background-color: #B8D8EE; padding: 8px; text-align: center; color: #000000; margin-bottom: 20px;">
+steer = 90 − K<sub>p</sub> · error
+</div>
 
 Bei Kp = 1,0 entspricht 1° Heading-Fehler genau 1° Lenkkorrektur; die Sättigung (voller Einschlag) tritt bei |Fehler| ≥ 90° ein. Bei Kp = 0,5 tritt sie erst bei |Fehler| ≥ 180° auf, was zu weicherem, aber trägerem Regelverhalten führt.
-Ermittlung der Werte: Die Kp-Werte wurden empirisch bestimmt. Ausgangspunkt war Kp = 1,0, da die 1:1-Abbildung eine intuitive Anfangseinschätzung erlaubt. Bei Geradeausfahrt zeigte das Fahrzeug kein Oszillieren – die mechanische Trägheit liefert ausreichende Dämpfung. Bei der schnelleren Kurveneinleitung (turn()) führte Kp = 1,0 jedoch zu Überschwingen am Ende der Kurve. Durch Halbieren auf Kp = 0,5 (pidSteer2) ließ sich das Überschwingen auf unter 3° reduzieren.
-Warum kein I- und D-Anteil: Ein Integralanteil ist nicht notwendig, da der Gyro die absolute Orientierung misst und kein bleibender Offset entsteht. Ein D-Anteil würde auf das Messrauschen des BNO086 reagieren und die Lenkung destabilisieren.
+
+**Ermittlung der Werte:** Die Kp-Werte wurden empirisch bestimmt. Ausgangspunkt war Kp = 1,0, da die 1:1-Abbildung eine intuitive Anfangseinschätzung erlaubt. Bei Geradeausfahrt zeigte das Fahrzeug kein Oszillieren – die mechanische Trägheit liefert ausreichende Dämpfung. Bei der schnelleren Kurveneinleitung (turn()) führte Kp = 1,0 jedoch zu Überschwingen am Ende der Kurve. Durch Halbieren auf Kp = 0,5 (pidSteer2) ließ sich das Überschwingen auf unter 3° reduzieren.
+
+**Warum kein I- und D-Anteil:** Ein Integralanteil ist nicht notwendig, da der Gyro die absolute Orientierung misst und kein bleibender Offset entsteht. Ein D-Anteil würde auf das Messrauschen des BNO086 reagieren und die Lenkung destabilisieren.
 Die Steuerung basiert auf folgenden Fahrprimitiven: <br>
 
-++ S. Dokument S.11 (Tabelle) <br>
+#### Tabelle X: Wichtigste Fahrprimitive und ihre Funktion
 
-Die konkreten Parameter für die Programme (z. B. der Abstand bei der driveToWall Funktion) wurden nicht berechnet, sondern empirisch in Fahrtests ermittelt. Beispiel: Bei driveToWall wurde das Fahrzeug mit verschiedenen Schwellwerten gefahren und der Wert übernommen, bei dem die darauffolgende Kurve sauber eingeleitet wurde, ohne eine Wand zu touchieren.
+<table align="center" border="1" style="border-collapse: collapse; border: 2px solid black;">
+
+  <!-- Tabellenkopf -->
+  <tr>
+    <th bgcolor="#4A90C2" width="230" style="border: 1px solid black; border-bottom: 3px solid black; padding: 8px; color: white;">Funktion</th>
+    <th bgcolor="#4A90C2" width="280" style="border: 1px solid black; border-bottom: 3px solid black; padding: 8px; color: white;">Eingabe</th>
+    <th bgcolor="#4A90C2" width="500" style="border: 1px solid black; border-bottom: 3px solid black; padding: 8px; color: white;">Verhalten</th>
+  </tr>
+
+  <!-- driveAlongWall -->
+  <tr>
+    <td bgcolor="#EAF4FB" style="border: 1px solid black; padding: 8px;"><code>driveAlongWall</code></td>
+    <td bgcolor="#EAF4FB" style="border: 1px solid black; padding: 8px;">speed, heading, Wand</td>
+    <td bgcolor="#EAF4FB" style="border: 1px solid black; padding: 8px;">Fährt bis links oder rechts keine Wand zu sehen ist</td>
+  </tr>
+
+  <!-- driveToWall -->
+  <tr>
+    <td style="border: 1px solid black; padding: 8px;"><code>driveToWall</code></td>
+    <td style="border: 1px solid black; padding: 8px;">speed, heading, Abstand, Wand</td>
+    <td style="border: 1px solid black; padding: 8px;">Fährt bis Zielabstand zur Wand, ToF als Abbruchkriterium</td>
+  </tr>
+
+  <!-- driveAwayFromWall -->
+  <tr>
+    <td bgcolor="#EAF4FB" style="border: 1px solid black; padding: 8px;"><code>driveAwayFromWall</code></td>
+    <td bgcolor="#EAF4FB" style="border: 1px solid black; padding: 8px;">speed, heading, Abstand, Wand</td>
+    <td bgcolor="#EAF4FB" style="border: 1px solid black; padding: 8px;">Entfernt sich bis Mindestabstand von parametrierter Wand</td>
+  </tr>
+
+  <!-- driveDist -->
+  <tr>
+    <td style="border: 1px solid black; padding: 8px;"><code>driveDist</code></td>
+    <td style="border: 1px solid black; padding: 8px;">speed, heading, Distanz [mm]</td>
+    <td style="border: 1px solid black; padding: 8px;">Fährt feste Strecke, Encoder-basiert</td>
+  </tr>
+
+  <!-- turn -->
+  <tr>
+    <td bgcolor="#EAF4FB" style="border: 1px solid black; padding: 8px;"><code>turn</code></td>
+    <td bgcolor="#EAF4FB" style="border: 1px solid black; padding: 8px;">speed, Ziel-Heading</td>
+    <td bgcolor="#EAF4FB" style="border: 1px solid black; padding: 8px;">Normale Kurve, stoppt wenn Heading-Fehler &lt; Schwelle</td>
+  </tr>
+
+  <!-- quickTurn -->
+  <tr>
+    <td style="border: 1px solid black; padding: 8px;"><code>quickTurn</code></td>
+    <td style="border: 1px solid black; padding: 8px;">speed, Ziel-Heading</td>
+    <td style="border: 1px solid black; padding: 8px;">Schnelle Kurve, maximaler Lenkeinschlag</td>
+  </tr>
+
+  <!-- tightTurn -->
+  <tr>
+    <td bgcolor="#EAF4FB" style="border: 1px solid black; padding: 8px;"><code>tightTurn</code></td>
+    <td bgcolor="#EAF4FB" style="border: 1px solid black; padding: 8px;">speed, Ziel-Heading</td>
+    <td bgcolor="#EAF4FB" style="border: 1px solid black; padding: 8px;">Besonders enge Kurve</td>
+  </tr>
+
+  <!-- brake -->
+  <tr>
+    <td style="border: 1px solid black; padding: 8px;"><code>brake</code></td>
+    <td style="border: 1px solid black; padding: 8px; text-align: center;">–</td>
+    <td style="border: 1px solid black; padding: 8px;">Sollgeschwindigkeit = 0, Lenkung auf 0°</td>
+  </tr>
+
+</table>
+
+Die konkreten **Parameter** für die Programme (z. B. der Abstand bei der <code>driveToWall</code> Funktion) wurden nicht berechnet, sondern empirisch in Fahrtests ermittelt. Beispiel: Bei <code>driveToWall</code> wurde das Fahrzeug mit verschiedenen Schwellwerten gefahren und der Wert übernommen, bei dem die darauffolgende Kurve sauber eingeleitet wurde, ohne eine Wand zu touchieren.
 
 ## **Fahrstrategie Eröffnungsrennen**
-Im Eröffnungsrennen (openChallenge.py) fährt das Auto drei vollständige Runden. Das Auto fährt geradeaus bis links oder rechts keine Wand erkannt wird und merkt sich basierend darauf die Fahrtrichtung mit Hilfe der findDirection Funktion. Jede Runde besteht aus vier Geraden mit jeweils einer 90°-Kurve:
-- driveAlongWall – entlang der Außenwand bis zum Kurvenbereich
-- turn(−90°) – Kurve per P-Regler einleiten, Sollgeschwindigkeit 1,3 m/s
-- driveDist(750 mm) + driveAlongWall – nächste Gerade, Sollgeschwindigkeit 2 m/s
+Im **Eröffnungsrennen** (<code>openChallenge.py</code>) fährt das Auto drei vollständige Runden. Das Auto fährt geradeaus, bis links oder rechts keine Wand erkannt wird, und merkt sich basierend darauf die Fahrtrichtung mit Hilfe der <code>findDirection</code> Funktion. Jede Runde besteht aus vier Geraden mit jeweils einer 90°-Kurve:
+- <code>driveAlongWall</code> – entlang der Außenwand bis zum Kurvenbereich
+- <code>turn(−90°)</code> – Kurve per P-Regler einleiten, Sollgeschwindigkeit 1,3 m/s
+- <code>driveDist(750 mm) + driveAlongWall</code> – nächste Gerade, Sollgeschwindigkeit 2 m/s
 - Wiederholen für alle vier Seiten des Parcours <br>
 
-Das Muster aus Gerade und Kurve wiederholt sich viermal pro Runde (eine Seite des Parcours pro Iteration). Nach drei vollständigen Runden (3 x 4 = 12 Kurven gesamt) stoppt das Fahrzeug mit driveAwayFromWall in der Mitte der Startzone. Die Sollgeschwindigkeit von 2 m/s auf Geraden ist ein konfigurierter Parameterwert; die tatsächliche Endgeschwindigkeit hängt von der Beschleunigungsrampe und der verfügbaren Streckenlänge ab.
+Das Muster aus Gerade und Kurve wiederholt sich viermal pro Runde (eine Seite des Parcours pro Iteration). Nach drei vollständigen Runden (3 x 4 = 12 Kurven gesamt) stoppt das Fahrzeug mit <code>driveAwayFromWall</code> in der Mitte der Startzone. Die Sollgeschwindigkeit von 2 m/s auf Geraden ist ein konfigurierter Parameterwert; die tatsächliche Endgeschwindigkeit hängt von der Beschleunigungsrampe und der verfügbaren Streckenlänge ab.
+
+#### Abbildung X: Quellcode Eröffnungsrennen
+
+</div><div align="center">
+    <a href="img/code.png" target="_blank">
+        <img width="600" src="img/code.png">
+    </a>
+</div>
 
 
 ## **Fahrstrategie Hindernissrennen - Strategiewechsel**
 ### **Alte Strategie: Scanning während der Fahrt**
-Die ursprüngliche Strategie erkannte Hindernisse während der Fahrt. Am Anfang jeder Geraden wurde ein Foto aufgenommen und die Farbe des ersten Hindernisses bestimmt. Das System scannte zusätzlich bis zu zweimal pro Abschnitt nach weiteren Hindernissen. Diese Logik führte zu einem schwer wartbaren Zustandsautomaten: bis zu drei Scan-Punkte pro Abschnitt, abstandsabhängige Verzweigungen und Kamera unter Bewegung.
+Die **ursprüngliche Strategie** erkannte Hindernisse während der Fahrt. Am Anfang jeder Geraden wurde ein Foto aufgenommen und die Farbe des ersten Hindernisses bestimmt. Das System scannte zusätzlich bis zu zweimal pro Abschnitt nach weiteren Hindernissen. Diese Logik führte zu einem schwer wartbaren Zustandsautomaten: bis zu drei Scan-Punkte pro Abschnitt, abstandsabhängige Verzweigungen und Kamera unter Bewegung.
 
 
 ### **Neue Strategie: Vollscan, feste Route**
-Die neue Strategie trennt Erkennung und Fahrt vollständig. Direkt nach Programmstart dreht das Auto sich in 3 definierten Winkeln (tightTurn) und fotografiert den gesamten Parcours. Aus diesen drei Fotos werden die Farben der Hindernisse auf allen vier Abschnitte auf einmal erkannt und in parser.obstacles[0..11] gespeichert. Danach wird die Kamera nicht mehr benutzt – die Route ist deterministisch festgelegt. Eine detaillierte Übersicht über den Programmablauf des Hindernisrennens zeigt das Zustandsdiagramm im Anhang (vgl. Anhang 5.4: Abbildung A4 „Zustandsdiagramm Hindernisrennen – Vollscan-Strategie“).
+Die **neue Strategie trennt Erkennung und Fahrt vollständig**. Direkt nach Programmstart dreht das Auto sich in 3 definierten Winkeln (<code>tightTurn</code>) und fotografiert den gesamten Parcours. Aus diesen drei Fotos werden die Farben der Hindernisse auf allen vier Abschnitte auf einmal erkannt und in <code>parser.obstacles[0..11]</code> gespeichert. Danach wird die Kamera nicht mehr benutzt – die Route ist deterministisch festgelegt. 
+
+#### Abbildung X: Zustandsdiagramm Hindernisrennen – Vollscan-Strategie
+
+</div><div align="center">
+    <a href="img/Zustandsdiagramm_Hindernisrennen.png" target="_blank">
+        <img width="600" src="img/Zustandsdiagramm_Hindernisrennen.png">
+    </a>
+</div>
+
 
 ## **Serielle Kommunikation und Datenmodell**
-CM5 und STM32 kommunizieren über UART (/dev/ttyAMA0, 921 600 Baud). Pro Übertragungszyklus sendet der STM32 ein vollständiges Statuspaket an den CM5; dieser antwortet mit einem Steuerpaket. Der Parser-Thread auf dem CM5 verarbeitet eingehende Pakete asynchron und schreibt die Werte in gemeinsam genutzte Felder des Parser-Objekts.
+**CM5** und **STM32** kommunizieren über UART (/dev/ttyAMA0, 921 600 Baud). Pro Übertragungszyklus sendet der STM32 ein vollständiges Statuspaket an den CM5; dieser antwortet mit einem Steuerpaket. Der Parser-Thread auf dem CM5 verarbeitet eingehende Pakete asynchron und schreibt die Werte in gemeinsam genutzte Felder des Parser-Objekts.
 
+#### Tabelle X: Datenmodell CM5 ↔ STM32
 
-++ S. Dokument S.12 (Tabelle)
+<table align="center" border="1" style="border-collapse: collapse; border: 2px solid black;">
+
+  <!-- Tabellenkopf -->
+  <tr>
+    <th bgcolor="#4A90C2" width="180" style="border: 1px solid black; border-bottom: 3px solid black; padding: 8px; color: white;">Richtung</th>
+    <th bgcolor="#4A90C2" width="180" style="border: 1px solid black; border-bottom: 3px solid black; padding: 8px; color: white;">Feld</th>
+    <th bgcolor="#4A90C2" width="180" style="border: 1px solid black; border-bottom: 3px solid black; padding: 8px; color: white;">Typ / Größe</th>
+    <th bgcolor="#4A90C2" width="500" style="border: 1px solid black; border-bottom: 3px solid black; padding: 8px; color: white;">Bedeutung</th>
+  </tr>
+
+  <!-- camValues -->
+  <tr>
+    <td bgcolor="#EAF4FB" style="border: 1px solid black; padding: 8px; text-align: center;">STM32 → CM5</td>
+    <td bgcolor="#EAF4FB" style="border: 1px solid black; padding: 8px;"><code>camValues</code></td>
+    <td bgcolor="#EAF4FB" style="border: 1px solid black; padding: 8px;"><code>int[6][64]</code></td>
+    <td bgcolor="#EAF4FB" style="border: 1px solid black; padding: 8px;">8×8-Distanzwerte aller 4 ToF-Sensoren in mm</td>
+  </tr>
+
+  <!-- rps -->
+  <tr>
+    <td style="border: 1px solid black; padding: 8px; text-align: center;">STM32 → CM5</td>
+    <td style="border: 1px solid black; padding: 8px;"><code>rps</code></td>
+    <td style="border: 1px solid black; padding: 8px;"><code>int</code></td>
+    <td style="border: 1px solid black; padding: 8px;">Encoder-Drehzahl in Umdrehungen/s</td>
+  </tr>
+
+  <!-- voltage -->
+  <tr>
+    <td bgcolor="#EAF4FB" style="border: 1px solid black; padding: 8px; text-align: center;">STM32 → CM5</td>
+    <td bgcolor="#EAF4FB" style="border: 1px solid black; padding: 8px;"><code>voltage</code></td>
+    <td bgcolor="#EAF4FB" style="border: 1px solid black; padding: 8px;"><code>float</code></td>
+    <td bgcolor="#EAF4FB" style="border: 1px solid black; padding: 8px;">Batteriespannung in V</td>
+  </tr>
+
+  <!-- distance -->
+  <tr>
+    <td style="border: 1px solid black; padding: 8px; text-align: center;">STM32 → CM5</td>
+    <td style="border: 1px solid black; padding: 8px;"><code>distance</code></td>
+    <td style="border: 1px solid black; padding: 8px;"><code>int</code></td>
+    <td style="border: 1px solid black; padding: 8px;">Zurückgelegte Strecke in mm (Encoder-akkumuliert)</td>
+  </tr>
+
+  <!-- sensorCaptures -->
+  <tr>
+    <td bgcolor="#EAF4FB" style="border: 1px solid black; padding: 8px; text-align: center;">STM32 → CM5</td>
+    <td bgcolor="#EAF4FB" style="border: 1px solid black; padding: 8px;"><code>sensorCaptures</code></td>
+    <td bgcolor="#EAF4FB" style="border: 1px solid black; padding: 8px;"><code>int[6]</code></td>
+    <td bgcolor="#EAF4FB" style="border: 1px solid black; padding: 8px;">Anzahl abgeschlossener Messzyklen je Sensor</td>
+  </tr>
+
+  <!-- speed -->
+  <tr>
+    <td style="border: 1px solid black; padding: 8px; text-align: center;">CM5 → STM32</td>
+    <td style="border: 1px solid black; padding: 8px;"><code>speed</code></td>
+    <td style="border: 1px solid black; padding: 8px;"><code>float</code></td>
+    <td style="border: 1px solid black; padding: 8px;">Sollgeschwindigkeit −3 bis +3 m/s</td>
+  </tr>
+
+  <!-- steer -->
+  <tr>
+    <td bgcolor="#EAF4FB" style="border: 1px solid black; padding: 8px; text-align: center;">CM5 → STM32</td>
+    <td bgcolor="#EAF4FB" style="border: 1px solid black; padding: 8px;"><code>steer</code></td>
+    <td bgcolor="#EAF4FB" style="border: 1px solid black; padding: 8px;"><code>int</code></td>
+    <td bgcolor="#EAF4FB" style="border: 1px solid black; padding: 8px;">Lenkwinkel: 0 = voll links, 90 = gerade, 180 = voll rechts</td>
+  </tr>
+
+</table>
 
 ## **Kameraverarbeitung**
 
-cameraAIO.py steuert die Raspberry Pi Camera Module 3 über Picamera2 in der SingleExposure-Konfiguration (Auflösung 1536 × 1152 Pixel). captureImage() nimmt ein Standbild auf und speichert es als Klassenattribut; die eigentliche Auswertung erfolgt durch getObstacles1()–getObstacles4(), die jeweils abschnittsangepasste Sichtbereiche analysieren.
+<code>cameraAIO.py</code> steuert die Raspberry Pi Camera Module 3 über Picamera2 in der SingleExposure-Konfiguration (Auflösung 1536 × 1152 Pixel). <code>captureImage()</code> nimmt ein Standbild auf und speichert es als Klassenattribut; die eigentliche Auswertung erfolgt durch <code>getObstacles1()</code>–<code>getObstacles4()</code>, die jeweils abschnittsangepasste Sichtbereiche analysieren.
 <br>
 
 ### **Maskenpipeline**
-Die Erkennung verläuft in 13 Schritten. Besonderheit: Statt eines einfachen Rechteck-ROI wird ein Flood-Fill verwendet, der die schwarzen Parcours-Wände als Barriere nutzt. Dadurch wird ausschließlich der tatsächlich befahrbare Bereich analysiert – farbige Gegenstände hinter Wänden oder außerhalb des Parcours werden automatisch herausgefiltert.
+Die Erkennung verläuft in 13 Schritten. Besonderheit: Statt eines einfachen Rechteck-ROI wird ein **Flood-Fill** verwendet, der die schwarzen Parcours-Wände als Barriere nutzt. Dadurch wird ausschließlich der tatsächlich befahrbare Bereich analysiert – farbige Gegenstände hinter Wänden oder außerhalb des Parcours werden automatisch herausgefiltert.
 
-++ S. Dokument S.12-13 (Tabelle, Fotos)
+#### Tabelle X: Maskenpipeline – Verarbeitungsschritte
+
+<table align="center" border="1" style="border-collapse: collapse; border: 2px solid black;">
+
+  <!-- Tabellenkopf -->
+  <tr>
+    <th bgcolor="#4A90C2" width="60" style="border: 1px solid black; border-bottom: 3px solid black; padding: 8px; color: white;">#</th>
+    <th bgcolor="#4A90C2" width="220" style="border: 1px solid black; border-bottom: 3px solid black; padding: 8px; color: white;">Operation</th>
+    <th bgcolor="#4A90C2" width="300" style="border: 1px solid black; border-bottom: 3px solid black; padding: 8px; color: white;">Parameter / Werte</th>
+    <th bgcolor="#4A90C2" width="360" style="border: 1px solid black; border-bottom: 3px solid black; padding: 8px; color: white;">Zweck</th>
+    <th bgcolor="#4A90C2" width="240" style="border: 1px solid black; border-bottom: 3px solid black; padding: 8px; color: white;">Beispielbild</th>
+  </tr>
+
+  <!-- Schritt 1 -->
+  <tr>
+    <td bgcolor="#EAF4FB" style="border: 1px solid black; padding: 8px; text-align: center;"><b>1</b></td>
+    <td bgcolor="#EAF4FB" style="border: 1px solid black; padding: 8px;"><b>Box-Blur</b></td>
+    <td bgcolor="#EAF4FB" style="border: 1px solid black; padding: 8px;">10 × 10 px Kernel</td>
+    <td bgcolor="#EAF4FB" style="border: 1px solid black; padding: 8px;">Rauschen reduzieren, Farbkanten weicher machen</td>
+    <td bgcolor="#EAF4FB" style="border: 1px solid black; padding: 8px; text-align: center;">
+      <img src="schritt1.png" width="220">
+    </td>
+  </tr>
+
+  <!-- Schritt 2 -->
+  <tr>
+    <td style="border: 1px solid black; padding: 8px; text-align: center;"><b>2</b></td>
+    <td style="border: 1px solid black; padding: 8px;"><b>RGB → HSV</b></td>
+    <td style="border: 1px solid black; padding: 8px;"><code>cv.COLOR_RGB2HSV</code></td>
+    <td style="border: 1px solid black; padding: 8px;">Farberkennung unabhängig von Beleuchtungsstärke</td>
+    <td style="border: 1px solid black; padding: 8px; text-align: center;">
+      <img src="schritt2.png" width="220">
+    </td>
+  </tr>
+
+  <!-- Schritt 3 -->
+  <tr>
+    <td bgcolor="#EAF4FB" style="border: 1px solid black; padding: 8px; text-align: center;"><b>3</b></td>
+    <td bgcolor="#EAF4FB" style="border: 1px solid black; padding: 8px;"><b>Rot-Maske Bereich 1</b></td>
+    <td bgcolor="#EAF4FB" style="border: 1px solid black; padding: 8px;">H 0–10, S 190–255,<br>V 190–255</td>
+    <td bgcolor="#EAF4FB" style="border: 1px solid black; padding: 8px;">Sattes, helles Rot (Hue nahe 0°)</td>
+    <td bgcolor="#EAF4FB" style="border: 1px solid black; padding: 8px; text-align: center;">
+      <img src="schritt3.png" width="220">
+    </td>
+  </tr>
+
+  <!-- Schritt 4 -->
+  <tr>
+    <td style="border: 1px solid black; padding: 8px; text-align: center;"><b>4</b></td>
+    <td style="border: 1px solid black; padding: 8px;"><b>Rot-Maske Bereich 2</b></td>
+    <td style="border: 1px solid black; padding: 8px;">H 160–179, S 100–255,<br>V 20–255</td>
+    <td style="border: 1px solid black; padding: 8px;">Rot am oberen Hue-Ende (Wrap-around bei 180°)</td>
+    <td style="border: 1px solid black; padding: 8px; text-align: center;">
+      <img src="schritt4.png" width="220">
+    </td>
+  </tr>
+
+  <!-- Schritt 5 -->
+  <tr>
+    <td bgcolor="#EAF4FB" style="border: 1px solid black; padding: 8px; text-align: center;"><b>5</b></td>
+    <td bgcolor="#EAF4FB" style="border: 1px solid black; padding: 8px;"><b>Gesamt-Rot-Maske</b></td>
+    <td bgcolor="#EAF4FB" style="border: 1px solid black; padding: 8px;"><code>maskred = Maske1 + Maske2</code></td>
+    <td bgcolor="#EAF4FB" style="border: 1px solid black; padding: 8px;">Beide Rot-Bereiche vereinigt</td>
+    <td bgcolor="#EAF4FB" style="border: 1px solid black; padding: 8px; text-align: center;">
+      <img src="schritt5.png" width="220">
+    </td>
+  </tr>
+
+  <!-- Schritt 6 -->
+  <tr>
+    <td style="border: 1px solid black; padding: 8px; text-align: center;"><b>6</b></td>
+    <td style="border: 1px solid black; padding: 8px;"><b>Grün-Maske</b></td>
+    <td style="border: 1px solid black; padding: 8px;">H 35–95, S 100–255,<br>V 20–255</td>
+    <td style="border: 1px solid black; padding: 8px;">Grüntöne von Gelbgrün bis Cyan</td>
+    <td style="border: 1px solid black; padding: 8px; text-align: center;">
+      <img src="schritt6.png" width="220">
+    </td>
+  </tr>
+
+  <!-- Schritt 7 -->
+  <tr>
+    <td bgcolor="#EAF4FB" style="border: 1px solid black; padding: 8px; text-align: center;"><b>7</b></td>
+    <td bgcolor="#EAF4FB" style="border: 1px solid black; padding: 8px;"><b>Schwarz-Maske</b></td>
+    <td bgcolor="#EAF4FB" style="border: 1px solid black; padding: 8px;">H 0–255, S 0–255,<br>V 0–90</td>
+    <td bgcolor="#EAF4FB" style="border: 1px solid black; padding: 8px;">Wände des Parcours (geringe Helligkeit)</td>
+    <td bgcolor="#EAF4FB" style="border: 1px solid black; padding: 8px; text-align: center;">
+      <img src="schritt7.png" width="220">
+    </td>
+  </tr>
+
+  <!-- Schritt 8 -->
+  <tr>
+    <td style="border: 1px solid black; padding: 8px; text-align: center;"><b>8</b></td>
+    <td style="border: 1px solid black; padding: 8px;"><b>Rechteckige Region-Maske</b></td>
+    <td style="border: 1px solid black; padding: 8px;">y/x-Rechteck je Abschnitt</td>
+    <td style="border: 1px solid black; padding: 8px;">Sichtbereich auf relevante Bildregion einschränken</td>
+    <td style="border: 1px solid black; padding: 8px; text-align: center;">
+      <img src="schritt8.png" width="220">
+    </td>
+  </tr>
+
+  <!-- Schritt 9 -->
+  <tr>
+    <td bgcolor="#EAF4FB" style="border: 1px solid black; padding: 8px; text-align: center;"><b>9</b></td>
+    <td bgcolor="#EAF4FB" style="border: 1px solid black; padding: 8px;"><b>Flood-Fill</b></td>
+    <td bgcolor="#EAF4FB" style="border: 1px solid black; padding: 8px;">
+      Start: (fillx, filly) im freien Bereich;<br>
+      Barriere: Schwarz-Maske
+    </td>
+    <td bgcolor="#EAF4FB" style="border: 1px solid black; padding: 8px;">Zusammenhängenden freien Bereich mit 128 markieren</td>
+    <td bgcolor="#EAF4FB" style="border: 1px solid black; padding: 8px; text-align: center;">
+      <img src="schritt9.png" width="220">
+    </td>
+  </tr>
+
+  <!-- Schritt 10 -->
+  <tr>
+    <td style="border: 1px solid black; padding: 8px; text-align: center;"><b>10</b></td>
+    <td style="border: 1px solid black; padding: 8px;"><b>Endmaske</b></td>
+    <td style="border: 1px solid black; padding: 8px;">Alle Pixel mit Wert 128</td>
+    <td style="border: 1px solid black; padding: 8px;">Nur freier Bereich ohne Wände</td>
+    <td style="border: 1px solid black; padding: 8px; text-align: center;">
+      <img src="schritt10.png" width="220">
+    </td>
+  </tr>
+
+  <!-- Schritt 11 -->
+  <tr>
+    <td bgcolor="#EAF4FB" style="border: 1px solid black; padding: 8px; text-align: center;"><b>11</b></td>
+    <td bgcolor="#EAF4FB" style="border: 1px solid black; padding: 8px;"><b>Rot + Grün einschränken</b></td>
+    <td bgcolor="#EAF4FB" style="border: 1px solid black; padding: 8px;"><code>bitwise_AND</code> mit Endmaske</td>
+    <td bgcolor="#EAF4FB" style="border: 1px solid black; padding: 8px;">Hindernisse nur im freien Bereich betrachten</td>
+    <td bgcolor="#EAF4FB" style="border: 1px solid black; padding: 8px; text-align: center;">
+      <img src="schritt11.png" width="220">
+    </td>
+  </tr>
+
+  <!-- Schritt 12 -->
+  <tr>
+    <td style="border: 1px solid black; padding: 8px; text-align: center;"><b>12</b></td>
+    <td style="border: 1px solid black; padding: 8px;"><b>Konturerkennung</b></td>
+    <td style="border: 1px solid black; padding: 8px;">
+      <code>RETR_EXTERNAL</code>,<br>
+      Mindestfläche 200 px²
+    </td>
+    <td style="border: 1px solid black; padding: 8px;">Zusammenhängende Farbflächen finden</td>
+    <td style="border: 1px solid black; padding: 8px; text-align: center;">
+      <img src="schritt12.png" width="220">
+    </td>
+  </tr>
+
+  <!-- Schritt 13 -->
+  <tr>
+    <td bgcolor="#EAF4FB" style="border: 1px solid black; padding: 8px; text-align: center;"><b>13</b></td>
+    <td bgcolor="#EAF4FB" style="border: 1px solid black; padding: 8px;"><b>Hindernis-Auswahl</b></td>
+    <td bgcolor="#EAF4FB" style="border: 1px solid black; padding: 8px;">
+      Region 1/3: max(cx)<br>
+      Sonst: min(Distanz zum Fahrzeug)
+    </td>
+    <td bgcolor="#EAF4FB" style="border: 1px solid black; padding: 8px;">Relevantestes Hindernis pro Abschnitt bestimmen</td>
+    <td bgcolor="#EAF4FB" style="border: 1px solid black; padding: 8px; text-align: center;">
+      <img src="schritt13.png" width="220">
+    </td>
+  </tr>
+
+</table>
 
 ## **Softwareverbesserungen**
-Im Verlauf der Entwicklung und der Testläufe wurden Fehler identifiziert, deren Ursachen analysiert und durch gezielte Codeänderungen behoben – eine Auswahl ist in der folgenden Tabelle dokumentiert.
+Im Verlauf der Entwicklung und der Testläufe wurden Fehler identifiziert, deren Ursachen analysiert und durch **gezielte Codeänderungen** behoben – eine Auswahl ist in der folgenden Tabelle dokumentiert.
 
-++ S. Dokument S.13 (Tabelle)
+#### Tabelle X: Softwareverbesserungen
+
+<table align="center" border="1" style="border-collapse: collapse; border: 2px solid black;">
+
+  <!-- Tabellenkopf -->
+  <tr>
+    <th bgcolor="#4A90C2" width="250" style="border: 1px solid black; border-bottom: 3px solid black; padding: 8px; color: white;">Beobachteter Fehler</th>
+    <th bgcolor="#4A90C2" width="260" style="border: 1px solid black; border-bottom: 3px solid black; padding: 8px; color: white;">Ursache</th>
+    <th bgcolor="#4A90C2" width="400" style="border: 1px solid black; border-bottom: 3px solid black; padding: 8px; color: white;">Änderung im Code</th>
+    <th bgcolor="#4A90C2" width="260" style="border: 1px solid black; border-bottom: 3px solid black; padding: 8px; color: white;">Auswirkung</th>
+  </tr>
+
+  <!-- Fehler 1 -->
+  <tr>
+    <td bgcolor="#EAF4FB" style="border: 1px solid black; padding: 8px;"><b>Hindernis wurde nicht oder falsch erkannt</b></td>
+    <td bgcolor="#EAF4FB" style="border: 1px solid black; padding: 8px;">Farbmaske passte nicht zu Lichtbedingungen</td>
+    <td bgcolor="#EAF4FB" style="border: 1px solid black; padding: 8px;">HSV-Grenzwerte in <code>cameraAIO.py</code> angepasst</td>
+    <td bgcolor="#EAF4FB" style="border: 1px solid black; padding: 8px;">Zuverlässigere Rot-/Grün-Erkennung</td>
+  </tr>
+
+  <!-- Fehler 2 -->
+  <tr>
+    <td style="border: 1px solid black; padding: 8px;"><b>Schwarze Wand wurde falsch segmentiert</b></td>
+    <td style="border: 1px solid black; padding: 8px;">Beleuchtung veränderte Helligkeit der Wand</td>
+    <td style="border: 1px solid black; padding: 8px;">Schwarzmaske und Flood-Fill angepasst</td>
+    <td style="border: 1px solid black; padding: 8px;">Befahrbarer Bereich wurde sauberer erkannt</td>
+  </tr>
+
+  <!-- Fehler 3 -->
+  <tr>
+    <td bgcolor="#EAF4FB" style="border: 1px solid black; padding: 8px;"><b>Roboter fuhr Kurven zu aggressiv</b></td>
+    <td bgcolor="#EAF4FB" style="border: 1px solid black; padding: 8px;">P-Regler überschwang bei hoher Geschwindigkeit</td>
+    <td bgcolor="#EAF4FB" style="border: 1px solid black; padding: 8px;">Zweiter P-Regler <code>pidSteer2</code> mit kleinerem Kp-Wert für weichere Kurven</td>
+    <td bgcolor="#EAF4FB" style="border: 1px solid black; padding: 8px;">Stabilere Kurvenfahrt</td>
+  </tr>
+
+  <!-- Fehler 4 -->
+  <tr>
+    <td style="border: 1px solid black; padding: 8px;"><b>Hindernisstrategie wurde unübersichtlich</b></td>
+    <td style="border: 1px solid black; padding: 8px;">Zu viele Scanpunkte und Verzweigungen</td>
+    <td style="border: 1px solid black; padding: 8px;">Umstieg auf Vollscan vor dem Start</td>
+    <td style="border: 1px solid black; padding: 8px;">Einfacherer Zustandsautomat, weniger Fehlerquellen</td>
+  </tr>
+
+  <!-- Fehler 5 -->
+  <tr>
+    <td bgcolor="#EAF4FB" style="border: 1px solid black; padding: 8px;"><b>Kurveneinleitung zu spät – Auto fuhr zu weit außen</b></td>
+    <td bgcolor="#EAF4FB" style="border: 1px solid black; padding: 8px;">ToF-Messfrequenz zu niedrig; Code wartete zu lange auf „Wand weg“-Signal</td>
+    <td bgcolor="#EAF4FB" style="border: 1px solid black; padding: 8px;">ToF-Messfrequenz erhöht; Code optimiert für schnellstmögliche Kurveneinleitung nach fehlendem Wandsignal</td>
+    <td bgcolor="#EAF4FB" style="border: 1px solid black; padding: 8px;">Engerer Kurvenradius, schnellere Rundenzeiten</td>
+  </tr>
+
+  <!-- Fehler 6 -->
+  <tr>
+    <td style="border: 1px solid black; padding: 8px;"><b>Roboter erkannte Wand bei <code>driveToWall()</code> zu spät und fuhr zu weit</b></td>
+    <td style="border: 1px solid black; padding: 8px;">Reflektion eines Fensters verwirrte die ToF-Kamera</td>
+    <td style="border: 1px solid black; padding: 8px;">Funktion gibt True zurück, wenn Seitenwand während der Fahrt verloren geht → Roboter fährt 530 mm rückwärts</td>
+    <td style="border: 1px solid black; padding: 8px;">Roboter korrigiert Position nach Wandverlust</td>
+  </tr>
+
+  <!-- Fehler 7 -->
+  <tr>
+    <td bgcolor="#EAF4FB" style="border: 1px solid black; padding: 8px;"><b><code>driveAwayFromWall()</code> stoppte zu früh bei kurzzeitigem Wandverlust</b></td>
+    <td bgcolor="#EAF4FB" style="border: 1px solid black; padding: 8px;">Kein Encoder-Fallback: Funktion beendete sich sofort, wenn Wand nicht erkannt</td>
+    <td bgcolor="#EAF4FB" style="border: 1px solid black; padding: 8px;">Verbleibende Strecke (<code>leftToDrive</code>) wird gespeichert; Fahrt per Encoder fortgesetzt bis Sollabstand erreicht (<code>driveController.py</code>)</td>
+    <td bgcolor="#EAF4FB" style="border: 1px solid black; padding: 8px;">Manöver wird auch bei kurzzeitigem Sensorausfall korrekt abgeschlossen</td>
+  </tr>
+
+  <!-- Fehler 8 -->
+  <tr>
+    <td style="border: 1px solid black; padding: 8px;"><b>Einparken (<code>parkCW</code>) landete an falscher Position</b></td>
+    <td style="border: 1px solid black; padding: 8px;"><code>parkCW()</code> fuhr ohne Positionsprüfung blind rückwärts und vorwärts</td>
+    <td style="border: 1px solid black; padding: 8px;">Abstand zu rechter Wand und Hinterwand wird vor dem Einparken gemessen; Recovery-Manöver je nach Sensorlage (<code>obstacleChallengeSingle.py</code>)</td>
+    <td style="border: 1px solid black; padding: 8px;">Robusteres positionsabhängiges Einparken in den Parkplatz</td>
+  </tr>
+
+</table>
+<br><br>
 
 # **4. Gesamtsystem Roboter und technische Entscheidungen**
 
 ## **Unser Roboter**
-Der fertige Roboter aus sechs Perspektiven mit Bemaßung:
 
-++ S. Dokument S.15-16 (Bilder, Tabelle)
+#### Abbildung X: Finaler Roboter aus sechs Perspektiven mit Bemaßung:
+
+</div><div align="center">
+    <a href="img/sechs_ansichten Kopie.jpg" target="_blank">
+        <img width="600" src="img/sechs_ansichten Kopie.jpg">
+    </a>
+</div>
+
+## **Technische Kenndaten (Bestückungsliste für Nachbau)**
+
+#### Tabelle X: Technische Kenndaten
+
+<table align="center" border="1" style="border-collapse: collapse; border: 2px solid black;">
+
+  <!-- Tabellenkopf -->
+  <tr>
+    <th bgcolor="#4A90C2" width="220" style="border: 1px solid black; border-bottom: 3px solid black; padding: 8px; color: white;">Merkmal</th>
+    <th bgcolor="#4A90C2" width="480" style="border: 1px solid black; border-bottom: 3px solid black; padding: 8px; color: white;">Wert</th>
+    <th bgcolor="#4A90C2" width="180" style="border: 1px solid black; border-bottom: 3px solid black; padding: 8px; color: white;">Link zum Einkauf</th>
+    <th bgcolor="#4A90C2" width="180" style="border: 1px solid black; border-bottom: 3px solid black; padding: 8px; color: white;">Bild</th>
+  </tr>
+
+  <!-- Gesamtgewicht -->
+  <tr>
+    <td bgcolor="#EAF4FB" style="border: 1px solid black; padding: 8px;"><b>Gesamtgewicht</b></td>
+    <td bgcolor="#EAF4FB" style="border: 1px solid black; padding: 8px;">ca. 450 g</td>
+    <td bgcolor="#EAF4FB" style="border: 1px solid black; padding: 8px; text-align: center;">–</td>
+    <td bgcolor="#EAF4FB" style="border: 1px solid black; padding: 8px; text-align: center;">–</td>
+  </tr>
+
+  <!-- Maximale Geschwindigkeit -->
+  <tr>
+    <td style="border: 1px solid black; padding: 8px;"><b>Maximale Geschwindigkeit</b></td>
+    <td style="border: 1px solid black; padding: 8px;">ca. 2,1 m/s (gemessen im Fahrzeug)</td>
+    <td style="border: 1px solid black; padding: 8px; text-align: center;">–</td>
+    <td style="border: 1px solid black; padding: 8px; text-align: center;">–</td>
+  </tr>
+
+  <!-- Radstand -->
+  <tr>
+    <td bgcolor="#EAF4FB" style="border: 1px solid black; padding: 8px;"><b>Radstand</b></td>
+    <td bgcolor="#EAF4FB" style="border: 1px solid black; padding: 8px;">80 mm</td>
+    <td bgcolor="#EAF4FB" style="border: 1px solid black; padding: 8px; text-align: center;">–</td>
+    <td bgcolor="#EAF4FB" style="border: 1px solid black; padding: 8px; text-align: center;">–</td>
+  </tr>
+
+  <!-- Spurbreite -->
+  <tr>
+    <td style="border: 1px solid black; padding: 8px;"><b>Spurbreite</b></td>
+    <td style="border: 1px solid black; padding: 8px;">65 mm</td>
+    <td style="border: 1px solid black; padding: 8px; text-align: center;">–</td>
+    <td style="border: 1px solid black; padding: 8px; text-align: center;">–</td>
+  </tr>
+
+  <!-- Minimaler Kurvenradius -->
+  <tr>
+    <td bgcolor="#EAF4FB" style="border: 1px solid black; padding: 8px;"><b>Minimaler Kurvenradius</b></td>
+    <td bgcolor="#EAF4FB" style="border: 1px solid black; padding: 8px;">ca. 114 mm</td>
+    <td bgcolor="#EAF4FB" style="border: 1px solid black; padding: 8px; text-align: center;">–</td>
+    <td bgcolor="#EAF4FB" style="border: 1px solid black; padding: 8px; text-align: center;">–</td>
+  </tr>
+
+  <!-- Antrieb -->
+  <tr>
+    <td style="border: 1px solid black; padding: 8px;"><b>Antrieb</b></td>
+    <td style="border: 1px solid black; padding: 8px;">N30 6V 1500 rpm, Gesamtübersetzung 24,4:1</td>
+    <td style="border: 1px solid black; padding: 8px; text-align: center;">
+      <a href="LINK_EINFÜGEN">Einkaufslink</a>
+    </td>
+    <td style="border: 1px solid black; padding: 8px; text-align: center;">
+      <img src="bild1.png" width="120">
+    </td>
+  </tr>
+
+  <!-- Lenkung -->
+  <tr>
+    <td bgcolor="#EAF4FB" style="border: 1px solid black; padding: 8px;"><b>Lenkung</b></td>
+    <td bgcolor="#EAF4FB" style="border: 1px solid black; padding: 8px;">Ackermann-Lenkung, 1× Servo INJORA N30 Nano Servo</td>
+    <td bgcolor="#EAF4FB" style="border: 1px solid black; padding: 8px; text-align: center;">
+      <a href="LINK_EINFÜGEN">Einkaufslink</a>
+    </td>
+    <td bgcolor="#EAF4FB" style="border: 1px solid black; padding: 8px; text-align: center;">
+      <img src="bild2.png" width="120">
+    </td>
+  </tr>
+
+  <!-- Hauptrechner -->
+  <tr>
+    <td style="border: 1px solid black; padding: 8px;"><b>Hauptrechner</b></td>
+    <td style="border: 1px solid black; padding: 8px;">Raspberry Pi CM5 auf eigenem Baseboard (Datei im GitHub)</td>
+    <td style="border: 1px solid black; padding: 8px; text-align: center;">
+      <a href="LINK_EINFÜGEN">Einkaufslink</a>
+    </td>
+    <td style="border: 1px solid black; padding: 8px; text-align: center;">
+      <img src="bild3.png" width="120">
+    </td>
+  </tr>
+
+  <!-- Mikrocontroller -->
+  <tr>
+    <td bgcolor="#EAF4FB" style="border: 1px solid black; padding: 8px;"><b>Mikrocontroller</b></td>
+    <td bgcolor="#EAF4FB" style="border: 1px solid black; padding: 8px;">STM32F411 BlackPill</td>
+    <td bgcolor="#EAF4FB" style="border: 1px solid black; padding: 8px; text-align: center;">
+      <a href="LINK_EINFÜGEN">Einkaufslink</a>
+    </td>
+    <td bgcolor="#EAF4FB" style="border: 1px solid black; padding: 8px; text-align: center;">
+      <img src="bild4.png" width="120">
+    </td>
+  </tr>
+
+  <!-- Entfernungssensoren -->
+  <tr>
+    <td style="border: 1px solid black; padding: 8px;"><b>Entfernungssensoren</b></td>
+    <td style="border: 1px solid black; padding: 8px;">4× VL53L8CX Time-of-Flight (30 Hz)</td>
+    <td style="border: 1px solid black; padding: 8px; text-align: center;">
+      <a href="LINK_EINFÜGEN">Einkaufslink</a>
+    </td>
+    <td style="border: 1px solid black; padding: 8px; text-align: center;">
+      <img src="bild5.png" width="120">
+    </td>
+  </tr>
+
+  <!-- Kamera -->
+  <tr>
+    <td bgcolor="#EAF4FB" style="border: 1px solid black; padding: 8px;"><b>Kamera</b></td>
+    <td bgcolor="#EAF4FB" style="border: 1px solid black; padding: 8px;">Raspberry Pi Camera Module 3 Wide, 12 MP (Montagehöhe 27 cm)</td>
+    <td bgcolor="#EAF4FB" style="border: 1px solid black; padding: 8px; text-align: center;">
+      <a href="LINK_EINFÜGEN">Einkaufslink</a>
+    </td>
+    <td bgcolor="#EAF4FB" style="border: 1px solid black; padding: 8px; text-align: center;">
+      <img src="bild6.png" width="120">
+    </td>
+  </tr>
+
+  <!-- Lagesensor -->
+  <tr>
+    <td style="border: 1px solid black; padding: 8px;"><b>Lagesensor</b></td>
+    <td style="border: 1px solid black; padding: 8px;">BNO086 (Gyroskop)</td>
+    <td style="border: 1px solid black; padding: 8px; text-align: center;">
+      <a href="LINK_EINFÜGEN">Einkaufslink</a>
+    </td>
+    <td style="border: 1px solid black; padding: 8px; text-align: center;">
+      <img src="bild7.png" width="120">
+    </td>
+  </tr>
+
+  <!-- Energieversorgung -->
+  <tr>
+    <td bgcolor="#EAF4FB" style="border: 1px solid black; padding: 8px;"><b>Energieversorgung</b></td>
+    <td bgcolor="#EAF4FB" style="border: 1px solid black; padding: 8px;">3S-LiPo, 11,1 V, 550 mAh</td>
+    <td bgcolor="#EAF4FB" style="border: 1px solid black; padding: 8px; text-align: center;">
+      <a href="LINK_EINFÜGEN">Einkaufslink</a>
+    </td>
+    <td bgcolor="#EAF4FB" style="border: 1px solid black; padding: 8px; text-align: center;">
+      <img src="bild8.png" width="120">
+    </td>
+  </tr>
+
+  <!-- Leistungsverbrauch -->
+  <tr>
+    <td style="border: 1px solid black; padding: 8px;"><b>Leistungsverbrauch</b></td>
+    <td style="border: 1px solid black; padding: 8px;">7–10 W (gemessen)</td>
+    <td style="border: 1px solid black; padding: 8px; text-align: center;">–</td>
+    <td style="border: 1px solid black; padding: 8px; text-align: center;">–</td>
+  </tr>
+
+  <!-- Akku-Laufzeit -->
+  <tr>
+    <td bgcolor="#EAF4FB" style="border: 1px solid black; padding: 8px;"><b>Akku-Laufzeit</b></td>
+    <td bgcolor="#EAF4FB" style="border: 1px solid black; padding: 8px;">ca. 40 min (praktisch gemessen)</td>
+    <td bgcolor="#EAF4FB" style="border: 1px solid black; padding: 8px; text-align: center;">–</td>
+    <td bgcolor="#EAF4FB" style="border: 1px solid black; padding: 8px; text-align: center;">–</td>
+  </tr>
+
+  <!-- Chassis -->
+  <tr>
+    <td style="border: 1px solid black; padding: 8px;"><b>Chassis</b></td>
+    <td style="border: 1px solid black; padding: 8px;">Dateien im GitHub / Material: PPA-CF (3D-Druck)</td>
+    <td style="border: 1px solid black; padding: 8px; text-align: center;">–</td>
+    <td style="border: 1px solid black; padding: 8px; text-align: center;">
+      <img src="bild9.png" width="120">
+    </td>
+  </tr>
+
+</table>
 
 ## **Systemarchitektur**
-Die softwareseitige Aufgabenverteilung zwischen Raspberry Pi CM5 und STM32F411 – inklusive Modulübersicht und Kommunikationsprotokoll – ist in Abschnitt 3.1 beschrieben. Auf Systemebene ist die gegenseitige Beeinflussung der mechanischen und elektronischen Komponenten entscheidend. Die Abmessungen der selbst entwickelten Platine bestimmten die Länge des Chassis. Das kompakte Chassis erforderte eine entsprechend platzsparende Integration der Recheneinheit. Die erhöhte Kameraposition verbesserte die Sichtweite des Systems, beeinflusste jedoch den Schwerpunkt des Fahrzeugs. Die Sensoranordnung war vom verfügbaren Bauraum und dem benötigten Sichtfeld abhängig. Das folgende Blockschaltbild fasst diese Gesamtarchitektur zusammen und zeigt, wie Recheneinheiten, Aktoren und Sensoren im System zusammenwirken.
+Die softwareseitige Aufgabenverteilung zwischen Raspberry Pi CM5 und STM32F411 – inklusive Modulübersicht und Kommunikationsprotokoll – ist in Abschnitt 3.1 beschrieben. Auf Systemebene ist die **gegenseitige Beeinflussung der mechanischen und elektronischen Komponenten** entscheidend. Die Abmessungen der selbst entwickelten Platine bestimmten die Länge des Chassis. Das kompakte Chassis erforderte eine entsprechend platzsparende Integration der Recheneinheit. Die erhöhte Kameraposition verbesserte die Sichtweite des Systems, beeinflusste jedoch den Schwerpunkt des Fahrzeugs. Die Sensoranordnung war vom verfügbaren Bauraum und dem benötigten Sichtfeld abhängig. Das folgende Blockschaltbild fasst diese Gesamtarchitektur zusammen und zeigt, wie Recheneinheiten, Aktoren und Sensoren im System zusammenwirken.
 
-++ S. Dokument S.16 (Bild)
+#### Abbildung X: Blockschaltbild der Systemarchitektur
+
+</div><div align="center">
+    <a href="img/blockschaltbild_englisch.png" target="_blank">
+        <img width="600" src="img/blockschaltbild_englisch.png">
+    </a>
+</div>
 
 ## **Wichtige technische Entscheidungen**
 
@@ -580,874 +1835,164 @@ Im Laufe der Entwicklung haben wir eine Reihe grundlegender Entscheidungen getro
 
 ### **Raspberry Pi vs. reiner Microcontroller**
 
-Die grundlegendste Architekturentscheidung war, ob wir einen vollwertigen Einplatinencomputer (Raspberry Pi) oder ausschließlich Mikrocontroller für die Steuerung einsetzen. Ein reiner Mikrocontroller-Ansatz hätte das Fahrzeug deutlich kleiner und stromsparender gemacht – der Raspberry Pi CM5 ist für sich allein der größte einzelne Energieverbraucher im System und nimmt einen erheblichen Teil des verfügbaren Bauraums ein.
-Wir haben uns dennoch bewusst für den Raspberry Pi entschieden. Der ausschlaggebende Grund war die Entwicklungsgeschwindigkeit: Python auf dem Raspberry Pi ist uns als Entwicklungsumgebung vertraut, und die hohe Rechenleistung erlaubt es, komplexe Bildverarbeitung und Fahrstrategie in einer einfach handhabbaren Hochsprache zu implementieren. Ein rein mikrocontrollerbasierter Ansatz hätte die Bildverarbeitung erheblich erschwert oder auf ressourcenarmen Systemen stark eingeschränkt. Die bewusst in Kauf genommenen Nachteile wurden durch den Wechsel vom Raspberry Pi 5 auf das Compute Module 5 teilweise kompensiert.
+Die **grundlegendste Architekturentscheidung** war, ob wir einen vollwertigen Einplatinencomputer (Raspberry Pi) oder ausschließlich Mikrocontroller für die Steuerung einsetzen. Ein reiner Mikrocontroller-Ansatz hätte das Fahrzeug deutlich kleiner und stromsparender gemacht – der Raspberry Pi CM5 ist für sich allein der größte einzelne Energieverbraucher im System und nimmt einen erheblichen Teil des verfügbaren Bauraums ein.
+
+Wir haben uns dennoch bewusst für den **Raspberry Pi** entschieden. Der ausschlaggebende Grund war die Entwicklungsgeschwindigkeit: Python auf dem Raspberry Pi ist uns als Entwicklungsumgebung vertraut, und die hohe Rechenleistung erlaubt es, komplexe Bildverarbeitung und Fahrstrategie in einer einfach handhabbaren Hochsprache zu implementieren. Ein rein mikrocontrollerbasierter Ansatz hätte die Bildverarbeitung erheblich erschwert oder auf ressourcenarmen Systemen stark eingeschränkt. Die bewusst in Kauf genommenen Nachteile wurden durch den Wechsel vom Raspberry Pi 5 auf das Compute Module 5 teilweise kompensiert.
 
 
 
 ### **Raspberry Pi 5 vs. Raspberry Pi CMS**
-Innerhalb der Raspberry-Pi-Plattform entschieden wir uns gegen den Pi 5 und für das Compute Module 5. Der Pi 5 war schlicht zu groß für das angestrebte Chassis-Format und brachte viele Anschlüsse mit (HDMI, USB-A,…), die wir im Wettbewerbsbetrieb nicht benötigen. Das CM5 ist kompakter, erfordert aber ein eigenes Träger-PCB (Baseboard), das wir vollständig selbst entwickelt haben. Der Mehraufwand durch die Platinen-Eigenentwicklung war damit eine direkte Konsequenz dieser Entscheidung.
+Innerhalb der Raspberry-Pi-Plattform entschieden wir uns gegen den Pi 5 und für das **Compute Module 5**. Der Pi 5 war schlicht zu groß für das angestrebte Chassis-Format und brachte viele Anschlüsse mit (HDMI, USB-A,…), die wir im Wettbewerbsbetrieb nicht benötigen. Das CM5 ist kompakter, erfordert aber ein eigenes Träger-PCB (Baseboard), das wir vollständig selbst entwickelt haben. Der Mehraufwand durch die Platinen-Eigenentwicklung war damit eine direkte Konsequenz dieser Entscheidung.
 
 ### **LiDAR vs. Time-of-Flight-Sensoren / Steuerungsparadigma**
 
-Der Wechsel von LIDAR auf sechs ToF-Sensoren reduzierte die Messlatenz von 100–200 ms auf ca. 33 ms – und machte damit erstmals eine vollständig Steuerung ohne Anhalten möglich. Er hatte jedoch eine direkte Konsequenz für die gesamte Softwarearchitektur: Da die ToF-Sensoren keine Positionsbestimmung liefern, musste die koordinatenbasierte Steuerung aufgegeben werden. Fahrbefehle lauten seither nicht mehr „Gehe zu Koordinate X/Y", sondern „Fahre, bis Wandabstand 20 cm beträgt." → vgl. Kapitel 2.1, 2.3, 3.3
+Der Wechsel von LIDAR auf sechs **ToF-Sensoren** reduzierte die Messlatenz von 100–200 ms auf ca. 33 ms – und machte damit erstmals eine vollständig Steuerung ohne Anhalten möglich. Er hatte jedoch eine direkte Konsequenz für die gesamte Softwarearchitektur: Da die ToF-Sensoren keine Positionsbestimmung liefern, musste die koordinatenbasierte Steuerung aufgegeben werden. Fahrbefehle lauten seither nicht mehr „Gehe zu Koordinate X/Y", sondern „Fahre, bis Wandabstand 20 cm beträgt." → vgl. Kapitel 2.1, 2.3, 3.3
 
-<br><br>
  ### **Kamerahöhe und Erkennungsstrategie** 
 
-Drei Wochen vor dem Wettbewerb in Nordhorn wurde die Kamera auf 27 cm angehoben, knapp unter die zulässige Maximalhöhe. Dadurch konnte das Fahrzeug alle Hindernisse vom Startplatz aus auf einmal erfassen und auf einen einmaligen Vollscan vor der Abfahrt umgestellt werden. Die Rundenzeit sank dadurch von 56 s auf 38 s. Nachteil: Der Schwerpunkt verschob sich deutlich nach oben – beim Wettbewerb in Nordhorn kippte der Roboter in schnellen Kurven beinahe um, da die Matte dort deutlich griffiger war als unsere Übungsmatte. Als Konsequenz haben wir die Maximalgeschwindigkeit vor Ort reduziert. → vgl. Kapitel 2.4, 3.5.1, 3.5.2
+Drei Wochen vor dem deutschen Regionalwettbewerb wurde die Kamera auf **27 cm** angehoben, knapp unter die zulässige Maximalhöhe. Dadurch konnte das Fahrzeug alle Hindernisse vom Startplatz aus auf einmal erfassen und auf einen einmaligen **Vollscan** vor der Abfahrt umgestellt werden. Die Rundenzeit sank dadurch von **56 s auf 38 s**. Nachteil: Der Schwerpunkt verschob sich deutlich nach oben – beim Wettbewerb in Nordhorn kippte der Roboter in schnellen Kurven beinahe um, da die Matte dort deutlich griffiger war als unsere Übungsmatte. Als Konsequenz haben wir die Maximalgeschwindigkeit vor Ort reduziert. → vgl. Kapitel 2.4, 3.5.1, 3.5.2
 <br>
 
 ### **Chassis-Material: PLA vs. PPA-CF**
 
-PLA kriecht unter Motorlast und veränderte dadurch mit der Zeit sowohl das Zahnflankenspiel als auch die Sensorwinkel. PPA-CF beseitigte dieses Problem vollständig, allerdings musste die aufgrund der extremen Steifheit leicht verzogene Bodenplatte mit einem Heißluftfön nachgerichtet werden. → vgl. Kapitel 1.2
+**PLA** kriecht unter Motorlast und veränderte dadurch mit der Zeit sowohl das Zahnflankenspiel als auch die Sensorwinkel. **PPA-CF** beseitigte dieses Problem vollständig, allerdings musste die aufgrund der extremen Steifheit leicht verzogene Bodenplatte mit einem Heißluftfön nachgerichtet werden. → vgl. Kapitel 1.2
 
 ### **Gyro: BNO055 mit und ohne Magnetometer vs. BNO086 ohne Magnetometer**
 
-Der BNO055 zeigte mit und ohne Magnetometer nicht tolerierbare bzw. nicht wegzukalibrierende Abweichungen. Der BNO086 ohne Magnetometer reduzierte die Abweichung auf ca. 1° nach drei Runden und war damit zuverlässig einsetzbar. → vgl. Kapitel 2.5
+Der BNO055 zeigte mit und ohne Magnetometer nicht tolerierbare bzw. nicht wegzukalibrierende Abweichungen. Der **BNO086 ohne Magnetometer** reduzierte die Abweichung auf ca. 1° nach drei Runden und war damit zuverlässig einsetzbar. → vgl. Kapitel 2.5
 
 ### **Hinterachse: Kugeldifferential vs. Starrachse**
 
-Statt einer einfachen gedruckten Starrachse haben wir ein Kugeldifferential aus dem Modellbaubereich verbaut. Eine Starrachse hätte in Kurven zwangsläufig Schlupf verursacht, da beide Räder mit identischer Drehzahl drehen würden. Ein selbst gedrucktes Differential schied aus, da ein kompaktes Differential im 3D-Druck schwer herzustellen ist. → vgl. Kapitel 1.4
+Statt einer einfachen gedruckten Starrachse haben wir ein **Kugeldifferential** aus dem Modellbaubereich verbaut. Eine Starrachse hätte in Kurven zwangsläufig Schlupf verursacht, da beide Räder mit identischer Drehzahl drehen würden. Ein selbst gedrucktes Differential schied aus, da ein kompaktes Differential im 3D-Druck schwer herzustellen ist. → vgl. Kapitel 1.4
+
+### **4.4.8 ToF-Sensor: VL53L8CX vs. TMF8828**
+
+Die Wahl fiel seinerzeit auf den **VL53L8CX**, da das Datenblatt eine deutlich höhere Messfrequenz als beim TMF8828 auswies. In der Praxis zeigte sich jedoch, dass im 8×8-Modus lediglich rund 30 Hz erreichbar waren – womit der vermeintliche Vorteil entfiel. Rückblickend wäre der TMF8828 eine gleichwertige oder bessere Wahl gewesen; ein Wechsel war zum damaligen Zeitpunkt jedoch nicht mehr realistisch. → vgl. Kapitel 2.3.1
+
 
 ## **Meilensteine des Entwicklungsprozesses**
 
 Der finale Roboter entstand nicht in einem einzelnen Entwicklungsschritt, sondern durch mehrere Iterationen aus Tests, Fehlversuchen und technischen Optimierungen. Die folgende Tabelle zeigt die wichtigsten Meilensteine und die daraus resultierenden Änderungen am System.
 
-++ S. Dokument S.18 (Tabelle)
-
-# **5. Anhang**
-
-++ S. Dokument S.19-22 (Bilder)
-
-
-
-Based on the scanned obstacles, we generate waypoints to drive around them on the right side.
-To make the **program** less complex, we **do not differentiate** between obstacles on the inner or outer side. We always drive in a way that **avoids both**. This results in **four different patterns** to drive around one set of obstacles: 
-
-<div align="center">
-    <a href="img/route1.jpg" target="_blank">
-        <img width="600" src="img/route1.jpg" alt="die möglichen Routen">
-    </a>
-    <p><em>Figure: If the robot scans red–green, it follows this route.</em></p>
-</div>
-<br>
-<div align="center">
-    <a href="img/route2.jpg" target="_blank">
-        <img width="600" src="img/route2.jpg" alt="die möglichen Routen">
-    </a>
-    <p><em>Figure: If the robot scans green-red, it follows this route.</em></p>
-</div>
-<BR>
-<div align="center">
-    <a href="img/route3.jpg" target="_blank">
-        <img width="600" src="img/route3.jpg" alt="die möglichen Routen">
-    </a>
-    <p><em>Figure: If the robot scans red once or twice, it follows this route, regardless of the obstacle positions.</em></p>
-</div>
-<BR>
-<div align="center">
-    <a href="img/route4.jpg" target="_blank">
-        <img width="600" src="img/route4.jpg" alt="die möglichen Routen">
-    </a>
-    <p><em>Figure: If the robot scans green once or twice, it follows this route, regardless of the obstacle positions.</em></p>
-</div>
-
-**Additional logic** is required to **switch** between avoidance patterns at the next segment boundary, aligning the robot’s exit pose with the entry pose expected by the next pattern.
-
-### <ins>**Rotation mapping**</ins>
-
-
-In our first program (for the German finals), we programmed the complete 360° course with individual code. Since the waypoints for the international finals are different, we had to **rewrite much of the waypoint generation**. This time, we programmed only one **90° segment** of the course. The waypoints for the other segments are generated by **rotating/mirroring** the original waypoints. This is done via the option `Order(rotation=…)` in the order command :
-- Clockwise: `0, 90, 180, 270`
-- Counter‑clockwise: `1000, 1090, 1180, 1500` 
-
-Target angles are transformed in `Order.__init__` function. 
-
-At the final segment, replace the normal corner handover with a dedicated **parking waypoint sequence**; see → [Parking](#parking) for the maneuver and precision requirements.
-
-### <ins>**Source code: driveRound.py**</ins>
-
-The `driveRound()` function **generates the waypoints** for the **second and third round**. 
-
-```python
-    
-def driveRound(orders,Order, waitCompleteOrders, checkForColor, rotation, scanStart, last = False):
-    """
-    Generate adaptive waypoints for navigating one section of the obstacle challenge course.
-    This function analyzes detected obstacles and generates appropriate waypoints to navigate around them
-    while staying on the correct side of the field based on obstacle colors (red/green).
-   
-    Args:
-        orders: Command queue for robot navigation (list of Order objects)
-        Order: Order class for creating navigation commands
-        waitCompleteOrders: Function to wait for command queue completion
-        checkForColor: Function to check if specific color obstacle exists in range
-                      checkForColor(color, startIdx, endIdx) -> bool
-        rotation: Direction identifier (0–999=CW, 1000+=CCW)
-                 Specific values: 0=CW-0°, 90=CW-90°, 180=CW-180°, 270=CW-270°
-                                 1000=CCW-0°, 1090=CCW-90°, 
-        scanStart: Starting index for obstacle scanning 
-                  Identifies which of 3 sections we're currently navigating
-        last: Boolean flag indicating if this is the last section before parking
-    
-    """
-    
-    # Step 1: Determine direction and configure obstacle colors
-    if (rotation >= 1000):
-        # Counter-clockwise direction (rotation IDs 1000–1999)
-        direction = Order.CCW
-        # Adjust scan indices for CCW (wrap around with -12 offset for negative indices)
-        scan1=(scanStart+8-12, scanStart+12-12)  # Destination area obstacles (far pair)
-        scan2=(scanStart+6-12, scanStart+10-12)  # Destination area obstacles (near pair)
-        scan3=(scanStart+4, scanStart+6)         # Source area obstacles (near pair)
-        scan4=(scanStart, scanStart+4)           # Source area obstacles (close pair)
-        outer=Hindernisse.RED    # Outer obstacles (toward walls) are RED in CCW
-        inner=Hindernisse.GREEN  # Inner obstacles (toward center) are GREEN in CCW
-    else:
-        # Clockwise direction (rotation IDs 0–999)
-        direction = Order.CW
-        scan1=(scanStart+6, scanStart+10)   # Destination area obstacles (near pair)
-        scan2=(scanStart+8, scanStart+12)   # Destination area obstacles (far pair)
-        scan3=(scanStart, scanStart+4)      # Source area obstacles (close pair)
-        scan4=(scanStart+4, scanStart+6)    # Source area obstacles (near pair)
-        outer=Hindernisse.GREEN  # Outer obstacles (toward walls) are GREEN in CW
-        inner=Hindernisse.RED    # Inner obstacles (toward center) are RED in CW
-    
-    speedi = 0.5  # Target speed in m/s (constant throughout section)
-
-    # Step 2: Analyze obstacle configuration in source and destination areas
-    # Determine if inner obstacles are present in source area (where robot currently is)
-    # Logic: Inner obstacles present if:
-    #   - scan4 (close pair) has inner color, OR
-    #   - scan4 has no outer color AND scan3 (near pair) has inner color
-    # This handles cases where only one obstacle is present in the area
-    sinside= checkForColor(inner, scan4[0], scan4[1])  or ((not checkForColor(outer, scan4[0], scan4[1])) and checkForColor(inner, scan3[0], scan3[1]))
-    
-    # Determine if inner obstacles are present in destination area (where robot is heading)
-    # Same logic applied to destination scan ranges (scan1 and scan2)
-    dinside= checkForColor(inner, scan1[0], scan1[1])  or ((not checkForColor(outer, scan1[0], scan1[1])) and checkForColor(inner, scan2[0], scan2[1]))
-    
-    # Step 3: Generate waypoints for first part of section (vertical movement, upper area)
-    # Decision based on source area obstacle configuration in scan3 (near pair)
-    # This determines the x-coordinate: 200 mm (tight), 400 mm (medium), or 800 mm (wide)
-    if checkForColor(inner, scan3[0], scan3[1]) or (not checkForColor(outer, scan3[0], scan3[1]) and checkForColor(inner, scan4[0], scan4[1])):
-        # Inner obstacles detected in source area - must take wide path to avoid them
-        # Use x=800 mm to stay safely away from center obstacles
-        orders.append(Order(x=800, y=2000,speed=speedi,brake=0,type=Order.DESTINATION,num=14, rotation=rotation))
-        orders.append(Order(x=800, y=1750,speed=speedi,brake=0,type=Order.DESTINATION,num=15, rotation=rotation))
-    else:
-        # No inner obstacles in immediate area - can take tighter path closer to inner wall
-        if rotation != 90 and rotation != 1500:
-            # Standard tight path at x=200 mm (most sections)
-            orders.append(Order(x=200, y=2000,speed=speedi,brake=0,type=Order.DESTINATION,num=16, rotation=rotation))
-            orders.append(Order(x=200, y=1750,speed=speedi,brake=0,type=Order.DESTINATION,num=17, rotation=rotation))
-        else:
-            # Special case for 90-degree rotations - slightly wider at x=400mm
-            # These rotations need more clearance due to approach angle
-            orders.append(Order(x=400, y=2000,speed=speedi,brake=0,type=Order.DESTINATION,num=22, rotation=rotation))
-            orders.append(Order(x=400, y=1750,speed=speedi,brake=0,type=Order.DESTINATION,num=23, rotation=rotation))
-
-    # Step 4: Generate waypoints for middle part of section (transition area)
-    # This waypoint (y≈1000–1200 mm) is critical as it's in the zone where both
-    # source and destination obstacles can affect the path
-    # Must consider both obstacle configurations to choose safe x-coordinate
-    if checkForColor(inner, scan4[0], scan4[1]) or (not checkForColor(outer, scan4[0], scan4[1]) and checkForColor(inner, scan3[0], scan3[1])):
-        # Source area has inner obstacles - already on wide path (x=800)
-        if dinside:
-            # Destination also has inner obstacles - stay wide and slightly higher
-            # y=1050 mm gives more clearance when transitioning between obstacle zones
-            orders.append(Order(x=800, y=1050,speed=speedi,brake=0,type=Order.DESTINATION,num=18, rotation=rotation))
-        else:
-            # Destination is clear - can move to lower y-coordinate
-            # y=1000 mm for tighter transition
-            orders.append(Order(x=800, y=1000,speed=speedi,brake=0,type=Order.DESTINATION,num=19, rotation=rotation))
-    
-    else:
-        # Source area clear of inner obstacles - on tight path (x=200 or x=400)
-        if rotation != 90 and rotation != 1500:
-            # Standard tight path continues at x=200 mm
-            # y=1100 mm provides clearance when approaching destination area
-            orders.append(Order(x=200, y=1100,speed=speedi,brake=0,type=Order.DESTINATION,num=20, rotation=rotation))
-        else:
-            # Special 90-degree rotations continue at x=400 mm
-            orders.append(Order(x=400, y=1000,speed=speedi,brake=0,type=Order.DESTINATION,num=24, rotation=rotation))
-
-    # Step 5: Generate corner waypoint for section transition (if not last section)
-    # The corner waypoint positions the robot for the next section
-    # Skip if this is the last section - robot will proceed to parking instead
-    if not last:
-        # Re-evaluate obstacle configuration for more precise corner placement
-        # This is necessary as we need final source/destination assessment
-        sinside= checkForColor(inner, scan4[0], scan4[1])  or ((not checkForColor(outer, scan4[0], scan4[1])) and checkForColor(inner, scan3[0], scan3[1]))
-        dinside= checkForColor(inner, scan1[0], scan1[1])  or ((not checkForColor(outer, scan1[0], scan1[1])) and checkForColor(inner, scan2[0], scan2[1]))
-        
-        # Debug output to verify obstacle detection logic
-        print("Rotation: ",rotation, "  sinside: " ,sinside, "   dinside: ",dinside)
-        
-        # Choose corner waypoint based on combined source/destination obstacle configuration
-        # Different corners needed for different rotation angles (standard vs 180-degree)
-        if rotation != 180 and rotation != 1180:
-            # Standard corner positions (most rotations: 0°, 90°, 270°)
-            if ( sinside and not  dinside):
-                # Source has inner obstacles, destination is outer-only
-                # Use moderate corner at (600, 550) - wider x to clear source obstacles
-                orders.append(Order(x=600, y=550,speed=speedi,brake=0,type=Order.DESTINATION,num=26, rotation=rotation))
-            if ( not sinside and dinside):
-                # Source is outer-only, destination has inner obstacles
-                # Use higher corner at (400, 800) - extra y clearance for destination
-                orders.append(Order(x=400, y=800,speed=speedi,brake=0,type=Order.DESTINATION,num=27, rotation=rotation))
-            if ( not sinside and  not dinside):
-                # Both areas have outer obstacles only - tightest safe corner
-                # Use tight corner at (400, 500) for most efficient path
-                orders.append(Order(x=400, y=500,speed=speedi,brake=0,type=Order.DESTINATION,num=28, rotation=rotation))
-        else:
-            # Special corner positions for 180-degree rotations
-            # These rotations approach from opposite direction, need adjusted clearances
-            if ( sinside and not  dinside):
-                # Source inner, destination outer - wider corner needed
-                orders.append(Order(x=700, y=700,speed=speedi,brake=0,type=Order.DESTINATION,num=261, rotation=rotation))
-            if ( not sinside and dinside):
-                # Source outer, destination inner - similar to standard
-                orders.append(Order(x=400, y=800,speed=speedi,brake=0,type=Order.DESTINATION,num=272, rotation=rotation))
-            if ( not sinside and  not dinside):
-                # Both outer - slightly modified tight corner for 180° approach
-                orders.append(Order(x=450, y=550,speed=speedi,brake=0,type=Order.DESTINATION,num=283, rotation=rotation))
-```
-
-
-
-## **Possible improvements**
-
-
-- **Angle measurement:**
-Currently we do not measure the heading during the course, but rely on the gyroscope. However, the gyroscope drifts noticeable during the course.
-The heading could be updated by measuring the angle of the walls with the LiDAR.
-
-- **Waypoint optimizations:**
-The waypoint generation could be expanded to take inner and outer waypoints and some other details into account. This would allow shorter (and therefore faster) courses and more obstacle clearance.
-
-- **Wall position (open challenge):**
-The wall position on the open challenge could be detected and different waypoints generated. In this way, a shorter (faster) course could be driven.
-
-- **Speed optimization:**
-General driving speed can be increased until the course becomes unreliable.
-Driving speed on uncritical parts could be increased even more.
-<br><br><br>
-
-# **Code for all components**
-
-
-## **Servo**
-
-The **steering** is controlled through an **Adafruit 16 Channel Servo Driver** connected to the **Raspberry Pi** via **I²C** communication. The servo driver board manages the **PWM** signal generation required for the servo positioning. For the communication with the board we use the **Adafruit servokit library**.
-
-Hardware selection, geometry, and mechanical integration are covered in → [Steering](#steering).
-
-### <ins>**Software implementation**</ins>
-
-The servo control is implemented in the `motorController.py` file through the `setServoAngle()` function:
-
-```python
-def setServoAngle(kit, angle, slam=None):
-    servoMitte = 80  # Center position (straight ahead)
-    
-    # Convert desired steering angle to servo position
-    target = angle - 90 + servoMitte
-    
-    # Limit servo travel to prevent damage
-    if target > 180:
-        target = 180
-    if target < 0:
-        target = 0
-    
-    # Send command to servo on channel 0
-    kit.servo[0].angle = target
-
-```
-
-### <ins>**Steering range and calibration**</ins>
-
-- **Center Position**: 80° (servo angle) = straight ahead. This value needs to be set up by hand according to the exact servo arm mounting
-- **Maximum Left**: 0° (servo angle) = full left lock
-- **Maximum Right**: 180° (servo angle) = full right lock
-- **Steering Input Range**: The function accepts angles where 90° represents straight ahead, with deviations from 90° controlling the steering direction
-
-<br>
-
-## **Drive motor**
-
-### <ins>**Components**</ins>
-
-The drive motor control system consists of **three main components**:
-
-1. **Adafruit ServoKit PWM Driver**: Generates the PWM control signals for the motor driver
-2. **Motor Driver (ESC)**: Converts PWM signals to appropriate power levels for the brushed DC motor  
-3. **PID Control Algorithm**: Provides closed-loop speed control using feedback from odometry sensors
-
-### <ins>**Hardware interface**</ins>
-
-The motor is controlled via **PWM** signals sent to the **motor driver** through the **Adafruit ServoKit** library:
-
-- **Control Channel**: Servo channel 3 on the ServoKit
-- **PWM Range**: 90° to 180° (forward), 90° to 0° (reverse), 90° = neutral/brake
-- **Communication**: I²C between Raspberry Pi and ServoKit
-- **Update Rate**: 70 Hz depending on control loop timing
-
-### <ins>**Software implementation**</ins>
-
-The motor control is implemented in the `DriveBase` class within `motorController.py`. Here is a sample code that implements driving to a specific x/y coordinate. We have other functions that do different maneuvers in this class.
-
-```python
-class DriveBase:
-    
-    def driveTo(self, x, y, speed, brake):
-        """
-        Drive the robot to a specific coordinate (x, y) with controlled speed and optional braking.
-        
-        Args:
-            x (float): Target x-coordinate in millimeters
-            y (float): Target y-coordinate in millimeters  
-            speed (float): Desired speed in m/s (positive for forward, negative for reverse)
-            brake (int): Braking mode (1 = enable progressive braking near target, 0 = no braking)
-            
-        Returns:
-            bool: True when target is reached (within 30 mm), False while still driving
-        """
-        # Set the target speed for the PID controller
-        self.pidController.setpoint = speed
-        
-        # Calculate straight-line distance from current position to target
-        distance = math.sqrt(math.pow((self.slam.xpos - x),2) + math.pow((self.slam.ypos - y),2))
-        
-        # Calculate the required heading angle to reach the target
-        # atan2 gives angle from current position to target, negated to match robot coordinate system
-        zielwinkel = -(math.atan2(self.slam.ypos - y, self.slam.xpos - x) / math.pi * 180)
-        
-        # Calculate heading error (difference between current and required heading)
-        fehlerwinkel = -zielwinkel + self.slam.angle
-        
-        # Normalize heading error to [-180, +180] degree range
-        # This ensures we always take the shortest angular path to the target
-        while fehlerwinkel > 180:
-            fehlerwinkel -= 360
-        while fehlerwinkel < -180:
-            fehlerwinkel += 360
-        
-        # Initialize target angle on first call (5000 is sentinel value for "not set")
-        if self.zielWinkel == 5000:
-            self.zielWinkel = zielwinkel
-        
-        # Calculate distance along the original target line (corrected for any heading drift)
-        # This gives us the "useful" distance - how much progress we've made toward the target
-        distanceLine = distance * math.cos((self.zielWinkel - zielwinkel) / 180 * math.pi)
-        
-        # Progressive braking: reduce speed as we approach the target
-        # When within 200 mm and braking enabled, scale speed proportionally to remaining distance
-        if (abs(distanceLine) < 200) and (brake == 1):
-            self.pidController.setpoint = speed * distanceLine / 200
-        
-        # Calculate steering correction using PID controller
-        # fehlerwinkel is the input, outputSteer is the steering angle correction
-        outputSteer = self.pidSteer.compute(fehlerwinkel,1)
-        
-        # Calculate motor speed correction using PID controller
-        # Compares actual speed (slam.speed) with target speed (setpoint)
-        output = self.pidController.compute(self.slam.speed,0.5,self.slam)
-        
-        # Limit steering output to prevent excessive steering angles
-        # ±55 degrees is the maximum safe steering for faster driving
-        if (outputSteer>55):
-            outputSteer = 55
-        if (outputSteer<-55):
-            outputSteer = -55
-            
-        # Apply steering: 90° is straight ahead, add correction for turning
-        setServoAngle(self.kit,90 + outputSteer,self.slam)
-        
-        # Apply motor control: 99° is forward base speed, add PID correction
-        self.kit.servo[3].angle = 99 + output
-        
-        # Check if we've reached the target (within 30 mm tolerance)
-        if distanceLine < 30:
-            # Reset target angle for next movement command
-            self.zielWinkel = 5000
-            # Stop the motor (90° = neutral position)
-            self.kit.servo[3].angle = 90
-            return True  # Target reached
-        else:
-            return False  # Still driving to target
-```
-
-### <ins>**PID controller implementation**</ins>
-
-Our robot uses two separate **PID controllers** for **motion control**: one for **speed regulation** and another for **steering control**. The PID (Proportional-Integral-Derivative) controllers provide smooth and stable control by continuously adjusting outputs based on error feedback.
-
-#### **<ins>PID controller class structure</ins>**
-
-```python
-class PIDController:
-    def __init__(self, Kp, Ki, Kd, setpoint, min, max, drive=0):
-        self.Kp = Kp              # Proportional gain
-        self.Ki = Ki              # Integral gain  
-        self.Kd = Kd              # Derivative gain
-        self.setpoint = setpoint  # Target value
-        self.previous_error = 0   # Previous error for derivative calculation
-        self.integral = 0         # Accumulated error for integral term
-        self.min = min           # Minimum output limit
-        self.max = max           # Maximum output limit
-        self.drive = drive       # Flag for drive motor (used for diagnostics)
-    
-    def reset(self):
-        """Reset integral and derivative terms - used when changing direction"""
-        self.previous_error = 0
-        self.integral = 0
-```
-
-#### **<ins>PID computation algorithm</ins>**
-
-```python
-def compute(self, process_variable, dt, slam=None):
-    """
-    Calculate PID output based on current measurement and target setpoint
-    
-    Args:
-        process_variable: Current measured value (speed, angle, etc.)
-        dt: Time delta since last computation 
-        slam: Optional SLAM object for diagnostics
-        
-    Returns:
-        Control output value (within min/max bounds)
-    """
-    # Calculate error between target and actual value
-    error = self.setpoint - process_variable
-    
-    # Proportional term: immediate response to current error
-    P_out = self.Kp * error
-    
-    # Integral term: accumulated error over time (eliminates steady-state error)
-    self.integral += error * dt
-    
-    # Integral windup protection: prevent integral from exceeding output limits
-    if self.Ki * self.integral > self.max:
-        self.integral = self.max / self.Ki
-    if self.Ki * self.integral < self.min:
-        self.integral = self.min / self.Ki
-    I_out = self.Ki * self.integral
-    
-    # Derivative term: rate of error change (reduces oscillation)
-    derivative = (error - self.previous_error) / dt
-    D_out = self.Kd * derivative
-    
-    # Combine all three terms
-    output = P_out + I_out + D_out
-    
-    # Update previous error for next derivative calculation
-    self.previous_error = error
-    
-    # Apply output limits for safety
-    if output > self.max:
-        output = self.max
-    if output < self.min:
-        output = self.min
-        
-    return output
-```
-
-#### **<ins>Dual PID controller configuration</ins>**
-
-Our robot uses two PID controllers with **different tuning parameters** optimized for their specific control tasks:
-
-**Speed Control PID**:
-```python
-# --- Speed Control PID configuration ---
-# Purpose: Maintains target linear velocity using closed-loop feedback.
-# High Kp for responsive speed changes; Ki to remove steady-state error;
-# small Kd for mild damping. Asymmetric output range handles different
-# forward vs reverse characteristics of drivetrain.
-self.pidController = PIDController(Kp=20, Ki=5, Kd=1.00, 
-                                 setpoint=1, min=-50, max=40, drive=1)
-```
-- **Kp=20**: High proportional gain for responsive speed changes
-- **Ki=5**: Moderate integral gain to eliminate steady-state speed errors  
-- **Kd=1.0**: Small derivative gain to reduce speed oscillations
-- **Range**: -50 to +40 (asymmetric for different forward/reverse characteristics)
-
-**Steering Control PID**:
-```python
-# --- Steering (Heading) PID configuration ---
-# Purpose: Correct heading error; only proportional term used to avoid
-# integral wind-up and derivative noise for fast, smooth response.
-# Output clamped to physical steering limits.
-self.pidSteer = PIDController(Kp=2, Ki=0, Kd=0, 
-                            setpoint=0, min=-90, max=90)
-```
-- **Kp=2**: Moderate proportional gain for smooth steering response
-- **Ki=0**: No integral term (avoids steering drift accumulation)
-- **Kd=0**: No derivative term (steering doesn't need oscillation damping)
-- **Range**: ±90° maximum steering angle
-
-#### **<ins>PID controllers in action</ins>**
-
-**Speed Control Example**:
-```python
-# --- Speed control usage example ---
-# 1. Update desired setpoint (m/s)
-self.pidController.setpoint = speed  # Target speed in m/s
-# 2. Compute PID output using measured speed and loop dt (0.5s here)
-output = self.pidController.compute(self.slam.speed, 0.5, self.slam)
-# 3. Apply PWM angle: 99 is forward neutral baseline, add correction
-self.kit.servo[3].angle = 99 + output  # Base speed + PID adjustment
-```
-
-**Steering Control Example**:
-```python
-# --- Steering control usage example ---
-# Compute instantaneous heading error (degrees)
-fehlerwinkel = target_angle - current_angle  # Positive => needs CCW correction
-# PID translate error to steering angle delta (dt=1s)
-outputSteer = self.pidSteer.compute(fehlerwinkel, 1)
-# Clamp for stability at speed (mechanical + control constraint)
-if outputSteer > 55: outputSteer = 55
-if outputSteer < -55: outputSteer = -55
-# Apply servo command (90° = straight ahead baseline)
-setServoAngle(self.kit, 90 + outputSteer, self.slam)
-```
-
-
-
-### <ins>**Advanced control features**</ins>
-
-**Adaptive Braking**: The system implements intelligent braking that adjusts deceleration based on remaining distance:
-
-```python
-# --- Adaptive braking logic ---
-# First zone: within 30 mm begin slow-down
-if (distance_remaining < 30) and (brake == 1):
-    if speed > 0:
-        self.pidController.setpoint = 0.1  # Gentle deceleration
-    else:
-        self.pidController.setpoint = -0.1 # Gentle reverse deceleration
-
-# Final zone: within 10 mm command full stop
-if (distance_remaining < 10) and (brake == 1):
-    self.pidController.setpoint = 0  # Full stop
-```
-
-**Direction-Dependent Control**: The system handles forward and reverse motion differently to account for mechanical asymmetries:
-
-```python
-# --- Direction-dependent PWM baseline ---
-# Adjust neutral offset to compensate asymmetric ESC response forward/reverse.
-if speed > 0:  # Forward motion path
-    self.kit.servo[3].angle = 110 + output
-else:          # Reverse motion path
-    self.kit.servo[3].angle = 80 + output
-```
-
-**Safety Features**: 
-- Automatic motor cutoff when target reached
-- PID reset when changing directions to prevent windup
-- Speed limiting for better reliability
-
-<br>
-
-
-## **Optical tracking odometry sensors**
-
-The odometry system uses two **SparkFun Qwiic Optical Tracking Odometry Sensors (OTOS)** connected via **I²C** at addresses `0x17` and `0x19`. Here's how we implement the odometry system:
-
-### <ins>**Position and speed tracking**</ins>
-
-```python
-def update(self):
-    """Odometry loop: read sensors, derive incremental speeds, convert units."""
-    # 1. Read raw positions (meters + heading)
-    myPosition1 = self.myOtos1.getPosition()  # x,y,h
-    myPosition2 = self.myOtos2.getPosition()
-
-    # 2. Compute per-sensor delta speed (skip first iteration sentinel 5000)
-    if self.lastXpos1 != 5000:
-        dx1 = myPosition1.x - self.lastXpos1
-        dy1 = myPosition1.y - self.lastYpos1
-        self.speed1 = math.sqrt(dx1*dx1 + dy1*dy1) * 100  # Scale to pseudo m/s
-    if self.lastXpos2 != 5000:
-        dx2 = myPosition2.x - self.lastXpos2
-        dy2 = myPosition2.y - self.lastYpos2
-        self.speed2 = math.sqrt(dx2*dx2 + dy2*dy2) * 100
-
-    # 3. Persist previous positions for next delta computation
-    self.lastXpos1, self.lastYpos1 = myPosition1.x, myPosition1.y
-    self.lastXpos2, self.lastYpos2 = myPosition2.x, myPosition2.y
-
-    # 4. Transform coordinate system: invert axes + convert m→mm
-    myPosition1.x = -myPosition1.x * 1000
-    myPosition1.y = -myPosition1.y * 1000
-    myPosition2.x = -myPosition2.x * 1000
-    myPosition2.y = -myPosition2.y * 1000
-```
-
-### <ins>**Sensor health monitoring and redundancy**</ins>
-
-```python
-def update(self):
-    """Health monitoring: detect drift, implausible speed, out-of-bounds."""
-    if self.healthy1 == 1 and self.healthy2 == 1:
-        # 1. Relative speed consistency (slower sensor may be obstructed)
-        if self.speed1 + 0.15 < self.speed2:
-            self.errorsOtos1 += 1
-        elif self.errorsOtos1 > 0:
-            self.errorsOtos1 -= 1
-        if self.speed2 + 0.15 < self.speed1:
-            self.errorsOtos2 += 1
-        elif self.errorsOtos2 > 0:
-            self.errorsOtos2 -= 1
-
-        # 2. Implausible high speed spikes (>2 m/s)
-        if self.speed1 > 2:
-            self.errorsOtosSpeed1 += 1
-        if self.speed2 > 2:
-            self.errorsOtosSpeed2 += 1
-
-        # 3. Field bounds violation (likely coordinate drift)
-        if (myPosition1.x < -100 or myPosition1.x > 3100 or 
-            myPosition1.y < -100 or myPosition1.y > 3100):
-            self.healthy1 = -2
-
-    # 4. Escalate error counters into unhealthy states
-    if self.errorsOtos1 > 20:
-        self.healthy1 = 0
-        print(f"Sensor 1 unhealthy, errors: {self.errorsOtos1}")
-    if self.errorsOtosSpeed1 > 5:
-        self.healthy1 = -1
-        print(f"Sensor 1 speed errors: {self.errorsOtosSpeed1}")
-```
-
-### <ins>**Data fusion and final position calculation**</ins>
-
-```python
-def update(self):
-    """Fusion stage: choose best positional estimate based on health flags."""
-    if self.healthy1 == 1 and self.healthy2 == 1:
-        self.xpos = (myPosition1.y + myPosition2.y) / 2
-        self.ypos = (myPosition1.x + myPosition2.x) / 2
-        self.angle = meanAngle(myPosition1.h, myPosition2.h)
-        self.speed = (self.speed1 + self.speed2) / 2
-    elif self.healthy1 == 1:
-        self.xpos, self.ypos, self.angle, self.speed = myPosition1.y, myPosition1.x, myPosition1.h, self.speed1
-    else:
-        self.xpos, self.ypos, self.angle, self.speed = myPosition2.y, myPosition2.x, myPosition2.h, self.speed2
-```
-
-### <ins>**Position reset and calibration**</ins>
-
-```python
-def setPosition(self, x, y, angle=-5000):
-    """External absolute correction (e.g. LiDAR): synchronize both sensors."""
-    # Sensor 1 transformation (mm→m plus coordinate inversion)
-    pos1 = self.myOtos1.getPosition()
-    pos1.y = -x / 1000
-    pos1.x = -y / 1000
-    if angle > -5000:
-        pos1.h = angle
-    self.myOtos1.setPosition(pos1)
-
-    # Sensor 2 mirror update
-    pos2 = self.myOtos2.getPosition()
-    pos2.y = -x / 1000
-    pos2.x = -y / 1000
-    if angle > -5000:
-        pos2.h = angle
-    self.myOtos2.setPosition(pos2)
-
-    # Internal state sync + skip next speed delta (jump)
-    self.xpos = x
-    self.ypos = y
-    self.ignoreSpeedUpdate = 1
-```
-
-
-
-<br>
-
-
-## **LiDAR** 
-
-Our LiDAR system uses the **RpLidar S2** which provides 360-degree scanning with up to 32000 samples per second. The **Raspberry Pi** communicates with the LiDAR via a **serial UART** port at **1 Mbps**. The communication is handled by a library supplied by **Slamtec**.
-
-### <ins>**Real-time scanning and data acquisition**</ins>
-
-```python
-def update(self):
-    """LiDAR loop: throttle full scans for performance; populate distance array."""
-    # Gather a new 360° frame every 10 cycles to match the update rate of the LiDAR
-    if self.loopCounter >= 9:
-        self.lidar.getScan(self.scan)  # Fill self.scan[0..359] in mm
-        self.loopCounter = 0
-    else:
-        self.loopCounter += 1
-    # After fill: self.scan[angle] gives radial distance; e.g. scan[90] right side
-```
-
-### <ins>**Position detection and localization**</ins>
-
-```python
-def startpostionsetzen(self):
-    """Initial spawn detection: average forward samples and match templates."""
-    average = 0
-    scans = 0
-    for i in range(-5, 6):            # Symmetric small forward sector
-        if self.scan[i] > 0:           # Valid measurement
-            average += self.scan[i]
-            scans += 1
-    average /= scans
-
-    # Match measured front distance to known spawn ranges
-    if 1870 < average < 1970:          # Configuration A
-        self.direction = self.CW
-        self.eventType = self.ER
-        self.setPosition(average, 3000 - self.scan[90], 0)
-    elif 1345 < average < 1450:        # Configuration B
-        self.direction = self.CCW
-        self.setPosition(self.scan[180], 3000 - self.scan[-90], 180)
-    # Additional configurations can be appended here.
-```
-
-### <ins>**Dynamic position correction during driving**</ins>
-
-Runtime strategy and gating for LiDAR-based correction while driving are explained under Obstacle management → [Position Corrections](#position-corrections).
-
-Relevant APIs:
-- `slam.repositionDrive()` – auto‑triggered corrections during motion based on quadrant visibility
-- `slam.repositionOneDirFront(angleCheck)` – snap X/Y to walls using front/side scans when stationary
-- `slam.setPosition(x, y, angle)` – applies fused position update
-
-### <ins>**Obstacle detection and recognition**</ins>
-
-Summary: **LiDAR detections** at **predefined world coordinates** are matched with **camera color detections** by **angle**; see the canonical implementation under Obstacle management → [Complete obstacle detection function](#complete-obstacle-detection-function).
-
-
-
-### <ins>**Data structure and access patterns**</ins>
-
-```python
-# LiDAR scan data structure
-self.scan[0]     # Distance to front (0°)
-self.scan[90]    # Distance to right (90°) 
-self.scan[180]   # Distance to back (180°)
-self.scan[270]   # Distance to left (270°/-90°)
-
-# Example: check if path is clear ahead
-if self.scan[0] > 500:  # More than 500 mm clear ahead
-    # Safe to drive forward
-    
-# Example: distance to nearest wall on right side
-right_wall_distance = min(self.scan[80:100])  # Check 80°-100° range
-```
-
-<br>
-
-## **Camera**
-
-The **camera** provides **color recognition** for obstacles and outputs **detected angles** relative to the image center. 
-
-Hardware selection and mechanical integration are documented under Sensors → [Camera](#camera). The fusion of camera colors with LiDAR positions is explained in Obstacle management → [Determining the color of the obstacle](#determining-the-color-of-the-obstacle) and the combined routine in Obstacle management → [Complete obstacle detection function](#complete-obstacle-detection-function).
-
-### <ins>**Image capture and preprocessing**</ins>
-
-We use **Picamera2**/**libcamera** on the **Raspberry Pi** with a resolution of `1536×846`. The capture pipeline applies a **light blur** and processes **a thin horizontal scan band** to **reduce false detections** from objets outside the play area or obstacles that are behind each other.
-
-```python
-from picamera2 import Picamera2
-from libcamera import Transform
-
-class Camera:
-    def __init__(self):
-        self.picam2 = Picamera2()
-        self.picam2.set_controls({'HdrMode': libcamera.controls.HdrModeEnum.SingleExposure})
-        resolution = (1536, 846)
-        self.config = self.picam2.create_still_configuration(
-            transform=Transform(vflip=False, hflip=True),
-            main={"size": resolution}
-        )
-        self.picam2.configure(self.config)
-        self.picam2.start()
-
-    def captureImage(self, checkHeightNear):
-        img = self.picam2.capture_array()
-        img = cv.blur(img, (10, 10))
-        # scan band (y) selection; shift down when near
-        checkStart = 450
-        if checkHeightNear:
-            checkStart += 150
-        checkEnd = checkStart + 30
-        band = img[checkStart:checkEnd, 0:1535]
-```
-
-### <ins>**Color detection**</ins>
-
-We convert the scan band to **HSV** and threshold for **RED** and **GREEN**. RED uses two hue ranges (wrap-around at 0°/360°). Contours are found and their centers are used as detection points.
-
-```python
-hsv = cv.cvtColor(band, cv.COLOR_RGB2HSV)
-
-# RED in two ranges
-lower1, upper1 = np.array([0, 100, 20]),  np.array([10, 255, 255])
-lower2, upper2 = np.array([160,100,20]), np.array([179,255,255])
-maskred = cv.inRange(hsv, lower1, upper1) + cv.inRange(hsv, lower2, upper2)
-
-# GREEN
-lowerG, upperG = np.array([35, 100, 20]), np.array([95, 255, 255])
-maskgreen = cv.inRange(hsv, lowerG, upperG)
-
-cntsred   = imutils.grab_contours(cv.findContours(maskred.copy(),  cv.RETR_EXTERNAL, cv.CHAIN_APPROX_SIMPLE))
-cntsgreen = imutils.grab_contours(cv.findContours(maskgreen.copy(), cv.RETR_EXTERNAL, cv.CHAIN_APPROX_SIMPLE))
-```
-
-### <ins>**Angle mapping and field alignment**</ins>
-
-Each detected contour center `cX` is mapped to an angle using a calibrated midpoint and scaling:
-
-```python
-mid = 788      # image center (pixels)
-split = 19.12  # pixel→degree scale
-
-angle_deg = (mid - cX) / split   # 0° = straight ahead; sign encodes left/right
-self.blocksAngle.append(angle_deg)
-self.blocksColor.append(self.RED or self.GREEN)
-```
-
-This angle list is fused with LiDAR detections in the obstacle pipeline; see → [Determining the color of the obstacle](#determining-the-color-of-the-obstacle).
-
-### <ins>**Calibration and settings**</ins>
-
-- **Hardware**: **Raspberry Pi Camera Module 3 Wide (12 MP)**; hardware rationale under Sensors → [Camera](#camera)
-- **Exposure/HDR**: `SingleExposure` via libcamera controls
-- **Color thresholds**: HSV ranges derived empirically per WRO guide; see `opencv color table.png` (repository root) for reference
-- **Scan band**: `checkStart=450`, `checkHeight=30`; `checkHeightNear=True` shifts the band down by 150 px for near scanning
-- **Geometry**: Tune `mid` and `split` if lens/FOV changes
-- **Artifacts**: Light blur reduces noise; using a narrow band minimizes processing latency
-
-
-
-<br>
-
-## **Potential improvements - code for all components:**
-
-- **Crash detection and recovery**: Implement automatic detection of collisions (using accelerometer data or sudden motor load changes) and recovery procedures such as backing up, to prevent getting stuck on walls.
-
-- **Error recovery mechanisms**: Add more automatic recovery routines for sensor failures, communication timeouts, and unexpected situations to improve system robustness.
-
-- **Performance optimization**: Optimize critical loops and data structures using profiling tools to reduce computational load and improve real-time performance.
-
-- **Configuration management**: Implement a centralized configuration system to easily adjust parameters without code changes for different competition scenarios.
-
-- **Logging and diagnostics**: Enhance logging system with structured data output and real-time performance metrics for better analysis and troubleshooting.
-
-- **Backup navigation modes**: Implement fallback navigation strategies when primary sensors fail, such as wall-following or simple waypoint navigation.
-
-<br><br>
-# **Construction guide**
+#### Tabelle x: Meilensteine der Entwicklung
+
+<table align="center" border="1" style="border-collapse: collapse; border: 2px solid black;">
+
+  <!-- Tabellenkopf -->
+  <tr>
+    <th bgcolor="#4A90C2" width="130" style="border: 1px solid black; border-bottom: 3px solid black; padding: 8px; color: white;">Zeitraum</th>
+    <th bgcolor="#4A90C2" width="240" style="border: 1px solid black; border-bottom: 3px solid black; padding: 8px; color: white;">Meilenstein</th>
+    <th bgcolor="#4A90C2" width="360" style="border: 1px solid black; border-bottom: 3px solid black; padding: 8px; color: white;">Auslöser / Problem / Idee</th>
+    <th bgcolor="#4A90C2" width="400" style="border: 1px solid black; border-bottom: 3px solid black; padding: 8px; color: white;">Ergebnis</th>
+  </tr>
+
+  <tr>
+    <td bgcolor="#EAF4FB" style="border: 1px solid black; padding: 8px;">Vor Saison 2026</td>
+    <td bgcolor="#EAF4FB" style="border: 1px solid black; padding: 8px;"><b>Konzeptentscheidung</b></td>
+    <td bgcolor="#EAF4FB" style="border: 1px solid black; padding: 8px;">Analyse der Schwächen des Vorjahresroboters (zu groß, zu langsam)</td>
+    <td bgcolor="#EAF4FB" style="border: 1px solid black; padding: 8px;">Neukonstruktion von Chassis, Elektronik und Fahrstrategie (vgl. Kap. 1.1, 1.2, 2.1)</td>
+  </tr>
+
+  <tr>
+    <td style="border: 1px solid black; padding: 8px;">Januar–Februar</td>
+    <td style="border: 1px solid black; padding: 8px;"><b>Breadboard-Testphase</b></td>
+    <td style="border: 1px solid black; padding: 8px;">Risikominimierung vor erster Platinen-Bestellung</td>
+    <td style="border: 1px solid black; padding: 8px;">Alle Komponenten funktionieren im Zusammenspiel (vgl. Kap. 2.2)</td>
+  </tr>
+
+  <tr>
+    <td bgcolor="#EAF4FB" style="border: 1px solid black; padding: 8px;">Mitte Februar</td>
+    <td bgcolor="#EAF4FB" style="border: 1px solid black; padding: 8px;"><b>Design und Fertigung PCB Version 1</b></td>
+    <td bgcolor="#EAF4FB" style="border: 1px solid black; padding: 8px;">Abschluss Breadboard-Phase; alle Komponenten validiert</td>
+    <td bgcolor="#EAF4FB" style="border: 1px solid black; padding: 8px;">Platine bestellt (vgl. Kap. 2.2)</td>
+  </tr>
+
+  <tr>
+    <td style="border: 1px solid black; padding: 8px;">Anfang März</td>
+    <td style="border: 1px solid black; padding: 8px;"><b>Design und Fertigung PCB Version 2</b></td>
+    <td style="border: 1px solid black; padding: 8px;">Falsches Footprint für STM32; Kameranschlüsse fehlerhaft → Platine vollständig unbrauchbar</td>
+    <td style="border: 1px solid black; padding: 8px;">Platine neu designt und bestellt; danach alle Schnittstellen funktional; Platine einsatzbereit (vgl. Kap. 2.2)</td>
+  </tr>
+
+  <tr>
+    <td bgcolor="#EAF4FB" style="border: 1px solid black; padding: 8px;">Mitte März</td>
+    <td bgcolor="#EAF4FB" style="border: 1px solid black; padding: 8px;"><b>Design und Produktion Chassis, Hinterachse, Lenkung</b></td>
+    <td bgcolor="#EAF4FB" style="border: 1px solid black; padding: 8px;">PCB Version 2 verfügbar; mechanische Integration kann beginnen</td>
+    <td bgcolor="#EAF4FB" style="border: 1px solid black; padding: 8px;">Fahrzeug fährt; Motor u. Lenkung funktionieren – Elektronik noch nicht montiert (vgl. Kap. 1.2, 1.3, 1.4, 1.5)</td>
+  </tr>
+
+  <tr>
+    <td style="border: 1px solid black; padding: 8px;">Mitte März</td>
+    <td style="border: 1px solid black; padding: 8px;"><b>Design Mittelteil als Halterung für Haupt-PCB</b></td>
+    <td style="border: 1px solid black; padding: 8px;">Platine verfügbar; Raspberry Pi und STM32 müssen montiert werden</td>
+    <td style="border: 1px solid black; padding: 8px;">Raspberry Pi und STM32 montiert und mit Motor und Lenkung verbunden (vgl. Kap. 2.2)</td>
+  </tr>
+
+  <tr>
+    <td bgcolor="#EAF4FB" style="border: 1px solid black; padding: 8px;">Ende März</td>
+    <td bgcolor="#EAF4FB" style="border: 1px solid black; padding: 8px;"><b>Beginn Softwareentwicklung Raspberry Pi und STM32</b></td>
+    <td bgcolor="#EAF4FB" style="border: 1px solid black; padding: 8px;">Mechanische Basis und Elektronik einsatzbereit</td>
+    <td bgcolor="#EAF4FB" style="border: 1px solid black; padding: 8px;">Motor und Lenkung softwareseitig steuerbar; Geschwindigkeitsmessung für Motorauswahl (vgl. Kap. 1.3)</td>
+  </tr>
+
+  <tr>
+    <td style="border: 1px solid black; padding: 8px;">Anfang April</td>
+    <td style="border: 1px solid black; padding: 8px;"><b>Design und Produktion Oberdeck mit ToF-Sensoren und Kamera</b></td>
+    <td style="border: 1px solid black; padding: 8px;">Sensorik und Kamera benötigten feste, reproduzierbare Montageposition</td>
+    <td style="border: 1px solid black; padding: 8px;">Alle Sensoren und Kamera montiert; Fahrzeug mechanisch vollständig (vgl. Kap. 2.3, 2.4)</td>
+  </tr>
+
+  <tr>
+    <td bgcolor="#EAF4FB" style="border: 1px solid black; padding: 8px;">Mitte April</td>
+    <td bgcolor="#EAF4FB" style="border: 1px solid black; padding: 8px;"><b>Abschluss Hardwareentwicklung / Fokusverschiebung auf Softwareentwicklung</b></td>
+    <td bgcolor="#EAF4FB" style="border: 1px solid black; padding: 8px;">Mechanischer Aufbau abgeschlossen</td>
+    <td bgcolor="#EAF4FB" style="border: 1px solid black; padding: 8px;">Entwicklungsschwerpunkt wechselt auf Software; grundlegende Fahrfunktionen verfügbar, Eröffnungsrennen fertig (vgl. Kap. 3.3, 3.4)</td>
+  </tr>
+
+  <tr>
+    <td style="border: 1px solid black; padding: 8px;">Mitte April</td>
+    <td style="border: 1px solid black; padding: 8px;"><b>Chassis-Materialwechsel</b></td>
+    <td style="border: 1px solid black; padding: 8px;">PLA kriecht unter Motorlast; Zahnflankenspiel verschlechtert sich</td>
+    <td style="border: 1px solid black; padding: 8px;">Wechsel auf PPA-CF; Bodenplatte mit Heißluftfön nachgerichtet (vgl. Kap. 1.2)</td>
+  </tr>
+
+  <tr>
+    <td bgcolor="#EAF4FB" style="border: 1px solid black; padding: 8px;">Ende April – Mitte Mai</td>
+    <td bgcolor="#EAF4FB" style="border: 1px solid black; padding: 8px;"><b>Softwareentwicklung Hindernisrennen</b></td>
+    <td bgcolor="#EAF4FB" style="border: 1px solid black; padding: 8px;">Eröffnungsrennen fertiggestellt; Hinderniserkennung noch ausstehend</td>
+    <td bgcolor="#EAF4FB" style="border: 1px solid black; padding: 8px;">Erste Hinderniserkennung implementiert; Grundlogik für Fahrspurzuordnung funktionsfähig (vgl. Kap. 3.5.1)</td>
+  </tr>
+
+  <tr>
+    <td style="border: 1px solid black; padding: 8px;">3 Wochen vor Nordhorn (11.5.)</td>
+    <td style="border: 1px solid black; padding: 8px;"><b>Strategiewechsel Hinderniserkennung</b></td>
+    <td style="border: 1px solid black; padding: 8px;">Idee: Position aller Hindernisse bereits beim Start ermitteln</td>
+    <td style="border: 1px solid black; padding: 8px;">Kamera auf 27 cm erhöht; Vollscan aller Hindernisse beim Start; Logik deutlich vereinfacht, Rundenzeiten reduziert (vgl. Kap. 2.3, 3.5.2)</td>
+  </tr>
+
+  <tr>
+    <td bgcolor="#EAF4FB" style="border: 1px solid black; padding: 8px;">1 Woche vor Nordhorn</td>
+    <td bgcolor="#EAF4FB" style="border: 1px solid black; padding: 8px;"><b>Bereit für Nordhorn!</b></td>
+    <td bgcolor="#EAF4FB" style="border: 1px solid black; padding: 8px;">Alle Subsysteme getestet; finale Probefahrten abgeschlossen</td>
+    <td bgcolor="#EAF4FB" style="border: 1px solid black; padding: 8px;">Roboter vollständig einsatzbereit; Hindernisrennen und Eröffnungsrennen laufen zuverlässig (vgl. Kap. 4.1)</td>
+  </tr>
+
+  <tr>
+    <td style="border: 1px solid black; padding: 8px;">Anfang Juni – Mitte Juni</td>
+    <td style="border: 1px solid black; padding: 8px;"><b>Bereit für Trier!</b></td>
+    <td style="border: 1px solid black; padding: 8px;">
+      Probleme in Nordhorn:<br>
+      • Parken gescheitert<br>
+      • Farberkennung aufwendig<br>
+      &nbsp;&nbsp;(Wechsel von Arbeitsplatz zu Übungs­matte)
+    </td>
+    <td style="border: 1px solid black; padding: 8px;">Parkfunktion verbessert<br>Kalibrierung der Farberkennung vor Ort vereinfacht</td>
+  </tr>
+
+</table>
+<br><BR>
+
+# **5. Construction guide**
 
 This chapter provides a **step-by-step guide** through the **assembly** of our autonomous robot. The instructions are structured so that the robot is built from bottom to top, starting with the lower deck and ending with the upper LiDAR deck.
 
@@ -1741,29 +2286,73 @@ Refer to the **circuit diagram** to **connect all components**.
 **I²C devices** can be connected using off-the-shelf **Qwiic cables**. For the other connections, **0.75 mm² cable** is sufficient because the currents are low. It can be helpful to use **silicone- or PTFE‑insulated cables** because they bend more easily and are easier to install, though this is optional. **Use cable ties** to secure the wiring so it does not block the Raspberry Pi’s fan or intrude into the optical path of the LiDAR or the camera. To connect the **battery**, the easiest option is to use **XT60 connectors** commonly used in RC models, as most batteries come pre‑equipped with them.
 
 <br>
-
+NEU 2026 !!
 ## **Step 6: Software installation**
 
 ### **6.1 Prepare Raspberry Pi OS**
-Use "**Raspberry Pi OS Full**" and install it on an SD card. 
+Use "**Raspberry Pi OS (Bookworm, 64-bit)**" and install it on the CM5 boot medium (eMMC or SD card, depending on your CM5 variant/baseboard).
 
 
 ### **6.2 Install Python libraries**
 ```bash
-# Adafruit ServoKit for servo/motor control
-pip install adafruit-circuitpython-servokit
+# Camera stack (Raspberry Pi OS packages)
+sudo apt update
+sudo apt install -y python3-picamera2 python3-libcamera
 
-# LiDAR library from Slamtec
-pip install rplidar
+# Python packages used by the CM5 control software
+pip3 install pygame pyserial numpy opencv-python imutils
 
-# OpenCV for camera image processing
-pip install opencv-python
-
-# SparkFun OTOS for odometry
-pip install sparkfun-qwiic-otos
+# IMU + board interface libraries
+pip3 install adafruit-blinka adafruit-circuitpython-bno055 adafruit-circuitpython-bno08x
 ```
 
 ### **6.3 Install Battlepillars software**
 ```bash
-git clone https://github.com/Battlepillars/Wro.git
+git clone https://github.com/Battlepillars/Wro26.git
+cd Wro26/src/pi
+python3 main.py
 ```
+
+### **6.4 Build, compile and upload to the controllers**
+
+Our vehicle uses two controllers:
+- **Raspberry Pi CM5** (high-level logic in Python)
+- **STM32F411 BlackPill** (low-level control in C++/Arduino via PlatformIO)
+
+#### **A) CM5: Start control software**
+```bash
+cd Wro26/src/pi
+python3 main.py
+```
+
+#### **B) STM32: Compile and flash firmware**
+Prerequisites:
+- VS Code + PlatformIO extension
+- STM32 connected via ST-Link
+
+```bash
+cd Wro26/src/stm32
+
+# Compile firmware
+pio run
+
+# Upload firmware to STM32 via ST-Link
+pio run -t upload
+
+# Optional: monitor serial output
+pio device monitor -b 921600
+```
+
+#### **C) Data exchange between both controllers**
+- UART interface: `/dev/ttyAMA0`, **921600 Baud**
+- **STM32 -> CM5**: sensor data (ToF distance arrays, rps, voltage, distance)
+- **CM5 -> STM32**: actuator commands (speed, steer)
+
+With these steps, the workflow is fully documented: code creation/setup, compilation, and transfer/start on both controllers.
+
+### **6.5 Competition-day quick checklist (2 minutes)**
+1. Connect ST-Link and run `pio run -t upload` in `Wro26/src/stm32`.
+2. Power-cycle the robot and verify STM32 boots without serial errors.
+3. On CM5, start `python3 main.py` in `Wro26/src/pi`.
+4. Confirm UART link is alive: sensor values in UI update continuously (distance/rps/voltage).
+5. Press start trigger once and verify steering + motor response before placing on field.
