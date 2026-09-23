@@ -64,7 +64,7 @@ class Camera():
         
         # lower boundary RED color range values; Hue (0 - 10)
         #                          H    S    V
-        self.redlower1 = np.array([0,  150, 100]) #v 120->100
+        self.redlower1 = np.array([0,  150, 120]) #v 120->100
         self.redupper1 = np.array([10, 255, 255])
         
         # upper boundary RED color range values; Hue (160 - 180)
@@ -79,7 +79,7 @@ class Camera():
 
         #                             H    S   V
         self.lowerBlack = np.array([  0,   0,  0])  # H S V Min Wert für Schwarz
-        self.upperBlack = np.array([255, 255, 40])  # Max Wert für Schwarz,   v = 90
+        self.upperBlack = np.array([255, 255, 50])  # Max Wert für Schwarz,   v = 90            # v = 40   --change
                                                     # Letzter wert hier ist die maximale Helligkeit für schwarze Wände
                                                     # in Photoshop :
                                                     #   R = Value       - Helligkeit
@@ -272,9 +272,9 @@ class Camera():
         
         # Maske x: 500-1000, y: 300-800
         regionMask = np.zeros(self.baseImage.shape[:2], dtype=np.uint8)
-        regionMask[300:550, 400:1150] = 255
+        regionMask[260:510, 400:1150] = 255   # y: [300:550] 
         #           y          x    
-        return self.getObstacles(regionMask,800,540,1)
+        return self.getObstacles(regionMask,800,500,1)  # y: 540
         #                                    x   y
     def getObstacles1b(self):
         self.pictureNum += 1
@@ -286,11 +286,11 @@ class Camera():
         
         # Maske x: 500-1000, y: 300-800
         regionMask = np.zeros(self.baseImage.shape[:2], dtype=np.uint8)
-        regionMask[275:450, 500:1350] = 255
+        regionMask[225:400, 500:1350] = 255   #[275:450, 500:1350]
         #           y          x
         
-        return self.getObstacles(regionMask,800,440,3)
-        #                             x   y
+        return self.getObstacles(regionMask,800,390,3)
+        #                                    x   y
     def getObstacles4(self):
         self.pictureNum=4
         # Maske x: 500-1000, y: 300-800
@@ -303,10 +303,10 @@ class Camera():
         
         # Maske x: 500-1000, y: 300-800
         regionMask = np.zeros(self.baseImage.shape[:2], dtype=np.uint8)
-        regionMask[200:450, 500:1400] = 255
+        regionMask[200:450, 500:1400] = 255  # y: 200:450   x: 500:1400
         #           y          x
         
-        return self.getObstacles(regionMask,800,440,3)
+        return self.getObstacles(regionMask,800,440,3)  # 800,440
         #                             x   y
     def getObstacles4b(self):
         self.pictureNum=5

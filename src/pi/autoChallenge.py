@@ -1,6 +1,4 @@
-import time
-import math
-import obstacleChallengeSingle
+import obstacleChallenge
 import openChallenge
 
 from numpy import angle
@@ -17,6 +15,6 @@ def autoChallenge(parser: Parser, dC: DriveController, cam: Camera):
             break
     
     if frontDist < 300 and frontDist > 0:
-        obstacleChallengeSingle.obstacleChallengeSingle(parser, dC, cam)
+        obstacleChallenge.obstacleChallenge(parser, dC, cam)
     else:
         openChallenge.openChallenge(parser, dC)

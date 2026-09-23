@@ -4,7 +4,6 @@ import signal
 import time
 import openChallenge
 import obstacleChallenge
-import camTest
 import obstacleChallengeSingle
 import os
 import shutil
@@ -13,7 +12,7 @@ from autoChallenge import autoChallenge
 from parser import Parser
 from ui import Ui
 from driveController import DriveController
-from cameraAIO import Camera
+from cameraTower import Camera
 
 stop_event = threading.Event()
 start_event = threading.Event()
@@ -30,6 +29,8 @@ def main():
     manual = False
     speed = 0
     steer = 90
+    
+    servoTowerAngle = 135
     
     
     clock = pygame.time.Clock()
@@ -68,7 +69,7 @@ def main():
                     start_event.set()
                 if event.key == pygame.K_t:
                     if parser.uiType != parser.Capture_Dynamic:
-                        parser.loadImages
+                        parser.loadImages()
                         parser.uiType = parser.Capture_Dynamic
                     else:
                         parser.uiType = parser.Default
@@ -111,9 +112,15 @@ def main():
             else:
                 steer = 90
             
+            if keys[pygame.K_LEFT]:
+                servoTowerAngle -= 10
+            elif keys[pygame.K_RIGHT]:
+                servoTowerAngle += 10
+            
             # print("Speed: "+str(speed)+" Steer: "+str(steer))
             parser.setSpeed(speed)
             parser.setSteer(steer)
+            parser.setTowerAngle(servoTowerAngle)
 
         
         ui.draw(screen,parser,cam)
@@ -147,12 +154,16 @@ def controllLoop(parser,cam):
 
     print("Started")
     
+    # obstacleChallenge.detectObstaclesCCW(parser, cam)
+    
     # obstacleChallengeSingle.scanSimulation(parser, cam)
     # obstacleChallengeSingle.scanClockwiseSimulation(parser, cam)
     # obstacleChallengeSingle.scanCounterClockwiseSimulation(parser, cam )
-    autoChallenge(parser, dC, cam)
+    # autoChallenge(parser, dC, cam)
     
-    
+    cam.createQuadar(True)
+    # cam.loadImage("captureStore/1-0baseImage.jpg")
+    # cam.getObstacles("CW", 1)
     # camTest.test(parser, dC, cam)
     # cam.getNearestObstacle()
 

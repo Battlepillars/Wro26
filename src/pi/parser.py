@@ -1,8 +1,7 @@
 import serial # type: ignore
 import subprocess
 import time
-import os
-import json
+import math
 import board # type: ignore
 import busio # type: ignore
 import adafruit_bno055 # type: ignore
@@ -173,6 +172,53 @@ class Parser:
             if self.obstacles[i+section*3] != None:
                 return self.obstacles[i+section*3]
         return None
+    
+    def checkSectionAuto(self, section):
+        mirror = False
+        if self.Direction == self.CW:
+            mirror = True
+            if section == 1:
+                section = 3
+            elif section == 3:
+                section = 1
+        
+        rangeArgs = (2,-1,-1) if mirror else (0,3,1)
+        
+        for i in range(*rangeArgs):
+            if self.obstacles[i+section*3] != None:
+                return self.oppositeColor(self.obstacles[i + section*3], mirror)
+        return None
+    
+    def checkSectionMulti(self, section, mirror=False, colorMirror=False):
+        if mirror:
+            if section == 1:
+                section = 3
+            elif section == 3:
+                section = 1
+
+        rangeArgs = (2,-1,-1) if mirror else (0,3,1)
+        
+        obstacleList = [
+            self.oppositeColor(self.obstacles[i + section*3], colorMirror)
+            for i in range(*rangeArgs)
+            if self.obstacles[i+section*3] is not None
+        ]
+        if len(obstacleList) == 0:
+            obstacleList.append(self.GREEN)
+            print("!!! No obstacles in section " + str(section) + "!!!")
+        if len(obstacleList) == 1:
+            obstacleList.append(obstacleList[0])
+        return obstacleList
+    
+    def oppositeColor(self, color, condtion=True):
+        if condtion:
+            if color == self.RED:
+                return self.GREEN
+            if color == self.GREEN:
+                return self.RED
+            return None
+        else:
+            return color
 
     def colorName(self, color):
         if color == self.RED:
@@ -215,10 +261,22 @@ class Parser:
     def setSteer(self, angle):
         # bigger nummer = more left
 
-        # servoTrim = 0.1    # battlecart 1
-        servoTrim = 5.5    # battlecart 2
+        # servoTrim = 0.1    # car 1
+        servoTrim = 5.5    # car 2
         angle += servoTrim
         self.send("servo,"+str(angle)+"\n")
+        
+    def setTowerAngle(self, angle):
+        servoTrim = 0
+        angle += servoTrim
+        
+        pulseWidthMin = 550     # ab 545 dreht er sich wild   # 400 min theoretically
+        pulseWidthMax = 2600
+        angleMin = 0
+        angleMax = 270
+        pulseWidth = min(pulseWidthMax, max(pulseWidthMin, (pulseWidthMax-pulseWidthMin) * (angle-angleMin) / (angleMax-angleMin) + pulseWidthMin))
+        
+        self.send("servo_tower,"+str(pulseWidth)+"\n")  # 400-2600 / 0-270
     
     def setLowVoltageCheck(self, checkVoltage: bool):
         self.send("checkVoltage,"+str(int(checkVoltage))+"\n")

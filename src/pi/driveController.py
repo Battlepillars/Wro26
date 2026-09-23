@@ -34,8 +34,9 @@ class DriveController:
         DriveController.leftWall = parser.leftSensor
         DriveController.backWall = parser.backSensor
         
-        self.topSpeed = 1.8
-        self.acceleration = 1
+        self.defaultTopSpeed = 1.8
+        self.topSpeed = self.defaultTopSpeed
+        self.acceleration = 3
         self.deacceleration = 8
         self.setpoint = 0
         self.targetSpeed = 0
@@ -64,6 +65,20 @@ class DriveController:
         return False
     
     # start helper functions:
+    
+    def convertDir(self, parser: Parser, dir):
+        convertDic = {
+            self.angleLeftWall: self.angleRightWall,
+            self.angleRightWall: self.angleLeftWall,
+            self.leftWall: self.rightWall,
+            self.rightWall: self.leftWall,
+            self.frontWall: self.backWall,
+            self.backWall: self.frontWall,
+        }
+        if parser.Direction == parser.CW:
+            return convertDic[dir]
+        else:
+            return dir
     
     def getDist(self, poses:list, row, wallDir = frontWall, mode = biggest):
         """Return the selected distance sample from one camera row across the given column indices."""
@@ -317,7 +332,7 @@ class DriveController:
                 
             self.logCountetr += 1
             diff=0
-            if  (val < 10000):
+            if (val < 10000):
                 diff = lastVal-val
                 remaining=val-dist
 
@@ -327,12 +342,13 @@ class DriveController:
             
             self.logStuff(f"ToWall: {lastVal:.0f}, Dist: {dist},minDist: {minDist}, Heading:{heading} / {self.parser.getHeading():.0f}, Speed: {self.parser.speed:.2f}, traveled: {traveled:.0f}, minTravel: {minTravel} ")
         self.logger.logTof(self.parser, wallDir)
-
+        if self.end():
+            return False
 
         self.resetAvoidWall()
         
-        if self.end():
-            return False
+        return False
+
     
     def driveAwayFromWall(self, speed, heading, dist, wallDir = backWall):
         """Drive away from a wall until rear camera samples no longer detect it within range."""
