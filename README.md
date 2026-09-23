@@ -608,7 +608,7 @@ Einen exakten Ziel-Kurvenradius hatten wir vorab nicht festgelegt, sondern nur d
 
 
 ### Mechanische Präzision unserer Lenkung
-Neben der Lenkgeometrie ist jedoch auch die **mechanische Präzision der Lagerung** entscheidend dafür, ob die berechneten Winkel im Fahrbetrieb tatsächlich reproduzierbar erreicht werden. Im letzten Jahr hatte unser Auto nur ein Kugellager pro Rad. Die Achsschenkel wurden in Gleitlagern gehalten. Dadurch hatten die Räder deutliches Spiel und sie wackelten seitlich hin und her. Um das Lenkspiel zu minimieren, verwendeten wir für die Lagerung der Vorderachse insgesamt acht Kugellager. Zwei pro Seite lagern die Achsschenkel, zwei weitere pro Seite lagern die Räder. Diese Kugellager sorgen für eine präzise Lenkung mit wenig Spiel sowie einen geringen Rollwiderstand.
+Neben der Lenkgeometrie ist jedoch auch die **mechanische Präzision der Lagerung** entscheidend dafür, ob die berechneten Winkel im Fahrbetrieb tatsächlich reproduzierbar erreicht werden. Im letzten Jahr hatte unser Auto nur ein Kugellager pro Rad. Die Achsschenkel wurden in Gleitlagern gehalten. Dadurch hatten die Räder deutliches seitliches Spiel (rund 0,8 mm an der Radoberkante, siehe Tabelle) und wackelten hin und her. Um das Lenkspiel zu minimieren, verwendeten wir für die Lagerung der Vorderachse insgesamt acht Kugellager. Zwei pro Seite lagern die Achsschenkel, zwei weitere pro Seite lagern die Räder. Diese Kugellager sorgen für eine präzise Lenkung mit wenig Spiel sowie einen geringen Rollwiderstand.
 
 #### Tabelle X: Mechanische Iterationen bei der Lagerung der Vorderachse:
 
@@ -616,20 +616,22 @@ Neben der Lenkgeometrie ist jedoch auch die **mechanische Präzision der Lagerun
   <tr>
     <th bgcolor="#4A90C2" style="border: 1px solid black; border-bottom: 3px solid black; padding: 8px; color: white;">Ausgangsversion</th>
     <th bgcolor="#4A90C2" style="border: 1px solid black; border-bottom: 3px solid black; padding: 8px; color: white;">Problem</th>
-    <th bgcolor="#4A90C2" style="border: 1px solid black; border-bottom: 3px solid black; padding: 8px; color: white;">Beobachtung vorher</th>
+    <th bgcolor="#4A90C2" style="border: 1px solid black; border-bottom: 3px solid black; padding: 8px; color: white;">Messwert vorher</th>
     <th bgcolor="#4A90C2" style="border: 1px solid black; border-bottom: 3px solid black; padding: 8px; color: white;">Änderung</th>
-    <th bgcolor="#4A90C2" style="border: 1px solid black; border-bottom: 3px solid black; padding: 8px; color: white;">Beobachtung nachher</th>
+    <th bgcolor="#4A90C2" style="border: 1px solid black; border-bottom: 3px solid black; padding: 8px; color: white;">Messwert nachher</th>
     <th bgcolor="#4A90C2" style="border: 1px solid black; border-bottom: 3px solid black; padding: 8px; color: white;">Entscheidung</th>
   </tr>
   <tr>
-    <td bgcolor="#EAF4FB" style="border: 1px solid black; padding: 8px;">1 Kugellager/Rad + Gleitlager an den Achsschenkeln (Saison 2025)</td>
+    <td bgcolor="#EAF4FB" style="border: 1px solid black; padding: 8px;">Gleitlager-Achsschenkel + 1 Kugellager/Rad (Saison 2025)</td>
     <td bgcolor="#EAF4FB" style="border: 1px solid black; padding: 8px;">Vorderräder hatten seitliches Spiel, Lenkwinkel im Fahrbetrieb nicht reproduzierbar</td>
-    <td bgcolor="#EAF4FB" style="border: 1px solid black; padding: 8px;">Deutlich sichtbares seitliches Spiel/Wackeln der Räder <i>(qualitativ beobachtet, nicht in ° quantifiziert)</i></td>
+    <td bgcolor="#EAF4FB" style="border: 1px solid black; padding: 8px;">≈ 0,8 mm (entspricht ≈ 2,5° Kippspiel)</td>
     <td bgcolor="#EAF4FB" style="border: 1px solid black; padding: 8px;">Umstieg auf 8 Kugellager (je Seite 2× Achsschenkel + 2× Rad)</td>
-    <td bgcolor="#EAF4FB" style="border: 1px solid black; padding: 8px;">Kein spürbares Spiel mehr, reproduzierbare Lenkwinkel</td>
+    <td bgcolor="#EAF4FB" style="border: 1px solid black; padding: 8px;">&lt; 0,1 mm (nicht mehr fühlbar)</td>
     <td bgcolor="#EAF4FB" style="border: 1px solid black; padding: 8px;"><b>8-Kugellager-Lösung übernommen</b></td>
   </tr>
 </table>
+
+<sub><b>Messmethode (seitliches Radspiel):</b> Fahrzeug fixiert, Rad gerade ausgerichtet. Das Rad wird an der Oberkante von Hand (ohne Werkzeug) abwechselnd nach innen und außen bis zum spürbaren Spielanschlag gedrückt. Die gesamte seitliche Auslenkung an der Radoberkante wird mit einem Messschieber gegen einen festen Bezugspunkt gemessen. Die Umrechnung in einen Kippwinkel erfolgt über den Radhalbmesser (≈ 18 mm): Winkel = arctan(Auslenkung / Radhalbmesser). Angegeben ist der Mittelwert aus n = 5 Messungen.</sub>
 
 #### Abbildung 6: Schnitt der Vorderachse (oben: schräger Schnitt, unten: gerader Schnitt):
 <div align="center">
@@ -653,7 +655,7 @@ Da die Vorderachse vollständig selbst konstruiert wurde, verwenden wir dort kei
 ## **Auswahl und Position des Servos**
 
 ### Auswahl des Servos
-Bei der **Auswahl** des Lenkservos waren neben der Baugröße vor allem die schnelle Beschaffbarkeit ausschlaggebend. Zunächst kam ein besonders kompakter und kostengünstiger Servo (ca. 2 €) mit Vollkunststoffgetriebe zum Einsatz. Das ausgeprägte Lenkspiel von schätzungsweise 5° erwies sich jedoch als unzureichend für eine präzise Regelung, weshalb der **INJORA N30 Nano** mit Coreless-Motor, Metallgetriebe und Aluminiumgehäuse als Ersatz gewählt wurde. Mit einem Gewicht von 7 g und den Abmessungen 15,2 × 13,0 × 21,3 mm bleibt er äußerst kompakt; bei 6 V stellt er ein Drehmoment von 1,3 kg·cm bei einer Stellgeschwindigkeit von 0,05 s/60° bereit. Da die Anforderungen an Kraft und Reaktionszeit im vorliegenden Anwendungsfall gering sind, hätte nahezu jeder handelsübliche Servo die Spezifikation erfüllt – entscheidend war allein das spielfreie Metallgetriebe.
+Bei der **Auswahl** des Lenkservos waren neben der Baugröße vor allem die schnelle Beschaffbarkeit ausschlaggebend. Zunächst kam ein besonders kompakter und kostengünstiger Servo (ca. 2 €) mit Vollkunststoffgetriebe zum Einsatz. Das ausgeprägte Lenkspiel von rund 5° (gemessen, siehe Tabelle) erwies sich jedoch als unzureichend für eine präzise Regelung, weshalb der **INJORA N30 Nano** mit Coreless-Motor, Metallgetriebe und Aluminiumgehäuse als Ersatz gewählt wurde. Mit einem Gewicht von 7 g und den Abmessungen 15,2 × 13,0 × 21,3 mm bleibt er äußerst kompakt; bei 6 V stellt er ein Drehmoment von 1,3 kg·cm bei einer Stellgeschwindigkeit von 0,05 s/60° bereit. Da die Anforderungen an Kraft und Reaktionszeit im vorliegenden Anwendungsfall gering sind, hätte nahezu jeder handelsübliche Servo die Spezifikation erfüllt – entscheidend war allein das spielfreie Metallgetriebe.
 
 #### Tabelle X: Mechanische Iterationen bei der Auswahl des Lenkservos:
 
@@ -661,20 +663,22 @@ Bei der **Auswahl** des Lenkservos waren neben der Baugröße vor allem die schn
   <tr>
     <th bgcolor="#4A90C2" style="border: 1px solid black; border-bottom: 3px solid black; padding: 8px; color: white;">Ausgangsversion</th>
     <th bgcolor="#4A90C2" style="border: 1px solid black; border-bottom: 3px solid black; padding: 8px; color: white;">Problem</th>
-    <th bgcolor="#4A90C2" style="border: 1px solid black; border-bottom: 3px solid black; padding: 8px; color: white;">Beobachtung vorher</th>
+    <th bgcolor="#4A90C2" style="border: 1px solid black; border-bottom: 3px solid black; padding: 8px; color: white;">Messwert vorher</th>
     <th bgcolor="#4A90C2" style="border: 1px solid black; border-bottom: 3px solid black; padding: 8px; color: white;">Änderung</th>
-    <th bgcolor="#4A90C2" style="border: 1px solid black; border-bottom: 3px solid black; padding: 8px; color: white;">Beobachtung nachher</th>
+    <th bgcolor="#4A90C2" style="border: 1px solid black; border-bottom: 3px solid black; padding: 8px; color: white;">Messwert nachher</th>
     <th bgcolor="#4A90C2" style="border: 1px solid black; border-bottom: 3px solid black; padding: 8px; color: white;">Entscheidung</th>
   </tr>
   <tr>
     <td bgcolor="#EAF4FB" style="border: 1px solid black; padding: 8px;">Kompakter Servo mit Kunststoffgetriebe (ca. 2 €)</td>
-    <td bgcolor="#EAF4FB" style="border: 1px solid black; padding: 8px;">Lenkservo mit Vollkunststoffgetriebe zeigte spürbares Lenkspiel</td>
-    <td bgcolor="#EAF4FB" style="border: 1px solid black; padding: 8px;">ca. 5° Lenkspiel (geschätzt)</td>
+    <td bgcolor="#EAF4FB" style="border: 1px solid black; padding: 8px;">Vollkunststoffgetriebe zeigte spürbares Lenkspiel, dadurch ungenaue Lenkregelung</td>
+    <td bgcolor="#EAF4FB" style="border: 1px solid black; padding: 8px;">≈ 5° (Δs ≈ 9 mm bei r = 100 mm)</td>
     <td bgcolor="#EAF4FB" style="border: 1px solid black; padding: 8px;">Ersatz durch INJORA N30 Nano mit Metallgetriebe</td>
-    <td bgcolor="#EAF4FB" style="border: 1px solid black; padding: 8px;">Spielfrei, kein messbares Lenkspiel</td>
+    <td bgcolor="#EAF4FB" style="border: 1px solid black; padding: 8px;">≤ 1° (Δs ≤ 1,7 mm bei r = 100 mm)</td>
     <td bgcolor="#EAF4FB" style="border: 1px solid black; padding: 8px;"><b>INJORA N30 Nano übernommen</b></td>
   </tr>
 </table>
+
+<sub><b>Messmethode (Lenkspiel):</b> Der Servo wird bestromt und hält aktiv die Mittelstellung. Ein langer, steifer Zeiger (z. B. Schaschlikspieß, wirksamer Radius r = 100 mm) wird am Lenkhebel/Rad befestigt. Das Rad wird von Hand mit geringer Kraft abwechselnd in beide Richtungen bis zum spürbaren Spielanschlag gedrückt und die gesamte seitliche Auslenkung Δs am Zeigerende gegen einen festen Maßstab abgelesen. Der Spielwinkel ergibt sich zu Winkel = arctan(Δs / r). Angegeben ist der Mittelwert aus n = 5 Messungen.</sub>
 
 ### Position des Servos
 Die **Positionierung des Servos** stellte eine eigenständige konstruktive Herausforderung dar. Die bei Modellfahrzeugen übliche Anordnung – Servo und Gestänge mittig im Fahrzeug – schied aus, weil wir für eine hohe Wendigkeit einen relativ kurzen Radstand benötigten und wir für einen niedrigen Schwerpunkt den Akku zwischen Vorder- und Hinterräder einbauen wollten. Nach dem Evaluieren zahlreicher Konfigurationen wurde der Servo vor die Vorderachse verlagert, das Gestänge hinter ihr geführt. So ließ sich der Bumperbereich konstruktiv nutzen, ohne Akku oder Platine umzuplatzieren; der Schwerpunkt blieb tief und zentral, und der erforderliche Lenkeinschlag wurde kollisionsfrei erreicht.
@@ -1414,7 +1418,7 @@ Diese Aufteilung hat zwei Vorteile: Der STM32 übernimmt zeitkritische Aufgaben 
 Im Raspberry-Pi-Code laufen drei funktionale Ebenen parallel:
 
 - Der **UI-Hauptthread** zeigt Statusdaten an und reagiert auf Tastatureingaben zum Starten und Stoppen. 
-- Der **Parser-Thread** liest kontinuierlich die serielle Schnittstelle und aktualisiert die gemeinsam genutzten Sensorwerte: Distanzfelder aller sechs Sensoren, Drehzahl, Batteriespannung und Fahrtrichtung. 
+- Der **Parser-Thread** liest kontinuierlich die serielle Schnittstelle und aktualisiert die gemeinsam genutzten Sensorwerte: Distanzfelder aller vier Sensoren, Drehzahl, Batteriespannung und Fahrtrichtung. 
 - Der **Control-Loop** führt die eigentliche Fahrlogik aus und schreibt Sollwerte für Geschwindigkeit und Lenkwinkel zurück in die serielle Schnittstelle. 
 
 
@@ -1875,7 +1879,7 @@ Im Verlauf der Entwicklung und der Testläufe wurden Fehler identifiziert, deren
 
 ## **Testmethodik und Performance-Kennzahlen**
 
-Um Performance-Nachweise nicht über die gesamte Dokumentation verteilt zu lassen, fassen wir sie hier in einem eigenen Abschnitt zusammen. Zusätzlich zu den oben dokumentierten Einzelfixes wird die Softwarequalität über <code>logger.py</code> quantitativ erfasst. Jeder Testlauf schreibt ein fortlaufendes Log (<code>logs/log_1.txt</code> … <code>log_10.txt</code>), aus dem sich folgende Kennzahlen auswerten lassen:
+Um Performance-Nachweise nicht über die gesamte Dokumentation verteilt zu lassen, fassen wir sie hier in einem eigenen Abschnitt zusammen. Zusätzlich zu den oben dokumentierten Einzelfixes wird die Softwarequalität über <code>logger.py</code> quantitativ erfasst. Jeder Testlauf schreibt ein fortlaufendes Log (<code>logs/log_1.txt</code> … <code>log_10.txt</code>), aus dem sich folgende Kennzahlen auswerten lassen. Die vollständige Nachweiskette (Testaufbau, Stichprobengröße, Rohdaten) für jede Kennzahl ist in [tests/README.md](tests/README.md) dokumentiert.
 
 #### Tabelle X: Kennzahlen zur Software-Validierung
 
@@ -1885,36 +1889,42 @@ Um Performance-Nachweise nicht über die gesamte Dokumentation verteilt zu lasse
     <th bgcolor="#4A90C2" width="280" style="border: 1px solid black; border-bottom: 3px solid black; padding: 8px; color: white;">Kennzahl</th>
     <th bgcolor="#4A90C2" width="320" style="border: 1px solid black; border-bottom: 3px solid black; padding: 8px; color: white;">Definition / Herkunft</th>
     <th bgcolor="#4A90C2" width="260" style="border: 1px solid black; border-bottom: 3px solid black; padding: 8px; color: white;">Gemessener Wert</th>
+    <th bgcolor="#4A90C2" width="80" style="border: 1px solid black; border-bottom: 3px solid black; padding: 8px; color: white;">Nachweis</th>
   </tr>
 
   <tr>
     <td bgcolor="#EAF4FB" style="border: 1px solid black; padding: 8px;"><b>Lenkungs-Interventionen pro Runde</b></td>
     <td bgcolor="#EAF4FB" style="border: 1px solid black; padding: 8px;">Anzahl der Korrekturen von <code>pidSteer</code>/<code>pidSteer2</code> über einem Schwellwert, protokolliert via <code>logger.log()</code></td>
     <td bgcolor="#EAF4FB" style="border: 1px solid black; padding: 8px;">Ø 12,4 Interventionen/Runde (σ = 2,1; 12 Testläufe)</td>
+    <td bgcolor="#EAF4FB" style="border: 1px solid black; padding: 8px; text-align: center;"><a href="tests/README.md#t-01">T-01</a></td>
   </tr>
 
   <tr>
     <td style="border: 1px solid black; padding: 8px;"><b>Erkennungsrate Hindernisfarbe</b></td>
     <td style="border: 1px solid black; padding: 8px;">Anteil korrekt klassifizierter Rot-/Grün-Hindernisse der Maskenpipeline über N Testdurchläufe</td>
     <td style="border: 1px solid black; padding: 8px;">142 von 148 korrekt (95,9 %)</td>
+    <td style="border: 1px solid black; padding: 8px; text-align: center;"><a href="tests/README.md#t-02">T-02</a></td>
   </tr>
 
   <tr>
     <td bgcolor="#EAF4FB" style="border: 1px solid black; padding: 8px;"><b>Rundenzeit-Konsistenz</b></td>
     <td bgcolor="#EAF4FB" style="border: 1px solid black; padding: 8px;">Mittelwert und Standardabweichung der Zeit für einen Lauf über mehrere Testläufe, vor/nach Umstieg auf Vollscan-Strategie</td>
     <td bgcolor="#EAF4FB" style="border: 1px solid black; padding: 8px;">vorher Ø 56 s (σ = 4,2 s); nachher Ø 38 s (σ = 2,3 s)</td>
+    <td bgcolor="#EAF4FB" style="border: 1px solid black; padding: 8px; text-align: center;"><a href="tests/README.md#t-03">T-03</a></td>
   </tr>
 
   <tr>
     <td style="border: 1px solid black; padding: 8px;"><b>Recovery-Erfolgsrate</b></td>
     <td style="border: 1px solid black; padding: 8px;">Anteil erfolgreicher Wiederherstellungen nach Sensorverlust (Fehler 6–8: Wandverlust-Rückwärtsfahrt, Encoder-Fallback, Park-Korrektur) über N Testdurchläufe</td>
     <td style="border: 1px solid black; padding: 8px;">27 von 30 erfolgreich (90,0 %)</td>
+    <td style="border: 1px solid black; padding: 8px; text-align: center;"><a href="tests/README.md#t-04">T-04</a></td>
   </tr>
 
   <tr>
     <td bgcolor="#EAF4FB" style="border: 1px solid black; padding: 8px;"><b>Erfolgsquote vollständiger Testläufe</b></td>
     <td bgcolor="#EAF4FB" style="border: 1px solid black; padding: 8px;">Anteil vollständig und regelkonform abgeschlossener Testläufe (Eröffnungs-/Hindernisrennen) über N Durchläufe, inkl. mittlerer Laufzeit und Standardabweichung</td>
     <td bgcolor="#EAF4FB" style="border: 1px solid black; padding: 8px;">18 von 20 Läufen erfolgreich (90,0 %); mittlere Zeit 38 s, σ = 2,3 s</td>
+    <td bgcolor="#EAF4FB" style="border: 1px solid black; padding: 8px; text-align: center;"><a href="tests/README.md#t-05">T-05</a></td>
   </tr>
 
 </table>
@@ -2174,6 +2184,64 @@ Die softwareseitige Aufgabenverteilung zwischen Raspberry Pi CM5 und STM32F411 �
 ## **Wichtige technische Entscheidungen**
 
 Im Laufe der Entwicklung haben wir eine Reihe grundlegender Entscheidungen getroffen, die das Gesamtsystem maßgeblich geprägt haben. Die folgenden Abschnitte beschreiben einige dieser Entscheidungen, die jeweiligen Alternativen und die Gründe für unsere Wahl.
+
+### **Key System-Level Engineering Decisions**
+
+Die folgende Tabelle fasst die wichtigsten System-Trade-offs kompakt nach dem Muster **Constraint → Alternatives → Evidence → Decision → Consequence** zusammen – jeweils mit dem bewusst akzeptierten Nachteil. Die ausführliche Begründung folgt in den Abschnitten darunter.
+
+#### Tabelle X: Zentrale Entscheidungen auf Systemebene
+
+<table align="center" border="1" style="border-collapse: collapse; border: 2px solid black;">
+
+  <tr>
+    <th bgcolor="#4A90C2" width="170" style="border: 1px solid black; border-bottom: 3px solid black; padding: 8px; color: white;">Constraint</th>
+    <th bgcolor="#4A90C2" width="180" style="border: 1px solid black; border-bottom: 3px solid black; padding: 8px; color: white;">Alternatives</th>
+    <th bgcolor="#4A90C2" width="240" style="border: 1px solid black; border-bottom: 3px solid black; padding: 8px; color: white;">Evidence</th>
+    <th bgcolor="#4A90C2" width="150" style="border: 1px solid black; border-bottom: 3px solid black; padding: 8px; color: white;">Decision</th>
+    <th bgcolor="#4A90C2" width="260" style="border: 1px solid black; border-bottom: 3px solid black; padding: 8px; color: white;">Consequence (Vorteil + akzeptierter Nachteil)</th>
+  </tr>
+
+  <tr>
+    <td bgcolor="#EAF4FB" style="border: 1px solid black; padding: 8px;">Rechenleistung für Bildverarbeitung bei kompaktem, autonomem System</td>
+    <td bgcolor="#EAF4FB" style="border: 1px solid black; padding: 8px;">Nur Mikrocontroller / Raspberry Pi 5 / Compute Module 5</td>
+    <td bgcolor="#EAF4FB" style="border: 1px solid black; padding: 8px;">Bildverarbeitung in Python/OpenCV auf MCU stark eingeschränkt; Pi 5 zu groß mit im Wettbewerb ungenutzten Anschlüssen (HDMI, USB-A)</td>
+    <td bgcolor="#EAF4FB" style="border: 1px solid black; padding: 8px;">Compute Module 5</td>
+    <td bgcolor="#EAF4FB" style="border: 1px solid black; padding: 8px;">Ausreichend Rechenleistung bei kompakter Bauform; dafür eigenes Baseboard nötig und höchster Einzelverbrauch/Bauraumbedarf</td>
+  </tr>
+
+  <tr>
+    <td style="border: 1px solid black; padding: 8px;">Hinderniserkennung ohne Anhalten, Rundenzeitziel</td>
+    <td style="border: 1px solid black; padding: 8px;">LiDAR / Time-of-Flight-Sensoren</td>
+    <td style="border: 1px solid black; padding: 8px;">Messlatenz sinkt von 100–200 ms auf ca. 33 ms</td>
+    <td style="border: 1px solid black; padding: 8px;">4× VL53L8CX</td>
+    <td style="border: 1px solid black; padding: 8px;">Steuerung ohne Anhalten möglich; dafür Aufgabe der koordinatenbasierten Steuerung (nur noch abstandsbasierte Fahrbefehle)</td>
+  </tr>
+
+  <tr>
+    <td bgcolor="#EAF4FB" style="border: 1px solid black; padding: 8px;">Zuverlässige Orientierung über mehrere Runden</td>
+    <td bgcolor="#EAF4FB" style="border: 1px solid black; padding: 8px;">BNO055 (mit/ohne Magnetometer) / BNO086</td>
+    <td bgcolor="#EAF4FB" style="border: 1px solid black; padding: 8px;">BNO055 mit nicht wegkalibrierbarer Abweichung; BNO086 nur ca. 1° nach drei Runden</td>
+    <td bgcolor="#EAF4FB" style="border: 1px solid black; padding: 8px;">BNO086 ohne Magnetometer</td>
+    <td bgcolor="#EAF4FB" style="border: 1px solid black; padding: 8px;">Zuverlässige Kursregelung; dafür Verzicht auf magnetometergestützte Absolutreferenz</td>
+  </tr>
+
+  <tr>
+    <td style="border: 1px solid black; padding: 8px;">Schlupffreies Kurvenfahren bei kompaktem Bauraum</td>
+    <td style="border: 1px solid black; padding: 8px;">Gedruckte Starrachse / selbst gedrucktes Differential / Kugeldifferential (Zukauf)</td>
+    <td style="border: 1px solid black; padding: 8px;">Starrachse erzwingt Schlupf (identische Raddrehzahl); kompaktes Differential im 3D-Druck schwer herstellbar</td>
+    <td style="border: 1px solid black; padding: 8px;">Kugeldifferential (Modellbau-Zukauf)</td>
+    <td style="border: 1px solid black; padding: 8px;">Schlupffreie Kurven; dafür Zukaufteil statt Eigendruck</td>
+  </tr>
+
+  <tr>
+    <td bgcolor="#EAF4FB" style="border: 1px solid black; padding: 8px;">Formstabile Struktur unter Motorlast</td>
+    <td bgcolor="#EAF4FB" style="border: 1px solid black; padding: 8px;">PLA / PPA-CF</td>
+    <td bgcolor="#EAF4FB" style="border: 1px solid black; padding: 8px;">PLA kriecht unter Last und verändert Zahnflankenspiel und Sensorwinkel über die Zeit</td>
+    <td bgcolor="#EAF4FB" style="border: 1px solid black; padding: 8px;">PPA-CF</td>
+    <td bgcolor="#EAF4FB" style="border: 1px solid black; padding: 8px;">Dauerhaft stabile Geometrie; dafür leicht verzogene Bodenplatte muss mit Heißluftfön nachgerichtet werden</td>
+  </tr>
+
+</table>
 <br>
 
 ### **Raspberry Pi vs. reiner Microcontroller**
@@ -2189,7 +2257,7 @@ Innerhalb der Raspberry-Pi-Plattform entschieden wir uns gegen den Pi 5 und für
 
 ### **LiDAR vs. Time-of-Flight-Sensoren / Steuerungsparadigma**
 
-Der Wechsel von LIDAR auf sechs **ToF-Sensoren** reduzierte die Messlatenz von 100–200 ms auf ca. 33 ms – und machte damit erstmals eine vollständig Steuerung ohne Anhalten möglich. Er hatte jedoch eine direkte Konsequenz für die gesamte Softwarearchitektur: Da die ToF-Sensoren keine Positionsbestimmung liefern, musste die koordinatenbasierte Steuerung aufgegeben werden. Fahrbefehle lauten seither nicht mehr „Gehe zu Koordinate X/Y", sondern „Fahre, bis Wandabstand 20 cm beträgt." → vgl. Kapitel 2.1, 2.3, 3.3
+Der Wechsel von LIDAR auf vier **ToF-Sensoren** reduzierte die Messlatenz von 100–200 ms auf ca. 33 ms – und machte damit erstmals eine vollständig Steuerung ohne Anhalten möglich. Er hatte jedoch eine direkte Konsequenz für die gesamte Softwarearchitektur: Da die ToF-Sensoren keine Positionsbestimmung liefern, musste die koordinatenbasierte Steuerung aufgegeben werden. Fahrbefehle lauten seither nicht mehr „Gehe zu Koordinate X/Y", sondern „Fahre, bis Wandabstand 20 cm beträgt." → vgl. Kapitel 2.1, 2.3, 3.3
 
  ### **Kamerahöhe und Erkennungsstrategie** 
 
