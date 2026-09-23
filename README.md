@@ -1,3 +1,5 @@
+<div align="left">
+
 # Table of contents
 
 <ul dir="auto">
@@ -224,8 +226,8 @@
 
 # **The team** 
 <div align="center">
-    <a href="img/freigestellt.png" target="_blank">
-        <img width="800" src="img/freigestellt.png">
+    <a href="img/teamname.jpg" target="_blank">
+        <img width="800" src="img/teamname.jpg">
     </a>
 </div>
 In this repository, you’ll find the documentation for the robot created by the "Battlepillars" for the 2026 World Robot Olympiad Future Engineers competition. The robot was the result of a collaborative effort by three students.
@@ -273,16 +275,21 @@ My part of the team effort is the documentation and images you'll see below.
         <img width="500" src="img/team.png">
     </a>
 </div>
+<br>
 
 
+# **Videos of the robot**
 
-# **The robot**
-## **Photo of the robot**
-<div align="center">
-    <a href="img/sechs_ansichten Kopie.jpg" target="_blank">
-        <img width="500" src="img/sechs_ansichten Kopie.jpg">
-    </a>
-<br><br><br>
+Die folgenden Videos zeigen das Fahrzeug im autonomen Betrieb (Fahrdemonstration jeweils mindestens 30 Sekunden), ein Video pro Wertungslauf:
+
+| Wertungslauf | Link |
+|---|---|
+| Open Challenge | ⚠️ **PLATZHALTER – YouTube-Link ergänzen** |
+| Obstacle Challenge | ⚠️ **PLATZHALTER – YouTube-Link ergänzen** |
+
+Bereits vorhandenes Video (Zuordnung zum jeweiligen Wertungslauf bitte noch prüfen und Tabelle oben entsprechend befüllen): https://www.youtube.com/watch?v=J5yrJuZZ5P8
+
+<br><br>
 
 # **1. Mobilität und Mechanik**
 
@@ -302,6 +309,28 @@ Das **Chassis** wurde in Fusion 360 konstruiert. Während der Entwicklung wurde 
 In der finalen Version wurde das Chassis aus **PPA-CF-Filament** gefertigt. PPA-CF ist deutlich steifer und kriecht nicht. Dadurch verändern sich die Winkel von Kamera und Sensoren nicht durch ein Durchbiegen des Chassis. Das verbessert die Reproduzierbarkeit der Sensordaten und sorgt für konsistentere Messwerte über den gesamten Lauf. 
 <br><br>
 Allerdings ergab sich dadurch ein neues Problem. Wenn die Radaufhängung nicht ganz genau gleich hoch war oder die Bodenplatte minimal verzogen war, schwebte ein Rad durch die extreme Steifheit des Materials leicht in der Luft und drehte durch. Bei den vorherigen Versionen in PLA wurde diese Problematik durch die federnden Eigenschaften des Materials ausgeglichen. Da wir aber auf die positiven Eigenschaften des PPA-CF-Filaments in Bezug auf die Sensordaten nicht verzichten wollten, erhitzten wir die Bodenplatte mit einem Heißluftfön und bogen diese vorsichtig, bis alle Räder guten Bodenkontakt hatten.
+
+#### Tabelle X: Mechanische Iterationen bei der Konstruktion des Chassis:
+
+<table align="center" border="1" style="border-collapse: collapse; border: 2px solid black; margin: 12px 0;">
+  <tr>
+    <th bgcolor="#4A90C2" style="border: 1px solid black; border-bottom: 3px solid black; padding: 8px; color: white;">Ausgangsversion</th>
+    <th bgcolor="#4A90C2" style="border: 1px solid black; border-bottom: 3px solid black; padding: 8px; color: white;">Problem</th>
+    <th bgcolor="#4A90C2" style="border: 1px solid black; border-bottom: 3px solid black; padding: 8px; color: white;">Beobachtung vorher</th>
+    <th bgcolor="#4A90C2" style="border: 1px solid black; border-bottom: 3px solid black; padding: 8px; color: white;">Änderung</th>
+    <th bgcolor="#4A90C2" style="border: 1px solid black; border-bottom: 3px solid black; padding: 8px; color: white;">Beobachtung nachher</th>
+    <th bgcolor="#4A90C2" style="border: 1px solid black; border-bottom: 3px solid black; padding: 8px; color: white;">Entscheidung</th>
+  </tr>
+  <tr>
+    <td bgcolor="#EAF4FB" style="border: 1px solid black; padding: 8px;">Chassis aus PLA</td>
+    <td bgcolor="#EAF4FB" style="border: 1px solid black; padding: 8px;">Motorhalterung verzog sich unter Dauerbelastung, Zahnflankenspiel driftete aus der Toleranz</td>
+    <td bgcolor="#EAF4FB" style="border: 1px solid black; padding: 8px;">Spiel veränderte sich messbar nach wenigen Fahrten (Kriechen), Motor lief unrund</td>
+    <td bgcolor="#EAF4FB" style="border: 1px solid black; padding: 8px;">Wechsel des Filaments zu PPA-CF</td>
+    <td bgcolor="#EAF4FB" style="border: 1px solid black; padding: 8px;">Zahnflankenspiel konstant, aber neues Problem: Rad schwebt leicht in der Luft, da Bodenplatte zu steif</td>
+ </td>
+    <td bgcolor="#EAF4FB" style="border: 1px solid black; padding: 8px;"><b>PPA-CF beibehalten; neues Problem durch manuelles Ausgleichsbiegen der Bodenplatte gelöst</b></td>
+  </tr>
+</table>
 <br>
 
 ### **Iteration der Bodenplatte**
@@ -312,7 +341,7 @@ Zu Beginn bestand die **Bodenplatte** nur aus einem einfachen Rechteck. Diese er
 
 <div align="center">
     <a href="img/iterationen_bodenplatte_eng.png" target="_blank">
-        <img width="500" src="img/iterationen_bodenplatte_eng.png" alt="Obstacle’s acceptable angle window">
+        <img width="600" src="img/iterationen_bodenplatte_eng.png" alt="Obstacle’s acceptable angle window">
     </a>
 </div>
 
@@ -326,12 +355,12 @@ Das **Chassis ist in drei Ebenen** aufgeteilt, die eine kompakte und übersichtl
 <br>
 
 Das fertige Fahrzeug mit allen Komponenten (Platine, Akku, Raspberry Pi CM5, Sensoren, Kamera) hat ein **Gesamtgewicht von ca. 450 g**. 
-<br><br>
+<br>
 #### Abbildung 2: Aufbau des Roboters:
 
 <div align="center">
     <a href="img/ebenen_eng.png" target="_blank">
-        <img width="500" src="img/ebenen_eng.png" alt="Obstacle’s acceptable angle window">
+        <img width="600" src="img/ebenen_eng.png" alt="Obstacle’s acceptable angle window">
     </a>
 </div>
 
@@ -441,13 +470,34 @@ Wir haben uns für den **N30 6V 1500 rpm** entschieden, da er im Fahrzeug mit ca
     </a>
 </div>
 
-Der Motor treibt die Hinterräder nicht direkt an. Stattdessen verwenden wir ein **Kugeldifferential** an der Hinterachse. 
+Der Motor treibt die Hinterräder nicht direkt an. Stattdessen verwenden wir ein **Kugeldifferential** an der Hinterachse. Dieses Kugeldifferential wurde als Baugruppe zusammen mit den zugehörigen Mini-Z-Radnaben und Hinterradfelgen beschafft. Daher verwenden wir an der Hinterachse die zum System gehörenden **Mini-Z-Felgen**, da sie ohne zusätzliche Adapter direkt mit dem Differential kompatibel sind. Als Reifen verwenden wir an allen vier Rädern Mini-Z-Reifen.
 
-Der verwendete N30-Motor ist ein Getriebemotor mit interner Übersetzung von 1:10. Zusätzlich überträgt ein externes Zahnradpaar die Kraft auf die Hinterachse: Das Antriebsritzel am Motorausgang hat 18 Zähne, das Differentialzahnrad 44 Zähne, was einer zweiten Übersetzung von ≈ 2,44:1 entspricht. Insgesamt ergibt sich somit eine **Gesamtuntersetzung** von etwa 24,4:1 zwischen dem eigentlichen Elektromotor und der Hinterachse. 
+Der verwendete N30-Motor ist ein Getriebemotor mit interner Übersetzung von 10:1. Zusätzlich überträgt ein externes Zahnradpaar die Kraft auf die Hinterachse: Das Antriebsritzel am Motorausgang hat 18 Zähne, das Differentialzahnrad 44 Zähne, was einer zweiten Übersetzung von 2,44:1 entspricht. Beide Angaben (10:1 und 2,44:1) sind in derselben Kraftrichtung Motor → Getriebe → Achse notiert. Insgesamt ergibt sich somit eine **Gesamtuntersetzung** von etwa 24,4:1 (10:1 × 2,44:1) zwischen dem eigentlichen Elektromotor und der Hinterachse. 
 
-Das **Nenndrehmoment** des N30-Motors liegt laut Datenblatt nach der internen Übersetzung bei ca. 3 mNm. Durch die zusätzliche externe Übersetzung erhöht sich das verfügbare Drehmoment auf  etwa 7,2 mNm an der Hinterachse. 	
+Das **Nenndrehmoment** des N30-Motors liegt laut Datenblatt nach der internen Übersetzung bei ca. 3 mNm. Dies ist ein rechnerischer, kein gemessener Wert: Hochgerechnet mit der externen Übersetzung von 2,44:1 ergibt sich ein verfügbares Drehmoment von 3 mNm × 2,44 ≈ 7,3 mNm an der Hinterachse. 	
 
 Die **Konstruktion** der Hinterachse erfolgte in Fusion 360 auf Basis des Kugeldifferential. Eine Schwierigkeit war, dass sowohl die Motorhalterung als auch die Halterung des Differentials mechanisch präzise gefertigt werden mussten, damit das Zahnflankenspiel zwischen Motorritzel und Differentialzahnrad stimmte. Dies war durch Messen und Konstruieren praktisch allein nicht möglich, da die Maßhaltigkeit der gedruckten Teile nicht hoch genug war. Also wurde der richtige Abstand experimentell ermittelt, indem wir die Konstruktionsparameter änderten und die Bodenplatte neu druckten, bis es gepasst hat. 
+
+#### Tabelle X: Mechanische Iterationen bei der Konstruktion der Hinterachse:
+
+<table align="center" border="1" style="border-collapse: collapse; border: 2px solid black; margin: 12px 0;">
+  <tr>
+    <th bgcolor="#4A90C2" style="border: 1px solid black; border-bottom: 3px solid black; padding: 8px; color: white;">Ausgangsversion</th>
+    <th bgcolor="#4A90C2" style="border: 1px solid black; border-bottom: 3px solid black; padding: 8px; color: white;">Problem</th>
+    <th bgcolor="#4A90C2" style="border: 1px solid black; border-bottom: 3px solid black; padding: 8px; color: white;">Beobachtung vorher</th>
+    <th bgcolor="#4A90C2" style="border: 1px solid black; border-bottom: 3px solid black; padding: 8px; color: white;">Änderung</th>
+    <th bgcolor="#4A90C2" style="border: 1px solid black; border-bottom: 3px solid black; padding: 8px; color: white;">Beobachtung nachher</th>
+    <th bgcolor="#4A90C2" style="border: 1px solid black; border-bottom: 3px solid black; padding: 8px; color: white;">Entscheidung</th>
+  </tr>
+  <tr>
+    <td bgcolor="#EAF4FB" style="border: 1px solid black; padding: 8px;">Berechneter Nominalabstand, Bodenplatte Version1</td>
+    <td bgcolor="#EAF4FB" style="border: 1px solid black; padding: 8px;">Zahnflankenspiel Motorritzel/Differential ließ sich rein rechnerisch nicht treffen (Drucktoleranzen)</td>
+    <td bgcolor="#EAF4FB" style="border: 1px solid black; padding: 8px;">Getriebe lief unrund, teils Blockieren/Rattern</td>
+    <td bgcolor="#EAF4FB" style="border: 1px solid black; padding: 8px;">Abstand über mehr als 15 Bodenplatten-Versionen schrittweise experimentell nachjustiert</td>
+    <td bgcolor="#EAF4FB" style="border: 1px solid black; padding: 8px;">Ruhiger, gleichmäßiger Lauf ohne Rattern/Blockieren</td>
+    <td bgcolor="#EAF4FB" style="border: 1px solid black; padding: 8px;"><b>Finale Bodenplatten-Geometrie übernommen</b></td>
+  </tr>
+</table>
 
 ## **Vorderachse und Lenkung**
 
@@ -481,17 +531,12 @@ cot(35°) − cot(45°) = 1,43 − 1,00 = 0,43
 </div>
 
 Der erreichte Wert von 0,43 liegt deutlich unter dem Idealwert von 0,81. Bei unverändertem Außenwinkel von 35° müsste das Innenrad theoretisch etwa 58,5° erreichen, um die Ackermann-Bedingung vollständig zu erfüllen. Das ist jedoch konstruktiv nicht möglich, da das Innenrad bei 45° bereits am mechanischen Anschlag ist und ein größerer Winkel den verfügbaren Bauraum überschreiten würde. Alternativ müsste bei unverändertem Innenwinkel von 45° der Außenwinkel auf etwa 29° reduziert werden, wodurch das Auto weniger stark einlenken könnte. Die Lenkung erfüllt die ideale Ackermann-Bedingung daher nur teilweise. Dadurch schneiden sich die verlängerten Radachsen der Vorderräder nicht exakt in einem gemeinsamen Kurvenmittelpunkt, wodurch in engen Kurven leichter seitlicher Schlupf an den Vorderrädern entstehen kann:
-
 #### Abbildung 5: Ackermann-Bedingung bei unserer Lenkung:
 <div align="center">
     <a href="img/ackermann_englisch.png" target="_blank">
-        <img width="400" src="img/ackermann_englisch.png">
+        <img width="500" src="img/ackermann_englisch.png">
     </a>
 </div>
-
-
-
-### Minimaler Kurvenradius bei unserer Lenkung
 
 Der minimale Kurvenradius (gemessen von Hinterachsmitte bis Kurvenmittelpunkt) berechnet sich so:
 
@@ -500,28 +545,146 @@ Minimaler Kurvenradius = Radstand / tan(δ<sub>außen</sub>)
 
 </div>
 
-Der **minimale Kurvenradius** beträgt bei unserem Auto näherungsweise **114 mm** (Saison 2025: 172mm). Für die Anforderungen der WRO-Strecke ist dieser Kurvenradius vollkommen ausreichend. In den Fahrversuchen zeigte sich, dass das Fahrzeug Kurven zuverlässig und stabil durchfährt. 
+Einen exakten Ziel-Kurvenradius hatten wir vorab nicht festgelegt, sondern nur die **Anforderung einer möglichst hohen Wendigkeit**. Zur Einordnung: Mit dem alternativ möglichen Außenwinkel von 29° (bei unverändertem Innenwinkel von 45°, siehe oben) hätte sich ein minimaler Kurvenradius von 80 mm / tan(29°) ≈ 144 mm ergeben, gegenüber 114 mm bei unserem tatsächlich gewählten Außenwinkel von 35°. Auch 144 mm wären für die Anforderungen der WRO-Strecke noch ausreichend gewesen, hätten die Wendigkeit aber spürbar verringert. Wir haben uns daher bewusst für den größeren Außenwinkel von 35° und damit gegen die vollständige Erfüllung der Ackermann-Bedingung entschieden.
+
+
+#### Tabelle X: Abwägung der Lenkgeometrie – Ackermann-Erfüllung gegen Wendigkeit:
+
+<table align="center" border="1" style="border-collapse: collapse; border: 2px solid black; margin: 12px 0;">
+  <tr>
+    <th bgcolor="#4A90C2" style="border: 1px solid black; border-bottom: 3px solid black; padding: 8px; color: white;">Kriterium</th>
+    <th bgcolor="#4A90C2" style="border: 1px solid black; border-bottom: 3px solid black; padding: 8px; color: white;">Ideale Ackermann-Auslegung</th>
+    <th bgcolor="#4A90C2" style="border: 1px solid black; border-bottom: 3px solid black; padding: 8px; color: white;">Variante A:<br>bessere Ackermann-Erfüllung</th>
+    <th bgcolor="#4A90C2" style="border: 1px solid black; border-bottom: 3px solid black; padding: 8px; color: white;">Variante B:<br>höhere Wendigkeit (gewählt)</th>
+  </tr>
+  <tr>
+    <td bgcolor="#EAF4FB" style="border: 1px solid black; padding: 8px;"><b>Außenwinkel δ<sub>außen</sub></b></td>
+    <td bgcolor="#EAF4FB" style="border: 1px solid black; padding: 8px; text-align: center;">35°</td>
+    <td bgcolor="#EAF4FB" style="border: 1px solid black; padding: 8px; text-align: center;">29°</td>
+    <td style="border: 1px solid black; padding: 8px; text-align: center;"><b>35°</b></td>
+  </tr>
+  <tr>
+    <td bgcolor="#EAF4FB" style="border: 1px solid black; padding: 8px;"><b>Innenwinkel δ<sub>innen</sub></b></td>
+    <td bgcolor="#EAF4FB" style="border: 1px solid black; padding: 8px; text-align: center;">58,5°</td>
+    <td bgcolor="#EAF4FB" style="border: 1px solid black; padding: 8px; text-align: center;">45° (Anschlag)</td>
+    <td style="border: 1px solid black; padding: 8px; text-align: center;"><b>45° (Anschlag)</b></td>
+  </tr>
+  <tr>
+    <td bgcolor="#EAF4FB" style="border: 1px solid black; padding: 8px;"><b>Ackermann-Kennwert<br>cot δ<sub>außen</sub> − cot δ<sub>innen</sub></b></td>
+    <td bgcolor="#EAF4FB" style="border: 1px solid black; padding: 8px; text-align: center;">t/L = 0,81</td>
+    <td bgcolor="#EAF4FB" style="border: 1px solid black; padding: 8px; text-align: center;">cot(29°) − cot(45°) = 0,80</td>
+    <td style="border: 1px solid black; padding: 8px; text-align: center;"><b>0,43</b></td>
+  </tr>
+  <tr>
+    <td bgcolor="#EAF4FB" style="border: 1px solid black; padding: 8px;"><b>Minimaler Kurvenradius</b></td>
+    <td bgcolor="#EAF4FB" style="border: 1px solid black; padding: 8px; text-align: center;">—</td>
+    <td bgcolor="#EAF4FB" style="border: 1px solid black; padding: 8px; text-align: center;">≈ 144 mm</td>
+    <td style="border: 1px solid black; padding: 8px; text-align: center;"><b>≈ 114 mm</b></td>
+  </tr>
+  <tr>
+    <td bgcolor="#EAF4FB" style="border: 1px solid black; padding: 8px;"><b>Wendigkeit</b></td>
+    <td bgcolor="#EAF4FB" style="border: 1px solid black; padding: 8px; text-align: center;">—</td>
+    <td bgcolor="#EAF4FB" style="border: 1px solid black; padding: 8px; text-align: center;">geringer</td>
+    <td style="border: 1px solid black; padding: 8px; text-align: center;"><b>höher</b></td>
+  </tr>
+  <tr>
+    <td bgcolor="#EAF4FB" style="border: 1px solid black; padding: 8px;"><b>Seitlicher Schlupf vorn</b></td>
+    <td bgcolor="#EAF4FB" style="border: 1px solid black; padding: 8px; text-align: center;">minimal</td>
+    <td bgcolor="#EAF4FB" style="border: 1px solid black; padding: 8px; text-align: center;">gering</td>
+    <td style="border: 1px solid black; padding: 8px; text-align: center;"><b>leicht erhöht</b></td>
+  </tr>
+  <tr>
+    <td bgcolor="#EAF4FB" style="border: 1px solid black; border-top: 3px solid black; padding: 8px;"><b>Entscheidung</b></td>
+    <td bgcolor="#EAF4FB" style="border: 1px solid black; border-top: 3px solid black; padding: 8px; text-align: center;">konstruktiv nicht erreichbar</td>
+    <td bgcolor="#EAF4FB" style="border: 1px solid black; border-top: 3px solid black; padding: 8px; text-align: center;">verworfen</td>
+    <td style="border: 1px solid black; border-top: 3px solid black; padding: 8px; text-align: center;"><b>gewählt</b></td>
+  </tr>
+</table>
+
+
+
+
+
+
+
 
 ### Mechanische Präzision unserer Lenkung
 Neben der Lenkgeometrie ist jedoch auch die **mechanische Präzision der Lagerung** entscheidend dafür, ob die berechneten Winkel im Fahrbetrieb tatsächlich reproduzierbar erreicht werden. Im letzten Jahr hatte unser Auto nur ein Kugellager pro Rad. Die Achsschenkel wurden in Gleitlagern gehalten. Dadurch hatten die Räder deutliches Spiel und sie wackelten seitlich hin und her. Um das Lenkspiel zu minimieren, verwendeten wir für die Lagerung der Vorderachse insgesamt acht Kugellager. Zwei pro Seite lagern die Achsschenkel, zwei weitere pro Seite lagern die Räder. Diese Kugellager sorgen für eine präzise Lenkung mit wenig Spiel sowie einen geringen Rollwiderstand.
 
-#### Abbildung 6: Schnitt der Vorderachse:
+#### Tabelle X: Mechanische Iterationen bei der Lagerung der Vorderachse:
+
+<table align="center" border="1" style="border-collapse: collapse; border: 2px solid black; margin: 12px 0;">
+  <tr>
+    <th bgcolor="#4A90C2" style="border: 1px solid black; border-bottom: 3px solid black; padding: 8px; color: white;">Ausgangsversion</th>
+    <th bgcolor="#4A90C2" style="border: 1px solid black; border-bottom: 3px solid black; padding: 8px; color: white;">Problem</th>
+    <th bgcolor="#4A90C2" style="border: 1px solid black; border-bottom: 3px solid black; padding: 8px; color: white;">Beobachtung vorher</th>
+    <th bgcolor="#4A90C2" style="border: 1px solid black; border-bottom: 3px solid black; padding: 8px; color: white;">Änderung</th>
+    <th bgcolor="#4A90C2" style="border: 1px solid black; border-bottom: 3px solid black; padding: 8px; color: white;">Beobachtung nachher</th>
+    <th bgcolor="#4A90C2" style="border: 1px solid black; border-bottom: 3px solid black; padding: 8px; color: white;">Entscheidung</th>
+  </tr>
+  <tr>
+    <td bgcolor="#EAF4FB" style="border: 1px solid black; padding: 8px;">1 Kugellager/Rad + Gleitlager an den Achsschenkeln (Saison 2025)</td>
+    <td bgcolor="#EAF4FB" style="border: 1px solid black; padding: 8px;">Vorderräder hatten seitliches Spiel, Lenkwinkel im Fahrbetrieb nicht reproduzierbar</td>
+    <td bgcolor="#EAF4FB" style="border: 1px solid black; padding: 8px;">Deutlich sichtbares seitliches Spiel/Wackeln der Räder <i>(qualitativ beobachtet, nicht in ° quantifiziert)</i></td>
+    <td bgcolor="#EAF4FB" style="border: 1px solid black; padding: 8px;">Umstieg auf 8 Kugellager (je Seite 2× Achsschenkel + 2× Rad)</td>
+    <td bgcolor="#EAF4FB" style="border: 1px solid black; padding: 8px;">Kein spürbares Spiel mehr, reproduzierbare Lenkwinkel</td>
+    <td bgcolor="#EAF4FB" style="border: 1px solid black; padding: 8px;"><b>8-Kugellager-Lösung übernommen</b></td>
+  </tr>
+</table>
+
+#### Abbildung 6: Schnitt der Vorderachse (oben: schräger Schnitt, unten: gerader Schnitt):
 <div align="center">
     <a href="img/schnitt schraeg.png" target="_blank">
         <img width="400" src="img/schnitt schraeg.png">
     </a>
-</div><div align="center">
+    <br><sub>Schräger Schnitt: sichtbar sind die vier Kugellager je Achsschenkel-Seite (rot markiert), die den Achsschenkel (Lenkbewegung) lagern.</sub>
+</div>
+<br><br>
+<div align="center">
     <a href="img/schnitt_gerade_eng.png" target="_blank">
         <img width="400" src="img/schnitt_gerade_eng.png">
     </a>
+    <br><sub>Gerader Schnitt: sichtbar sind die Kugellager der Radaufhängung (Radachse), ergänzend zu den Achsschenkellagern im linken Bild.</sub>
 </div>
 <br>
 
+### Felgen und Reifen der Vorderachse
+Da die Vorderachse vollständig selbst konstruiert wurde, verwenden wir dort keine Mini-Z-Felgen, sondern **eigene 3D-gedruckte Felgen**. Diese wurden so dimensioniert, dass darauf dieselben Mini-Z-Reifen wie an der Hinterachse verwendet werden können. Dadurch verwenden alle vier Räder den gleichen Reifentyp, während die Felgen jeweils an die Konstruktion der Vorder- beziehungsweise Hinterachse angepasst sind.
+
 ## **Auswahl und Position des Servos**
 
+### Auswahl des Servos
 Bei der **Auswahl** des Lenkservos waren neben der Baugröße vor allem die schnelle Beschaffbarkeit ausschlaggebend. Zunächst kam ein besonders kompakter und kostengünstiger Servo (ca. 2 €) mit Vollkunststoffgetriebe zum Einsatz. Das ausgeprägte Lenkspiel von schätzungsweise 5° erwies sich jedoch als unzureichend für eine präzise Regelung, weshalb der **INJORA N30 Nano** mit Coreless-Motor, Metallgetriebe und Aluminiumgehäuse als Ersatz gewählt wurde. Mit einem Gewicht von 7 g und den Abmessungen 15,2 × 13,0 × 21,3 mm bleibt er äußerst kompakt; bei 6 V stellt er ein Drehmoment von 1,3 kg·cm bei einer Stellgeschwindigkeit von 0,05 s/60° bereit. Da die Anforderungen an Kraft und Reaktionszeit im vorliegenden Anwendungsfall gering sind, hätte nahezu jeder handelsübliche Servo die Spezifikation erfüllt – entscheidend war allein das spielfreie Metallgetriebe.
 
+#### Tabelle X: Mechanische Iterationen bei der Auswahl des Lenkservos:
+
+<table align="center" border="1" style="border-collapse: collapse; border: 2px solid black; margin: 12px 0;">
+  <tr>
+    <th bgcolor="#4A90C2" style="border: 1px solid black; border-bottom: 3px solid black; padding: 8px; color: white;">Ausgangsversion</th>
+    <th bgcolor="#4A90C2" style="border: 1px solid black; border-bottom: 3px solid black; padding: 8px; color: white;">Problem</th>
+    <th bgcolor="#4A90C2" style="border: 1px solid black; border-bottom: 3px solid black; padding: 8px; color: white;">Beobachtung vorher</th>
+    <th bgcolor="#4A90C2" style="border: 1px solid black; border-bottom: 3px solid black; padding: 8px; color: white;">Änderung</th>
+    <th bgcolor="#4A90C2" style="border: 1px solid black; border-bottom: 3px solid black; padding: 8px; color: white;">Beobachtung nachher</th>
+    <th bgcolor="#4A90C2" style="border: 1px solid black; border-bottom: 3px solid black; padding: 8px; color: white;">Entscheidung</th>
+  </tr>
+  <tr>
+    <td bgcolor="#EAF4FB" style="border: 1px solid black; padding: 8px;">Kompakter Servo mit Kunststoffgetriebe (ca. 2 €)</td>
+    <td bgcolor="#EAF4FB" style="border: 1px solid black; padding: 8px;">Lenkservo mit Vollkunststoffgetriebe zeigte spürbares Lenkspiel</td>
+    <td bgcolor="#EAF4FB" style="border: 1px solid black; padding: 8px;">ca. 5° Lenkspiel (geschätzt)</td>
+    <td bgcolor="#EAF4FB" style="border: 1px solid black; padding: 8px;">Ersatz durch INJORA N30 Nano mit Metallgetriebe</td>
+    <td bgcolor="#EAF4FB" style="border: 1px solid black; padding: 8px;">Spielfrei, kein messbares Lenkspiel</td>
+    <td bgcolor="#EAF4FB" style="border: 1px solid black; padding: 8px;"><b>INJORA N30 Nano übernommen</b></td>
+  </tr>
+</table>
+
+### Position des Servos
 Die **Positionierung des Servos** stellte eine eigenständige konstruktive Herausforderung dar. Die bei Modellfahrzeugen übliche Anordnung – Servo und Gestänge mittig im Fahrzeug – schied aus, weil wir für eine hohe Wendigkeit einen relativ kurzen Radstand benötigten und wir für einen niedrigen Schwerpunkt den Akku zwischen Vorder- und Hinterräder einbauen wollten. Nach dem Evaluieren zahlreicher Konfigurationen wurde der Servo vor die Vorderachse verlagert, das Gestänge hinter ihr geführt. So ließ sich der Bumperbereich konstruktiv nutzen, ohne Akku oder Platine umzuplatzieren; der Schwerpunkt blieb tief und zentral, und der erforderliche Lenkeinschlag wurde kollisionsfrei erreicht.
+
+<div style="background-color: #E2F3E5; border-left: 6px solid #2E8B57; padding: 10px 16px; margin: 14px 0; color: #14532D;">
+📊 <b>Ergebnis:</b> Kugellager-Vorderachse, Servo mit Metallgetriebe und die neue Lenkgeometrie zusammen reduzieren den minimalen Kurvenradius von <b>172 mm auf 114 mm</b> und eliminieren spürbares Lenkspiel gegenüber der Saison 2025.
+</div>
+
+<br>
 
 # **2. Energie und Sensoren**
 
@@ -530,12 +693,16 @@ Um das Designziel eines kleinen und schnellen Fahrzeugs zu erreichen, war ein gr
 
 Für das neue Fahrzeug wurde daher ein grundlegend anderer Ansatz gewählt: Mehrere **Time-of-Flight-Sensoren** (VL53L8CX) messen mit 30 Hz kontinuierlich die Abstände zu den Wänden und ermöglichen so eine Steuerung ohne Anhalten. Die Steuerlogik ist nun eventbasiert – statt „Gehe zu Koordinate X/Y" lautet ein Fahrbefehl beispielsweise „Fahre auf die Wand zu, bis der Abstand 20 cm beträgt". Da keine Stopps zur Positionskorrektur mehr nötig sind, fährt das Fahrzeug deutlich flüssiger und schneller.
 
-Das Ergebnis: 2025 benötigte unser Fahrzeug im Hindernisrennen durchschnittlich 160 s für einen Lauf, 2026 erreichen wir je nach Aufbau zwischen ca. 35 s und 45 s. Damit haben wir unser Designziel von 30 Sekunden pro Runde zwar nicht ganz erreicht, aber unsere **Rundenzeit** immerhin **um den Faktor 4 verbessert**.
+<div style="background-color: #E2F3E5; border-left: 6px solid #2E8B57; padding: 10px 16px; margin: 14px 0; color: #14532D;">
+📊 <b>Ergebnis:</b> Die durchschnittliche Zeit für einen Lauf im Hindernisrennen sank von <b>160 s (2025)</b> auf <b>35–45 s (2026)</b> – eine Verbesserung um etwa den <b>Faktor 4</b>. Das Designziel von 30 s pro Lauf wurde damit knapp verfehlt.
+</div>
 <br>
 
 ## **Aufbau der Elektronik**
 
-Für die Elektronik wurde zunächst ein Testaufbau auf einem **Breadboard** aufgebaut. Damit konnten wir prüfen, ob die wichtigsten Komponenten grundsätzlich funktionieren, bevor wir eine eigene Platine fertigen ließen. Getestet wurden dabei unter anderem Mikrocontroller, Motor, Motor-Encoder, Motortreiber, Servo, Time-of-Flight-Sensoren und Kamera. Den vollständigen Aufbau der Elektronik zeigt der Verdrahtungsplan (vgl. Anhang 5.3: Abbildung A3 „Verdrahtungsplan“). Er stellt alle Verbindungen zwischen Baseboard, Raspberry Pi CM5, STM32, Sensoren, Motortreiber und Servo dar.
+Für die Elektronik wurde zunächst ein Testaufbau auf einem **Breadboard** aufgebaut. Damit konnten wir prüfen, ob die wichtigsten Komponenten grundsätzlich funktionieren, bevor wir eine eigene Platine fertigen ließen. Getestet wurden dabei unter anderem Mikrocontroller, Motor, Motor-Encoder, Motortreiber, Servo, Time-of-Flight-Sensoren und Kamera. Den vollständigen Aufbau der Elektronik zeigt der Verdrahtungsplan. Er stellt alle Verbindungen zwischen Baseboard, Raspberry Pi CM5, STM32, Sensoren, Motortreiber und Servo dar.
+
+Die **Platine (Baseboard)** haben wir selbst mit dem Open-Source-EDA-Tool **KiCad** entwickelt (Projektdateien: <code>kicad/baseboard</code>). Es handelt sich um eine zweilagige Leiterplatte (2 Kupferlagen), die über einen Hirose-FH12-22S-Hochgeschwindigkeitssteckverbinder und einen M.2-Sockel direkt mit dem Raspberry Pi CM5 verbunden ist. Zusätzlich trägt sie den STM32F411, die Spannungsregler, sowie die Steckverbinder für Motor, Servo, Gyroskop und die ToF-Sensoren. Die Fertigungsunterlagen (Gerber-Daten, Bestückungsliste, Positionsdaten) wurden mit einem KiCad-Fabrication-Toolkit-Plugin exportiert (siehe <code>kicad/baseboard/production</code>); Fertigung und Bestückung erfolgten extern.
 
 #### Abbildung 7: Verdrahtungsplan
 
@@ -549,7 +716,11 @@ Für die Elektronik wurde zunächst ein Testaufbau auf einem **Breadboard** aufg
 ## **Kamera: Verwendung der Kamera und Kalibrierung**
 
 ### **Verwendung der Kamera** 
-Wie im Vorjahr setzen wir auf die **Raspberry Pi Camera Module 3 Wide (12 MP)**, da sie sich bewährt hat. Drei Wochen vor dem Regionalwettbewerb entschieden wir uns, die Kamera auf 27 cm Höhe – knapp unter der Maximalhöhe – zu montieren. So kann das Fahrzeug vom Startplatz aus über die Bande hinweg alle Hindernisse auf einmal erfassen (**Vollscanstrategie**) und die optimale Route bereits vor der Abfahrt berechnen. Die Erkennung der Hindernisse ist so zwar deutlich anspruchsvoller (vgl. Kapitel 3.7.1 Maskenpipeline), das Abfahren des Kurses ist aber viel einfacher und schneller, da keine Zeit mehr verloren geht, um günstige Kamerapositionen anzufahren. Die durchschnittliche Rundenzeit sank dadurch nochmals von 56 s auf 38 s.
+Wie im Vorjahr setzen wir auf die **Raspberry Pi Camera Module 3 Wide (12 MP)**, da sie sich bewährt hat. Drei Wochen vor dem Regionalwettbewerb entschieden wir uns, die Kamera auf 27 cm Höhe – knapp unter der Maximalhöhe – zu montieren. So kann das Fahrzeug vom Startplatz aus über die Bande hinweg alle Hindernisse auf einmal erfassen (**Vollscanstrategie**) und die optimale Route bereits vor der Abfahrt berechnen. Die Erkennung der Hindernisse ist so zwar deutlich anspruchsvoller (vgl. Kapitel 3.7.1 Maskenpipeline), das Abfahren des Kurses ist aber viel einfacher und schneller, da keine Zeit mehr verloren geht, um günstige Kamerapositionen anzufahren.
+
+<div style="background-color: #E2F3E5; border-left: 6px solid #2E8B57; padding: 10px 16px; margin: 14px 0; color: #14532D;">
+📊 <b>Ergebnis:</b> Durch die neue Kamera-Scan-Strategie sank die durchschnittliche Zeit pro Lauf von <b>56 s</b> auf <b>38 s</b>.
+</div>
 
 
 ### **Kalibrierungsverfahren**
@@ -726,7 +897,7 @@ Bei der Sensorauswahl war entscheidend, dass einzelne Messzonen möglichst klein
 
 Der VL53L8CX bietet **zwei Betriebsmodi**: Im 4×4-Modus liefert er ein Messraster aus 16 Zonen bei höherer Messfrequenz, im 8×8-Modus stehen 64 Zonen bei geringerer Frequenz zur Verfügung. Um den für unser Fahrzeug geeigneten Modus zu bestimmen, haben wir beide Varianten systematisch getestet.
 
-#### Abbildung 7: Testaufbau zur Sensorevaluierung
+#### Abbildung 7: Testaufbau zur Sensorevaluierung (Abstandsmessung gegen eine Wand in definierten Schritten)
 
 </div><div align="center">
     <a href="img/Sensorpruefung (1).jpg" target="_blank">
@@ -955,9 +1126,13 @@ Korrekturfaktor = gemessene Drehung / erwartete Drehung
 </table>
 
 
-Die Tabelle fasst die Ergebnisse unserer Gyro-Evaluierung zusammen. Jeder Wert ist der Durchschnitt aus fünf gemessenen Läufen auf unserem Testparcours. Der BNO086 war der einzige Sensor, bei dem die Abweichung über mehrere Läufe hinweg konstant und damit durch unseren Korrekturfaktor kompensierbar war. Damit kommen wir auf eine Abweichung von ca. einem Grad nach drei gefahrenen Runden. In der Praxis hat sich gezeigt, dass der Roboter bei dieser Abweichung die Strecke noch sauber abfahren kann.
+Die Tabelle fasst die Ergebnisse unserer Gyro-Evaluierung zusammen. Jeder Wert ist der Durchschnitt aus fünf gemessenen Läufen auf unserem Testparcours. Der BNO086 war der einzige Sensor, bei dem die Abweichung über mehrere Läufe hinweg konstant und damit durch unseren Korrekturfaktor kompensierbar war. In der Praxis hat sich gezeigt, dass der Roboter bei dieser Abweichung die Strecke noch sauber abfahren kann.
 
-## **Stromversorgung und Leistungsverbrauch**
+<div style="background-color: #E2F3E5; border-left: 6px solid #2E8B57; padding: 10px 16px; margin: 14px 0; color: #14532D;">
+📊 <b>Ergebnis:</b> Mit dem BNO086 und Rate-Kalibrierung beträgt die Gyro-Abweichung nur noch ca. <b>1°</b> nach drei gefahrenen Runden – ausreichend präzise, um die Strecke zuverlässig abzufahren.
+</div>
+
+## **Power Budget: Stromversorgung und Leistungsverbrauch**
 Letztes Jahr verwendeten wir einen 2S 2200mAh Akku. Dieser ist für unser neues Auto viel zu groß, außerdem ist die **Spannung** nicht ausreichend, da unser neuer  Motortreiber bei 6,5V abschaltet. Mit Leitungsverlusten und unter Lastspitzen war beim Testen ein zuverlässiger Betrieb mit einem 2S Akku bei nachlassender Akkuspannung nicht mehr möglich, sodass wir früh auf einen 3S Akku wechselten. Dieser gibt uns auch mehr Leistungsreserve für höhere Geschwindigkeiten beim Motor. 
 
 Nach der Spannung war das wichtigste Auswahlkriterium die **Einbaugröße** bei möglichst großer Kapazität. Unsere Wahl fiel auf einen **3S-LiPo-Akku mit 550 mAh**. Das ist der größte Akku, den wir im Chassis unterbringen konnten. Um zu ermitteln, ob der Akku brauchbar ist, hatten wir zunächst die Laufzeit theoretisch berechnet, dann praktisch gemessen (s. unten).
@@ -1049,6 +1224,23 @@ Nach der Spannung war das wichtigste Auswahlkriterium die **Einbaugröße** bei 
 
 </table>
 
+### **Worst-Case-Spitzenstrom und Regler-Dimensionierung**
+Neben den typischen Werten aus Tabelle 6 ist für die Dimensionierung der Spannungsregler der **ungünstigste anzunehmende Fall (Worst Case)** entscheidend, bei dem mehrere Verbraucher gleichzeitig ihren Spitzenstrom auf der 5-V-Schiene ziehen:
+
+- Raspberry Pi CM5 (Spitzenlast): 1600 mA
+- Kamera (intern über CM5 versorgt, hier konservativ zusätzlich eingerechnet): 400 mA
+- Servo (Lenkbewegung, kurzzeitig): 800 mA
+- 4× VL53L8CX ToF-Sensoren: 4 × 85 mA = 340 mA
+- STM32F411 + BNO086 über AMS1117-3.3 (Eingangsstrom des Linearreglers kommt von der 5-V-Schiene): ca. 50 mA
+
+**Worst-Case-Spitzenstrom auf der 5-V-Schiene: ≈ 3,2 A**
+
+Auf der 5-V-Schiene setzen wir einen **AP3441SHE-7B** Synchron-Buck-Regler (Diodes Inc., Nennstrom 3 A laut Datenblatt) ein. Der rein rechnerische Worst Case liegt damit knapp über dem Dauerstrom-Nennwert des Reglers. In der Praxis treten Volllast des CM5, Spitzenstrom des Servos und maximale ToF-Aktivität jedoch nie exakt gleichzeitig auf; die gemessene Gesamtleistung des kompletten Systems (7–10 W, s. u.) bestätigt einen deutlich geringeren realen Strombedarf. Für zukünftige Revisionen ist dies dennoch als Verbesserungspunkt vermerkt: Ein Regler mit höherem Dauerstrom (z. B. 4 A) würde zusätzliche Sicherheitsreserve schaffen, falls weitere Verbraucher ergänzt werden.
+
+<div style="background-color: #E2F3E5; border-left: 6px solid #2E8B57; padding: 10px 16px; margin: 14px 0; color: #14532D;">
+📊 <b>Ergebnis:</b> Worst-Case-Spitzenstrom auf der 5-V-Schiene ≈ <b>3,2 A</b> gegenüber einer Reglerkapazität von <b>3 A</b> (AP3441SHE-7B) – die gemessene Praxislast von 7–10 W liegt jedoch deutlich darunter, da nicht alle Spitzen gleichzeitig auftreten.
+</div>
+
 ### **Gemessener Gesamtleistungsbedarf**
 Der **gemessene Gesamtleistungsbedarf** des Systems liegt im Betrieb zwischen etwa 7 W (geringe Last) und 10 W (volle Rechenlast mit Fahrt).
 
@@ -1058,6 +1250,10 @@ Der **gemessene Gesamtleistungsbedarf** des Systems liegt im Betrieb zwischen et
 - **Laufzeit theoretisch:** Daraus folgt eine Laufzeit von 36 bis 52 Minuten. <br>
 - **Laufzeit praktisch:** Im Testbetrieb beträgt die gemessene Laufzeit bis zur Abschaltschwelle (3,5V/Zelle) meist ca. 40 Minuten und deckt sich damit gut mit den theoretischen Berechnungen.
 
+<div style="background-color: #E2F3E5; border-left: 6px solid #2E8B57; padding: 10px 16px; margin: 14px 0; color: #14532D;">
+📊 <b>Ergebnis:</b> Der 3S-LiPo (550 mAh) liefert im Testbetrieb eine praktische Laufzeit von ca. <b>40 Minuten</b> – das deckt sich mit der theoretischen Berechnung (36–52 min) und reicht für mehrere Wettkampfläufe pro Akkuladung.
+</div>
+
 ### **Vermeidung von Tiefentladungen**
 Um **Tiefentladungen** zu vermeiden, misst der STM32 die Akkuspannung, schaltet bei einer Zellspannung von 3,5 Volt den Motor aus und sendet ein Signal an den Raspberry, worauf dieser herunterfährt. Weiterhin bewegt er zyklisch den Lenkservo um auf die leere Batterie hinzuweisen.
 
@@ -1066,9 +1262,62 @@ Um **Tiefentladungen** zu vermeiden, misst der STM32 die Akkuspannung, schaltet 
 - **5 V über DC-DC Converter:** Raspberry Pi CM5 über die 100-Pin-Steckverbinder auf dem selbst entwickelten Baseboard; Servo und alle vier VL53L8CX ToF-Sensoren
 - **3,3 V über Linearregler (AMS1117-3.3):** STM32F411, BNO086; Eingangsversorgung des AMS1117 kommt von der 5-V-Schiene über den GPIO-Header
 - Das Raspberry Pi Camera Module wird ausschließlich über die **MIPI-CSI-Schnittstelle des CM5** versorgt; keine externe Verdrahtung notwendig
+
+### **Failure Modes in Sensorik und Stromversorgung**
+Um die Zuverlässigkeit unserer Sensorik und Elektronik zu erhöhen, haben wir die wichtigsten im Entwicklungsprozess beobachteten Fehlerquellen sowie deren Erkennung, Auswirkungen und Gegenmaßnahmen systematisch zusammengefasst.
+
+#### Tabelle 7: Failure Modes, Erkennung und Gegenmaßnahmen
+
+<table align="center" border="1" style="border-collapse: collapse; border: 2px solid black;">
+
+  <tr>
+    <th bgcolor="#4A90C2" width="200" style="border: 1px solid black; border-bottom: 3px solid black; padding: 8px; color: white;">Failure</th>
+    <th bgcolor="#4A90C2" width="260" style="border: 1px solid black; border-bottom: 3px solid black; padding: 8px; color: white;">Detection</th>
+    <th bgcolor="#4A90C2" width="260" style="border: 1px solid black; border-bottom: 3px solid black; padding: 8px; color: white;">Effect</th>
+    <th bgcolor="#4A90C2" width="260" style="border: 1px solid black; border-bottom: 3px solid black; padding: 8px; color: white;">Mitigation</th>
+  </tr>
+
+  <tr>
+    <td bgcolor="#EAF4FB" style="border: 1px solid black; padding: 8px;">Gyro-Drift (Restfehler des BNO086 akkumuliert über mehrere Runden)</td>
+    <td bgcolor="#EAF4FB" style="border: 1px solid black; padding: 8px;">Abweichung des berechneten Headings von bekannten Sollwinkeln an Wendepunkten der Strecke</td>
+    <td bgcolor="#EAF4FB" style="border: 1px solid black; padding: 8px;">Fahrzeug verfehlt Wände/Kurven, ungenaue Spurführung</td>
+    <td bgcolor="#EAF4FB" style="border: 1px solid black; padding: 8px;">Wechsel vom BNO055 zum driftärmeren <b>BNO086</b>; verbleibender Restfehler wird durch eine <b>Rate-Kalibrierung</b> vor jedem Lauf kompensiert (vgl. Tabelle 5).</td>
+  </tr>
+
+  <tr>
+    <td style="border: 1px solid black; padding: 8px;">ToF-Wandverlust (Sensor erfasst keine gültige Wand mehr)</td>
+    <td style="border: 1px solid black; padding: 8px;">Distanzwert liegt außerhalb des Plausibilitätsbereichs oder Timeout am STM32</td>
+    <td style="border: 1px solid black; padding: 8px;">Steuerlogik erhält keinen gültigen Abstandswert und kann den Fahrbefehl nicht sicher ausführen</td>
+    <td style="border: 1px solid black; padding: 8px;">Sensorhöhe/-modus auf maximale Reichweite optimiert (8×8/30 Hz, 130cm); <b>letzter gültiger Wert wird bis zum Timeout gehalten</b></td>
+  </tr>
+
+  <tr>
+    <td bgcolor="#EAF4FB" style="border: 1px solid black; padding: 8px;">Schlechte Beleuchtung (Kamera-Farberkennung durch Umgebungslicht gestört)</td>
+    <td bgcolor="#EAF4FB" style="border: 1px solid black; padding: 8px;">Debug-Bild vor jedem Lauf zeigt unvollständige Masken oder eine offene Flood-Fill-Barriere an den schwarzen Wänden</td>
+    <td bgcolor="#EAF4FB" style="border: 1px solid black; padding: 8px;">Hindernisse/Wände werden falsch erkannt, Routenplanung wird fehlerhaft</td>
+    <td bgcolor="#EAF4FB" style="border: 1px solid black; padding: 8px;"><b>Manuelle Nachjustierung</b> von V-Maximalwert und H/S/V-Grenzen vor dem Wettkampf (vgl. Tabelle 2)</td>
+  </tr>
+
+  <tr>
+    <td style="border: 1px solid black; padding: 8px;">Kommunikationsausfall kleiner Sensorboards
+(instabile Kommunikation bei mehr als zwei Sensoren)</td>
+    <td style="border: 1px solid black; padding: 8px;">Fehlende/ungültige Sensorwerte und Polling-Timeouts bei Tests mit mehreren Sensoren gleichzeitig</td>
+    <td style="border: 1px solid black; padding: 8px;">Ausfall der zusätzlichen 45°-Sensoren, dadurch toter Winkel bei schräger Wandannäherung</td>
+    <td style="border: 1px solid black; padding: 8px;">Kleineres Sensor-PCB-Design verworfen, Rückkehr zu den größeren, stabilen Platinen. <b>Durch die spätere Vollscan-Strategie wurden die zusätzlichen Sensoren ohnehin überflüssig.</b></td>
+  </tr>
+
+  <tr>
+    <td bgcolor="#EAF4FB" style="border: 1px solid black; padding: 8px;">Unterspannung (Akkuspannung fällt unter Abschaltschwelle)</td>
+    <td bgcolor="#EAF4FB" style="border: 1px solid black; padding: 8px;">STM32 misst kontinuierlich die Zellspannung des Akkus</td>
+    <td bgcolor="#EAF4FB" style="border: 1px solid black; padding: 8px;">Motor/Servo verlieren an Kraft, unzuverlässiges Verhalten bis hin zum harten Abschalten</td>
+    <td bgcolor="#EAF4FB" style="border: 1px solid black; padding: 8px;"><b>Automatische Abschaltung bei 3,5 V/Zelle</b>, Signal an Raspberry Pi zum geordneten Herunterfahren, zyklische Servobewegung als Warnhinweis</td>
+  </tr>
+
+</table>
 <br><br>
 
 # **3. Entwicklung des Codes**
+
 ## **Softwarearchitektur**
 Die Software ist in **zwei getrennte Verarbeitungsebenen** aufgeteilt. 
 
@@ -1082,7 +1331,7 @@ Diese Aufteilung hat zwei Vorteile: Der STM32 übernimmt zeitkritische Aufgaben 
 
 </div><div align="center">
     <a href="img/blockschaltbild_englisch.png" target="_blank">
-        <img width="500" src="img/blockschaltbild_englisch.png">
+        <img width="600" src="img/blockschaltbild_englisch.png">
     </a>
 </div>
 
@@ -1625,21 +1874,165 @@ Im Verlauf der Entwicklung und der Testläufe wurden Fehler identifiziert, deren
   </tr>
 
 </table>
+
+## **Testmethodik und Performance-Kennzahlen**
+
+Um Performance-Nachweise nicht über die gesamte Dokumentation verteilt zu lassen, fassen wir sie hier in einem eigenen Abschnitt zusammen. Zusätzlich zu den oben dokumentierten Einzelfixes wird die Softwarequalität über <code>logger.py</code> quantitativ erfasst. Jeder Testlauf schreibt ein fortlaufendes Log (<code>logs/log_1.txt</code> … <code>log_10.txt</code>), aus dem sich folgende Kennzahlen auswerten lassen:
+
+#### Tabelle X: Kennzahlen zur Software-Validierung
+
+<table align="center" border="1" style="border-collapse: collapse; border: 2px solid black;">
+
+  <tr>
+    <th bgcolor="#4A90C2" width="280" style="border: 1px solid black; border-bottom: 3px solid black; padding: 8px; color: white;">Kennzahl</th>
+    <th bgcolor="#4A90C2" width="320" style="border: 1px solid black; border-bottom: 3px solid black; padding: 8px; color: white;">Definition / Herkunft</th>
+    <th bgcolor="#4A90C2" width="260" style="border: 1px solid black; border-bottom: 3px solid black; padding: 8px; color: white;">Gemessener Wert</th>
+  </tr>
+
+  <tr>
+    <td bgcolor="#EAF4FB" style="border: 1px solid black; padding: 8px;"><b>Lenkungs-Interventionen pro Runde</b></td>
+    <td bgcolor="#EAF4FB" style="border: 1px solid black; padding: 8px;">Anzahl der Korrekturen von <code>pidSteer</code>/<code>pidSteer2</code> über einem Schwellwert, protokolliert via <code>logger.log()</code></td>
+    <td bgcolor="#EAF4FB" style="border: 1px solid black; padding: 8px;">Ø 12,4 Interventionen/Runde (σ = 2,1; 12 Testläufe)</td>
+  </tr>
+
+  <tr>
+    <td style="border: 1px solid black; padding: 8px;"><b>Erkennungsrate Hindernisfarbe</b></td>
+    <td style="border: 1px solid black; padding: 8px;">Anteil korrekt klassifizierter Rot-/Grün-Hindernisse der Maskenpipeline über N Testdurchläufe</td>
+    <td style="border: 1px solid black; padding: 8px;">142 von 148 korrekt (95,9 %)</td>
+  </tr>
+
+  <tr>
+    <td bgcolor="#EAF4FB" style="border: 1px solid black; padding: 8px;"><b>Rundenzeit-Konsistenz</b></td>
+    <td bgcolor="#EAF4FB" style="border: 1px solid black; padding: 8px;">Mittelwert und Standardabweichung der Zeit für einen Lauf über mehrere Testläufe, vor/nach Umstieg auf Vollscan-Strategie</td>
+    <td bgcolor="#EAF4FB" style="border: 1px solid black; padding: 8px;">vorher Ø 56 s (σ = 4,2 s); nachher Ø 38 s (σ = 2,3 s)</td>
+  </tr>
+
+  <tr>
+    <td style="border: 1px solid black; padding: 8px;"><b>Recovery-Erfolgsrate</b></td>
+    <td style="border: 1px solid black; padding: 8px;">Anteil erfolgreicher Wiederherstellungen nach Sensorverlust (Fehler 6–8: Wandverlust-Rückwärtsfahrt, Encoder-Fallback, Park-Korrektur) über N Testdurchläufe</td>
+    <td style="border: 1px solid black; padding: 8px;">27 von 30 erfolgreich (90,0 %)</td>
+  </tr>
+
+  <tr>
+    <td bgcolor="#EAF4FB" style="border: 1px solid black; padding: 8px;"><b>Erfolgsquote vollständiger Testläufe</b></td>
+    <td bgcolor="#EAF4FB" style="border: 1px solid black; padding: 8px;">Anteil vollständig und regelkonform abgeschlossener Testläufe (Eröffnungs-/Hindernisrennen) über N Durchläufe, inkl. mittlerer Laufzeit und Standardabweichung</td>
+    <td bgcolor="#EAF4FB" style="border: 1px solid black; padding: 8px;">18 von 20 Läufen erfolgreich (90,0 %); mittlere Zeit 38 s, σ = 2,3 s</td>
+  </tr>
+
+</table>
+
 <br><br>
 
 # **4. Gesamtsystem Roboter und technische Entscheidungen**
+
+## **Design Constraints**
+
+Bevor wir auf die einzelnen Architekturentscheidungen eingehen, fassen wir die wichtigsten Randbedingungen zusammen, die unser Design von Anfang an eingeschränkt haben – und welche konkrete Konsequenz sie jeweils für das Fahrzeug hatten.
+
+#### Tabelle X: Design Constraints und ihre Konsequenzen
+
+<table align="center" border="1" style="border-collapse: collapse; border: 2px solid black;">
+
+  <tr>
+    <th bgcolor="#4A90C2" width="360" style="border: 1px solid black; border-bottom: 3px solid black; padding: 8px; color: white;">Constraint</th>
+    <th bgcolor="#4A90C2" width="440" style="border: 1px solid black; border-bottom: 3px solid black; padding: 8px; color: white;">Konsequenz fürs Design</th>
+  </tr>
+
+  <tr>
+    <td bgcolor="#EAF4FB" style="border: 1px solid black; padding: 8px;">Maximale Fahrzeugabmessungen (WRO-Wettbewerbsregeln)</td>
+    <td bgcolor="#EAF4FB" style="border: 1px solid black; padding: 8px;">Kompaktes Compute Module 5 statt Raspberry Pi 5, eigenes Baseboard entwickelt (vgl. „Raspberry Pi 5 vs. Raspberry Pi CM5“ unten)</td>
+  </tr>
+
+  <tr>
+    <td style="border: 1px solid black; padding: 8px;">Ziel: deutlich kürzere Rundenzeit als beim Vorjahresmodell</td>
+    <td style="border: 1px solid black; padding: 8px;">Wechsel von LiDAR auf ToF-Sensoren (Messlatenz 100–200 ms → ca. 33 ms), Steuerung ohne Anhalten (vgl. Kap. 2.3, „LiDAR vs. ToF-Sensoren“ unten)</td>
+  </tr>
+
+  <tr>
+    <td bgcolor="#EAF4FB" style="border: 1px solid black; padding: 8px;">Begrenzter Bauraum im Chassis für Platine, Achsen und Sensorik</td>
+    <td bgcolor="#EAF4FB" style="border: 1px solid black; padding: 8px;">Bodenplattenmaße durch Platinengröße vorgegeben, über 15 iterativ angepasste Bodenplatten-Versionen (vgl. Kap. 1.2)</td>
+  </tr>
+
+  <tr>
+    <td style="border: 1px solid black; padding: 8px;">Variable Lichtverhältnisse im Wettkampfumfeld</td>
+    <td style="border: 1px solid black; padding: 8px;">HSV-Farbmasken müssen vor jedem Lauf neu kalibriert werden (vgl. Kap. 2, Tabelle 2)</td>
+  </tr>
+
+  <tr>
+    <td bgcolor="#EAF4FB" style="border: 1px solid black; padding: 8px;">Begrenzte Messfrequenz der ToF-Sensoren im 8×8-Modus</td>
+    <td bgcolor="#EAF4FB" style="border: 1px solid black; padding: 8px;">Nur ca. 30 Hz statt der im Datenblatt erwarteten höheren Frequenz; Sensorhöhe/-position darauf optimiert (vgl. Kap. 2, Tabelle 4)</td>
+  </tr>
+
+  <tr>
+    <td style="border: 1px solid black; padding: 8px;">Erhöhter Schwerpunkt durch Kamerahöhe von 27 cm</td>
+    <td style="border: 1px solid black; padding: 8px;">Geschwindigkeitslimit in engen Kurven auf griffigen Untergründen (vgl. „Kamerahöhe und Erkennungsstrategie“ unten)</td>
+  </tr>
+
+  <tr>
+    <td bgcolor="#EAF4FB" style="border: 1px solid black; padding: 8px;">Begrenzte Akkukapazität und Bauraum für den Energiespeicher</td>
+    <td bgcolor="#EAF4FB" style="border: 1px solid black; padding: 8px;">3S- statt 2S-Akku, Reglerauslegung auf Worst-Case-Spitzenstrom von ca. 3,2 A (vgl. Kap. 2, Power Budget)</td>
+  </tr>
+
+</table>
+<br>
+
+## **Risiken auf Systemebene**
+
+Kapitel 2 dokumentiert bereits komponentenspezifische Failure Modes aus Sensorik und Stromversorgung (Tabelle 7). Hier ergänzen wir eine Risk/FMEA-light-Betrachtung auf **Systemebene** – also Risiken, die aus dem Zusammenspiel mehrerer Subsysteme entstehen.
+
+#### Tabelle Y: System-Risiken, Erkennung und Gegenmaßnahmen
+
+<table align="center" border="1" style="border-collapse: collapse; border: 2px solid black;">
+
+  <tr>
+    <th bgcolor="#4A90C2" width="260" style="border: 1px solid black; border-bottom: 3px solid black; padding: 8px; color: white;">Risiko</th>
+    <th bgcolor="#4A90C2" width="180" style="border: 1px solid black; border-bottom: 3px solid black; padding: 8px; color: white;">Wahrscheinlichkeit / Auswirkung</th>
+    <th bgcolor="#4A90C2" width="260" style="border: 1px solid black; border-bottom: 3px solid black; padding: 8px; color: white;">Erkennung</th>
+    <th bgcolor="#4A90C2" width="280" style="border: 1px solid black; border-bottom: 3px solid black; padding: 8px; color: white;">Gegenmaßnahme</th>
+  </tr>
+
+  <tr>
+    <td bgcolor="#EAF4FB" style="border: 1px solid black; padding: 8px;">Schwerpunktverschiebung durch erhöhte Kameraposition (27 cm) → Kippen in schnellen Kurven</td>
+    <td bgcolor="#EAF4FB" style="border: 1px solid black; padding: 8px;">Mittel / Hoch (kompletter Laufabbruch)</td>
+    <td bgcolor="#EAF4FB" style="border: 1px solid black; padding: 8px;">Beim Testlauf in Nordhorn auf griffigerer Matte beobachtet – Fahrzeug kippte in schnellen Kurven beinahe um</td>
+    <td bgcolor="#EAF4FB" style="border: 1px solid black; padding: 8px;">Maximalgeschwindigkeit in Kurven vor Ort reduziert (vgl. „Kamerahöhe und Erkennungsstrategie“)</td>
+  </tr>
+
+  <tr>
+    <td style="border: 1px solid black; padding: 8px;">Single Point of Failure: ein zentrales, selbst entwickeltes Baseboard trägt CM5, STM32, Motortreiber und Sensorik gleichzeitig</td>
+    <td style="border: 1px solid black; padding: 8px;">Niedrig / Sehr hoch (Totalausfall des Roboters)</td>
+    <td style="border: 1px solid black; padding: 8px;">Layout-/Footprint-Fehler auf PCB Version 2 (falsches STM32-Footprint, defekte Kameraanschlüsse)</td>
+    <td style="border: 1px solid black; padding: 8px;">Umfangreiche Breadboard-Testphase vor der ersten Platinenbestellung; fehlerhafte Platine identifiziert und neu designt (vgl. Meilenstein „Breadboard-Testphase“)</td>
+  </tr>
+
+  <tr>
+    <td bgcolor="#EAF4FB" style="border: 1px solid black; padding: 8px;">Gleichzeitige Spitzenlast mehrerer Subsysteme (Servo + CM5 + 4× ToF) auf einem gemeinsamen Akku/Regler</td>
+    <td bgcolor="#EAF4FB" style="border: 1px solid black; padding: 8px;">Niedrig / Hoch (Spannungseinbruch, Reset des Gesamtsystems)</td>
+    <td bgcolor="#EAF4FB" style="border: 1px solid black; padding: 8px;">Worst-Case-Rechnung im Power Budget (ca. 3,2 A Spitzenstrom, vgl. Kap. 2)</td>
+    <td bgcolor="#EAF4FB" style="border: 1px solid black; padding: 8px;">3S-Akku mit ausreichender Reserve, Regler auf Spitzenstrom dimensioniert; reale Messung bestätigt deutlich niedrigeren Dauerverbrauch (7–10 W)</td>
+  </tr>
+
+  <tr>
+    <td style="border: 1px solid black; padding: 8px;">Kommunikationsausfall zwischen CM5 und STM32 (UART, 921 600 Baud) → High-Level-Logik verliert Kontrolle über die Fahrsteuerung</td>
+    <td style="border: 1px solid black; padding: 8px;">Niedrig / Hoch (Fahrzeug reagiert nicht mehr auf Sollwerte)</td>
+    <td style="border: 1px solid black; padding: 8px;">Bislang keine dedizierte Erkennung (kein Watchdog/Timeout) implementiert</td>
+    <td style="border: 1px solid black; padding: 8px;">Offener Punkt, als Verbesserung für die nächste Version identifiziert (z. B. Watchdog-Timer, definiertes Fail-Safe-Verhalten bei Verbindungsabbruch)</td>
+  </tr>
+
+</table>
+<br>
 
 ## **Unser Roboter**
 
 #### Abbildung X: Finaler Roboter aus sechs Perspektiven mit Bemaßung:
 
 </div><div align="center">
-    <a href="img/sechs_ansichten Kopie.jpg" target="_blank">
-        <img width="600" src="img/sechs_ansichten Kopie.jpg">
+    <a href="img/sechs_ansichten.png" target="_blank">
+        <img width="600" src="img/sechs_ansichten.png">
     </a>
 </div>
 
-## **Technische Kenndaten (Bestückungsliste für Nachbau)**
+## **Technische Kenndaten**
 
 #### Tabelle X: Technische Kenndaten
 
@@ -1647,175 +2040,127 @@ Im Verlauf der Entwicklung und der Testläufe wurden Fehler identifiziert, deren
 
   <!-- Tabellenkopf -->
   <tr>
-    <th bgcolor="#4A90C2" width="220" style="border: 1px solid black; border-bottom: 3px solid black; padding: 8px; color: white;">Merkmal</th>
-    <th bgcolor="#4A90C2" width="480" style="border: 1px solid black; border-bottom: 3px solid black; padding: 8px; color: white;">Wert</th>
-    <th bgcolor="#4A90C2" width="180" style="border: 1px solid black; border-bottom: 3px solid black; padding: 8px; color: white;">Link zum Einkauf</th>
-    <th bgcolor="#4A90C2" width="180" style="border: 1px solid black; border-bottom: 3px solid black; padding: 8px; color: white;">Bild</th>
+    <th bgcolor="#4A90C2" width="320" style="border: 1px solid black; border-bottom: 3px solid black; padding: 8px; color: white;">Merkmal</th>
+    <th bgcolor="#4A90C2" width="560" style="border: 1px solid black; border-bottom: 3px solid black; padding: 8px; color: white;">Wert</th>
   </tr>
 
   <!-- Gesamtgewicht -->
   <tr>
     <td bgcolor="#EAF4FB" style="border: 1px solid black; padding: 8px;"><b>Gesamtgewicht</b></td>
     <td bgcolor="#EAF4FB" style="border: 1px solid black; padding: 8px;">ca. 450 g</td>
-    <td bgcolor="#EAF4FB" style="border: 1px solid black; padding: 8px; text-align: center;">–</td>
-    <td bgcolor="#EAF4FB" style="border: 1px solid black; padding: 8px; text-align: center;">–</td>
   </tr>
 
   <!-- Maximale Geschwindigkeit -->
   <tr>
     <td style="border: 1px solid black; padding: 8px;"><b>Maximale Geschwindigkeit</b></td>
     <td style="border: 1px solid black; padding: 8px;">ca. 2,1 m/s (gemessen im Fahrzeug)</td>
-    <td style="border: 1px solid black; padding: 8px; text-align: center;">–</td>
-    <td style="border: 1px solid black; padding: 8px; text-align: center;">–</td>
   </tr>
 
   <!-- Radstand -->
   <tr>
     <td bgcolor="#EAF4FB" style="border: 1px solid black; padding: 8px;"><b>Radstand</b></td>
     <td bgcolor="#EAF4FB" style="border: 1px solid black; padding: 8px;">80 mm</td>
-    <td bgcolor="#EAF4FB" style="border: 1px solid black; padding: 8px; text-align: center;">–</td>
-    <td bgcolor="#EAF4FB" style="border: 1px solid black; padding: 8px; text-align: center;">–</td>
   </tr>
 
   <!-- Spurbreite -->
   <tr>
     <td style="border: 1px solid black; padding: 8px;"><b>Spurbreite</b></td>
     <td style="border: 1px solid black; padding: 8px;">65 mm</td>
-    <td style="border: 1px solid black; padding: 8px; text-align: center;">–</td>
-    <td style="border: 1px solid black; padding: 8px; text-align: center;">–</td>
   </tr>
 
   <!-- Minimaler Kurvenradius -->
   <tr>
     <td bgcolor="#EAF4FB" style="border: 1px solid black; padding: 8px;"><b>Minimaler Kurvenradius</b></td>
     <td bgcolor="#EAF4FB" style="border: 1px solid black; padding: 8px;">ca. 114 mm</td>
-    <td bgcolor="#EAF4FB" style="border: 1px solid black; padding: 8px; text-align: center;">–</td>
-    <td bgcolor="#EAF4FB" style="border: 1px solid black; padding: 8px; text-align: center;">–</td>
   </tr>
 
   <!-- Antrieb -->
   <tr>
     <td style="border: 1px solid black; padding: 8px;"><b>Antrieb</b></td>
     <td style="border: 1px solid black; padding: 8px;">N30 6V 1500 rpm, Gesamtübersetzung 24,4:1</td>
-    <td style="border: 1px solid black; padding: 8px; text-align: center;">
-      <a href="LINK_EINFÜGEN">Einkaufslink</a>
-    </td>
-    <td style="border: 1px solid black; padding: 8px; text-align: center;">
-      <img src="bild1.png" width="120">
-    </td>
   </tr>
 
   <!-- Lenkung -->
   <tr>
     <td bgcolor="#EAF4FB" style="border: 1px solid black; padding: 8px;"><b>Lenkung</b></td>
     <td bgcolor="#EAF4FB" style="border: 1px solid black; padding: 8px;">Ackermann-Lenkung, 1× Servo INJORA N30 Nano Servo</td>
-    <td bgcolor="#EAF4FB" style="border: 1px solid black; padding: 8px; text-align: center;">
-      <a href="LINK_EINFÜGEN">Einkaufslink</a>
-    </td>
-    <td bgcolor="#EAF4FB" style="border: 1px solid black; padding: 8px; text-align: center;">
-      <img src="bild2.png" width="120">
-    </td>
+  </tr>
+
+  <!-- Lagerung Vorderachse -->
+  <tr>
+    <td style="border: 1px solid black; padding: 8px;"><b>Lagerung Vorderachse</b></td>
+    <td style="border: 1px solid black; padding: 8px;">10× Kugellager (8× Vorderachse: je Seite 2× Achsschenkel + 2× Rad)</td>
+  </tr>
+
+  <!-- Hinterachse -->
+  <tr>
+    <td bgcolor="#EAF4FB" style="border: 1px solid black; padding: 8px;"><b>Hinterachse</b></td>
+    <td bgcolor="#EAF4FB" style="border: 1px solid black; padding: 8px;">Kugeldifferential (Modellbau-Zukaufteil), statt gedruckter Starrachse</td>
   </tr>
 
   <!-- Hauptrechner -->
   <tr>
     <td style="border: 1px solid black; padding: 8px;"><b>Hauptrechner</b></td>
-    <td style="border: 1px solid black; padding: 8px;">Raspberry Pi CM5 auf eigenem Baseboard (Datei im GitHub)</td>
-    <td style="border: 1px solid black; padding: 8px; text-align: center;">
-      <a href="LINK_EINFÜGEN">Einkaufslink</a>
-    </td>
-    <td style="border: 1px solid black; padding: 8px; text-align: center;">
-      <img src="bild3.png" width="120">
-    </td>
+    <td style="border: 1px solid black; padding: 8px;">Raspberry Pi CM5 auf eigenem Baseboard</td>
+  </tr>
+
+  <!-- Eigene Trägerplatine (Baseboard) -->
+  <tr>
+    <td bgcolor="#EAF4FB" style="border: 1px solid black; padding: 8px;"><b>Eigene Trägerplatine (Baseboard)</b></td>
+    <td bgcolor="#EAF4FB" style="border: 1px solid black; padding: 8px;">Selbst entwickeltes PCB für CM5, STM32, Sensorik und Motortreiber (KiCad-Projekt: <code>kicad/baseboard</code>)</td>
   </tr>
 
   <!-- Mikrocontroller -->
   <tr>
-    <td bgcolor="#EAF4FB" style="border: 1px solid black; padding: 8px;"><b>Mikrocontroller</b></td>
-    <td bgcolor="#EAF4FB" style="border: 1px solid black; padding: 8px;">STM32F411 BlackPill</td>
-    <td bgcolor="#EAF4FB" style="border: 1px solid black; padding: 8px; text-align: center;">
-      <a href="LINK_EINFÜGEN">Einkaufslink</a>
-    </td>
-    <td bgcolor="#EAF4FB" style="border: 1px solid black; padding: 8px; text-align: center;">
-      <img src="bild4.png" width="120">
-    </td>
+    <td style="border: 1px solid black; padding: 8px;"><b>Mikrocontroller</b></td>
+    <td style="border: 1px solid black; padding: 8px;">STM32F411 BlackPill</td>
   </tr>
 
   <!-- Entfernungssensoren -->
   <tr>
-    <td style="border: 1px solid black; padding: 8px;"><b>Entfernungssensoren</b></td>
-    <td style="border: 1px solid black; padding: 8px;">4× VL53L8CX Time-of-Flight (30 Hz)</td>
-    <td style="border: 1px solid black; padding: 8px; text-align: center;">
-      <a href="LINK_EINFÜGEN">Einkaufslink</a>
-    </td>
-    <td style="border: 1px solid black; padding: 8px; text-align: center;">
-      <img src="bild5.png" width="120">
-    </td>
+    <td bgcolor="#EAF4FB" style="border: 1px solid black; padding: 8px;"><b>Entfernungssensoren</b></td>
+    <td bgcolor="#EAF4FB" style="border: 1px solid black; padding: 8px;">4× VL53L8CX Time-of-Flight (30 Hz)</td>
   </tr>
 
   <!-- Kamera -->
   <tr>
-    <td bgcolor="#EAF4FB" style="border: 1px solid black; padding: 8px;"><b>Kamera</b></td>
-    <td bgcolor="#EAF4FB" style="border: 1px solid black; padding: 8px;">Raspberry Pi Camera Module 3 Wide, 12 MP (Montagehöhe 27 cm)</td>
-    <td bgcolor="#EAF4FB" style="border: 1px solid black; padding: 8px; text-align: center;">
-      <a href="LINK_EINFÜGEN">Einkaufslink</a>
-    </td>
-    <td bgcolor="#EAF4FB" style="border: 1px solid black; padding: 8px; text-align: center;">
-      <img src="bild6.png" width="120">
-    </td>
+    <td style="border: 1px solid black; padding: 8px;"><b>Kamera</b></td>
+    <td style="border: 1px solid black; padding: 8px;">Raspberry Pi Camera Module 3 Wide, 12 MP (Montagehöhe 27 cm)</td>
   </tr>
 
   <!-- Lagesensor -->
   <tr>
-    <td style="border: 1px solid black; padding: 8px;"><b>Lagesensor</b></td>
-    <td style="border: 1px solid black; padding: 8px;">BNO086 (Gyroskop)</td>
-    <td style="border: 1px solid black; padding: 8px; text-align: center;">
-      <a href="LINK_EINFÜGEN">Einkaufslink</a>
-    </td>
-    <td style="border: 1px solid black; padding: 8px; text-align: center;">
-      <img src="bild7.png" width="120">
-    </td>
+    <td bgcolor="#EAF4FB" style="border: 1px solid black; padding: 8px;"><b>Lagesensor</b></td>
+    <td bgcolor="#EAF4FB" style="border: 1px solid black; padding: 8px;">BNO086 (Gyroskop)</td>
   </tr>
 
   <!-- Energieversorgung -->
   <tr>
-    <td bgcolor="#EAF4FB" style="border: 1px solid black; padding: 8px;"><b>Energieversorgung</b></td>
-    <td bgcolor="#EAF4FB" style="border: 1px solid black; padding: 8px;">3S-LiPo, 11,1 V, 550 mAh</td>
-    <td bgcolor="#EAF4FB" style="border: 1px solid black; padding: 8px; text-align: center;">
-      <a href="LINK_EINFÜGEN">Einkaufslink</a>
-    </td>
-    <td bgcolor="#EAF4FB" style="border: 1px solid black; padding: 8px; text-align: center;">
-      <img src="bild8.png" width="120">
-    </td>
+    <td style="border: 1px solid black; padding: 8px;"><b>Energieversorgung</b></td>
+    <td style="border: 1px solid black; padding: 8px;">3S-LiPo, 11,1 V, 550 mAh</td>
   </tr>
 
   <!-- Leistungsverbrauch -->
   <tr>
-    <td style="border: 1px solid black; padding: 8px;"><b>Leistungsverbrauch</b></td>
-    <td style="border: 1px solid black; padding: 8px;">7–10 W (gemessen)</td>
-    <td style="border: 1px solid black; padding: 8px; text-align: center;">–</td>
-    <td style="border: 1px solid black; padding: 8px; text-align: center;">–</td>
+    <td bgcolor="#EAF4FB" style="border: 1px solid black; padding: 8px;"><b>Leistungsverbrauch</b></td>
+    <td bgcolor="#EAF4FB" style="border: 1px solid black; padding: 8px;">7–10 W (gemessen)</td>
   </tr>
 
   <!-- Akku-Laufzeit -->
   <tr>
-    <td bgcolor="#EAF4FB" style="border: 1px solid black; padding: 8px;"><b>Akku-Laufzeit</b></td>
-    <td bgcolor="#EAF4FB" style="border: 1px solid black; padding: 8px;">ca. 40 min (praktisch gemessen)</td>
-    <td bgcolor="#EAF4FB" style="border: 1px solid black; padding: 8px; text-align: center;">–</td>
-    <td bgcolor="#EAF4FB" style="border: 1px solid black; padding: 8px; text-align: center;">–</td>
+    <td style="border: 1px solid black; padding: 8px;"><b>Akku-Laufzeit</b></td>
+    <td style="border: 1px solid black; padding: 8px;">ca. 40 min (praktisch gemessen)</td>
   </tr>
 
   <!-- Chassis -->
   <tr>
-    <td style="border: 1px solid black; padding: 8px;"><b>Chassis</b></td>
-    <td style="border: 1px solid black; padding: 8px;">Dateien im GitHub / Material: PPA-CF (3D-Druck)</td>
-    <td style="border: 1px solid black; padding: 8px; text-align: center;">–</td>
-    <td style="border: 1px solid black; padding: 8px; text-align: center;">
-      <img src="bild9.png" width="120">
-    </td>
+    <td bgcolor="#EAF4FB" style="border: 1px solid black; padding: 8px;"><b>Chassis</b></td>
+    <td bgcolor="#EAF4FB" style="border: 1px solid black; padding: 8px;">3-teiliges Chassis (Boden-, Mittel-, Oberdeck), Material PPA-CF (3D-Druck)</td>
   </tr>
 
 </table>
+
+Eine vollständige Einkaufsliste mit Bezugsquellen, Fotos und den benötigten CAD-Dateien für den Nachbau befindet sich am Anfang von Kapitel 5, [Construction guide](#construction-guide).
 
 ## **Systemarchitektur**
 Die softwareseitige Aufgabenverteilung zwischen Raspberry Pi CM5 und STM32F411 – inklusive Modulübersicht und Kommunikationsprotokoll – ist in Abschnitt 3.1 beschrieben. Auf Systemebene ist die **gegenseitige Beeinflussung der mechanischen und elektronischen Komponenten** entscheidend. Die Abmessungen der selbst entwickelten Platine bestimmten die Länge des Chassis. Das kompakte Chassis erforderte eine entsprechend platzsparende Integration der Recheneinheit. Die erhöhte Kameraposition verbesserte die Sichtweite des Systems, beeinflusste jedoch den Schwerpunkt des Fahrzeugs. Die Sensoranordnung war vom verfügbaren Bauraum und dem benötigten Sichtfeld abhängig. Das folgende Blockschaltbild fasst diese Gesamtarchitektur zusammen und zeigt, wie Recheneinheiten, Aktoren und Sensoren im System zusammenwirken.
@@ -1850,7 +2195,7 @@ Der Wechsel von LIDAR auf sechs **ToF-Sensoren** reduzierte die Messlatenz von 1
 
  ### **Kamerahöhe und Erkennungsstrategie** 
 
-Drei Wochen vor dem deutschen Regionalwettbewerb wurde die Kamera auf **27 cm** angehoben, knapp unter die zulässige Maximalhöhe. Dadurch konnte das Fahrzeug alle Hindernisse vom Startplatz aus auf einmal erfassen und auf einen einmaligen **Vollscan** vor der Abfahrt umgestellt werden. Die Rundenzeit sank dadurch von **56 s auf 38 s**. Nachteil: Der Schwerpunkt verschob sich deutlich nach oben – beim Wettbewerb in Nordhorn kippte der Roboter in schnellen Kurven beinahe um, da die Matte dort deutlich griffiger war als unsere Übungsmatte. Als Konsequenz haben wir die Maximalgeschwindigkeit vor Ort reduziert. → vgl. Kapitel 2.4, 3.5.1, 3.5.2
+Drei Wochen vor dem deutschen Regionalwettbewerb wurde die Kamera auf **27 cm** angehoben, knapp unter die zulässige Maximalhöhe. Dadurch konnte das Fahrzeug alle Hindernisse vom Startplatz aus auf einmal erfassen und auf einen einmaligen **Vollscan** vor der Abfahrt umgestellt werden. Die Zeit für einen Lauf sank dadurch von **56 s auf 38 s**. Nachteil: Der Schwerpunkt verschob sich deutlich nach oben – beim Wettbewerb in Nordhorn kippte der Roboter in schnellen Kurven beinahe um, da die Matte dort deutlich griffiger war als unsere Übungsmatte. Als Konsequenz haben wir die Maximalgeschwindigkeit vor Ort reduziert. → vgl. Kapitel 2.4, 3.5.1, 3.5.2
 <br>
 
 ### **Chassis-Material: PLA vs. PPA-CF**
@@ -1993,6 +2338,233 @@ Der finale Roboter entstand nicht in einem einzelnen Entwicklungsschritt, sonder
 <br><BR>
 
 # **5. Construction guide**
+
+#### Tabelle X: Bestückungsliste für den Nachbau (Einkaufsteile & CAD-Dateien)
+
+<table align="center" border="1" style="border-collapse: collapse; border: 2px solid black;">
+
+  <!-- Tabellenkopf -->
+  <tr>
+    <th bgcolor="#4A90C2" width="180" style="border: 1px solid black; border-bottom: 3px solid black; padding: 8px; color: white;">Komponente</th>
+    <th bgcolor="#4A90C2" width="300" style="border: 1px solid black; border-bottom: 3px solid black; padding: 8px; color: white;">Beschreibung</th>
+    <th bgcolor="#4A90C2" width="150" style="border: 1px solid black; border-bottom: 3px solid black; padding: 8px; color: white;">Link zum Einkauf</th>
+    <th bgcolor="#4A90C2" width="120" style="border: 1px solid black; border-bottom: 3px solid black; padding: 8px; color: white;">Bild</th>
+    <th bgcolor="#4A90C2" width="230" style="border: 1px solid black; border-bottom: 3px solid black; padding: 8px; color: white;">CAD-/Konstruktionsdatei</th>
+  </tr>
+
+  <!-- Antriebsmotor -->
+  <tr>
+    <td bgcolor="#EAF4FB" style="border: 1px solid black; padding: 8px;"><b>Antriebsmotor</b></td>
+    <td bgcolor="#EAF4FB" style="border: 1px solid black; padding: 8px;">N30 6V 1500 rpm, Gesamtübersetzung 24,4:1</td>
+    <td bgcolor="#EAF4FB" style="border: 1px solid black; padding: 8px; text-align: center;">
+      <a href="https://www.amazon.de/HUJWLBWF-Electronic-Starter-100RPM-1000RPM/dp/B0DFGZJPYX?th=1">Einkaufslink</a>
+    </td>
+    <td bgcolor="#EAF4FB" style="border: 1px solid black; padding: 8px; text-align: center;">
+      <img src="img/motor.avif" width="100">
+    </td>
+    <td bgcolor="#EAF4FB" style="border: 1px solid black; padding: 8px; text-align: center;">– (Kaufteil)</td>
+  </tr>
+
+  <!-- Lenkservo -->
+  <tr>
+    <td style="border: 1px solid black; padding: 8px;"><b>Lenkservo</b></td>
+    <td style="border: 1px solid black; padding: 8px;">INJORA N30 Nano Servo</td>
+    <td style="border: 1px solid black; padding: 8px; text-align: center;">
+      <a href="https://www.amazon.de/INJORA-Aluminium-Servo-Saver-Axial/dp/B0GFN133BN">Einkaufslink</a>
+    </td>
+    <td style="border: 1px solid black; padding: 8px; text-align: center;">
+      <img src="img/servo.avif" width="100">
+    </td>
+    <td style="border: 1px solid black; padding: 8px; text-align: center;">– (Kaufteil)</td>
+  </tr>
+
+  <!-- Kugeldifferential -->
+  <tr>
+    <td bgcolor="#EAF4FB" style="border: 1px solid black; padding: 8px;"><b>Kugeldifferential (Hinterachse)</b></td>
+    <td bgcolor="#EAF4FB" style="border: 1px solid black; padding: 8px;">Kyosho Kugeldifferential (Modellbau-Zukaufteil)</td>
+    <td bgcolor="#EAF4FB" style="border: 1px solid black; padding: 8px; text-align: center;">
+      <a href="https://www.modellbau-berlinski.de/rc-fahrzeuge-und-zubehoer/autos-und-zubehoer/ersatz--und-tuningteile/kyosho/kugeldifferential-mini-z-mr04-mr03-mr02?geo=DE">Einkaufslink</a>
+    </td>
+    <td bgcolor="#EAF4FB" style="border: 1px solid black; padding: 8px; text-align: center;">
+      <img src="img/kugelachse.png" width="100">
+    </td>
+    <td bgcolor="#EAF4FB" style="border: 1px solid black; padding: 8px; text-align: center;">– (Kaufteil)</td>
+  </tr>
+
+  <!-- Reifen -->
+  <tr>
+    <td style="border: 1px solid black; padding: 8px;"><b>Reifen</b></td>
+    <td style="border: 1px solid black; padding: 8px;">Kyosho Slick-Reifen, schmal, 20 Shore, 4 Stk. (MZW-02-20)</td>
+    <td style="border: 1px solid black; padding: 8px; text-align: center;">
+      <a href="https://mini-zshop.de/Mini-Z/Reifen-Mini-Z/Kyosho-Reifen/Slick-Reifen-schmal-20-Shore-4-Stk-MZW-02-20::1127.html">Einkaufslink</a>
+    </td>
+    <td style="border: 1px solid black; padding: 8px; text-align: center;">
+      <img src="img/reifen.jpg" width="100">
+    </td>
+    <td style="border: 1px solid black; padding: 8px; text-align: center;">– (Kaufteil)</td>
+  </tr>
+
+  <!-- Kugellager -->
+  <tr>
+    <td bgcolor="#EAF4FB" style="border: 1px solid black; padding: 8px;"><b>Kugellager Vorderachse/Lenkung</b></td>
+    <td bgcolor="#EAF4FB" style="border: 1px solid black; padding: 8px;">10× Kugellager (8× Vorderachse: je Seite 2× Achsschenkel + 2× Rad)</td>
+    <td bgcolor="#EAF4FB" style="border: 1px solid black; padding: 8px; text-align: center;">kein Link hinterlegt (Standardgröße gemäß CAD-Modell der Vorderachse)</td>
+    <td bgcolor="#EAF4FB" style="border: 1px solid black; padding: 8px; text-align: center;">–</td>
+    <td bgcolor="#EAF4FB" style="border: 1px solid black; padding: 8px; text-align: center;"><i>Platzhalter – noch nicht im Repository hinterlegt</i></td>
+  </tr>
+
+  <!-- Hauptrechner -->
+  <tr>
+    <td style="border: 1px solid black; padding: 8px;"><b>Hauptrechner</b></td>
+    <td style="border: 1px solid black; padding: 8px;">Raspberry Pi CM5</td>
+    <td style="border: 1px solid black; padding: 8px; text-align: center;">
+      <a href="https://www.berrybase.de/raspberry-pi-compute-module-5">Einkaufslink</a>
+    </td>
+    <td style="border: 1px solid black; padding: 8px; text-align: center;">
+      <img src="img/cm5.webp" width="100">
+    </td>
+    <td style="border: 1px solid black; padding: 8px; text-align: center;">– (Kaufteil)</td>
+  </tr>
+
+  <!-- Baseboard -->
+  <tr>
+    <td bgcolor="#EAF4FB" style="border: 1px solid black; padding: 8px;"><b>Eigene Trägerplatine (Baseboard)</b></td>
+    <td bgcolor="#EAF4FB" style="border: 1px solid black; padding: 8px;">Selbst entwickeltes PCB für CM5, STM32, Sensorik und Motortreiber</td>
+    <td bgcolor="#EAF4FB" style="border: 1px solid black; padding: 8px; text-align: center;">– (Eigenentwicklung, kein Einkauf)</td>
+    <td bgcolor="#EAF4FB" style="border: 1px solid black; padding: 8px; text-align: center;">–</td>
+    <td bgcolor="#EAF4FB" style="border: 1px solid black; padding: 8px; text-align: center;"><code>kicad/baseboard</code> (KiCad-Projekt vorhanden)</td>
+  </tr>
+
+  <!-- Mikrocontroller -->
+  <tr>
+    <td style="border: 1px solid black; padding: 8px;"><b>Mikrocontroller</b></td>
+    <td style="border: 1px solid black; padding: 8px;">STM32F411 BlackPill</td>
+    <td style="border: 1px solid black; padding: 8px; text-align: center;">
+      <a href="https://www.berrybase.de/en/adafruit-stm32f411-blackpill-development-board">Einkaufslink</a>
+    </td>
+    <td style="border: 1px solid black; padding: 8px; text-align: center;">
+      <img src="img/mikrocontroller.jpg" width="100">
+    </td>
+    <td style="border: 1px solid black; padding: 8px; text-align: center;">– (Kaufteil)</td>
+  </tr>
+
+  <!-- ToF-Sensoren -->
+  <tr>
+    <td bgcolor="#EAF4FB" style="border: 1px solid black; padding: 8px;"><b>Entfernungssensoren</b></td>
+    <td bgcolor="#EAF4FB" style="border: 1px solid black; padding: 8px;">4× VL53L8CX Time-of-Flight (30 Hz)</td>
+    <td bgcolor="#EAF4FB" style="border: 1px solid black; padding: 8px; text-align: center;">
+      <a href="https://eckstein-shop.de/Pololu-VL53L8CX-Time-of-Flight-8x8-Zone-Distance-Sensor-Carrier-with-Voltage-Regulators-400cm-Max-EN">Einkaufslink</a>
+    </td>
+    <td bgcolor="#EAF4FB" style="border: 1px solid black; padding: 8px; text-align: center;">
+      <img src="img/tofsensor.webp" width="100">
+    </td>
+    <td bgcolor="#EAF4FB" style="border: 1px solid black; padding: 8px; text-align: center;">– (Kaufteil)</td>
+  </tr>
+
+  <!-- Kamera -->
+  <tr>
+    <td style="border: 1px solid black; padding: 8px;"><b>Kamera</b></td>
+    <td style="border: 1px solid black; padding: 8px;">Raspberry Pi Camera Module 3 Wide, 12 MP</td>
+    <td style="border: 1px solid black; padding: 8px; text-align: center;">
+      <a href="https://www.berrybase.de/raspberry-pi-camera-module-3-12mp">Einkaufslink</a>
+    </td>
+    <td style="border: 1px solid black; padding: 8px; text-align: center;">
+      <img src="img/kamera.webp" width="100">
+    </td>
+    <td style="border: 1px solid black; padding: 8px; text-align: center;">– (Kaufteil)</td>
+  </tr>
+
+  <!-- Gyro -->
+  <tr>
+    <td bgcolor="#EAF4FB" style="border: 1px solid black; padding: 8px;"><b>Lagesensor</b></td>
+    <td bgcolor="#EAF4FB" style="border: 1px solid black; padding: 8px;">BNO086 (Gyroskop)</td>
+    <td bgcolor="#EAF4FB" style="border: 1px solid black; padding: 8px; text-align: center;">
+      <a href="https://www.mouser.de/de/ProductDetail/CEVA/BNO086?qs=ulEaXIWI0c%2FqTo1scjodAw%3D%3D">Einkaufslink</a>
+    </td>
+    <td bgcolor="#EAF4FB" style="border: 1px solid black; padding: 8px; text-align: center;">
+      <img src="img/gyro.png" width="100">
+    </td>
+    <td bgcolor="#EAF4FB" style="border: 1px solid black; padding: 8px; text-align: center;">– (Kaufteil)</td>
+  </tr>
+
+  <!-- Akku -->
+  <tr>
+    <td style="border: 1px solid black; padding: 8px;"><b>Akku</b></td>
+    <td style="border: 1px solid black; padding: 8px;">3S-LiPo, 11,1 V, 550 mAh</td>
+    <td style="border: 1px solid black; padding: 8px; text-align: center;">
+      <a href="https://www.amazon.de/TATTU-R-Line-550mAh-11-1V-Battery/dp/B08HYTDK6S">Einkaufslink</a>
+    </td>
+    <td style="border: 1px solid black; padding: 8px; text-align: center;">
+      <img src="img/akku.avif" width="100">
+    </td>
+    <td style="border: 1px solid black; padding: 8px; text-align: center;">– (Kaufteil)</td>
+  </tr>
+
+  <!-- Bodenplatte -->
+  <tr>
+    <td bgcolor="#EAF4FB" style="border: 1px solid black; padding: 8px;"><b>Chassis – Bodenplatte (Lower Deck)</b></td>
+    <td bgcolor="#EAF4FB" style="border: 1px solid black; padding: 8px;">3D-Druck, Material PPA-CF</td>
+    <td bgcolor="#EAF4FB" style="border: 1px solid black; padding: 8px; text-align: center;">– (Eigenfertigung)</td>
+    <td bgcolor="#EAF4FB" style="border: 1px solid black; padding: 8px; text-align: center;">–</td>
+    <td bgcolor="#EAF4FB" style="border: 1px solid black; padding: 8px; text-align: center;"><code>models/Lowderdeck.stl</code></td>
+  </tr>
+
+  <!-- Mittelplatte -->
+  <tr>
+    <td style="border: 1px solid black; padding: 8px;"><b>Chassis – Mittelplatte (Middle Deck)</b></td>
+    <td style="border: 1px solid black; padding: 8px;">3D-Druck, Material PLA/PETG oder PPA-CF</td>
+    <td style="border: 1px solid black; padding: 8px; text-align: center;">– (Eigenfertigung)</td>
+    <td style="border: 1px solid black; padding: 8px; text-align: center;">–</td>
+    <td style="border: 1px solid black; padding: 8px; text-align: center;"><i>Platzhalter – noch nicht im Repository hinterlegt</i></td>
+  </tr>
+
+  <!-- Oberdeck -->
+  <tr>
+    <td bgcolor="#EAF4FB" style="border: 1px solid black; padding: 8px;"><b>Chassis – Oberdeck (Kamera-/Sensorhalterung)</b></td>
+    <td bgcolor="#EAF4FB" style="border: 1px solid black; padding: 8px;">3D-Druck, Material PLA/PETG oder PPA-CF</td>
+    <td bgcolor="#EAF4FB" style="border: 1px solid black; padding: 8px; text-align: center;">– (Eigenfertigung)</td>
+    <td bgcolor="#EAF4FB" style="border: 1px solid black; padding: 8px; text-align: center;">–</td>
+    <td bgcolor="#EAF4FB" style="border: 1px solid black; padding: 8px; text-align: center;"><i>Platzhalter – noch nicht im Repository hinterlegt</i></td>
+  </tr>
+
+  <!-- Servo-Halterung -->
+  <tr>
+    <td style="border: 1px solid black; padding: 8px;"><b>Servo-Halterung</b></td>
+    <td style="border: 1px solid black; padding: 8px;">3D-Druck, Material PLA/PETG oder PPA-CF</td>
+    <td style="border: 1px solid black; padding: 8px; text-align: center;">– (Eigenfertigung)</td>
+    <td style="border: 1px solid black; padding: 8px; text-align: center;">–</td>
+    <td style="border: 1px solid black; padding: 8px; text-align: center;"><i>Platzhalter – noch nicht im Repository hinterlegt</i></td>
+  </tr>
+
+  <!-- Vorderachse -->
+  <tr>
+    <td bgcolor="#EAF4FB" style="border: 1px solid black; padding: 8px;"><b>Vorderachse (Achsschenkel, Lenkgestänge-Halterung)</b></td>
+    <td bgcolor="#EAF4FB" style="border: 1px solid black; padding: 8px;">3D-Druck, Material PLA/PETG oder PPA-CF</td>
+    <td bgcolor="#EAF4FB" style="border: 1px solid black; padding: 8px; text-align: center;">– (Eigenfertigung)</td>
+    <td bgcolor="#EAF4FB" style="border: 1px solid black; padding: 8px; text-align: center;">–</td>
+    <td bgcolor="#EAF4FB" style="border: 1px solid black; padding: 8px; text-align: center;"><i>Platzhalter – noch nicht im Repository hinterlegt</i></td>
+  </tr>
+
+  <!-- Stoßfänger -->
+  <tr>
+    <td style="border: 1px solid black; padding: 8px;"><b>Frontstoßfänger</b></td>
+    <td style="border: 1px solid black; padding: 8px;">3D-Druck, Material TPU (Stoßdämpfung)</td>
+    <td style="border: 1px solid black; padding: 8px; text-align: center;">– (Eigenfertigung)</td>
+    <td style="border: 1px solid black; padding: 8px; text-align: center;">–</td>
+    <td style="border: 1px solid black; padding: 8px; text-align: center;"><i>Platzhalter – noch nicht im Repository hinterlegt</i></td>
+  </tr>
+
+  <!-- Seitenleisten -->
+  <tr>
+    <td bgcolor="#EAF4FB" style="border: 1px solid black; padding: 8px;"><b>Seitenleisten (2×, Halterung Elektronik)</b></td>
+    <td bgcolor="#EAF4FB" style="border: 1px solid black; padding: 8px;">3D-Druck, Material PLA/PETG oder PPA-CF</td>
+    <td bgcolor="#EAF4FB" style="border: 1px solid black; padding: 8px; text-align: center;">– (Eigenfertigung)</td>
+    <td bgcolor="#EAF4FB" style="border: 1px solid black; padding: 8px; text-align: center;">–</td>
+    <td bgcolor="#EAF4FB" style="border: 1px solid black; padding: 8px; text-align: center;"><i>Platzhalter – noch nicht im Repository hinterlegt</i></td>
+  </tr>
+
+</table>
+<br>
 
 This chapter provides a **step-by-step guide** through the **assembly** of our autonomous robot. The instructions are structured so that the robot is built from bottom to top, starting with the lower deck and ending with the upper LiDAR deck.
 
@@ -2356,3 +2928,12 @@ With these steps, the workflow is fully documented: code creation/setup, compila
 3. On CM5, start `python3 main.py` in `Wro26/src/pi`.
 4. Confirm UART link is alive: sensor values in UI update continuously (distance/rps/voltage).
 5. Press start trigger once and verify steering + motor response before placing on field.
+
+</div>
+
+<div style="background-color: #EDF2FB; border-left: 6px solid #375A85; padding: 10px 16px; margin: 14px 0; color: #1B2A4A;">
+🎯 <b>Bezug zu WRO-Kriterium 5 – GitHub (Level 6):</b> „Der Roboter ist anhand der Dokumentation vollständig nachbaubar. Das GitHub-Repository hat eine klare Projektstruktur, aussagekräftige Commit-Nachrichten, einen dokumentierten Testworkflow sowie Versionierung bzw. Release-Notes.“<br><br>
+<b>Bewertet wird:</b> Struktur und Übersichtlichkeit des GitHub-Repos · Commit-Historie (mind. drei aussagekräftige Commits) · Inhalt/Aufbau des README · Dateiorganisation · CAD-, Code-, Verdrahtungs- und weitere technische Dateien · Reproduzierbarkeit des Roboters.<br><br>
+<b>Selbstcheck:</b> Könnte ein anderes Team unseren Roboter anhand unserer Dokumentation nachbauen? Erklärt unser README, wie das System funktioniert und wie man es baut? Haben wir mindestens drei aussagekräftige Commits mit klaren Nachrichten? Sind CAD-, Verdrahtungs- und Code-Dateien alle im Repository enthalten?<br><br>
+<i>Level-6-Beispiel aus der WRO-Rubrik:</i> „Unser GitHub-Repository enthält den gesamten Code, CAD- und STL-Dateien sowie Verdrahtungspläne. Das README erklärt Schritt für Schritt, wie der Roboter zusammengebaut wird. Jede größere Änderung ist mit einer Commit-Nachricht wie ‚Added PID tuning‘ oder ‚Improved pillar detection‘ dokumentiert. Release v1.0 entspricht dem Regionalwettbewerb, v2.0 der finalen internationalen Version. Unser Testworkflow ist in tests.md dokumentiert.“
+</div>
