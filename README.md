@@ -376,17 +376,17 @@ Auf Grundlage der gewählten Räder (Durchmesser ca. 27 mm, Umfang ca. 84,8 mm) 
 <br><br>
 Die zweite Anforderung betrifft das **Drehmoment**. Ein Motor muss nicht nur eine hohe Drehzahl erreichen, sondern auch genug Drehmoment liefern, um das Fahrzeug unter realen Bedingungen zuverlässig zu beschleunigen. Das notwendige Drehmoment schätzten wir auf Basis des Fahrzeuggewichts von ca. 450 g ab. Bei einem angenommenen Rollreibungskoeffizienten von 0,05 und einem Radradius von 13,5 mm ergibt sich:
 <br>
-<div style="background-color: #B8D8EE; padding: 8px; text-align: center; color: #000000; margin-bottom: 20px;">
+<table align="center" width="100%" cellpadding="8" cellspacing="0" border="0"><tr><td bgcolor="#B8D8EE" align="center">
 Rollwiderstandskraft: F<sub>roll</sub> = 0,45 kg × 9,81 m/s² × 0,05 ≈ 0,22 N<br>
 Drehmoment am Rad: M<sub>rad</sub> = 0,22 N × 0,0135 m ≈ 3,0 mNm
-</div>
+</td></tr></table>
 
 Nach Rückrechnung durch die externe Getriebeübersetzung muss der Motor mindestens 3,0 / 2,44 ≈ 1,2 mNm Drehmoment aufbringen, zuzüglich Reserve für Kurvenfahrten und Beschleunigung.
 
 Um einen geeigneten Motor zu finden, haben wir mehrere kleine Motoren der N20/N30-Klasse gekauft, die laut Datenblatt hohe Drehzahlen bei vertretbarem Drehmoment versprechen, und diese direkt im Fahrzeug getestet. Dafür haben wir ein **Testprogramm** geschrieben, das die Fahrgeschwindigkeit über den Encoder am Motor berechnet. Der STM32 liest einen Quadratur-Encoder aus und berechnet die Drehzahl. Die Umrechnung des Encoder-Zählerwerts in eine Fahrgeschwindigkeit erfolgt über den empirisch kalibrierten Faktor: 
 
-<div style="background-color: #B8D8EE; padding: 8px; text-align: center; color: #000000; margin-bottom: 20px;">
-v [m/s] = Encoder-Zählwert × 30 / (5,165 × 1000)</div>
+<table align="center" width="100%" cellpadding="8" cellspacing="0" border="0"><tr><td bgcolor="#B8D8EE" align="center">
+v [m/s] = Encoder-Zählwert × 30 / (5,165 × 1000)</td></tr></table>
 
 Der Faktor 5,165 wurde anhand von  Referenzmessungen bei bekannten Strecken bestimmt.
 
@@ -504,7 +504,7 @@ Die **Konstruktion** der Hinterachse erfolgte in Fusion 360 auf Basis des Kugeld
 ### Ackermann-Bedingung bei unserer Lenkung
 Für die Vorderachse haben wir uns wie schon im letzten Jahr für eine **Ackermann-Lenkung** entschieden. Bei einer einfachen Parallellenkung drehen beide Vorderräder um denselben Winkel – das führt in Kurven zu seitlichem Schlupf, weil das kurveninnere Rad einen kleineren Radius fährt als das äußere und daher stärker einlenken müsste. Die Ackermann-Lenkung löst dieses Problem, indem die Lenkgeometrie so ausgelegt wird, dass sich die verlängerten Radachsen beider Vorderräder auf der Verlängerung der Hinterachse in einem gemeinsamen Punkt schneiden. Die ideale Bedingung dafür lautet:
 
-<div style="background-color: #B8D8EE; padding: 8px; text-align: center; color: #000000; margin-bottom: 20px;">cot(δ<sub>außen</sub>) − cot(δ<sub>innen</sub>) = Spurbreite t / Radstand L</div>
+<table align="center" width="100%" cellpadding="8" cellspacing="0" border="0"><tr><td bgcolor="#B8D8EE" align="center">cot(δ<sub>außen</sub>) − cot(δ<sub>innen</sub>) = Spurbreite t / Radstand L</td></tr></table>
 
 Mit unserer Spurbreite t = 65 mm und dem Radstand L = 80 mm ergibt sich ein **Zielwert von t/L = 0,81.**
 
@@ -526,9 +526,9 @@ Da für unsere kompakte Bauform keine geeigneten Fertigteile verfügbar waren, k
 
 Bei maximalem Lenkeinschlag erreicht das kurveninnere Rad 45° und das kurvenäußere 35°, woraus sich ergibt:
 
-<div style="background-color: #B8D8EE; padding: 8px; text-align: center; color: #000000; margin-bottom: 20px;">
+<table align="center" width="100%" cellpadding="8" cellspacing="0" border="0"><tr><td bgcolor="#B8D8EE" align="center">
 cot(35°) − cot(45°) = 1,43 − 1,00 = 0,43
-</div>
+</td></tr></table>
 
 Der erreichte Wert von 0,43 liegt deutlich unter dem Idealwert von 0,81. Bei unverändertem Außenwinkel von 35° müsste das Innenrad theoretisch etwa 58,5° erreichen, um die Ackermann-Bedingung vollständig zu erfüllen. Das ist jedoch konstruktiv nicht möglich, da das Innenrad bei 45° bereits am mechanischen Anschlag ist und ein größerer Winkel den verfügbaren Bauraum überschreiten würde. Alternativ müsste bei unverändertem Innenwinkel von 45° der Außenwinkel auf etwa 29° reduziert werden, wodurch das Auto weniger stark einlenken könnte. Die Lenkung erfüllt die ideale Ackermann-Bedingung daher nur teilweise. Dadurch schneiden sich die verlängerten Radachsen der Vorderräder nicht exakt in einem gemeinsamen Kurvenmittelpunkt, wodurch in engen Kurven leichter seitlicher Schlupf an den Vorderrädern entstehen kann:
 #### Abbildung 5: Ackermann-Bedingung bei unserer Lenkung:
@@ -540,10 +540,9 @@ Der erreichte Wert von 0,43 liegt deutlich unter dem Idealwert von 0,81. Bei unv
 
 Der minimale Kurvenradius (gemessen von Hinterachsmitte bis Kurvenmittelpunkt) berechnet sich so:
 
-<div style="background-color: #B8D8EE; padding: 8px; text-align: center; color: #000000; margin-bottom: 20px;">
+<table align="center" width="100%" cellpadding="8" cellspacing="0" border="0"><tr><td bgcolor="#B8D8EE" align="center">
 Minimaler Kurvenradius = Radstand / tan(δ<sub>außen</sub>)
-
-</div>
+</td></tr></table>
 
 Einen exakten Ziel-Kurvenradius hatten wir vorab nicht festgelegt, sondern nur die **Anforderung einer möglichst hohen Wendigkeit**. Zur Einordnung: Mit dem alternativ möglichen Außenwinkel von 29° (bei unverändertem Innenwinkel von 45°, siehe oben) hätte sich ein minimaler Kurvenradius von 80 mm / tan(29°) ≈ 144 mm ergeben, gegenüber 114 mm bei unserem tatsächlich gewählten Außenwinkel von 35°. Auch 144 mm wären für die Anforderungen der WRO-Strecke noch ausreichend gewesen, hätten die Wendigkeit aber spürbar verringert. Wir haben uns daher bewusst für den größeren Außenwinkel von 35° und damit gegen die vollständige Erfüllung der Ackermann-Bedingung entschieden.
 
@@ -680,9 +679,9 @@ Bei der **Auswahl** des Lenkservos waren neben der Baugröße vor allem die schn
 ### Position des Servos
 Die **Positionierung des Servos** stellte eine eigenständige konstruktive Herausforderung dar. Die bei Modellfahrzeugen übliche Anordnung – Servo und Gestänge mittig im Fahrzeug – schied aus, weil wir für eine hohe Wendigkeit einen relativ kurzen Radstand benötigten und wir für einen niedrigen Schwerpunkt den Akku zwischen Vorder- und Hinterräder einbauen wollten. Nach dem Evaluieren zahlreicher Konfigurationen wurde der Servo vor die Vorderachse verlagert, das Gestänge hinter ihr geführt. So ließ sich der Bumperbereich konstruktiv nutzen, ohne Akku oder Platine umzuplatzieren; der Schwerpunkt blieb tief und zentral, und der erforderliche Lenkeinschlag wurde kollisionsfrei erreicht.
 
-<div style="background-color: #E2F3E5; border-left: 6px solid #2E8B57; padding: 10px 16px; margin: 14px 0; color: #14532D;">
+<table width="100%" cellpadding="10" cellspacing="0" border="0"><tr><td bgcolor="#2E8B57" width="1%">&nbsp;</td><td bgcolor="#E2F3E5">
 📊 <b>Ergebnis:</b> Kugellager-Vorderachse, Servo mit Metallgetriebe und die neue Lenkgeometrie zusammen reduzieren den minimalen Kurvenradius von <b>172 mm auf 114 mm</b> und eliminieren spürbares Lenkspiel gegenüber der Saison 2025.
-</div>
+</td></tr></table>
 
 <br>
 
@@ -693,9 +692,9 @@ Um das Designziel eines kleinen und schnellen Fahrzeugs zu erreichen, war ein gr
 
 Für das neue Fahrzeug wurde daher ein grundlegend anderer Ansatz gewählt: Mehrere **Time-of-Flight-Sensoren** (VL53L8CX) messen mit 30 Hz kontinuierlich die Abstände zu den Wänden und ermöglichen so eine Steuerung ohne Anhalten. Die Steuerlogik ist nun eventbasiert – statt „Gehe zu Koordinate X/Y" lautet ein Fahrbefehl beispielsweise „Fahre auf die Wand zu, bis der Abstand 20 cm beträgt". Da keine Stopps zur Positionskorrektur mehr nötig sind, fährt das Fahrzeug deutlich flüssiger und schneller.
 
-<div style="background-color: #E2F3E5; border-left: 6px solid #2E8B57; padding: 10px 16px; margin: 14px 0; color: #14532D;">
+<table width="100%" cellpadding="10" cellspacing="0" border="0"><tr><td bgcolor="#2E8B57" width="1%">&nbsp;</td><td bgcolor="#E2F3E5">
 📊 <b>Ergebnis:</b> Die durchschnittliche Zeit für einen Lauf im Hindernisrennen sank von <b>160 s (2025)</b> auf <b>35–45 s (2026)</b> – eine Verbesserung um etwa den <b>Faktor 4</b>. Das Designziel von 30 s pro Lauf wurde damit knapp verfehlt.
-</div>
+</td></tr></table>
 <br>
 
 ## **Aufbau der Elektronik**
@@ -718,9 +717,9 @@ Die **Platine (Baseboard)** haben wir selbst mit dem Open-Source-EDA-Tool **KiCa
 ### **Verwendung der Kamera** 
 Wie im Vorjahr setzen wir auf die **Raspberry Pi Camera Module 3 Wide (12 MP)**, da sie sich bewährt hat. Drei Wochen vor dem Regionalwettbewerb entschieden wir uns, die Kamera auf 27 cm Höhe – knapp unter der Maximalhöhe – zu montieren. So kann das Fahrzeug vom Startplatz aus über die Bande hinweg alle Hindernisse auf einmal erfassen (**Vollscanstrategie**) und die optimale Route bereits vor der Abfahrt berechnen. Die Erkennung der Hindernisse ist so zwar deutlich anspruchsvoller (vgl. Kapitel 3.7.1 Maskenpipeline), das Abfahren des Kurses ist aber viel einfacher und schneller, da keine Zeit mehr verloren geht, um günstige Kamerapositionen anzufahren.
 
-<div style="background-color: #E2F3E5; border-left: 6px solid #2E8B57; padding: 10px 16px; margin: 14px 0; color: #14532D;">
+<table width="100%" cellpadding="10" cellspacing="0" border="0"><tr><td bgcolor="#2E8B57" width="1%">&nbsp;</td><td bgcolor="#E2F3E5">
 📊 <b>Ergebnis:</b> Durch die neue Kamera-Scan-Strategie sank die durchschnittliche Zeit pro Lauf von <b>56 s</b> auf <b>38 s</b>.
-</div>
+</td></tr></table>
 
 
 ### **Kalibrierungsverfahren**
@@ -1078,10 +1077,9 @@ Im Vorjahr hatten wir das Problem, dass der **Gyro** über die Dauer einer Missi
 
 Deswegen sind wir kurzfristig auf einen **BNO086** umgestiegen. Diesen verwenden wir auch ohne Magnetometer, allerdings zeigt dieser Gyro einen deutlich geringeren und konstanteren Fehler. Eine **Bias-Kalibrierung** (Nullpunkt der Drehratensensoren) führen wir automatisch bei Programmstart durch, die **Rate-Kalibrierung** ermitteln wir von Hand, indem wir das Auto zehnmal um 360 Grad drehen. Dann vergleichen wir gemessene und reale Drehrate und ermitteln einen Korrekturfaktor. 
 
-<div style="background-color: #B8D8EE; padding: 8px; text-align: center; color: #000000; margin-bottom: 20px;">
+<table align="center" width="100%" cellpadding="8" cellspacing="0" border="0"><tr><td bgcolor="#B8D8EE" align="center">
 Korrekturfaktor = gemessene Drehung / erwartete Drehung
-
-</div>
+</td></tr></table>
 
 #### Tabelle 5: Zusammenfassung Gyro-Evaluierung
 
@@ -1128,9 +1126,9 @@ Korrekturfaktor = gemessene Drehung / erwartete Drehung
 
 Die Tabelle fasst die Ergebnisse unserer Gyro-Evaluierung zusammen. Jeder Wert ist der Durchschnitt aus fünf gemessenen Läufen auf unserem Testparcours. Der BNO086 war der einzige Sensor, bei dem die Abweichung über mehrere Läufe hinweg konstant und damit durch unseren Korrekturfaktor kompensierbar war. In der Praxis hat sich gezeigt, dass der Roboter bei dieser Abweichung die Strecke noch sauber abfahren kann.
 
-<div style="background-color: #E2F3E5; border-left: 6px solid #2E8B57; padding: 10px 16px; margin: 14px 0; color: #14532D;">
+<table width="100%" cellpadding="10" cellspacing="0" border="0"><tr><td bgcolor="#2E8B57" width="1%">&nbsp;</td><td bgcolor="#E2F3E5">
 📊 <b>Ergebnis:</b> Mit dem BNO086 und Rate-Kalibrierung beträgt die Gyro-Abweichung nur noch ca. <b>1°</b> nach drei gefahrenen Runden – ausreichend präzise, um die Strecke zuverlässig abzufahren.
-</div>
+</td></tr></table>
 
 ## **Power Budget: Stromversorgung und Leistungsverbrauch**
 Letztes Jahr verwendeten wir einen 2S 2200mAh Akku. Dieser ist für unser neues Auto viel zu groß, außerdem ist die **Spannung** nicht ausreichend, da unser neuer  Motortreiber bei 6,5V abschaltet. Mit Leitungsverlusten und unter Lastspitzen war beim Testen ein zuverlässiger Betrieb mit einem 2S Akku bei nachlassender Akkuspannung nicht mehr möglich, sodass wir früh auf einen 3S Akku wechselten. Dieser gibt uns auch mehr Leistungsreserve für höhere Geschwindigkeiten beim Motor. 
@@ -1237,9 +1235,9 @@ Neben den typischen Werten aus Tabelle 6 ist für die Dimensionierung der Spannu
 
 Auf der 5-V-Schiene setzen wir einen **AP3441SHE-7B** Synchron-Buck-Regler (Diodes Inc., Nennstrom 3 A laut Datenblatt) ein. Der rein rechnerische Worst Case liegt damit knapp über dem Dauerstrom-Nennwert des Reglers. In der Praxis treten Volllast des CM5, Spitzenstrom des Servos und maximale ToF-Aktivität jedoch nie exakt gleichzeitig auf; die gemessene Gesamtleistung des kompletten Systems (7–10 W, s. u.) bestätigt einen deutlich geringeren realen Strombedarf. Für zukünftige Revisionen ist dies dennoch als Verbesserungspunkt vermerkt: Ein Regler mit höherem Dauerstrom (z. B. 4 A) würde zusätzliche Sicherheitsreserve schaffen, falls weitere Verbraucher ergänzt werden.
 
-<div style="background-color: #E2F3E5; border-left: 6px solid #2E8B57; padding: 10px 16px; margin: 14px 0; color: #14532D;">
+<table width="100%" cellpadding="10" cellspacing="0" border="0"><tr><td bgcolor="#2E8B57" width="1%">&nbsp;</td><td bgcolor="#E2F3E5">
 📊 <b>Ergebnis:</b> Worst-Case-Spitzenstrom auf der 5-V-Schiene ≈ <b>3,2 A</b> gegenüber einer Reglerkapazität von <b>3 A</b> (AP3441SHE-7B) – die gemessene Praxislast von 7–10 W liegt jedoch deutlich darunter, da nicht alle Spitzen gleichzeitig auftreten.
-</div>
+</td></tr></table>
 
 ### **Gemessener Gesamtleistungsbedarf**
 Der **gemessene Gesamtleistungsbedarf** des Systems liegt im Betrieb zwischen etwa 7 W (geringe Last) und 10 W (volle Rechenlast mit Fahrt).
@@ -1250,9 +1248,9 @@ Der **gemessene Gesamtleistungsbedarf** des Systems liegt im Betrieb zwischen et
 - **Laufzeit theoretisch:** Daraus folgt eine Laufzeit von 36 bis 52 Minuten. <br>
 - **Laufzeit praktisch:** Im Testbetrieb beträgt die gemessene Laufzeit bis zur Abschaltschwelle (3,5V/Zelle) meist ca. 40 Minuten und deckt sich damit gut mit den theoretischen Berechnungen.
 
-<div style="background-color: #E2F3E5; border-left: 6px solid #2E8B57; padding: 10px 16px; margin: 14px 0; color: #14532D;">
+<table width="100%" cellpadding="10" cellspacing="0" border="0"><tr><td bgcolor="#2E8B57" width="1%">&nbsp;</td><td bgcolor="#E2F3E5">
 📊 <b>Ergebnis:</b> Der 3S-LiPo (550 mAh) liefert im Testbetrieb eine praktische Laufzeit von ca. <b>40 Minuten</b> – das deckt sich mit der theoretischen Berechnung (36–52 min) und reicht für mehrere Wettkampfläufe pro Akkuladung.
-</div>
+</td></tr></table>
 
 ### **Vermeidung von Tiefentladungen**
 Um **Tiefentladungen** zu vermeiden, misst der STM32 die Akkuspannung, schaltet bei einer Zellspannung von 3,5 Volt den Motor aus und sendet ein Signal an den Raspberry, worauf dieser herunterfährt. Weiterhin bewegt er zyklisch den Lenkservo um auf die leere Batterie hinzuweisen.
@@ -1429,9 +1427,9 @@ Die **Lenkung** nutzt zwei P-Regler: <code>pidSteer (Kp = 1,0)</code> für das n
 
 Bedeutung der Kp-Werte: Der Regler berechnet den Lenkwinkel-Offset (0–180°, Mitte = 90°) direkt aus dem Heading-Fehler in Grad:
 
-<div style="background-color: #B8D8EE; padding: 8px; text-align: center; color: #000000; margin-bottom: 20px;">
+<table align="center" width="100%" cellpadding="8" cellspacing="0" border="0"><tr><td bgcolor="#B8D8EE" align="center">
 steer = 90 − K<sub>p</sub> · error
-</div>
+</td></tr></table>
 
 Bei Kp = 1,0 entspricht 1° Heading-Fehler genau 1° Lenkkorrektur; die Sättigung (voller Einschlag) tritt bei |Fehler| ≥ 90° ein. Bei Kp = 0,5 tritt sie erst bei |Fehler| ≥ 180° auf, was zu weicherem, aber trägerem Regelverhalten führt.
 
@@ -2931,9 +2929,9 @@ With these steps, the workflow is fully documented: code creation/setup, compila
 
 </div>
 
-<div style="background-color: #EDF2FB; border-left: 6px solid #375A85; padding: 10px 16px; margin: 14px 0; color: #1B2A4A;">
+<table width="100%" cellpadding="10" cellspacing="0" border="0"><tr><td bgcolor="#375A85" width="1%">&nbsp;</td><td bgcolor="#EDF2FB">
 🎯 <b>Bezug zu WRO-Kriterium 5 – GitHub (Level 6):</b> „Der Roboter ist anhand der Dokumentation vollständig nachbaubar. Das GitHub-Repository hat eine klare Projektstruktur, aussagekräftige Commit-Nachrichten, einen dokumentierten Testworkflow sowie Versionierung bzw. Release-Notes.“<br><br>
 <b>Bewertet wird:</b> Struktur und Übersichtlichkeit des GitHub-Repos · Commit-Historie (mind. drei aussagekräftige Commits) · Inhalt/Aufbau des README · Dateiorganisation · CAD-, Code-, Verdrahtungs- und weitere technische Dateien · Reproduzierbarkeit des Roboters.<br><br>
 <b>Selbstcheck:</b> Könnte ein anderes Team unseren Roboter anhand unserer Dokumentation nachbauen? Erklärt unser README, wie das System funktioniert und wie man es baut? Haben wir mindestens drei aussagekräftige Commits mit klaren Nachrichten? Sind CAD-, Verdrahtungs- und Code-Dateien alle im Repository enthalten?<br><br>
 <i>Level-6-Beispiel aus der WRO-Rubrik:</i> „Unser GitHub-Repository enthält den gesamten Code, CAD- und STL-Dateien sowie Verdrahtungspläne. Das README erklärt Schritt für Schritt, wie der Roboter zusammengebaut wird. Jede größere Änderung ist mit einer Commit-Nachricht wie ‚Added PID tuning‘ oder ‚Improved pillar detection‘ dokumentiert. Release v1.0 entspricht dem Regionalwettbewerb, v2.0 der finalen internationalen Version. Unser Testworkflow ist in tests.md dokumentiert.“
-</div>
+</td></tr></table>
