@@ -719,7 +719,7 @@ Die **Platine (Baseboard)** haben wir selbst mit dem Open-Source-EDA-Tool **KiCa
 ## **Kamera: Verwendung der Kamera und Kalibrierung**
 
 ### **Verwendung der Kamera** 
-Wie im Vorjahr setzen wir auf die **Raspberry Pi Camera Module 3 Wide (12 MP)**, da sie sich bewährt hat. Drei Wochen vor dem Regionalwettbewerb entschieden wir uns, die Kamera auf 27 cm Höhe – knapp unter der Maximalhöhe – zu montieren. So kann das Fahrzeug vom Startplatz aus über die Bande hinweg alle Hindernisse auf einmal erfassen (**Vollscanstrategie**) und die optimale Route bereits vor der Abfahrt berechnen. Die Erkennung der Hindernisse ist so zwar deutlich anspruchsvoller (vgl. Kapitel 3.7.1 Maskenpipeline), das Abfahren des Kurses ist aber viel einfacher und schneller, da keine Zeit mehr verloren geht, um günstige Kamerapositionen anzufahren.
+Wie im Vorjahr setzen wir auf die **Raspberry Pi Camera Module 3 Wide (12 MP)**, da sie sich bewährt hat. Drei Wochen vor dem Regionalwettbewerb entschieden wir uns, die Kamera auf 27 cm Höhe – knapp unter der Maximalhöhe – zu montieren. So kann das Fahrzeug vom Startplatz aus über die Bande hinweg alle Hindernisse auf einmal erfassen (**Vollscanstrategie**) und die optimale Route bereits vor der Abfahrt berechnen. Die Erkennung der Hindernisse ist so zwar deutlich anspruchsvoller (vgl. [Maskenpipeline](#maskenpipeline)), das Abfahren des Kurses ist aber viel einfacher und schneller, da keine Zeit mehr verloren geht, um günstige Kamerapositionen anzufahren.
 
 <table width="100%" cellpadding="10" cellspacing="0" border="0"><tr><td bgcolor="#2E8B57" width="1%">&nbsp;</td><td bgcolor="#E2F3E5">
 📊 <b>Ergebnis:</b> Durch die neue Kamera-Scan-Strategie sank die durchschnittliche Zeit pro Lauf von <b>56 s</b> auf <b>38 s</b>.
@@ -1059,13 +1059,13 @@ Wir kehrten zu den größeren PCBs zurück und platzierten diese stattdessen hin
 #### Abbildung 10: Abdeckung des 45°-Totwinkels durch zwei zusätzliche Sensoren hinten
 
  </div><div align="center">
-    <a href="img/bild3.png" target="_blank">
-        <img width="400" src="img/bild3.png">
+    <a href="img/sensorabdeckung_hinten.png" target="_blank">
+        <img width="400" src="img/sensorabdeckung_hinten.png">
     </a>
 </div>
 
 
-Nach der Umstellung der Hinderniserkennung auf Vollscan (vgl. Kapitel 2.3 Kamera, 3.5 Fahrstrategie Hindernisrennen - Strategiewechsel) konnten wir auf die zusätzlichen Sensoren verzichten. Dadurch, dass keine günstigen Kamerapositionen angefahren werden müssen, nähert sich der Roboter keiner Wand im 45°-Winkel. 
+Nach der Umstellung der Hinderniserkennung auf Vollscan (vgl. [Kamera](#kamera-verwendung-der-kamera-und-kalibrierung), [Fahrstrategie Hindernisrennen – Strategiewechsel](#fahrstrategie-hindernissrennen---strategiewechsel)) konnten wir auf die zusätzlichen Sensoren verzichten. Dadurch, dass keine günstigen Kamerapositionen angefahren werden müssen, nähert sich der Roboter keiner Wand im 45°-Winkel. 
 
 #### Abbildung 12: Finaler Roboter mit vier Sensoren
 
@@ -1283,7 +1283,7 @@ Um die Zuverlässigkeit unserer Sensorik und Elektronik zu erhöhen, haben wir d
     <td bgcolor="#EAF4FB" style="border: 1px solid black; padding: 8px;">Gyro-Drift (Restfehler des BNO086 akkumuliert über mehrere Runden)</td>
     <td bgcolor="#EAF4FB" style="border: 1px solid black; padding: 8px;">Abweichung des berechneten Headings von bekannten Sollwinkeln an Wendepunkten der Strecke</td>
     <td bgcolor="#EAF4FB" style="border: 1px solid black; padding: 8px;">Fahrzeug verfehlt Wände/Kurven, ungenaue Spurführung</td>
-    <td bgcolor="#EAF4FB" style="border: 1px solid black; padding: 8px;">Wechsel vom BNO055 zum driftärmeren <b>BNO086</b>; verbleibender Restfehler wird durch eine <b>Rate-Kalibrierung</b> vor jedem Lauf kompensiert (vgl. Tabelle 5).</td>
+    <td bgcolor="#EAF4FB" style="border: 1px solid black; padding: 8px;">Wechsel vom BNO055 zum driftärmeren <b>BNO086</b>; verbleibender Restfehler wird durch eine <b>Rate-Kalibrierung</b> vor jedem Lauf kompensiert (vgl. <a href="#tabelle-5-zusammenfassung-gyro-evaluierung">Tabelle 5</a>).</td>
   </tr>
 
   <tr>
@@ -1297,7 +1297,7 @@ Um die Zuverlässigkeit unserer Sensorik und Elektronik zu erhöhen, haben wir d
     <td bgcolor="#EAF4FB" style="border: 1px solid black; padding: 8px;">Schlechte Beleuchtung (Kamera-Farberkennung durch Umgebungslicht gestört)</td>
     <td bgcolor="#EAF4FB" style="border: 1px solid black; padding: 8px;">Debug-Bild vor jedem Lauf zeigt unvollständige Masken oder eine offene Flood-Fill-Barriere an den schwarzen Wänden</td>
     <td bgcolor="#EAF4FB" style="border: 1px solid black; padding: 8px;">Hindernisse/Wände werden falsch erkannt, Routenplanung wird fehlerhaft</td>
-    <td bgcolor="#EAF4FB" style="border: 1px solid black; padding: 8px;"><b>Manuelle Nachjustierung</b> von V-Maximalwert und H/S/V-Grenzen vor dem Wettkampf (vgl. Tabelle 2)</td>
+    <td bgcolor="#EAF4FB" style="border: 1px solid black; padding: 8px;"><b>Manuelle Nachjustierung</b> von V-Maximalwert und H/S/V-Grenzen vor dem Wettkampf (vgl. <a href="#tabelle-2-hsv-farbmasken-und-kalibrierparameter">Tabelle 2</a>)</td>
   </tr>
 
   <tr>
@@ -1948,37 +1948,37 @@ Bevor wir auf die einzelnen Architekturentscheidungen eingehen, fassen wir die w
 
   <tr>
     <td bgcolor="#EAF4FB" style="border: 1px solid black; padding: 8px;">Maximale Fahrzeugabmessungen (WRO-Wettbewerbsregeln)</td>
-    <td bgcolor="#EAF4FB" style="border: 1px solid black; padding: 8px;">Kompaktes Compute Module 5 statt Raspberry Pi 5, eigenes Baseboard entwickelt (vgl. „Raspberry Pi 5 vs. Raspberry Pi CM5“ unten)</td>
+    <td bgcolor="#EAF4FB" style="border: 1px solid black; padding: 8px;">Kompaktes Compute Module 5 statt Raspberry Pi 5, eigenes Baseboard entwickelt (vgl. <a href="#raspberry-pi-5-vs-raspberry-pi-cms">„Raspberry Pi 5 vs. Raspberry Pi CM5“</a>)</td>
   </tr>
 
   <tr>
     <td style="border: 1px solid black; padding: 8px;">Ziel: deutlich kürzere Rundenzeit als beim Vorjahresmodell</td>
-    <td style="border: 1px solid black; padding: 8px;">Wechsel von LiDAR auf ToF-Sensoren (Messlatenz 100–200 ms → ca. 33 ms), Steuerung ohne Anhalten (vgl. Kap. 2.3, „LiDAR vs. ToF-Sensoren“ unten)</td>
+    <td style="border: 1px solid black; padding: 8px;">Wechsel von LiDAR auf ToF-Sensoren (Messlatenz 100–200 ms → ca. 33 ms), Steuerung ohne Anhalten (vgl. <a href="#entfernungssensoren">Entfernungssensoren</a>, <a href="#lidar-vs-time-of-flight-sensoren--steuerungsparadigma">„LiDAR vs. Time-of-Flight-Sensoren / Steuerungsparadigma“</a>)</td>
   </tr>
 
   <tr>
     <td bgcolor="#EAF4FB" style="border: 1px solid black; padding: 8px;">Begrenzter Bauraum im Chassis für Platine, Achsen und Sensorik</td>
-    <td bgcolor="#EAF4FB" style="border: 1px solid black; padding: 8px;">Bodenplattenmaße durch Platinengröße vorgegeben, über 15 iterativ angepasste Bodenplatten-Versionen (vgl. Kap. 1.2)</td>
+    <td bgcolor="#EAF4FB" style="border: 1px solid black; padding: 8px;">Bodenplattenmaße durch Platinengröße vorgegeben, über 15 iterativ angepasste Bodenplatten-Versionen (vgl. <a href="#chassis-und-mechanischer-aufbau">Chassis und mechanischer Aufbau</a>)</td>
   </tr>
 
   <tr>
     <td style="border: 1px solid black; padding: 8px;">Variable Lichtverhältnisse im Wettkampfumfeld</td>
-    <td style="border: 1px solid black; padding: 8px;">HSV-Farbmasken müssen vor jedem Lauf neu kalibriert werden (vgl. Kap. 2, Tabelle 2)</td>
+    <td style="border: 1px solid black; padding: 8px;">HSV-Farbmasken müssen vor jedem Lauf neu kalibriert werden (vgl. <a href="#tabelle-2-hsv-farbmasken-und-kalibrierparameter">Tabelle 2</a>)</td>
   </tr>
 
   <tr>
     <td bgcolor="#EAF4FB" style="border: 1px solid black; padding: 8px;">Begrenzte Messfrequenz der ToF-Sensoren im 8×8-Modus</td>
-    <td bgcolor="#EAF4FB" style="border: 1px solid black; padding: 8px;">Nur ca. 30 Hz statt der im Datenblatt erwarteten höheren Frequenz; Sensorhöhe/-position darauf optimiert (vgl. Kap. 2, Tabelle 4)</td>
+    <td bgcolor="#EAF4FB" style="border: 1px solid black; padding: 8px;">Nur ca. 30 Hz statt der im Datenblatt erwarteten höheren Frequenz; Sensorhöhe/-position darauf optimiert (vgl. <a href="#tabelle-4-erkennungszuverlässigkeit-bei-verschiedenen-sensorhöhen">Tabelle 4</a>)</td>
   </tr>
 
   <tr>
     <td style="border: 1px solid black; padding: 8px;">Erhöhter Schwerpunkt durch Kamerahöhe von 27 cm</td>
-    <td style="border: 1px solid black; padding: 8px;">Geschwindigkeitslimit in engen Kurven auf griffigen Untergründen (vgl. „Kamerahöhe und Erkennungsstrategie“ unten)</td>
+    <td style="border: 1px solid black; padding: 8px;">Geschwindigkeitslimit in engen Kurven auf griffigen Untergründen (vgl. <a href="#kamerahöhe-und-erkennungsstrategie">„Kamerahöhe und Erkennungsstrategie“</a>)</td>
   </tr>
 
   <tr>
     <td bgcolor="#EAF4FB" style="border: 1px solid black; padding: 8px;">Begrenzte Akkukapazität und Bauraum für den Energiespeicher</td>
-    <td bgcolor="#EAF4FB" style="border: 1px solid black; padding: 8px;">3S- statt 2S-Akku, Reglerauslegung auf Worst-Case-Spitzenstrom von ca. 3,2 A (vgl. Kap. 2, Power Budget)</td>
+    <td bgcolor="#EAF4FB" style="border: 1px solid black; padding: 8px;">3S- statt 2S-Akku, Reglerauslegung auf Worst-Case-Spitzenstrom von ca. 3,2 A (vgl. <a href="#power-budget-stromversorgung-und-leistungsverbrauch">Power Budget</a>)</td>
   </tr>
 
 </table>
@@ -1986,7 +1986,7 @@ Bevor wir auf die einzelnen Architekturentscheidungen eingehen, fassen wir die w
 
 ## **Risiken auf Systemebene**
 
-Kapitel 2 dokumentiert bereits komponentenspezifische Failure Modes aus Sensorik und Stromversorgung (Tabelle 7). Hier ergänzen wir eine Risk/FMEA-light-Betrachtung auf **Systemebene** – also Risiken, die aus dem Zusammenspiel mehrerer Subsysteme entstehen.
+[Kapitel 2](#2-energie-und-sensoren) dokumentiert bereits komponentenspezifische Failure Modes aus Sensorik und Stromversorgung ([Tabelle 7](#tabelle-7-failure-modes-erkennung-und-gegenmaßnahmen)). Hier ergänzen wir eine Risk/FMEA-light-Betrachtung auf **Systemebene** – also Risiken, die aus dem Zusammenspiel mehrerer Subsysteme entstehen.
 
 #### Tabelle Y: System-Risiken, Erkennung und Gegenmaßnahmen
 
@@ -2003,20 +2003,20 @@ Kapitel 2 dokumentiert bereits komponentenspezifische Failure Modes aus Sensorik
     <td bgcolor="#EAF4FB" style="border: 1px solid black; padding: 8px;">Schwerpunktverschiebung durch erhöhte Kameraposition (27 cm) → Kippen in schnellen Kurven</td>
     <td bgcolor="#EAF4FB" style="border: 1px solid black; padding: 8px;">Mittel / Hoch (kompletter Laufabbruch)</td>
     <td bgcolor="#EAF4FB" style="border: 1px solid black; padding: 8px;">Beim Testlauf in Nordhorn auf griffigerer Matte beobachtet – Fahrzeug kippte in schnellen Kurven beinahe um</td>
-    <td bgcolor="#EAF4FB" style="border: 1px solid black; padding: 8px;">Maximalgeschwindigkeit in Kurven vor Ort reduziert (vgl. „Kamerahöhe und Erkennungsstrategie“)</td>
+    <td bgcolor="#EAF4FB" style="border: 1px solid black; padding: 8px;">Maximalgeschwindigkeit in Kurven vor Ort reduziert (vgl. <a href="#kamerahöhe-und-erkennungsstrategie">„Kamerahöhe und Erkennungsstrategie“</a>)</td>
   </tr>
 
   <tr>
     <td style="border: 1px solid black; padding: 8px;">Single Point of Failure: ein zentrales, selbst entwickeltes Baseboard trägt CM5, STM32, Motortreiber und Sensorik gleichzeitig</td>
     <td style="border: 1px solid black; padding: 8px;">Niedrig / Sehr hoch (Totalausfall des Roboters)</td>
     <td style="border: 1px solid black; padding: 8px;">Layout-/Footprint-Fehler auf PCB Version 2 (falsches STM32-Footprint, defekte Kameraanschlüsse)</td>
-    <td style="border: 1px solid black; padding: 8px;">Umfangreiche Breadboard-Testphase vor der ersten Platinenbestellung; fehlerhafte Platine identifiziert und neu designt (vgl. Meilenstein „Breadboard-Testphase“)</td>
+    <td style="border: 1px solid black; padding: 8px;">Umfangreiche Breadboard-Testphase vor der ersten Platinenbestellung; fehlerhafte Platine identifiziert und neu designt (vgl. Meilenstein „Breadboard-Testphase“ im Abschnitt <a href="#meilensteine-des-entwicklungsprozesses">Meilensteine des Entwicklungsprozesses</a>)</td>
   </tr>
 
   <tr>
     <td bgcolor="#EAF4FB" style="border: 1px solid black; padding: 8px;">Gleichzeitige Spitzenlast mehrerer Subsysteme (Servo + CM5 + 4× ToF) auf einem gemeinsamen Akku/Regler</td>
     <td bgcolor="#EAF4FB" style="border: 1px solid black; padding: 8px;">Niedrig / Hoch (Spannungseinbruch, Reset des Gesamtsystems)</td>
-    <td bgcolor="#EAF4FB" style="border: 1px solid black; padding: 8px;">Worst-Case-Rechnung im Power Budget (ca. 3,2 A Spitzenstrom, vgl. Kap. 2)</td>
+    <td bgcolor="#EAF4FB" style="border: 1px solid black; padding: 8px;">Worst-Case-Rechnung im Power Budget (ca. 3,2 A Spitzenstrom, vgl. <a href="#worst-case-spitzenstrom-und-regler-dimensionierung">Worst-Case-Spitzenstrom und Regler-Dimensionierung</a>)</td>
     <td bgcolor="#EAF4FB" style="border: 1px solid black; padding: 8px;">3S-Akku mit ausreichender Reserve, Regler auf Spitzenstrom dimensioniert; reale Messung bestätigt deutlich niedrigeren Dauerverbrauch (7–10 W)</td>
   </tr>
 
@@ -2168,10 +2168,10 @@ Kapitel 2 dokumentiert bereits komponentenspezifische Failure Modes aus Sensorik
 
 </table>
 
-Eine vollständige Einkaufsliste mit Bezugsquellen, Fotos und den benötigten CAD-Dateien für den Nachbau befindet sich am Anfang von Kapitel 5, [Construction guide](#construction-guide).
+Eine vollständige Einkaufsliste mit Bezugsquellen, Fotos und den benötigten CAD-Dateien für den Nachbau befindet sich am Anfang von [Kapitel 5](#5-construction-guide).
 
 ## **Systemarchitektur**
-Die softwareseitige Aufgabenverteilung zwischen Raspberry Pi CM5 und STM32F411 – inklusive Modulübersicht und Kommunikationsprotokoll – ist in Abschnitt 3.1 beschrieben. Auf Systemebene ist die **gegenseitige Beeinflussung der mechanischen und elektronischen Komponenten** entscheidend. Die Abmessungen der selbst entwickelten Platine bestimmten die Länge des Chassis. Das kompakte Chassis erforderte eine entsprechend platzsparende Integration der Recheneinheit. Die erhöhte Kameraposition verbesserte die Sichtweite des Systems, beeinflusste jedoch den Schwerpunkt des Fahrzeugs. Die Sensoranordnung war vom verfügbaren Bauraum und dem benötigten Sichtfeld abhängig. Das folgende Blockschaltbild fasst diese Gesamtarchitektur zusammen und zeigt, wie Recheneinheiten, Aktoren und Sensoren im System zusammenwirken.
+Die softwareseitige Aufgabenverteilung zwischen Raspberry Pi CM5 und STM32F411 – inklusive Modulübersicht und Kommunikationsprotokoll – ist in den Abschnitten [Softwarearchitektur](#softwarearchitektur) und [Serielle Kommunikation und Datenmodell](#serielle-kommunikation-und-datenmodell) beschrieben. Auf Systemebene ist die **gegenseitige Beeinflussung der mechanischen und elektronischen Komponenten** entscheidend. Die Abmessungen der selbst entwickelten Platine bestimmten die Länge des Chassis. Das kompakte Chassis erforderte eine entsprechend platzsparende Integration der Recheneinheit. Die erhöhte Kameraposition verbesserte die Sichtweite des Systems, beeinflusste jedoch den Schwerpunkt des Fahrzeugs. Die Sensoranordnung war vom verfügbaren Bauraum und dem benötigten Sichtfeld abhängig. Das folgende Blockschaltbild fasst diese Gesamtarchitektur zusammen und zeigt, wie Recheneinheiten, Aktoren und Sensoren im System zusammenwirken.
 
 #### Abbildung X: Blockschaltbild der Systemarchitektur
 
@@ -2257,28 +2257,28 @@ Innerhalb der Raspberry-Pi-Plattform entschieden wir uns gegen den Pi 5 und für
 
 ### **LiDAR vs. Time-of-Flight-Sensoren / Steuerungsparadigma**
 
-Der Wechsel von LIDAR auf vier **ToF-Sensoren** reduzierte die Messlatenz von 100–200 ms auf ca. 33 ms – und machte damit erstmals eine vollständig Steuerung ohne Anhalten möglich. Er hatte jedoch eine direkte Konsequenz für die gesamte Softwarearchitektur: Da die ToF-Sensoren keine Positionsbestimmung liefern, musste die koordinatenbasierte Steuerung aufgegeben werden. Fahrbefehle lauten seither nicht mehr „Gehe zu Koordinate X/Y", sondern „Fahre, bis Wandabstand 20 cm beträgt." → vgl. Kapitel 2.1, 2.3, 3.3
+Der Wechsel von LIDAR auf vier **ToF-Sensoren** reduzierte die Messlatenz von 100–200 ms auf ca. 33 ms – und machte damit erstmals eine vollständig Steuerung ohne Anhalten möglich. Er hatte jedoch eine direkte Konsequenz für die gesamte Softwarearchitektur: Da die ToF-Sensoren keine Positionsbestimmung liefern, musste die koordinatenbasierte Steuerung aufgegeben werden. Fahrbefehle lauten seither nicht mehr „Gehe zu Koordinate X/Y", sondern „Fahre, bis Wandabstand 20 cm beträgt." → vgl. [Konzept](#konzept), [Entfernungssensoren](#entfernungssensoren), [Fahrprimitiven in driveController.py](#fahrprimitiven-in-drivecontrollerpy)
 
  ### **Kamerahöhe und Erkennungsstrategie** 
 
-Drei Wochen vor dem deutschen Regionalwettbewerb wurde die Kamera auf **27 cm** angehoben, knapp unter die zulässige Maximalhöhe. Dadurch konnte das Fahrzeug alle Hindernisse vom Startplatz aus auf einmal erfassen und auf einen einmaligen **Vollscan** vor der Abfahrt umgestellt werden. Die Zeit für einen Lauf sank dadurch von **56 s auf 38 s**. Nachteil: Der Schwerpunkt verschob sich deutlich nach oben – beim Wettbewerb in Nordhorn kippte der Roboter in schnellen Kurven beinahe um, da die Matte dort deutlich griffiger war als unsere Übungsmatte. Als Konsequenz haben wir die Maximalgeschwindigkeit vor Ort reduziert. → vgl. Kapitel 2.4, 3.5.1, 3.5.2
+Drei Wochen vor dem deutschen Regionalwettbewerb wurde die Kamera auf **27 cm** angehoben, knapp unter die zulässige Maximalhöhe. Dadurch konnte das Fahrzeug alle Hindernisse vom Startplatz aus auf einmal erfassen und auf einen einmaligen **Vollscan** vor der Abfahrt umgestellt werden. Die Zeit für einen Lauf sank dadurch von **56 s auf 38 s**. Nachteil: Der Schwerpunkt verschob sich deutlich nach oben – beim Wettbewerb in Nordhorn kippte der Roboter in schnellen Kurven beinahe um, da die Matte dort deutlich griffiger war als unsere Übungsmatte. Als Konsequenz haben wir die Maximalgeschwindigkeit vor Ort reduziert. → vgl. [Kamera](#kamera-verwendung-der-kamera-und-kalibrierung), [Alte Strategie: Scanning während der Fahrt](#alte-strategie-scanning-während-der-fahrt), [Neue Strategie: Vollscan, feste Route](#neue-strategie-vollscan-feste-route)
 <br>
 
 ### **Chassis-Material: PLA vs. PPA-CF**
 
-**PLA** kriecht unter Motorlast und veränderte dadurch mit der Zeit sowohl das Zahnflankenspiel als auch die Sensorwinkel. **PPA-CF** beseitigte dieses Problem vollständig, allerdings musste die aufgrund der extremen Steifheit leicht verzogene Bodenplatte mit einem Heißluftfön nachgerichtet werden. → vgl. Kapitel 1.2
+**PLA** kriecht unter Motorlast und veränderte dadurch mit der Zeit sowohl das Zahnflankenspiel als auch die Sensorwinkel. **PPA-CF** beseitigte dieses Problem vollständig, allerdings musste die aufgrund der extremen Steifheit leicht verzogene Bodenplatte mit einem Heißluftfön nachgerichtet werden. → vgl. [Konstruktion des Chassis](#konstruktion-des-chassis)
 
 ### **Gyro: BNO055 mit und ohne Magnetometer vs. BNO086 ohne Magnetometer**
 
-Der BNO055 zeigte mit und ohne Magnetometer nicht tolerierbare bzw. nicht wegzukalibrierende Abweichungen. Der **BNO086 ohne Magnetometer** reduzierte die Abweichung auf ca. 1° nach drei Runden und war damit zuverlässig einsetzbar. → vgl. Kapitel 2.5
+Der BNO055 zeigte mit und ohne Magnetometer nicht tolerierbare bzw. nicht wegzukalibrierende Abweichungen. Der **BNO086 ohne Magnetometer** reduzierte die Abweichung auf ca. 1° nach drei Runden und war damit zuverlässig einsetzbar. → vgl. [Gyro](#gyro)
 
 ### **Hinterachse: Kugeldifferential vs. Starrachse**
 
-Statt einer einfachen gedruckten Starrachse haben wir ein **Kugeldifferential** aus dem Modellbaubereich verbaut. Eine Starrachse hätte in Kurven zwangsläufig Schlupf verursacht, da beide Räder mit identischer Drehzahl drehen würden. Ein selbst gedrucktes Differential schied aus, da ein kompaktes Differential im 3D-Druck schwer herzustellen ist. → vgl. Kapitel 1.4
+Statt einer einfachen gedruckten Starrachse haben wir ein **Kugeldifferential** aus dem Modellbaubereich verbaut. Eine Starrachse hätte in Kurven zwangsläufig Schlupf verursacht, da beide Räder mit identischer Drehzahl drehen würden. Ein selbst gedrucktes Differential schied aus, da ein kompaktes Differential im 3D-Druck schwer herzustellen ist. → vgl. [Hinterachse und Differential](#hinterachse-und-differential)
 
 ### **4.4.8 ToF-Sensor: VL53L8CX vs. TMF8828**
 
-Die Wahl fiel seinerzeit auf den **VL53L8CX**, da das Datenblatt eine deutlich höhere Messfrequenz als beim TMF8828 auswies. In der Praxis zeigte sich jedoch, dass im 8×8-Modus lediglich rund 30 Hz erreichbar waren – womit der vermeintliche Vorteil entfiel. Rückblickend wäre der TMF8828 eine gleichwertige oder bessere Wahl gewesen; ein Wechsel war zum damaligen Zeitpunkt jedoch nicht mehr realistisch. → vgl. Kapitel 2.3.1
+Die Wahl fiel seinerzeit auf den **VL53L8CX**, da das Datenblatt eine deutlich höhere Messfrequenz als beim TMF8828 auswies. In der Praxis zeigte sich jedoch, dass im 8×8-Modus lediglich rund 30 Hz erreichbar waren – womit der vermeintliche Vorteil entfiel. Rückblickend wäre der TMF8828 eine gleichwertige oder bessere Wahl gewesen; ein Wechsel war zum damaligen Zeitpunkt jedoch nicht mehr realistisch. → vgl. [Auswahl der Entfernungssensoren](#auswahl-der-entfernungssensoren)
 
 
 ## **Meilensteine des Entwicklungsprozesses**
@@ -2301,91 +2301,91 @@ Der finale Roboter entstand nicht in einem einzelnen Entwicklungsschritt, sonder
     <td bgcolor="#EAF4FB" style="border: 1px solid black; padding: 8px;">Vor Saison 2026</td>
     <td bgcolor="#EAF4FB" style="border: 1px solid black; padding: 8px;"><b>Konzeptentscheidung</b></td>
     <td bgcolor="#EAF4FB" style="border: 1px solid black; padding: 8px;">Analyse der Schwächen des Vorjahresroboters (zu groß, zu langsam)</td>
-    <td bgcolor="#EAF4FB" style="border: 1px solid black; padding: 8px;">Neukonstruktion von Chassis, Elektronik und Fahrstrategie (vgl. Kap. 1.1, 1.2, 2.1)</td>
+    <td bgcolor="#EAF4FB" style="border: 1px solid black; padding: 8px;">Neukonstruktion von Chassis, Elektronik und Fahrstrategie (vgl. <a href="#entwicklungsziel">Entwicklungsziel</a>, <a href="#konzept">Konzept</a>)</td>
   </tr>
 
   <tr>
     <td style="border: 1px solid black; padding: 8px;">Januar–Februar</td>
     <td style="border: 1px solid black; padding: 8px;"><b>Breadboard-Testphase</b></td>
     <td style="border: 1px solid black; padding: 8px;">Risikominimierung vor erster Platinen-Bestellung</td>
-    <td style="border: 1px solid black; padding: 8px;">Alle Komponenten funktionieren im Zusammenspiel (vgl. Kap. 2.2)</td>
+    <td style="border: 1px solid black; padding: 8px;">Alle Komponenten funktionieren im Zusammenspiel (vgl. <a href="#aufbau-der-elektronik">Aufbau der Elektronik</a>)</td>
   </tr>
 
   <tr>
     <td bgcolor="#EAF4FB" style="border: 1px solid black; padding: 8px;">Mitte Februar</td>
     <td bgcolor="#EAF4FB" style="border: 1px solid black; padding: 8px;"><b>Design und Fertigung PCB Version 1</b></td>
     <td bgcolor="#EAF4FB" style="border: 1px solid black; padding: 8px;">Abschluss Breadboard-Phase; alle Komponenten validiert</td>
-    <td bgcolor="#EAF4FB" style="border: 1px solid black; padding: 8px;">Platine bestellt (vgl. Kap. 2.2)</td>
+    <td bgcolor="#EAF4FB" style="border: 1px solid black; padding: 8px;">Platine bestellt (vgl. <a href="#aufbau-der-elektronik">Aufbau der Elektronik</a>)</td>
   </tr>
 
   <tr>
     <td style="border: 1px solid black; padding: 8px;">Anfang März</td>
     <td style="border: 1px solid black; padding: 8px;"><b>Design und Fertigung PCB Version 2</b></td>
     <td style="border: 1px solid black; padding: 8px;">Falsches Footprint für STM32; Kameranschlüsse fehlerhaft → Platine vollständig unbrauchbar</td>
-    <td style="border: 1px solid black; padding: 8px;">Platine neu designt und bestellt; danach alle Schnittstellen funktional; Platine einsatzbereit (vgl. Kap. 2.2)</td>
+    <td style="border: 1px solid black; padding: 8px;">Platine neu designt und bestellt; danach alle Schnittstellen funktional; Platine einsatzbereit (vgl. <a href="#aufbau-der-elektronik">Aufbau der Elektronik</a>)</td>
   </tr>
 
   <tr>
     <td bgcolor="#EAF4FB" style="border: 1px solid black; padding: 8px;">Mitte März</td>
     <td bgcolor="#EAF4FB" style="border: 1px solid black; padding: 8px;"><b>Design und Produktion Chassis, Hinterachse, Lenkung</b></td>
     <td bgcolor="#EAF4FB" style="border: 1px solid black; padding: 8px;">PCB Version 2 verfügbar; mechanische Integration kann beginnen</td>
-    <td bgcolor="#EAF4FB" style="border: 1px solid black; padding: 8px;">Fahrzeug fährt; Motor u. Lenkung funktionieren – Elektronik noch nicht montiert (vgl. Kap. 1.2, 1.3, 1.4, 1.5)</td>
+    <td bgcolor="#EAF4FB" style="border: 1px solid black; padding: 8px;">Fahrzeug fährt; Motor u. Lenkung funktionieren – Elektronik noch nicht montiert (vgl. <a href="#chassis-und-mechanischer-aufbau">Chassis und mechanischer Aufbau</a>, <a href="#antriebskonzept-und-motorauswahl">Antriebskonzept und Motorauswahl</a>, <a href="#hinterachse-und-differential">Hinterachse und Differential</a>, <a href="#vorderachse-und-lenkung">Vorderachse und Lenkung</a>)</td>
   </tr>
 
   <tr>
     <td style="border: 1px solid black; padding: 8px;">Mitte März</td>
     <td style="border: 1px solid black; padding: 8px;"><b>Design Mittelteil als Halterung für Haupt-PCB</b></td>
     <td style="border: 1px solid black; padding: 8px;">Platine verfügbar; Raspberry Pi und STM32 müssen montiert werden</td>
-    <td style="border: 1px solid black; padding: 8px;">Raspberry Pi und STM32 montiert und mit Motor und Lenkung verbunden (vgl. Kap. 2.2)</td>
+    <td style="border: 1px solid black; padding: 8px;">Raspberry Pi und STM32 montiert und mit Motor und Lenkung verbunden (vgl. <a href="#aufbau-der-elektronik">Aufbau der Elektronik</a>)</td>
   </tr>
 
   <tr>
     <td bgcolor="#EAF4FB" style="border: 1px solid black; padding: 8px;">Ende März</td>
     <td bgcolor="#EAF4FB" style="border: 1px solid black; padding: 8px;"><b>Beginn Softwareentwicklung Raspberry Pi und STM32</b></td>
     <td bgcolor="#EAF4FB" style="border: 1px solid black; padding: 8px;">Mechanische Basis und Elektronik einsatzbereit</td>
-    <td bgcolor="#EAF4FB" style="border: 1px solid black; padding: 8px;">Motor und Lenkung softwareseitig steuerbar; Geschwindigkeitsmessung für Motorauswahl (vgl. Kap. 1.3)</td>
+    <td bgcolor="#EAF4FB" style="border: 1px solid black; padding: 8px;">Motor und Lenkung softwareseitig steuerbar; Geschwindigkeitsmessung für Motorauswahl (vgl. <a href="#antriebskonzept-und-motorauswahl">Antriebskonzept und Motorauswahl</a>)</td>
   </tr>
 
   <tr>
     <td style="border: 1px solid black; padding: 8px;">Anfang April</td>
     <td style="border: 1px solid black; padding: 8px;"><b>Design und Produktion Oberdeck mit ToF-Sensoren und Kamera</b></td>
     <td style="border: 1px solid black; padding: 8px;">Sensorik und Kamera benötigten feste, reproduzierbare Montageposition</td>
-    <td style="border: 1px solid black; padding: 8px;">Alle Sensoren und Kamera montiert; Fahrzeug mechanisch vollständig (vgl. Kap. 2.3, 2.4)</td>
+    <td style="border: 1px solid black; padding: 8px;">Alle Sensoren und Kamera montiert; Fahrzeug mechanisch vollständig (vgl. <a href="#kamera-verwendung-der-kamera-und-kalibrierung">Kamera</a>, <a href="#entfernungssensoren">Entfernungssensoren</a>)</td>
   </tr>
 
   <tr>
     <td bgcolor="#EAF4FB" style="border: 1px solid black; padding: 8px;">Mitte April</td>
     <td bgcolor="#EAF4FB" style="border: 1px solid black; padding: 8px;"><b>Abschluss Hardwareentwicklung / Fokusverschiebung auf Softwareentwicklung</b></td>
     <td bgcolor="#EAF4FB" style="border: 1px solid black; padding: 8px;">Mechanischer Aufbau abgeschlossen</td>
-    <td bgcolor="#EAF4FB" style="border: 1px solid black; padding: 8px;">Entwicklungsschwerpunkt wechselt auf Software; grundlegende Fahrfunktionen verfügbar, Eröffnungsrennen fertig (vgl. Kap. 3.3, 3.4)</td>
+    <td bgcolor="#EAF4FB" style="border: 1px solid black; padding: 8px;">Entwicklungsschwerpunkt wechselt auf Software; grundlegende Fahrfunktionen verfügbar, Eröffnungsrennen fertig (vgl. <a href="#fahrprimitiven-in-drivecontrollerpy">Fahrprimitiven in driveController.py</a>, <a href="#fahrstrategie-eröffnungsrennen">Fahrstrategie Eröffnungsrennen</a>)</td>
   </tr>
 
   <tr>
     <td style="border: 1px solid black; padding: 8px;">Mitte April</td>
     <td style="border: 1px solid black; padding: 8px;"><b>Chassis-Materialwechsel</b></td>
     <td style="border: 1px solid black; padding: 8px;">PLA kriecht unter Motorlast; Zahnflankenspiel verschlechtert sich</td>
-    <td style="border: 1px solid black; padding: 8px;">Wechsel auf PPA-CF; Bodenplatte mit Heißluftfön nachgerichtet (vgl. Kap. 1.2)</td>
+    <td style="border: 1px solid black; padding: 8px;">Wechsel auf PPA-CF; Bodenplatte mit Heißluftfön nachgerichtet (vgl. <a href="#konstruktion-des-chassis">Konstruktion des Chassis</a>)</td>
   </tr>
 
   <tr>
     <td bgcolor="#EAF4FB" style="border: 1px solid black; padding: 8px;">Ende April – Mitte Mai</td>
     <td bgcolor="#EAF4FB" style="border: 1px solid black; padding: 8px;"><b>Softwareentwicklung Hindernisrennen</b></td>
     <td bgcolor="#EAF4FB" style="border: 1px solid black; padding: 8px;">Eröffnungsrennen fertiggestellt; Hinderniserkennung noch ausstehend</td>
-    <td bgcolor="#EAF4FB" style="border: 1px solid black; padding: 8px;">Erste Hinderniserkennung implementiert; Grundlogik für Fahrspurzuordnung funktionsfähig (vgl. Kap. 3.5.1)</td>
+    <td bgcolor="#EAF4FB" style="border: 1px solid black; padding: 8px;">Erste Hinderniserkennung implementiert; Grundlogik für Fahrspurzuordnung funktionsfähig (vgl. <a href="#alte-strategie-scanning-während-der-fahrt">Alte Strategie: Scanning während der Fahrt</a>)</td>
   </tr>
 
   <tr>
     <td style="border: 1px solid black; padding: 8px;">3 Wochen vor Nordhorn (11.5.)</td>
     <td style="border: 1px solid black; padding: 8px;"><b>Strategiewechsel Hinderniserkennung</b></td>
     <td style="border: 1px solid black; padding: 8px;">Idee: Position aller Hindernisse bereits beim Start ermitteln</td>
-    <td style="border: 1px solid black; padding: 8px;">Kamera auf 27 cm erhöht; Vollscan aller Hindernisse beim Start; Logik deutlich vereinfacht, Rundenzeiten reduziert (vgl. Kap. 2.3, 3.5.2)</td>
+    <td style="border: 1px solid black; padding: 8px;">Kamera auf 27 cm erhöht; Vollscan aller Hindernisse beim Start; Logik deutlich vereinfacht, Rundenzeiten reduziert (vgl. <a href="#kamera-verwendung-der-kamera-und-kalibrierung">Kamera</a>, <a href="#neue-strategie-vollscan-feste-route">Neue Strategie: Vollscan, feste Route</a>)</td>
   </tr>
 
   <tr>
     <td bgcolor="#EAF4FB" style="border: 1px solid black; padding: 8px;">1 Woche vor Nordhorn</td>
     <td bgcolor="#EAF4FB" style="border: 1px solid black; padding: 8px;"><b>Bereit für Nordhorn!</b></td>
     <td bgcolor="#EAF4FB" style="border: 1px solid black; padding: 8px;">Alle Subsysteme getestet; finale Probefahrten abgeschlossen</td>
-    <td bgcolor="#EAF4FB" style="border: 1px solid black; padding: 8px;">Roboter vollständig einsatzbereit; Hindernisrennen und Eröffnungsrennen laufen zuverlässig (vgl. Kap. 4.1)</td>
+    <td bgcolor="#EAF4FB" style="border: 1px solid black; padding: 8px;">Roboter vollständig einsatzbereit; Hindernisrennen und Eröffnungsrennen laufen zuverlässig (vgl. <a href="#unser-roboter">Unser Roboter</a>)</td>
   </tr>
 
   <tr>
