@@ -7,221 +7,159 @@
         <ul dir="auto">
             <li><a href="#nils-stauff">Nils Stauff</a></li>
             <li><a href="#olivia-greilich">Olivia Greilich</a></li>
-            <li><a href="#leonard-kolo">Leonard Kolo</a></li>
+            <li><a href="#anton-wiesen">Anton Wiesen</a></li>
             <li><a href="#team-photo">Team photo</a></li>
-            <li><a href="#funny-team-photo">Funny team photo</a></li>
         </ul>
         </details>
-    </li>
-    <li><details><summary><a href="#the-robot">The robot</a></summary>
+      </li>
+    <li><a href="#videos-of-the-robot">Videos of the robot</a></li>
+    <li><details><summary><a href="#1-mobility-and-mechanics">1. Mobility and mechanics</a></summary>
         <ul dir="auto">
-            <li><a href="#photos-of-the-robot">Photos of the robot</a></li>
-        </ul>
-        </details>
-    </li>
-    <li><details><summary><a href="#mobility-management">Mobility management</a></summary>
+            <li><a href="#development-goal">Development goal</a></li>
+            <li><a href="#chassis-and-mechanical-structure">Chassis and mechanical structure</a>
+              <ul dir="auto">
+                <li><a href="#chassis-design">Chassis design</a></li>
+                <li><a href="#base-plate-iteration">Base plate iteration</a></li>
+                <li><a href="#chassis-structure">Chassis structure</a></li>
+              </ul>
+            </li>
+            <li><a href="#drivetrain-concept-and-motor-selection">Drivetrain concept and motor selection</a></li>
+            <li><a href="#rear-axle-and-differential">Rear axle and differential</a></li>
+            <li><a href="#front-axle-and-steering">Front axle and steering</a>
+              <ul dir="auto">
+                <li><a href="#ackermann-condition-in-our-steering">Ackermann condition in our steering</a></li>
+                <li><a href="#mechanical-precision-of-our-steering">Mechanical precision of our steering</a></li>
+                <li><a href="#front-axle-rims-and-tires">Front axle rims and tires</a></li>
+              </ul>
+            </li>
+            <li><a href="#servo-selection-and-position">Servo selection and position</a>
+              <ul dir="auto">
+                <li><a href="#servo-selection">Servo selection</a></li>
+                <li><a href="#servo-position">Servo position</a></li>
+              </ul>
+            </li>
+          </ul>
+          </details>
+        </li>
+        <li><details><summary><a href="#2-power-and-sensors">2. Power and sensors</a></summary>
         <ul dir="auto">
-            <li><a href="#chassis">Chassis</a></li>
-            <li><a href="#modification-of-the-model-car">Modification of the model car</a>
+            <li><a href="#concept">Concept</a></li>
+            <li><a href="#electronics-setup">Electronics setup</a></li>
+            <li><a href="#camera-use-of-the-camera-and-calibration">Camera: use of the camera and calibration</a>
+              <ul dir="auto">
+                <li><a href="#use-of-the-camera">Use of the camera</a></li>
+                <li><a href="#calibration-procedure">Calibration procedure</a></li>
+              </ul>
+            </li>
+            <li><a href="#distance-sensors">Distance sensors</a>
                 <ul dir="auto">
-                    <li><a href="#chassis-plate">Chassis plate</a></li>
-                    <li><a href="#middle-deck">Middle deck</a></li>
-                    <li><a href="#upper-deck">Upper deck</a></li>
+                    <li><a href="#selection-of-distance-sensors">Selection of distance sensors</a></li>
+                    <li><a href="#sensor-evaluation">Sensor evaluation</a></li>
+                    <li><a href="#sensor-placement-in-the-robot">Sensor placement in the robot</a></li>
                 </ul>
             </li>
-            <li><a href="#potential-improvements---chassis">Potential improvements - chassis</a></li>
-            <li><a href="#powertrain">Powertrain</a>
+            <li><a href="#gyro">Gyro</a></li>
+            <li><a href="#power-budget-power-supply-and-consumption">Power budget: power supply and consumption</a>
                 <ul dir="auto">
-                    <li><a href="#drivetrain">Drivetrain</a></li>
-                    <li><a href="#motor">Motor</a></li>
-                    <li><a href="#electronic-speed-controller">Electronic speed controller</a></li>
-                    <li><a href="#functioning-of-the-drive-system">Functioning of the drive system</a></li>
+                    <li><a href="#worst-case-peak-current-and-regulator-sizing">Worst-case peak current and regulator sizing</a></li>
+                    <li><a href="#measured-total-power-requirement">Measured total power requirement</a></li>
+                    <li><a href="#runtime-calculation">Runtime calculation</a></li>
+                    <li><a href="#avoiding-deep-discharge">Avoiding deep discharge</a></li>
+                    <li><a href="#voltage-supply-of-the-individual-components">Voltage supply of the individual components</a></li>
+                    <li><a href="#failure-modes-in-sensors-and-power-supply">Failure modes in sensors and power supply</a></li>
                 </ul>
             </li>
-            <li><a href="#potential-improvements---powertrain">Potential improvements - powertrain</a></li>
-            <li><a href="#steering">Steering</a>
-                <ul dir="auto">
-                    <li><a href="#new-front-axle">New front axle</a></li>
-                    <li><a href="#servo-saver">Servo saver</a></li>
-                    <li><a href="#servo-motor">Servo motor</a></li>
-                </ul>
-            </li>
-            <li><a href="#potential-improvements---steering">Potential improvements - steering</a></li>
-        </ul>
-        </details>
-    </li>
-    <li><details><summary><a href="#power-and-sense-management">Power and sense management</a></summary>
+          </ul>
+          </details>
+        </li>
+        <li><details><summary><a href="#3-software-development">3. Software development</a></summary>
         <ul dir="auto">
-            <li><a href="#sensors">Sensors</a>
-                <ul dir="auto">
-                    <li><a href="#lidar">LiDAR</a></li>
-                    <li><a href="#potential-improvements---lidar">Potential improvements - LiDAR</a></li>
-                    <li><a href="#camera">Camera</a></li>
-                    <li><a href="#potential-improvements---camera">Potential improvements - camera</a></li>
-                    <li><a href="#odometry-sensor">Odometry sensor</a></li>
-                    <li><a href="#potential-improvements---odometry-sensor">Potential improvements - odometry sensor</a></li>
-                    <li><a href="#status-display">Status display</a></li>
-                    <li><a href="#potential-improvements---status-display">Potential improvements - status display</a></li>
-                </ul>
+            <li><a href="#software-architecture">Software architecture</a></li>
+            <li><a href="#threading-and-system-flow">Threading and system flow</a></li>
+            <li><a href="#driving-primitives-in-drivecontrollerpy">Driving primitives</a></li>
+            <li><a href="#opening-challenge-driving-strategy">Opening challenge driving strategy</a></li>
+            <li><a href="#obstacle-challenge-driving-strategy---strategy-change">Obstacle challenge driving strategy</a>
+              <ul dir="auto">
+                <li><a href="#old-strategy-scanning-while-driving">Old strategy: scanning while driving</a></li>
+                <li><a href="#new-strategy-full-scan-fixed-route">New strategy: full scan, fixed route</a></li>
+              </ul>
             </li>
-            <li><a href="#vehicle-power-supply">Vehicle power supply</a>
-                <ul dir="auto">
-                    <li><a href="#lipo-battery">LiPo battery</a></li>
-                    <li><a href="#component-power-consumption">Component power consumption</a></li>
-                    <li><a href="#total-power-requirements">Total power requirements</a></li>
-                    <li><a href="#power-supply">Power supply</a></li>
-                    <li><a href="#safety-and-wiring">Safety and wiring</a></li>
-                    <li><a href="#potential-improvements---power-supply">Potential improvements - power supply</a></li>
-                </ul>
+            <li><a href="#serial-communication-and-data-model">Serial communication and data model</a></li>
+            <li><a href="#camera-processing">Camera processing</a>
+              <ul dir="auto">
+                <li><a href="#mask-pipeline">Mask pipeline</a></li>
+              </ul>
             </li>
-            <li><a href="#circuit-diagram-of-components">Circuit diagram of components</a></li>
-        </ul>
-        </details>
-    </li>
-    <li><details><summary><a href="#obstacle-management">Obstacle management</a></summary>
+            <li><a href="#software-improvements">Software improvements</a></li>
+            <li><a href="#test-methodology-and-performance-metrics">Test methodology and performance metrics</a></li>
+          </ul>
+          </details>
+        </li>
+        <li><details><summary><a href="#4-overall-robot-system-and-technical-decisions">4. Overall robot system and technical decisions</a></summary>
         <ul dir="auto">
-            <li><a href="#coordinate-system">Coordinate system</a>
-                <ul dir="auto">
-                    <li><a href="#coordinate-dimensions-and-origin">Coordinate dimensions and origin</a></li>
-                    <li><a href="#coordinate-system-properties">Coordinate system properties</a></li>
-                    <li><a href="#heading-angle-convention">Heading angle convention</a></li>
-                </ul>
+            <li><a href="#design-constraints">Design constraints</a></li>
+            <li><a href="#system-level-risks">System-level risks</a></li>
+            <li><a href="#our-robot">Our robot</a></li>
+            <li><a href="#technical-specifications">Technical specifications</a></li>
+            <li><a href="#system-architecture">System architecture</a></li>
+            <li><a href="#key-technical-decisions">Key technical decisions</a>
+              <ul dir="auto">
+                <li><a href="#key-system-level-engineering-decisions">Key system-level engineering decisions</a></li>
+                <li><a href="#raspberry-pi-vs-pure-microcontroller">Raspberry Pi vs. pure microcontroller</a></li>
+                <li><a href="#raspberry-pi-5-vs-raspberry-pi-cm5">Raspberry Pi 5 vs. Raspberry Pi CM5</a></li>
+                <li><a href="#lidar-vs-time-of-flight-sensors--control-paradigm">LiDAR vs. time-of-flight sensors / control paradigm</a></li>
+                <li><a href="#chassis-material-pla-vs-ppa-cf">Chassis material: PLA vs. PPA-CF</a></li>
+                <li><a href="#gyro-bno055-with-and-without-magnetometer-vs-bno086-without-magnetometer">Gyro: BNO055 with and without magnetometer vs. BNO086 without magnetometer</a></li>
+                <li><a href="#rear-axle-ball-differential-vs-rigid-axle">Rear axle: ball differential vs. rigid axle</a></li>
+                <li><a href="#tof-sensor-vl53l8cx-vs-tmf8828">ToF sensor: VL53L8CX vs. TMF8828</a></li>
+              </ul>
             </li>
-            <li><a href="#waypoint-navigation-system">Waypoint navigation system</a>
-                <ul dir="auto">
-                    <li><a href="#command-example-drive-to-coordinate-4502500">Command example: drive to coordinate 450/2500</a></li>
-                    <li><a href="#command-example-turn-robot-ccw-to-a-heading-of--90">Command example: turn robot CCW to a heading of -90°</a></li>
-                </ul>
-            </li>
-            <li><a href="#initial-location-acquisition">Initial location acquisition</a></li>
-            <li><a href="#position-updates-during-the-race">Position updates during the race</a>
-                <ul dir="auto">
-                    <li><a href="#optical-tracking-sensor-function">Optical tracking sensor function</a></li>
-                    <li><a href="#sensor-failure-detection--health-status">Sensor failure detection / health status</a></li>
-                </ul>
-            </li>
-            <li><a href="#position-corrections">Position corrections</a>
-                <ul dir="auto">
-                    <li><a href="#reposition-while-driving-pseudocode">Reposition while driving (pseudocode)</a></li>
-                </ul>
-            </li>
-            <li><a href="#obstacle-recognition">Obstacle recognition</a>
-                <ul dir="auto">
-                    <li><a href="#determining-the-position-of-an-obstacle-within-a-course-section">Determining the position of an obstacle within a course section</a></li>
-                    <li><a href="#determining-the-color-of-the-obstacle">Determining the color of the obstacle</a></li>
-                    <li><a href="#complete-obstacle-detection-function">Complete obstacle detection function</a></li>
-                    <li><a href="#angle-width-and-color-assignment-implementation-note">Angle width and color assignment (implementation note)</a></li>
-                </ul>
-            </li>
-             <li><a href="#navigation-strategy-open-challenge">Navigation strategy open challenge</a>
-                <ul dir="auto">
-                    <li><a href="#complete-code-for-waypoint-generation">Complete code for waypoint generation</a></li>
-                </ul>
-            </li>
-            <li><a href="#navigation-strategy-obstacle-challenge">Navigation strategy obstacle challenge</a>
-                <ul dir="auto">
-                    <li><a href="#unparking">Unparking</a></li>
-                    <li><a href="#first-round-scanning">First round: scanning</a></li>
-                    <li><a href="#second-and-third-round">Second and third round</a></li>
-                    <li><a href="#parking">Parking</a></li>
-                    <li><a href="#obstacle-avoidance-waypoint-generation">Obstacle avoidance waypoint generation</a></li>
-                    <li><a href="#rotation-mapping">Rotation mapping</a></li>
-                    <li><a href="#source-code-driveroundpy">Source code: driveRound.py</a></li>
-                </ul>
-            </li>
-            <li><a href="#possible-improvements">Possible improvements</a></li>
-        </ul>
-        </details>
-    </li>
-    <li><details><summary><a href="#code-for-all-components">Code for all components</a></summary>
-        <ul dir="auto">
-            <li><a href="#servo">Servo</a>
-                <ul dir="auto">
-                    <li><a href="#software-implementation">Software implementation</a></li>
-                    <li><a href="#steering-range-and-calibration">Steering range and calibration</a></li>
-                </ul>
-            </li>
-            <li><a href="#drive-motor">Drive motor</a>
-                <ul dir="auto">
-                    <li><a href="#components">Components</a></li>
-                    <li><a href="#hardware-interface">Hardware interface</a></li>
-                    <li><a href="#software-implementation-1">Software implementation</a></li>
-                    <li><a href="#pid-controller-implementation">PID controller implementation</a></li>
-                    <li><a href="#advanced-control-features">Advanced control features</a></li>
-                </ul>
-            </li>
-            <li><a href="#optical-tracking-odometry-sensors">Optical tracking odometry sensors</a>
-                <ul dir="auto">
-                    <li><a href="#position-and-speed-tracking">Position and speed tracking</a></li>
-                    <li><a href="#sensor-health-monitoring-and-redundancy">Sensor health monitoring and redundancy</a></li>
-                    <li><a href="#data-fusion-and-final-position-calculation">Data fusion and final position calculation</a></li>
-                    <li><a href="#position-reset-and-calibration">Position reset and calibration</a></li>
-                    <li><a href="#key-features-of-our-implementation">Key features of our implementation</a></li>
-                </ul>
-            </li>
-            <li><a href="#lidar-1">LiDAR</a>
-                <ul dir="auto">
-                    <li><a href="#real-time-scanning-and-data-acquisition">Real-time scanning and data acquisition</a></li>
-                    <li><a href="#position-detection-and-localization">Position detection and localization</a></li>
-                    <li><a href="#dynamic-position-correction-during-driving">Dynamic position correction during driving</a></li>
-                    <li><a href="#obstacle-detection-and-recognition">Obstacle detection and recognition</a></li>
-                    <li><a href="#key-features-of-our-lidar-implementation">Key features of our LiDAR implementation</a></li>
-                    <li><a href="#data-structure-and-access-patterns">Data structure and access patterns</a></li>
-                </ul>
-            </li>
-            <li><a href="#camera-1">Camera</a>
-                <ul dir="auto">
-                    <li><a href="#image-capture-and-preprocessing">Image capture and preprocessing</a></li>
-                    <li><a href="#color-detection">Color detection</a></li>
-                    <li><a href="#angle-mapping-and-field-alignment">Angle mapping and field alignment</a></li>
-                    <li><a href="#calibration-and-settings">Calibration and settings</a></li>
-                    <li><a href="#key-features-of-our-camera-implementation">Key features of our camera implementation</a></li>
-                </ul>
-            </li>
-            <li><a href="#potential-improvements---code-for-all-components">Potential improvements - code for all components</a></li>
-        </ul>
-        </details>
-    </li>
-    <li><details><summary><a href="#construction-guide">Construction guide</a></summary>
+            <li><a href="#development-milestones">Development milestones</a></li>
+          </ul>
+          </details>
+        </li>
+        <li><details><summary><a href="#5-construction-guide">5. Construction guide</a></summary>
         <ul dir="auto">
             <li><a href="#assembly-overview">Assembly overview</a></li>
             <li><a href="#step-1-preparing-the-3d-printed-parts">Step 1: Preparing the 3D-printed parts</a></li>
             <li><a href="#step-2-lower-deck-assembly">Step 2: Lower deck assembly</a>
-                <ul dir="auto">
-                    <li><a href="#21-prepare-latrax-rally-back-axle">2.1 Prepare LaTrax Rally back axle</a></li>
-                    <li><a href="#22-install-steering-servo">2.2 Install steering servo</a></li>
-                    <li><a href="#23-front-axle">2.3 Front axle</a></li>
-                    <li><a href="#24-mount-bumper">2.4 Mount Bumper</a></li>
-                    <li><a href="#25-mount-esc-electronic-speed-controller">2.5 Mount ESC (electronic speed controller)</a></li>
-                    <li><a href="#26-install-odometry-sensors">2.6 Install odometry sensors</a></li>
-                </ul>
+              <ul dir="auto">
+                <li><a href="#21-prepare-latrax-rally-back-axle">2.1 Prepare LaTrax Rally back axle</a></li>
+                <li><a href="#22-install-steering-servo">2.2 Install steering servo</a></li>
+                <li><a href="#23-front-axle">2.3 Front axle</a></li>
+                <li><a href="#24-mount-bumper">2.4 Mount bumper</a></li>
+                <li><a href="#25-mount-esc-electronic-speed-controller">2.5 Mount ESC (electronic speed controller)</a></li>
+                <li><a href="#26-install-odometry-sensors">2.6 Install odometry sensors</a></li>
+              </ul>
             </li>
             <li><a href="#step-3-middle-deck-assembly">Step 3: Middle deck assembly</a>
-                <ul dir="auto">
-                    <li><a href="#31-place-the-middle-deck">3.1 Place the middle deck</a></li>
-                    <li><a href="#32-mount-raspberry-pi-5">3.2 Mount Raspberry Pi 5</a></li>
-                    <li><a href="#33-integrate-camera">3.3 Integrate camera</a></li>
-                    <li><a href="#34-mount-servo-controller-and-voltage-regulator">3.4 Mount servo controller and voltage regulator</a></li>
-                    <li><a href="#35-battery-and-power-supply">3.5 Battery and power supply</a></li>
-                </ul>
+              <ul dir="auto">
+                <li><a href="#31-place-the-middle-deck">3.1 Place the middle deck</a></li>
+                <li><a href="#32-mount-raspberry-pi-5">3.2 Mount Raspberry Pi 5</a></li>
+                <li><a href="#33-integrate-camera">3.3 Integrate camera</a></li>
+                <li><a href="#34-mount-servo-controller-and-voltage-regulator">3.4 Mount servo controller and voltage regulator</a></li>
+                <li><a href="#35-battery-and-power-supply">3.5 Battery and power supply</a></li>
+              </ul>
             </li>
             <li><a href="#step-4-upper-deck-with-lidar">Step 4: Upper deck with LiDAR</a>
-                <ul dir="auto">
-                    <li><a href="#41-mount-lidar">4.1 Mount LiDAR</a></li>
-                    <li><a href="#42-install-status-display">4.2 Install status display</a></li>
-                </ul>
+              <ul dir="auto">
+                <li><a href="#41-mount-lidar">4.1 Mount LiDAR</a></li>
+                <li><a href="#42-install-status-display">4.2 Install status display</a></li>
+              </ul>
             </li>
             <li><a href="#step-5-wiring">Step 5: Wiring</a></li>
             <li><a href="#step-6-software-installation">Step 6: Software installation</a>
-                <ul dir="auto">
-                    <li><a href="#61-prepare-raspberry-pi-os">6.1 Prepare Raspberry Pi OS</a></li>
-                    <li><a href="#62-install-python-libraries">6.2 Install Python libraries</a></li>
-                    <li><a href="#63-install-battlepillars-software">6.3 Install Battlepillars software</a></li>
-                </ul>
+              <ul dir="auto">
+                <li><a href="#61-prepare-raspberry-pi-os">6.1 Prepare Raspberry Pi OS</a></li>
+                <li><a href="#62-install-python-libraries">6.2 Install Python libraries</a></li>
+                <li><a href="#63-install-battlepillars-software">6.3 Install Battlepillars software</a></li>
+                <li><a href="#64-build-compile-and-upload-to-the-controllers">6.4 Build, compile and upload to the controllers</a></li>
+                <li><a href="#65-competition-day-quick-checklist-2-minutes">6.5 Competition-day quick checklist (2 minutes)</a></li>
+              </ul>
             </li>
-        </ul>
-        </details>
-    </li>
+          </ul>
+          </details>
+        </li>
 </ul>
 
 # **The team** 
@@ -241,7 +179,7 @@ In this repository, you’ll find the documentation for the robot created by the
     </a>
 </div>
 
-Hi! I’m Nils, and I’m 16 years old. I enjoy coding and solving technical problems. In my free time, I like scuba diving and exploring the underwater world. During winter, I often go skiing, and I’m also a big fan of cats.
+Hi! I’m Nils, and I’m 17 years old. I enjoy coding and solving technical problems. In my free time, I like scuba diving and exploring the underwater world. During winter, I often go skiing, and I’m also a big fan of cats.
 
 For our WRO project, I’m responsible for developing the robot’s software and making sure it runs as intended. It can be challenging at times, but it’s very rewarding when everything works as planned!
 
@@ -253,7 +191,7 @@ For our WRO project, I’m responsible for developing the robot’s software and
     </a>
 </div>
 
-Hello everyone! My name is Olivia Greilich and I'm 16, currently attending the Lise-Meitner Gymnasium in Anrath. Languages, communicating and connecting with people is my passion, same with painting, sculpting and crocheting!
+Hello everyone! My name is Olivia Greilich and I'm 17, currently attending the Lise-Meitner Gymnasium in Anrath. Languages, communicating and connecting with people is my passion, same with painting, sculpting and crocheting!
 One interesting fact about me is that I am simply enamored with jellyfish of all types, colors, shapes and sizes. I have two jellyfish lamps, tons of stickers, books and of course a phone charm.
 In my free time, I usually occupy myself with writing fanfiction on Archive Of Our Own (AO3).
 
@@ -287,7 +225,7 @@ The following videos show the vehicle operating autonomously (driving demonstrat
 | Open Challenge | ⚠️ **PLACEHOLDER – add YouTube link** |
 | Obstacle Challenge | ⚠️ **PLACEHOLDER – add YouTube link** |
 
-Video already available (please still verify which run it belongs to and fill in the table above accordingly): https://www.youtube.com/watch?v=J5yrJuZZ5P8
+
 
 <br><br>
 
@@ -310,7 +248,7 @@ In the final version, the chassis was manufactured from **PPA-CF filament**. PPA
 <br><br>
 However, this created a new problem. If the suspension was not exactly the same height on all sides, or the base plate was slightly warped, a wheel would hover slightly off the ground due to the extreme stiffness of the material and spin freely. In the previous PLA versions, this issue was compensated for by the springy properties of the material. Since we did not want to give up the positive properties of PPA-CF filament with respect to sensor data, we heated the base plate with a heat gun and carefully bent it until all wheels had good ground contact.
 
-#### Table X: Mechanical iterations in the chassis design:
+#### Table 1: Mechanical iterations in the chassis design:
 
 <table align="center" border="1" style="border-collapse: collapse; border: 2px solid black; margin: 12px 0;">
   <tr>
@@ -327,7 +265,6 @@ However, this created a new problem. If the suspension was not exactly the same 
     <td bgcolor="#EAF4FB" style="border: 1px solid black; padding: 8px;">Backlash changed measurably after a few runs (creep), motor ran roughly</td>
     <td bgcolor="#EAF4FB" style="border: 1px solid black; padding: 8px;">Switched filament to PPA-CF</td>
     <td bgcolor="#EAF4FB" style="border: 1px solid black; padding: 8px;">Gear backlash constant, but new problem: wheel hovers slightly off the ground because base plate is too stiff</td>
- </td>
     <td bgcolor="#EAF4FB" style="border: 1px solid black; padding: 8px;"><b>PPA-CF kept; new problem solved by manually rebending the base plate</b></td>
   </tr>
 </table>
@@ -390,7 +327,7 @@ v [m/s] = encoder count × 30 / (5.165 × 1000)</td></tr></table>
 
 The factor 5.165 was determined from reference measurements over known distances.
 
- #### Table 1: Comparison of tested motors
+ #### Table 2: Comparison of tested motors
 
 <table align="center" border="1" style="border-collapse: collapse; border: 2px solid black;">
 
@@ -478,7 +415,7 @@ The **rated torque** of the N30 motor is approx. 3 mNm according to the datashee
 
 The **design** of the rear axle was carried out in Fusion 360 based on the ball differential. One challenge was that both the motor mount and the differential mount had to be manufactured mechanically precisely, so that the gear backlash between the motor pinion and the differential gear was correct. This was practically impossible to achieve by measuring and designing alone, since the dimensional accuracy of the printed parts was not high enough. So the correct distance was determined experimentally by changing the design parameters and reprinting the base plate until it fit. 
 
-#### Table X: Mechanical iterations in the rear axle design:
+#### Table 3: Mechanical iterations in the rear axle design:
 
 <table align="center" border="1" style="border-collapse: collapse; border: 2px solid black; margin: 12px 0;">
   <tr>
@@ -531,7 +468,7 @@ cot(35°) − cot(45°) = 1.43 − 1.00 = 0.43
 </td></tr></table>
 
 The achieved value of 0.43 is clearly below the ideal value of 0.81. With an unchanged outer angle of 35°, the inner wheel would theoretically need to reach about 58.5° to fully satisfy the Ackermann condition. However, this is not mechanically possible, since the inner wheel is already at its mechanical stop at 45° and a larger angle would exceed the available installation space. Alternatively, with an unchanged inner angle of 45°, the outer angle would need to be reduced to about 29°, which would reduce how sharply the car could turn. The steering therefore only partially satisfies the ideal Ackermann condition. As a result, the extended wheel axes of the front wheels do not intersect exactly at a common turning center, which can more easily cause lateral slip at the front wheels in tight corners:
-#### Figure 5: Ackermann condition in our steering:
+#### Figure 6: Ackermann condition in our steering:
 <div align="center">
     <a href="img/ackermann_englisch.png" target="_blank">
         <img width="500" src="img/ackermann_englisch.png">
@@ -547,7 +484,7 @@ Minimum turning radius = wheelbase / tan(δ<sub>outer</sub>)
 We had not set an exact target turning radius in advance, only the **requirement for the highest possible agility**. For reference: with the alternative possible outer angle of 29° (with an unchanged inner angle of 45°, see above), the minimum turning radius would have been 80 mm / tan(29°) ≈ 144 mm, compared to 114 mm with our actually chosen outer angle of 35°. Even 144 mm would still have been sufficient for the requirements of the WRO track, but would have noticeably reduced agility. We therefore deliberately chose the larger outer angle of 35° and thus decided against fully satisfying the Ackermann condition.
 
 
-#### Table X: Steering geometry trade-off – Ackermann compliance vs. agility:
+#### Table 4: Steering geometry trade-off – Ackermann compliance vs. agility:
 
 <table align="center" border="1" style="border-collapse: collapse; border: 2px solid black; margin: 12px 0;">
   <tr>
@@ -587,12 +524,6 @@ We had not set an exact target turning radius in advance, only the **requirement
     <td style="border: 1px solid black; padding: 8px; text-align: center;"><b>higher</b></td>
   </tr>
   <tr>
-    <td bgcolor="#EAF4FB" style="border: 1px solid black; padding: 8px;"><b>Lateral slip front</b></td>
-    <td bgcolor="#EAF4FB" style="border: 1px solid black; padding: 8px; text-align: center;">minimal</td>
-    <td bgcolor="#EAF4FB" style="border: 1px solid black; padding: 8px; text-align: center;">low</td>
-    <td style="border: 1px solid black; padding: 8px; text-align: center;"><b>slightly increased</b></td>
-  </tr>
-  <tr>
     <td bgcolor="#EAF4FB" style="border: 1px solid black; border-top: 3px solid black; padding: 8px;"><b>Decision</b></td>
     <td bgcolor="#EAF4FB" style="border: 1px solid black; border-top: 3px solid black; padding: 8px; text-align: center;">not achievable by design</td>
     <td bgcolor="#EAF4FB" style="border: 1px solid black; border-top: 3px solid black; padding: 8px; text-align: center;">rejected</td>
@@ -610,7 +541,7 @@ We had not set an exact target turning radius in advance, only the **requirement
 ### Mechanical precision of our steering
 However, in addition to the steering geometry, the **mechanical precision of the bearings** is also crucial for whether the calculated angles are actually reproducible during driving. Last year, our car only had one ball bearing per wheel. The steering knuckles were held in plain bearings. As a result, the wheels had noticeable lateral play (about 0.8 mm at the top edge of the wheel, see table) and wobbled back and forth. To minimize steering play, we used a total of eight ball bearings for the front axle bearings. Two per side support the steering knuckles, another two per side support the wheels. These ball bearings ensure precise steering with little play as well as low rolling resistance.
 
-#### Table X: Mechanical iterations in the front axle bearing:
+#### Table 5: Mechanical iterations in the front axle bearing:
 
 <table align="center" border="1" style="border-collapse: collapse; border: 2px solid black; margin: 12px 0;">
   <tr>
@@ -633,7 +564,7 @@ However, in addition to the steering geometry, the **mechanical precision of the
 
 <sub><b>Measurement method (lateral wheel play):</b> Vehicle fixed, wheel aligned straight. The wheel is pushed by hand (without tools) alternately inward and outward at the top edge until the noticeable play limit is reached. The total lateral deflection at the top edge of the wheel is measured with a caliper against a fixed reference point. The conversion to a tilt angle is done via the wheel radius (≈ 18 mm): angle = arctan(deflection / wheel radius). The average of n = 5 measurements is given.</sub>
 
-#### Figure 6: Cross-section of the front axle (top: angled cut, bottom: straight cut):
+#### Figure 7: Cross-section of the front axle (top: angled cut, bottom: straight cut):
 <div align="center">
     <a href="img/schnitt schraeg.png" target="_blank">
         <img width="400" src="img/schnitt schraeg.png">
@@ -657,7 +588,7 @@ Since the front axle was fully designed by us, we do not use Mini-Z rims there, 
 ### Servo selection
 When **selecting** the steering servo, besides the size, quick availability was the main deciding factor. Initially, a particularly compact and inexpensive servo (approx. €2) with an all-plastic gearbox was used. However, the pronounced steering play of about 5° (measured, see table) proved insufficient for precise control, which is why the **INJORA N30 Nano** with a coreless motor, metal gearbox, and aluminum housing was chosen as a replacement. At 7 g and dimensions of 15.2 × 13.0 × 21.3 mm, it remains extremely compact; at 6 V it provides a torque of 1.3 kg·cm at an actuation speed of 0.05 s/60°. Since the force and reaction-time requirements in this application are low, almost any commercially available servo would have met the specification – the only decisive factor was the backlash-free metal gearbox.
 
-#### Table X: Mechanical iterations in the steering servo selection:
+#### Table 6: Mechanical iterations in the steering servo selection:
 
 <table align="center" border="1" style="border-collapse: collapse; border: 2px solid black; margin: 12px 0;">
   <tr>
@@ -707,7 +638,7 @@ For the electronics, a test setup was first built on a **breadboard**. This allo
 
 We developed the **PCB (baseboard)** ourselves using the open-source EDA tool **KiCad** (project files: <code>kicad/baseboard</code>). It is a two-layer PCB (2 copper layers) connected directly to the Raspberry Pi CM5 via a Hirose FH12-22S high-speed connector and an M.2 socket. It also carries the STM32F411, the voltage regulators, and the connectors for the motor, servo, gyroscope, and ToF sensors. The manufacturing files (Gerber data, bill of materials, position data) were exported with a KiCad fabrication-toolkit plugin (see <code>kicad/baseboard/production</code>); manufacturing and assembly were done externally.
 
-#### Figure 7: Wiring diagram
+#### Figure 8: Wiring diagram
 
 </div><div align="center">
     <a href="img/plan_gesamt_Kopie.jpg" target="_blank">
@@ -732,7 +663,7 @@ The camera **calibrates** exposure time, white balance, and gain automatically. 
 
 Before every competition run, we take a test image and check in the debug image whether the obstacles lie completely within the mask and whether the black walls form a closed flood-fill barrier. If not, we first adjust the V-maximum value of the black mask and then the H/S/V values of the red and green masks. Since the hue range in OpenCV goes from 0 to 179° and red is the only color that appears at both ends of the scale, two separate masks are generated for red detection and then added together.
 
-#### Table 2: HSV color masks and calibration parameters
+#### Table 7: HSV color masks and calibration parameters
 
 <table align="center" border="1" style="border-collapse: collapse; border: 2px solid black;">
 
@@ -798,6 +729,8 @@ The most critical parameter is the V-maximum value of the black mask (default va
 ### **Selection of distance sensors**
 
 For detecting the environment we use optical distance sensors, i.e. time-of-flight sensors. These measure the distance to objects optically. To make a concrete selection, we compared the datasheets of different sensors.
+
+#### Table 8: Comparison of distance sensors
 
 <table align="center" border="1" style="border-collapse: collapse; border: 2px solid black;">
 
@@ -900,7 +833,7 @@ A key criterion in sensor selection was that individual measurement zones should
 
 The VL53L8CX offers **two operating modes**: in 4×4 mode it provides a measurement grid of 16 zones at a higher measurement frequency, while in 8×8 mode 64 zones are available at a lower frequency. To determine the mode suitable for our vehicle, we systematically tested both variants.
 
-#### Figure 7: Test setup for sensor evaluation (distance measurement against a wall in defined steps)
+#### Figure 9: Test setup for sensor evaluation (distance measurement against a wall in defined steps)
 
 </div><div align="center">
     <a href="img/Sensorpruefung (1).jpg" target="_blank">
@@ -910,9 +843,9 @@ The VL53L8CX offers **two operating modes**: in 4×4 mode it provides a measurem
 
 One problem with **sensor placement** is the mounting height above the ground. If the sensor sits too low, individual measurement zones detect the floor instead of the wall, leading to measurement errors. If it sits too high, it can no longer reliably detect the lower edge of a wall. We tested various sensor heights and measured from which distance the wall is reliably detected and whether floor reflections disturb the measurement. 
 
-Besides the height, we also investigated the influence of the measurement frequency on the maximum safe detection range. A higher frequency is beneficial for the driving strategy, since the STM32 receives updated distances more often and can react earlier. However, a higher frequency can lead to increased noise, which reduces the maximum reliable range. Table 4 summarizes the results.
+Besides the height, we also investigated the influence of the measurement frequency on the maximum safe detection range. A higher frequency is beneficial for the driving strategy, since the STM32 receives updated distances more often and can react earlier. However, a higher frequency can lead to increased noise, which reduces the maximum reliable range. Table 9 summarizes the results.
 
-#### Table 4: Detection reliability at different sensor heights 
+#### Table 9: Detection reliability at different sensor heights 
 
 <table align="center" border="1" style="border-collapse: collapse; border: 2px solid black;">
 
@@ -995,7 +928,7 @@ Testing showed that although the 4x4 mode delivers a higher measurement frequenc
 ### **Sensor placement in the robot**
 The time-of-flight sensors used have a **field of view of approx. 60°**. Originally, four sensors were planned.
 
-#### Figure 8: Early version of the robot with four sensors
+#### Figure 10: Early version of the robot with four sensors
 
 </div><div align="center">
     <a href="img/fruehe version roboter.jpg" target="_blank">
@@ -1007,36 +940,36 @@ The time-of-flight sensors used have a **field of view of approx. 60°**. Origin
 
 However, driving tests revealed a problem: when approaching a wall at a 45° angle, a blind spot formed diagonally in front of the vehicle, since neither the front nor the side sensor sufficiently covered this area. 
 
-#### Figure 9: Sensor coverage with four sensors
+#### Figure 11: Sensor coverage with four sensors
 
 </div><div align="center">
-    <a href="img/winkel_vier.png" target="_blank">
-        <img width="400" src="img/winkel_vier.png">
+    <a href="img/sensorabdeckung.png" target="_blank">
+        <img width="400" src="img/sensorabdeckung.png">
     </a>
 </div>
 
 To solve this problem, two additional sensors were added at the front, angled 45° forward. These were meant to detect walls earlier during diagonal approach. However, placing them at the front of the vehicle proved problematic, since the sensors blocked the camera's view, as the camera was not yet mounted at an elevated position at that time.
 
-#### Figure 10: Coverage of the 45° blind spot by two additional sensors at the front
+#### Figure 12: Coverage of the 45° blind spot by two additional sensors at the front
 
  </div><div align="center">
-    <a href="img/bild2.png" target="_blank">
-        <img width="400" src="img/bild2.png">
+    <a href="img/sensorabdeckung_vorne.png" target="_blank">
+        <img width="400" src="img/sensorabdeckung_vorne.png">
     </a>
 </div>
 
  So we looked for an alternative solution. To save space, we switched to smaller PCBs that fit better mechanically into the compact chassis and installed them.
 
-#### Figure 10: Size comparison of the sensor PCBs
+#### Figure 13: Size comparison of the sensor PCBs
 
  </div><div align="center">
-    <a href="img/bild1.png" target="_blank">
-        <img width="400" src="img/bild1.png">
+    <a href="img/vergleich.jfif" target="_blank">
+        <img width="400" src="img/vergleich.jfif">
     </a>
 </div>
 
 
-#### Figure 11: Test position of an additional sensor angled forward diagonally
+#### Figure 14: Test position of an additional sensor angled forward diagonally
 
 </div><div align="center">
     <a href="img/schraeg.jpg" target="_blank">
@@ -1047,7 +980,7 @@ To solve this problem, two additional sensors were added at the front, angled 45
  However, tests showed that this smaller variant did not work reliably enough – with more than two sensors, SPI communication broke down. 
 We went back to the larger PCBs and instead placed them at the rear of the vehicle to keep the camera's view clear. Due to limited space, they were installed there in a vertical orientation. 
 
-#### Figure 11: Position of the angled ToF sensors at the rear to cover the 45° blind spot
+#### Figure 15: Position of the angled ToF sensors at the rear to cover the 45° blind spot
 
 </div><div align="center">
     <a href="img/roboter spaetere version.jpg" target="_blank">
@@ -1056,7 +989,7 @@ We went back to the larger PCBs and instead placed them at the rear of the vehic
 </div>
 
 
-#### Figure 10: Coverage of the 45° blind spot by two additional sensors at the rear
+#### Figure 16: Coverage of the 45° blind spot by two additional sensors at the rear
 
  </div><div align="center">
     <a href="img/sensorabdeckung_hinten.png" target="_blank">
@@ -1067,7 +1000,7 @@ We went back to the larger PCBs and instead placed them at the rear of the vehic
 
 After switching obstacle detection to a full scan (cf. [Camera](#camera-use-of-the-camera-and-calibration), [Obstacle challenge driving strategy – strategy change](#obstacle-challenge-driving-strategy---strategy-change)), we were able to do without the additional sensors. Since no favorable camera positions need to be approached anymore, the robot never approaches a wall at a 45° angle. 
 
-#### Figure 12: Final robot with four sensors
+#### Figure 17: Final robot with four sensors
 
 </div><div align="center">
     <a href="img/rechts.jpg" target="_blank">
@@ -1085,7 +1018,7 @@ We therefore switched to a **BNO086** on short notice. We use this one without a
 Correction factor = measured rotation / expected rotation
 </td></tr></table>
 
-#### Table 5: Summary of gyro evaluation
+#### Table 10: Summary of gyro evaluation
 
 <table align="center" border="1" style="border-collapse: collapse; border: 2px solid black;">
 
@@ -1104,7 +1037,7 @@ Correction factor = measured rotation / expected rotation
     <td bgcolor="#EAF4FB" style="border: 1px solid black; padding: 8px;">with magnetometer</td>
     <td bgcolor="#EAF4FB" style="border: 1px solid black; padding: 8px; text-align: center;">~5–10°</td>
     <td bgcolor="#EAF4FB" style="border: 1px solid black; padding: 8px; text-align: center;">not measurable<br>(outlier)</td>
-    <td bgcolor="#EAF4FB" style="border: 1px solid black; padding: 8px; text-align: center;">❌ No</td>
+    <td bgcolor="#EAF4FB" style="border: 1px solid black; padding: 8px; text-align: center;">No</td>
   </tr>
 
   <!-- BNO055 without magnetometer -->
@@ -1113,7 +1046,7 @@ Correction factor = measured rotation / expected rotation
     <td style="border: 1px solid black; padding: 8px;">without magnetometer</td>
     <td style="border: 1px solid black; padding: 8px; text-align: center;">~2°</td>
     <td style="border: 1px solid black; padding: 8px; text-align: center;">~6°</td>
-    <td style="border: 1px solid black; padding: 8px; text-align: center;">❌ No</td>
+    <td style="border: 1px solid black; padding: 8px; text-align: center;">No</td>
   </tr>
 
   <!-- BNO086 -->
@@ -1122,7 +1055,7 @@ Correction factor = measured rotation / expected rotation
     <td bgcolor="#EAF4FB" style="border: 1px solid black; padding: 8px;">without magnetometer<br>with rate calibration</td>
     <td bgcolor="#EAF4FB" style="border: 1px solid black; padding: 8px; text-align: center;">~0.3°</td>
     <td bgcolor="#EAF4FB" style="border: 1px solid black; padding: 8px; text-align: center;">~1°</td>
-    <td bgcolor="#EAF4FB" style="border: 1px solid black; padding: 8px; text-align: center;">✅ Yes</td>
+    <td bgcolor="#EAF4FB" style="border: 1px solid black; padding: 8px; text-align: center;">Yes</td>
   </tr>
 
 </table>
@@ -1139,7 +1072,7 @@ Last year we used a 2S 2200 mAh battery. This is far too large for our new car, 
 
 After voltage, the most important selection criterion was the **installation size** at the highest possible capacity. We chose a **3S LiPo battery with 550 mAh**. This is the largest battery we could fit in the chassis. To determine whether the battery was usable, we first calculated the runtime theoretically, then measured it in practice (see below).
 
-#### Table 6: Power consumption of the components used, per datasheet
+#### Table 11: Power consumption of the components used, per datasheet
 
 <table align="center" border="1" style="border-collapse: collapse; border: 2px solid black;">
 
@@ -1227,7 +1160,7 @@ After voltage, the most important selection criterion was the **installation siz
 </table>
 
 ### **Worst-case peak current and regulator sizing**
-In addition to the typical values from Table 6, the **worst case** is decisive for sizing the voltage regulators, in which several consumers draw their peak current simultaneously on the 5 V rail:
+In addition to the typical values from Table 11, the **worst case** is decisive for sizing the voltage regulators, in which several consumers draw their peak current simultaneously on the 5 V rail:
 
 - Raspberry Pi CM5 (peak load): 1600 mA
 - Camera (powered internally via CM5, conservatively added here as well): 400 mA
@@ -1268,7 +1201,7 @@ To **avoid deep discharge**, the STM32 measures the battery voltage, switches of
 ### **Failure modes in sensors and power supply**
 To increase the reliability of our sensors and electronics, we have systematically summarized the main sources of error observed during development, along with their detection, effects, and countermeasures.
 
-#### Table 7: Failure modes, detection, and countermeasures
+#### Table 12: Failure modes, detection, and countermeasures
 
 <table align="center" border="1" style="border-collapse: collapse; border: 2px solid black;">
 
@@ -1283,7 +1216,7 @@ To increase the reliability of our sensors and electronics, we have systematical
     <td bgcolor="#EAF4FB" style="border: 1px solid black; padding: 8px;">Gyro drift (residual error of the BNO086 accumulating over multiple laps)</td>
     <td bgcolor="#EAF4FB" style="border: 1px solid black; padding: 8px;">Deviation of the calculated heading from known target angles at turning points of the track</td>
     <td bgcolor="#EAF4FB" style="border: 1px solid black; padding: 8px;">Vehicle misses walls/corners, imprecise lane tracking</td>
-    <td bgcolor="#EAF4FB" style="border: 1px solid black; padding: 8px;">Switch from BNO055 to the lower-drift <b>BNO086</b>; remaining residual error is compensated by a <b>rate calibration</b> before each run (cf. <a href="#table-5-summary-of-gyro-evaluation">Table 5</a>).</td>
+    <td bgcolor="#EAF4FB" style="border: 1px solid black; padding: 8px;">Switch from BNO055 to the lower-drift <b>BNO086</b>; remaining residual error is compensated by a <b>rate calibration</b> before each run (cf. <a href="#table-10-summary-of-gyro-evaluation">Table 10</a>).</td>
   </tr>
 
   <tr>
@@ -1297,7 +1230,7 @@ To increase the reliability of our sensors and electronics, we have systematical
     <td bgcolor="#EAF4FB" style="border: 1px solid black; padding: 8px;">Poor lighting (camera color detection disturbed by ambient light)</td>
     <td bgcolor="#EAF4FB" style="border: 1px solid black; padding: 8px;">Debug image before each run shows incomplete masks or an open flood-fill barrier at the black walls</td>
     <td bgcolor="#EAF4FB" style="border: 1px solid black; padding: 8px;">Obstacles/walls are detected incorrectly, route planning becomes faulty</td>
-    <td bgcolor="#EAF4FB" style="border: 1px solid black; padding: 8px;"><b>Manual readjustment</b> of the V-maximum value and H/S/V limits before the competition (cf. <a href="#table-2-hsv-color-masks-and-calibration-parameters">Table 2</a>)</td>
+    <td bgcolor="#EAF4FB" style="border: 1px solid black; padding: 8px;"><b>Manual readjustment</b> of the V-maximum value and H/S/V limits before the competition (cf. <a href="#table-7-hsv-color-masks-and-calibration-parameters">Table 7</a>)</td>
   </tr>
 
   <tr>
@@ -1329,7 +1262,7 @@ The **low-level control** resides on the STM32F411: motor control, encoder evalu
 
 This split has two advantages: the STM32 handles time-critical tasks without operating-system overhead. The CM5 can simultaneously perform computationally intensive tasks such as image processing and gyro fusion without blocking the sensor control loop. Communication between the two processors is via UART at 921,600 baud.
 
-#### Figure X: Overview of the system architecture
+#### Figure 18: Overview of the system architecture
 
 </div><div align="center">
     <a href="img/blockschaltbild_englisch.png" target="_blank">
@@ -1337,7 +1270,7 @@ This split has two advantages: the STM32 handles time-critical tasks without ope
     </a>
 </div>
 
-#### Table X: Task distribution of the software modules
+#### Table 13: Task distribution of the software modules
 
 <table align="center" border="1" style="border-collapse: collapse; border: 2px solid black;">
 
@@ -1442,7 +1375,7 @@ At Kp = 1.0, a 1° heading error corresponds exactly to a 1° steering correctio
 **Why no I and D component:** An integral component is not necessary, since the gyro measures the absolute orientation and no permanent offset occurs. A D component would react to the measurement noise of the BNO086 and destabilize the steering.
 The control is based on the following driving primitives: <br>
 
-#### Table X: Most important driving primitives and their function
+#### Table 14: Most important driving primitives and their function
 
 <table align="center" border="1" style="border-collapse: collapse; border: 2px solid black;">
 
@@ -1522,7 +1455,7 @@ In the **opening challenge** (<code>openChallenge.py</code>), the car drives thr
 
 The pattern of straight and turn repeats four times per lap (one side of the course per iteration). After three complete laps (3 x 4 = 12 turns total), the vehicle stops with <code>driveAwayFromWall</code> in the middle of the starting zone. The target speed of 2 m/s on straights is a configured parameter value; the actual final speed depends on the acceleration ramp and the available track length.
 
-#### Figure X: Source code for the opening challenge
+#### Figure 19: Source code for the opening challenge
 
 </div><div align="center">
     <a href="img/code.png" target="_blank">
@@ -1539,7 +1472,7 @@ The **original strategy** detected obstacles while driving. At the start of each
 ### **New strategy: full scan, fixed route**
 The **new strategy fully separates detection and driving**. Right after program start, the car turns to 3 defined angles (<code>tightTurn</code>) and photographs the entire course. From these three photos, the colors of the obstacles across all four sections are detected at once and stored in <code>parser.obstacles[0..11]</code>. After that, the camera is no longer used – the route is deterministically fixed. 
 
-#### Figure X: State diagram obstacle challenge – full-scan strategy
+#### Figure 20: State diagram obstacle challenge – full-scan strategy
 
 </div><div align="center">
     <a href="img/Zustandsdiagramm_Hindernisrennen.png" target="_blank">
@@ -1551,7 +1484,7 @@ The **new strategy fully separates detection and driving**. Right after program 
 ## **Serial communication and data model**
 **CM5** and **STM32** communicate via UART (/dev/ttyAMA0, 921,600 baud). Per transmission cycle, the STM32 sends a complete status packet to the CM5; the CM5 responds with a control packet. The parser thread on the CM5 processes incoming packets asynchronously and writes the values into shared fields of the parser object.
 
-#### Table X: Data model CM5 ↔ STM32
+#### Table 15: Data model CM5 ↔ STM32
 
 <table align="center" border="1" style="border-collapse: collapse; border: 2px solid black;">
 
@@ -1629,7 +1562,7 @@ The **new strategy fully separates detection and driving**. Right after program 
 ### **Mask pipeline**
 Detection proceeds in 13 steps. A special feature: instead of a simple rectangular ROI, a **flood fill** is used, which uses the black course walls as a barrier. This means only the actually drivable area is analyzed – colored objects behind walls or outside the course are automatically filtered out.
 
-#### Table X: Mask pipeline – processing steps
+#### Table 16: Mask pipeline – processing steps
 
 <table align="center" border="1" style="border-collapse: collapse; border: 2px solid black;">
 
@@ -1799,7 +1732,7 @@ Detection proceeds in 13 steps. A special feature: instead of a simple rectangul
 ## **Software improvements**
 During development and test runs, errors were identified, their causes analyzed, and fixed through **targeted code changes** – a selection is documented in the following table.
 
-#### Table X: Software improvements
+#### Table 17: Software improvements
 
 <table align="center" border="1" style="border-collapse: collapse; border: 2px solid black;">
 
@@ -1846,20 +1779,12 @@ During development and test runs, errors were identified, their causes analyzed,
   <!-- Error 5 -->
   <tr>
     <td bgcolor="#EAF4FB" style="border: 1px solid black; padding: 8px;"><b>Corner entry too late – car drove too wide</b></td>
-    <td bgcolor="#EAF4FB" style="border: 1px solid black; padding: 8px;">ToF measurement frequency too low; code waited too long for the "wall gone" signal</td>
-    <td bgcolor="#EAF4FB" style="border: 1px solid black; padding: 8px;">Increased ToF measurement frequency; code optimized for the fastest possible corner entry after the wall signal disappears</td>
-    <td bgcolor="#EAF4FB" style="border: 1px solid black; padding: 8px;">Tighter turning radius, faster lap times</td>
+    <td bgcolor="#EAF4FB" style="border: 1px solid black; padding: 8px;">A window's reflection confused the ToF camera</td>
+    <td bgcolor="#EAF4FB" style="border: 1px solid black; padding: 8px;">Function returns True if the side wall is lost while driving → robot reverses 530 mm</td>
+    <td bgcolor="#EAF4FB" style="border: 1px solid black; padding: 8px;">Robot corrects its position after wall loss</td>
   </tr>
 
   <!-- Error 6 -->
-  <tr>
-    <td style="border: 1px solid black; padding: 8px;"><b>Robot detected the wall too late in <code>driveToWall()</code> and drove too far</b></td>
-    <td style="border: 1px solid black; padding: 8px;">A window's reflection confused the ToF camera</td>
-    <td style="border: 1px solid black; padding: 8px;">Function returns True if the side wall is lost while driving → robot reverses 530 mm</td>
-    <td style="border: 1px solid black; padding: 8px;">Robot corrects its position after wall loss</td>
-  </tr>
-
-  <!-- Error 7 -->
   <tr>
     <td bgcolor="#EAF4FB" style="border: 1px solid black; padding: 8px;"><b><code>driveAwayFromWall()</code> stopped too early on brief wall loss</b></td>
     <td bgcolor="#EAF4FB" style="border: 1px solid black; padding: 8px;">No encoder fallback: function ended immediately if the wall was not detected</td>
@@ -1867,7 +1792,7 @@ During development and test runs, errors were identified, their causes analyzed,
     <td bgcolor="#EAF4FB" style="border: 1px solid black; padding: 8px;">Maneuver completes correctly even with brief sensor dropout</td>
   </tr>
 
-  <!-- Error 8 -->
+  <!-- Error 7 -->
   <tr>
     <td style="border: 1px solid black; padding: 8px;"><b>Parking (<code>parkCW</code>) ended up in the wrong position</b></td>
     <td style="border: 1px solid black; padding: 8px;"><code>parkCW()</code> drove blindly backward and forward without checking position</td>
@@ -1881,7 +1806,7 @@ During development and test runs, errors were identified, their causes analyzed,
 
 To avoid scattering performance evidence throughout the whole documentation, we summarize it here in a dedicated section. In addition to the individual fixes documented above, software quality is captured quantitatively via <code>logger.py</code>. Every test run writes a continuous log (<code>logs/log_1.txt</code> … <code>log_10.txt</code>), from which the following metrics can be evaluated. The full evidence chain (test setup, sample size, raw data) for each metric is documented in [tests/README.md](tests/README.md).
 
-#### Table X: Metrics for software validation
+#### Table 18: Metrics for software validation
 
 <table align="center" border="1" style="border-collapse: collapse; border: 2px solid black;">
 
@@ -1937,7 +1862,7 @@ To avoid scattering performance evidence throughout the whole documentation, we 
 
 Before going into the individual architecture decisions, we summarize the main constraints that limited our design from the start – and the specific consequence each had for the vehicle.
 
-#### Table X: Design constraints and their consequences
+#### Table 19: Design constraints and their consequences
 
 <table align="center" border="1" style="border-collapse: collapse; border: 2px solid black;">
 
@@ -1947,37 +1872,37 @@ Before going into the individual architecture decisions, we summarize the main c
   </tr>
 
   <tr>
-    <td bgcolor="#EAF4FB" style="border: 1px solid black; padding: 8px;">Maximum vehicle dimensions (WRO competition rules)</td>
+    <td bgcolor="#EAF4FB" style="border: 1px solid black; padding: 8px;"><b>Maximum vehicle dimensions (WRO competition rules)</b></td>
     <td bgcolor="#EAF4FB" style="border: 1px solid black; padding: 8px;">Compact Compute Module 5 instead of Raspberry Pi 5, own baseboard developed (cf. <a href="#raspberry-pi-5-vs-raspberry-pi-cms">„Raspberry Pi 5 vs. Raspberry Pi CM5“</a>)</td>
   </tr>
 
   <tr>
-    <td style="border: 1px solid black; padding: 8px;">Goal: significantly shorter lap time than the previous year's model</td>
+    <td style="border: 1px solid black; padding: 8px;"><b>Goal: significantly shorter lap time than the previous year's model</b></td>
     <td style="border: 1px solid black; padding: 8px;">Switch from LiDAR to ToF sensors (measurement latency 100–200 ms → approx. 33 ms), control without stopping (cf. <a href="#distance-sensors">Distance sensors</a>, <a href="#lidar-vs-time-of-flight-sensoren--steuerungsparadigma">„LiDAR vs. time-of-flight sensors / control paradigm“</a>)</td>
   </tr>
 
   <tr>
-    <td bgcolor="#EAF4FB" style="border: 1px solid black; padding: 8px;">Limited space in the chassis for PCB, axles, and sensors</td>
+    <td bgcolor="#EAF4FB" style="border: 1px solid black; padding: 8px;"><b>Limited space in the chassis for PCB, axles, and sensors</b></td>
     <td bgcolor="#EAF4FB" style="border: 1px solid black; padding: 8px;">Base-plate dimensions dictated by PCB size, over 15 iteratively adapted base-plate versions (cf. <a href="#chassis-and-mechanical-structure">Chassis and mechanical structure</a>)</td>
   </tr>
 
   <tr>
-    <td style="border: 1px solid black; padding: 8px;">Variable lighting conditions in the competition environment</td>
-    <td style="border: 1px solid black; padding: 8px;">HSV color masks must be recalibrated before each run (cf. <a href="#table-2-hsv-color-masks-and-calibration-parameters">Table 2</a>)</td>
+    <td style="border: 1px solid black; padding: 8px;"><b>Variable lighting conditions in the competition environment</b></td>
+    <td style="border: 1px solid black; padding: 8px;">HSV color masks must be recalibrated before each run (cf. <a href="#table-7-hsv-color-masks-and-calibration-parameters">Table 7</a>)</td>
   </tr>
 
   <tr>
-    <td bgcolor="#EAF4FB" style="border: 1px solid black; padding: 8px;">Limited measurement frequency of the ToF sensors in 8×8 mode</td>
-    <td bgcolor="#EAF4FB" style="border: 1px solid black; padding: 8px;">Only approx. 30 Hz instead of the higher frequency expected from the datasheet; sensor height/position optimized for this (cf. <a href="#table-4-detection-reliability-at-different-sensor-heights">Table 4</a>)</td>
+    <td bgcolor="#EAF4FB" style="border: 1px solid black; padding: 8px;"><b>Limited measurement frequency of the ToF sensors in 8×8 mode</b></td>
+    <td bgcolor="#EAF4FB" style="border: 1px solid black; padding: 8px;">Only approx. 30 Hz instead of the higher frequency expected from the datasheet; sensor height/position optimized for this (cf. <a href="#table-9-detection-reliability-at-different-sensor-heights">Table 9</a>)</td>
   </tr>
 
   <tr>
-    <td style="border: 1px solid black; padding: 8px;">Raised center of gravity due to 27 cm camera height</td>
+    <td style="border: 1px solid black; padding: 8px;"><b>Raised center of gravity due to 27 cm camera height</b></td>
     <td style="border: 1px solid black; padding: 8px;">Speed limit in tight corners on grippy surfaces (cf. <a href="#camera-height-and-detection-strategy">„Camera height and detection strategy“</a>)</td>
   </tr>
 
   <tr>
-    <td bgcolor="#EAF4FB" style="border: 1px solid black; padding: 8px;">Limited battery capacity and space for the energy storage</td>
+    <td bgcolor="#EAF4FB" style="border: 1px solid black; padding: 8px;"><b>Limited battery capacity and space for the energy storage</b></td>
     <td bgcolor="#EAF4FB" style="border: 1px solid black; padding: 8px;">3S instead of 2S battery, regulator sized for a worst-case peak current of approx. 3.2 A (cf. <a href="#power-budget-power-supply-and-consumption">Power budget</a>)</td>
   </tr>
 
@@ -1986,9 +1911,9 @@ Before going into the individual architecture decisions, we summarize the main c
 
 ## **System-level risks**
 
-[Chapter 2](#2-power-and-sensors) already documents component-specific failure modes in sensors and power supply ([Table 7](#table-7-failure-modes-detection-and-countermeasures)). Here we add a risk/FMEA-light view at the **system level** – i.e. risks arising from the interplay of multiple subsystems.
+[Chapter 2](#2-power-and-sensors) already documents component-specific failure modes in sensors and power supply ([Table 12](#table-12-failure-modes-detection-and-countermeasures)). Here we add a risk/FMEA-light view at the **system level** – i.e. risks arising from the interplay of multiple subsystems.
 
-#### Table Y: System risks, detection, and countermeasures
+#### Table 20: System risks, detection, and countermeasures
 
 <table align="center" border="1" style="border-collapse: collapse; border: 2px solid black;">
 
@@ -2003,28 +1928,28 @@ Before going into the individual architecture decisions, we summarize the main c
     <td bgcolor="#EAF4FB" style="border: 1px solid black; padding: 8px;">Center-of-gravity shift due to raised camera position (27 cm) → tipping in fast corners</td>
     <td bgcolor="#EAF4FB" style="border: 1px solid black; padding: 8px;">Medium / High (complete run abort)</td>
     <td bgcolor="#EAF4FB" style="border: 1px solid black; padding: 8px;">Observed during the test run in Nordhorn on a grippier mat – vehicle nearly tipped over in fast corners</td>
-    <td bgcolor="#EAF4FB" style="border: 1px solid black; padding: 8px;">Reduced maximum cornering speed on site (cf. <a href="#camera-height-and-detection-strategy">„Camera height and detection strategy“</a>)</td>
+    <td bgcolor="#EAF4FB" style="border: 1px solid black; padding: 8px;"><b>Reduced maximum cornering speed</b> on site (cf. <a href="#camera-height-and-detection-strategy">„Camera height and detection strategy“</a>)</td>
   </tr>
 
   <tr>
     <td style="border: 1px solid black; padding: 8px;">Single point of failure: one central, self-developed baseboard carries the CM5, STM32, motor driver, and sensors simultaneously</td>
     <td style="border: 1px solid black; padding: 8px;">Low / Very high (total robot failure)</td>
     <td style="border: 1px solid black; padding: 8px;">Layout/footprint errors on PCB version 2 (wrong STM32 footprint, defective camera connectors)</td>
-    <td style="border: 1px solid black; padding: 8px;">Extensive breadboard test phase before the first PCB order; faulty board identified and redesigned (cf. milestone „Breadboard test phase“ in the <a href="#development-milestones">Development milestones</a> section)</td>
+    <td style="border: 1px solid black; padding: 8px;"><b>Extensive breadboard test phase</b> before the first PCB order; faulty board <b>identified and redesigned</b> (cf. milestone „Breadboard test phase“ in the <a href="#development-milestones">Development milestones</a> section)</td>
   </tr>
 
   <tr>
     <td bgcolor="#EAF4FB" style="border: 1px solid black; padding: 8px;">Simultaneous peak load of multiple subsystems (servo + CM5 + 4× ToF) on a shared battery/regulator</td>
     <td bgcolor="#EAF4FB" style="border: 1px solid black; padding: 8px;">Low / High (voltage drop, reset of the whole system)</td>
     <td bgcolor="#EAF4FB" style="border: 1px solid black; padding: 8px;">Worst-case calculation in the power budget (approx. 3.2 A peak current, cf. <a href="#worst-case-peak-current-and-regulator-sizing">Worst-case peak current and regulator sizing</a>)</td>
-    <td bgcolor="#EAF4FB" style="border: 1px solid black; padding: 8px;">3S battery with sufficient reserve, regulator sized for peak current; actual measurement confirms significantly lower continuous consumption (7–10 W)</td>
+    <td bgcolor="#EAF4FB" style="border: 1px solid black; padding: 8px;"><b>3S battery with sufficient reserve</b>, <b>regulator sized for peak current</b>; actual measurement confirms significantly lower continuous consumption (7–10 W)</td>
   </tr>
 
   <tr>
     <td style="border: 1px solid black; padding: 8px;">Communication failure between CM5 and STM32 (UART, 921,600 baud) → high-level logic loses control over driving</td>
     <td style="border: 1px solid black; padding: 8px;">Low / High (vehicle no longer responds to target values)</td>
     <td style="border: 1px solid black; padding: 8px;">No dedicated detection implemented so far (no watchdog/timeout)</td>
-    <td style="border: 1px solid black; padding: 8px;">Open item, identified as an improvement for the next version (e.g. watchdog timer, defined fail-safe behavior on connection loss)</td>
+    <td style="border: 1px solid black; padding: 8px;">Open item, identified as an improvement for the next version (e.g. <b>watchdog timer</b>, <b>defined fail-safe behavior on connection loss</b>)</td>
   </tr>
 
 </table>
@@ -2032,7 +1957,7 @@ Before going into the individual architecture decisions, we summarize the main c
 
 ## **Our robot**
 
-#### Figure X: Final robot from six perspectives with dimensions:
+#### Figure 21: Final robot from six perspectives with dimensions:
 
 </div><div align="center">
     <a href="img/sechs_ansichten.png" target="_blank">
@@ -2042,7 +1967,7 @@ Before going into the individual architecture decisions, we summarize the main c
 
 ## **Technical specifications**
 
-#### Table X: Technical specifications
+#### Table 21: Technical specifications
 
 <table align="center" border="1" style="border-collapse: collapse; border: 2px solid black;">
 
@@ -2118,7 +2043,7 @@ Before going into the individual architecture decisions, we summarize the main c
     <td bgcolor="#EAF4FB" style="border: 1px solid black; padding: 8px;">Self-developed PCB for CM5, STM32, sensors, and motor driver (KiCad project: <code>kicad/baseboard</code>)</td>
   </tr>
 
-  <!-- Mikrocontroller -->
+  <!-- Microcontroller -->
   <tr>
     <td style="border: 1px solid black; padding: 8px;"><b>Mikrocontroller</b></td>
     <td style="border: 1px solid black; padding: 8px;">STM32F411 BlackPill</td>
@@ -2144,7 +2069,7 @@ Before going into the individual architecture decisions, we summarize the main c
 
   <!-- Power supply -->
   <tr>
-    <td style="border: 1px solid black; padding: 8px;"><b>Power supply</b></td>
+    <td style="border: 1px solid black; padding: 8px;"><b>Battery</b></td>
     <td style="border: 1px solid black; padding: 8px;">3S LiPo, 11.1 V, 550 mAh</td>
   </tr>
 
@@ -2173,7 +2098,7 @@ A complete shopping list with sources, photos, and the required CAD files for re
 ## **System architecture**
 The software-side task distribution between the Raspberry Pi CM5 and STM32F411 – including a module overview and the communication protocol – is described in the sections [Software architecture](#softwarearchitektur) and [Serial communication and data model](#serielle-kommunikation-und-datenmodell). At the system level, the **mutual influence of the mechanical and electronic components** is decisive. The dimensions of the self-developed PCB determined the length of the chassis. The compact chassis required a correspondingly space-saving integration of the computing unit. The raised camera position improved the system's field of view, but affected the vehicle's center of gravity. The sensor layout depended on the available installation space and the required field of view. The following block diagram summarizes this overall architecture and shows how computing units, actuators, and sensors interact in the system.
 
-#### Figure X: Block diagram of the system architecture
+#### Figure 22: Block diagram of the system architecture
 
 </div><div align="center">
     <a href="img/blockschaltbild_englisch.png" target="_blank">
@@ -2189,7 +2114,7 @@ Over the course of development, we made a number of fundamental decisions that s
 
 The following table summarizes the most important system trade-offs compactly following the pattern **Constraint → Alternatives → Evidence → Decision → Consequence** – each with the consciously accepted downside. The detailed rationale follows in the sections below.
 
-#### Table X: Key system-level decisions
+#### Table 22: Key system-level decisions
 
 <table align="center" border="1" style="border-collapse: collapse; border: 2px solid black;">
 
@@ -2206,7 +2131,7 @@ The following table summarizes the most important system trade-offs compactly fo
     <td bgcolor="#EAF4FB" style="border: 1px solid black; padding: 8px;">Microcontroller only / Raspberry Pi 5 / Compute Module 5</td>
     <td bgcolor="#EAF4FB" style="border: 1px solid black; padding: 8px;">Image processing in Python/OpenCV severely limited on an MCU; Pi 5 too large with connectors unused in competition (HDMI, USB-A)</td>
     <td bgcolor="#EAF4FB" style="border: 1px solid black; padding: 8px;">Compute Module 5</td>
-    <td bgcolor="#EAF4FB" style="border: 1px solid black; padding: 8px;">Sufficient computing power in a compact form factor; requires its own baseboard and has the highest individual power/space demand</td>
+    <td bgcolor="#EAF4FB" style="border: 1px solid black; padding: 8px;"><b>Sufficient computing power in a compact form factor</b>; requires its own baseboard and has the <b>highest individual power/space demand</b></td>
   </tr>
 
   <tr>
@@ -2214,7 +2139,7 @@ The following table summarizes the most important system trade-offs compactly fo
     <td style="border: 1px solid black; padding: 8px;">LiDAR / time-of-flight sensors</td>
     <td style="border: 1px solid black; padding: 8px;">Measurement latency drops from 100–200 ms to approx. 33 ms</td>
     <td style="border: 1px solid black; padding: 8px;">4× VL53L8CX</td>
-    <td style="border: 1px solid black; padding: 8px;">Control without stopping possible; requires giving up coordinate-based control (only distance-based driving commands remain)</td>
+    <td style="border: 1px solid black; padding: 8px;"><b>Control without stopping possible</b>; requires giving up <b>coordinate-based control</b> (only distance-based driving commands remain)</td>
   </tr>
 
   <tr>
@@ -2222,7 +2147,7 @@ The following table summarizes the most important system trade-offs compactly fo
     <td bgcolor="#EAF4FB" style="border: 1px solid black; padding: 8px;">BNO055 (with/without magnetometer) / BNO086</td>
     <td bgcolor="#EAF4FB" style="border: 1px solid black; padding: 8px;">BNO055 with a deviation that cannot be calibrated away; BNO086 only approx. 1° after three laps</td>
     <td bgcolor="#EAF4FB" style="border: 1px solid black; padding: 8px;">BNO086 without magnetometer</td>
-    <td bgcolor="#EAF4FB" style="border: 1px solid black; padding: 8px;">Reliable heading control; requires giving up the magnetometer-assisted absolute reference</td>
+    <td bgcolor="#EAF4FB" style="border: 1px solid black; padding: 8px;"><b>Reliable heading control</b>; requires giving up the <b>magnetometer-assisted absolute reference</b></td>
   </tr>
 
   <tr>
@@ -2230,7 +2155,7 @@ The following table summarizes the most important system trade-offs compactly fo
     <td style="border: 1px solid black; padding: 8px;">Printed rigid axle / self-printed differential / ball differential (purchased)</td>
     <td style="border: 1px solid black; padding: 8px;">Rigid axle forces slip (identical wheel speed); a compact differential is difficult to 3D print</td>
     <td style="border: 1px solid black; padding: 8px;">Ball differential (model-making purchase)</td>
-    <td style="border: 1px solid black; padding: 8px;">Slip-free cornering; requires a purchased part instead of printing it ourselves</td>
+    <td style="border: 1px solid black; padding: 8px;"><b>Slip-free cornering</b>; requires a <b>purchased part</b> instead of printing it ourselves</td>
   </tr>
 
   <tr>
@@ -2238,7 +2163,7 @@ The following table summarizes the most important system trade-offs compactly fo
     <td bgcolor="#EAF4FB" style="border: 1px solid black; padding: 8px;">PLA / PPA-CF</td>
     <td bgcolor="#EAF4FB" style="border: 1px solid black; padding: 8px;">PLA creeps under load and changes gear backlash and sensor angles over time</td>
     <td bgcolor="#EAF4FB" style="border: 1px solid black; padding: 8px;">PPA-CF</td>
-    <td bgcolor="#EAF4FB" style="border: 1px solid black; padding: 8px;">Permanently stable geometry; in exchange, a slightly warped base plate must be corrected with a heat gun</td>
+    <td bgcolor="#EAF4FB" style="border: 1px solid black; padding: 8px;"><b>Permanently stable geometry</b>; in exchange, a slightly warped base plate must be <b>corrected with a heat gun</b></td>
   </tr>
 
 </table>
@@ -2257,16 +2182,16 @@ Within the Raspberry Pi platform, we decided against the Pi 5 and in favor of th
 
 ### **LiDAR vs. time-of-flight sensors / control paradigm**
 
-The switch from LiDAR to four **ToF sensors** reduced the measurement latency from 100–200 ms to approx. 33 ms – making fully stop-free control possible for the first time. However, it had a direct consequence for the entire software architecture: since the ToF sensors do not provide position determination, the coordinate-based control had to be abandoned. Driving commands since then no longer read "go to coordinate X/Y", but "drive until the wall distance is 20 cm." → cf. [Concept](#concept), [Distance sensors](#distance-sensors), [Driving primitives in driveController.py](#driving-primitives-in-drivecontrollerpy)
+The switch from LiDAR to four **ToF sensors** reduced the measurement latency from 100–200 ms to approx. 33 ms – making fully stop-free control possible for the first time. However, it had a direct consequence for the entire software architecture: since the ToF sensors do not provide position determination, the coordinate-based control had to be abandoned. Driving commands since then no longer read "go to coordinate X/Y", but "drive until the wall distance is 20 cm". → cf. [Concept](#concept), [Distance sensors](#distance-sensors), [Driving primitives in driveController.py](#driving-primitives-in-drivecontrollerpy)
 
  ### **Camera height and detection strategy** 
 
-Three weeks before the German regional competition, the camera was raised to **27 cm**, just below the permitted maximum height. This allowed the vehicle to capture all obstacles from the starting position at once and switch to a one-time **full scan** before setting off. The time per run thereby dropped from **56 s to 38 s**. Downside: the center of gravity shifted noticeably upward – at the competition in Nordhorn, the robot nearly tipped over in fast corners, since the mat there was significantly grippier than our practice mat. As a consequence, we reduced the maximum speed on site. → cf. [Camera](#camera-use-of-the-camera-and-calibration), [Old strategy: scanning while driving](#old-strategy-scanning-while-driving), [New strategy: full scan, fixed route](#new-strategy-full-scan-fixed-route)
+Three weeks before the German regional competition, the camera was raised to **27 cm**, just below the permitted maximum height. This allowed the vehicle to capture all obstacles from the starting position at once and switch to a one-time **full scan** before setting off. The time per run dropped from **56 s to 38 s**. Downside: the center of gravity shifted noticeably upward – at the competition in Nordhorn, the robot nearly tipped over in fast corners, since the mat there was significantly grippier than our practice mat. As a consequence, we reduced the maximum speed on site. → cf. [Camera](#camera-use-of-the-camera-and-calibration), [Old strategy: scanning while driving](#old-strategy-scanning-while-driving), [New strategy: full scan, fixed route](#new-strategy-full-scan-fixed-route)
 <br>
 
 ### **Chassis material: PLA vs. PPA-CF**
 
-**PLA** creeps under motor load and thereby changed both the gear backlash and the sensor angles over time. **PPA-CF** eliminated this problem completely, although the base plate, slightly warped due to the extreme stiffness, had to be corrected with a heat gun. → cf. [Chassis design](#chassis-design)
+**PLA** creeps under motor load and thereby changes both the gear backlash and the sensor angles over time. **PPA-CF** eliminated this problem completely, although the base plate, slightly warped due to the extreme stiffness, had to be corrected with a heat gun. → cf. [Chassis design](#chassis-design)
 
 ### **Gyro: BNO055 with and without magnetometer vs. BNO086 without magnetometer**
 
@@ -2276,7 +2201,7 @@ The BNO055 showed intolerable, non-calibratable deviations both with and without
 
 Instead of a simple printed rigid axle, we installed a **ball differential** from the model-making sector. A rigid axle would inevitably have caused slip in corners, since both wheels would rotate at identical speed. A self-printed differential was ruled out, since a compact differential is difficult to manufacture by 3D printing. → cf. [Rear axle and differential](#rear-axle-and-differential)
 
-### **4.4.8 ToF sensor: VL53L8CX vs. TMF8828**
+### **ToF sensor: VL53L8CX vs. TMF8828**
 
 At the time, the choice fell on the **VL53L8CX**, since the datasheet indicated a significantly higher measurement frequency than the TMF8828. In practice, however, it turned out that only about 30 Hz was achievable in 8×8 mode – eliminating the supposed advantage. In hindsight, the TMF8828 would have been an equally good or better choice; a switch was no longer realistic at that point in time. → cf. [Selection of distance sensors](#selection-of-distance-sensors)
 
@@ -2285,7 +2210,7 @@ At the time, the choice fell on the **VL53L8CX**, since the datasheet indicated 
 
 The final robot did not emerge from a single development step, but through multiple iterations of tests, failed attempts, and technical optimizations. The following table shows the most important milestones and the resulting changes to the system.
 
-#### Table x: Development milestones
+#### Table 23: Development milestones
 
 <table align="center" border="1" style="border-collapse: collapse; border: 2px solid black;">
 
@@ -2405,7 +2330,7 @@ The final robot did not emerge from a single development step, but through multi
 
 # **5. Construction guide**
 
-#### Table X: Bill of materials for replication (purchased parts & CAD files)
+#### Table 24: Bill of materials for replication (purchased parts & CAD files)
 
 <table align="center" border="1" style="border-collapse: collapse; border: 2px solid black;">
 
@@ -2983,8 +2908,8 @@ pio device monitor -b 921600
 
 #### **C) Data exchange between both controllers**
 - UART interface: `/dev/ttyAMA0`, **921600 Baud**
-- **STM32 -> CM5**: sensor data (ToF distance arrays, rps, voltage, distance)
-- **CM5 -> STM32**: actuator commands (speed, steer)
+- **STM32 → CM5**: sensor data (ToF distance arrays, rps, voltage, distance)
+- **CM5 → STM32**: actuator commands (speed, steer)
 
 With these steps, the workflow is fully documented: code creation/setup, compilation, and transfer/start on both controllers.
 
