@@ -1,8 +1,10 @@
 import math
 import subprocess
 import time
-
 import pygame   #type: ignore
+
+from parser import Parser
+from cameraTower import Camera
 
 clock = pygame.time.Clock()
 running = True
@@ -66,7 +68,7 @@ class Ui:
 
         self._last_telemetry_refresh = now
 
-    def draw(self, screen, parser, cam):
+    def draw(self, screen, parser: Parser, cam: Camera):
         if parser.uiType == parser.Default:
             self.updatePiTelemetry()
             screen.fill("black")
@@ -99,20 +101,6 @@ class Ui:
                             screen.blit(text, (50*k+i*410, j * 20))
                         else:
                             screen.blit(text, (50*k+(i-int(parser.amountSensors/2))*410, j*20+180))
-            
-            # prints = 5
-            # for i in range(prints):
-            #     if i == 0:
-            #         text = self.font.render(str(parser.voltage) + "v CPU: " + self.cpu_usage + " Temp: " + self.cpu_temp , True, green, blue)
-            #     if i == 1:
-            #         text = self.font.render("Speed: " + str(parser.speed)+" Head: "+str(parser.getHeading()), True, green, blue)             #26,5
-            #     if i == 2:
-            #         text = self.font.render("Distance: " + str(parser.distance), True, green, blue)             #26,5
-            #     if i == 3:
-            #         text = self.font.render("Captures: "+ str(parser.sensorCaptures[0])+" / "+str(parser.sensorCaptures[1])+" / "+str(parser.sensorCaptures[2])+" / "+str(parser.sensorCaptures[3]), True, green, blue)
-            #     if i == 4:
-            #         text = self.font.render("Command: " + parser.currentCommand, True, green, blue)
-            #     screen.blit(text, (0,i*20+360))
 
             if parser.endTime != 0:
                 printTime = parser.endTime - parser.startTime
@@ -132,27 +120,41 @@ class Ui:
             ]
             for i in range(len(texts)):
                 screen.blit(texts[i], (0,i*20+360))
-
-            # Section color indicators – compass layout (0=right, 1=top, 2=left, 3=bottom)
-            sec_y = len(texts) * 20 + 360
-            # sec_label = self.font.render("Sections:", True, green, blue)
-            # screen.blit(sec_label, (0, sec_y))
-            _sec_palette = {
+            
+            leftX = 480
+            topY = 360
+            width = 25
+            colors = {
+                None: (80, 80, 80), #
                 0: (220, 50,  50),   # RED
                 1: (50,  220, 50),   # GREEN
             }
-            _cx, _cy, _sq = 550, sec_y - 50, 25
-            # Precomputed top-left offsets per section relative to _cx/_cy
-            # (r=28, sq=20): right, top, left, bottom
-            _sec_offsets = [(-10, 18), (18, -10), (-10, -38), (-38, -10)]
+            offsets = {
+                0: (width,width*4),
+                1: (width*4,width),
+                2: (width,0),
+                3: (0,width),
+            }
             for sec in range(4):
-                dx, dy = _sec_offsets[sec]
-                px, py = _cx + dx, _cy + dy
-                col = parser.checkSection(sec)
-                rect_color = _sec_palette.get(col, (80, 80, 80))
-                pygame.draw.rect(screen, rect_color, (px, py, _sq, _sq))
-                num = self.font.render(str(sec), True, (0, 0, 0))
-                screen.blit(num, (px + 4, py))
+                for pos in range(3):
+                    yOffset = 0
+                    xOffset = 0
+                    if sec%2 == 0:
+                        xOffset = width*pos
+                    else:
+                        yOffset = width*pos
+                    
+                    if sec in [1, 2]:
+                        colorPos = 2 - pos
+                    else:
+                        colorPos = pos
+                    
+                    rect = ((leftX + xOffset + offsets[sec][0],   # top x
+                             topY + yOffset + offsets[sec][1]),   # left y
+                            (width, width))                       # width/height
+                    pygame.draw.rect(screen, colors[parser.obstacles[colorPos+sec*3]], rect)
+                    
+            
         elif parser.uiType == parser.Capture_1_Only:
             self.drawCounter += 1
             if self.drawCounter >= 10:
@@ -165,6 +167,7 @@ class Ui:
             self.drawCounter += 1
             # vsh
             if len(parser.images) > 0 and self.drawCounter >= 5:
+                screen.fill((0, 0, 0))
                 if parser.imageType == parser.All:
                     path = f"{parser.images[parser.currentImage]}"
                 else:

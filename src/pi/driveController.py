@@ -1,5 +1,4 @@
 import time
-import math
 import traceback
 
 from parser import Parser
@@ -80,10 +79,11 @@ class DriveController:
         else:
             return dir
     
-    def getDist(self, poses:list, row, wallDir = frontWall, mode = biggest):
+    def getDist(self, poses:list, row = 3, wallDir = frontWall, mode = biggest):
         """Return the selected distance sample from one camera row across the given column indices."""
         val = 0
         tempVal = 0
+        row = 3
         for i in poses:
             tempVal = self.parser.camValues[wallDir][i+row*8]
             if mode == self.biggest and tempVal > val:
@@ -340,7 +340,7 @@ class DriveController:
             
             lastVal = val
             
-            self.logStuff(f"ToWall: {lastVal:.0f}, Dist: {dist},minDist: {minDist}, Heading:{heading} / {self.parser.getHeading():.0f}, Speed: {self.parser.speed:.2f}, traveled: {traveled:.0f}, minTravel: {minTravel} ")
+            self.logStuff(f"ToWall: {lastVal:.0f}, Dist: {dist},minDist: {minDist}, Heading:{heading} / {self.parser.getHeading():.0f}, Speed: {self.parser.speed:.2f}, traveled: {traveled:.0f}, minTravel: {minTravel}, distSide: {distSide}, avoidWall: {avoidWall}")
         self.logger.logTof(self.parser, wallDir)
         if self.end():
             return False
@@ -421,12 +421,10 @@ class DriveController:
         
         
         noWallCount = 0
-        pos1 = 3+3*8
-        pos2 = 4+3*8
         
         while noWallCount < 1 and not self.stop_event.is_set():
             self.calcAccel()
-            val = max(self.parser.camValues[wallDir][pos1],self.parser.camValues[wallDir][pos2])
+            val = self.getDist([3,4],4,wallDir)
             
             if val <= 0 or val > 1000:
                 noWallCount += 1

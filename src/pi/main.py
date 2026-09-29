@@ -113,9 +113,9 @@ def main():
                 steer = 90
             
             if keys[pygame.K_LEFT]:
-                servoTowerAngle -= 10
-            elif keys[pygame.K_RIGHT]:
                 servoTowerAngle += 10
+            elif keys[pygame.K_RIGHT]:
+                servoTowerAngle -= 10
             
             # print("Speed: "+str(speed)+" Steer: "+str(steer))
             parser.setSpeed(speed)
@@ -154,14 +154,14 @@ def controllLoop(parser,cam):
 
     print("Started")
     
-    # obstacleChallenge.detectObstaclesCCW(parser, cam)
+    # obstacleChallenge.detectObstaclesCW(parser, cam)
     
     # obstacleChallengeSingle.scanSimulation(parser, cam)
     # obstacleChallengeSingle.scanClockwiseSimulation(parser, cam)
     # obstacleChallengeSingle.scanCounterClockwiseSimulation(parser, cam )
-    # autoChallenge(parser, dC, cam)
+    autoChallenge(parser, dC, cam)
     
-    cam.createQuadar(True)
+    # cam.createQuadar(True)
     # cam.loadImage("captureStore/1-0baseImage.jpg")
     # cam.getObstacles("CW", 1)
     # camTest.test(parser, dC, cam)

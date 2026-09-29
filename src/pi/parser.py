@@ -15,8 +15,8 @@ class Parser:
     GREEN = 1
     
     amountSensors = 6
-    leftSensor = 0
-    frontSensor = 1
+    leftSensor = 0      # 0
+    frontSensor = 1     
     rightSensor = 2
     backSensor = 3
     angleRightSensor = 4
@@ -329,13 +329,13 @@ class Parser:
             cam = 5
             if setSensorIndex:
                 Parser.rightSensor = cam
-        elif cam == 2:          # left  -> bottom left(3)
+        elif cam == 2:          # left  -> bottom left(3)      #2
             rotate = True
             hflip = True
             cam = 3
             if setSensorIndex:
                 Parser.leftSensor = cam
-        elif cam == 3:          # front  -> top middle(1)
+        elif cam == 3:          # front  -> top middle(1)       #3
             rotate = True
             hflip = True
             cam = 1

@@ -62,7 +62,7 @@ class Camera():
         
         # lower boundary RED color range values; Hue (0 - 10)
         #                          H    S    V
-        self.redlower1 = np.array([0,  150, 120])
+        self.redlower1 = np.array([0,  100, 60])  #s:150 v:120
         self.redupper1 = np.array([10, 255, 255])
         
         # upper boundary RED color range values; Hue (160 - 180)
@@ -81,33 +81,33 @@ class Camera():
         
         
         self.quaders = {"CW": {},"CCW": {}}
-        self.addQuader("CW", 0, 20, 20, 400, 400)
-        self.addQuader("CW", 1, 20, 20, 400, 400)
-        self.addQuader("CW", 2, 20, 20, 400, 400)
-        self.addQuader("CW", 3, 20, 20, 400, 400)
-        self.addQuader("CW", 4, 20, 20, 400, 400)
-        self.addQuader("CW", 5, 20, 20, 400, 400)
-        self.addQuader("CW", 6, 20, 20, 400, 400)
-        self.addQuader("CW", 7, 20, 20, 400, 400)
-        self.addQuader("CW", 8, 20, 20, 400, 400)
-        self.addQuader("CW", 9, 20, 20, 400, 400)
-        self.addQuader("CW", 10, 20, 20, 400, 400)
-        self.addQuader("CW", 11, 20, 20, 400, 400)
         
-        # self.addQuader("CCW", 0, 20, 20, 400, 400)
-        self.addQuader("CCW", 1, 20, 20, 400, 400)
-        self.addQuader("CCW", 2, 20, 20, 400, 400)
-        self.addQuader("CCW", 3, 20, 20, 400, 400)
-        self.addQuader("CCW", 4, 20, 20, 400, 400)
-        self.addQuader("CCW", 5, 20, 20, 400, 400)
-        self.addQuader("CCW", 6, 20, 20, 400, 400)
-        self.addQuader("CCW", 7, 20, 20, 400, 400)
-        self.addQuader("CCW", 8, 20, 20, 400, 400)
-        self.addQuader("CCW", 9, 20, 20, 400, 400)
-        self.addQuader("CCW", 10, 20, 20, 400, 400)
-        self.addQuader("CCW", 11, 20, 20, 400, 400)
+        self.addQuader("CW", 0, 496, 356, 612, 458)
+        self.addQuader("CW", 1, 744, 374, 988, 614)
+        self.addQuader("CW", 2, 316, 520, 706, 827)
+        self.addQuader("CW", 3, 808, 370, 1066, 469)
+        self.addQuader("CW", 4, 674, 323, 864, 381)
+        self.addQuader("CW", 5, 598, 256, 763, 332)
+        self.addQuader("CW", 6, 823, 249, 920, 301)
+        self.addQuader("CW", 7, 586, 250, 756, 293)
+        self.addQuader("CW", 8, 405, 252, 559, 292)
+        self.addQuader("CW", 9, 929, 253, 1098, 314)
+        self.addQuader("CW", 10, 789, 260, 913, 330)
+        self.addQuader("CW", 11, 590, 275, 705, 334)
         
-        self.addQuader("CCW", 0, 429, 331, 518, 460)
+        self.addQuader("CCW", 0, 515, 340, 672, 503)
+        self.addQuader("CCW", 1, 159, 410, 559, 771)
+        self.addQuader("CCW", 2, 276, 448, 730, 816)
+        self.addQuader("CCW", 3, 647, 365, 862, 430)
+        self.addQuader("CCW", 4, 486, 328, 649, 373)
+        self.addQuader("CCW", 5, 334, 265, 540, 337)
+        self.addQuader("CCW", 6, 899, 248, 1076, 284)
+        self.addQuader("CCW", 7, 689, 245, 858, 281)
+        self.addQuader("CCW", 8, 522, 246, 653, 282)
+        self.addQuader("CCW", 9, 990, 241, 1144, 299)
+        self.addQuader("CCW", 10, 830, 252, 982, 298)
+        self.addQuader("CCW", 11, 625, 268, 777, 333)
+
 
     def addQuader(self, direction, number, leftX, topY, rightX, bottomY):
         if direction not in self.quaders:
@@ -195,7 +195,7 @@ class Camera():
         @param regionNumber int Number of the region/quader for obstacle detection.
         @return Color
         """
-        minSize = 200
+        minSize = 20
         
         self.blocksCx = []
         self.blocksCy = []
@@ -285,7 +285,9 @@ class Camera():
                     self.blocksColor.append(self.parser.RED)
                     _h, _w = imgclear.shape[:2]
                     self.blocksDist.append(((cX - _w // 2) ** 2 + (cY - _h) ** 2) ** 0.5)
-            
+        
+        self.pictureNum += 1
+        # quader["leftX"]
         if len(self.blocksColor) == 0:
             color = self.defaultColor
         else:
@@ -293,6 +295,11 @@ class Camera():
             cY = self.blocksCy[0]
             cv.line(imgclear,(cX,0),(cX,1150),(0,0,255),3)
             color = self.blocksColor[0]
+            
+        cv.line(imgclear,(quader["leftX"],quader["topY"]),(quader["rightX"],quader["topY"]),(0,255,0),3)
+        cv.line(imgclear,(quader["leftX"],quader["bottomY"]),(quader["rightX"],quader["bottomY"]),(0,255,0),3)
+        cv.line(imgclear,(quader["leftX"],quader["topY"]),(quader["leftX"],quader["bottomY"]),(0,255,0),3)
+        cv.line(imgclear,(quader["rightX"],quader["topY"]),(quader["rightX"],quader["bottomY"]),(0,255,0),3)
 
         cv.imwrite(f'capture/{self.pictureNum}-4detection_result.jpg', imgclear)
 

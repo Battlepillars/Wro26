@@ -1,5 +1,4 @@
 import time
-import math
 from subprocess import call
 
 from parser import Parser
@@ -34,14 +33,14 @@ def wallDrive(parser: Parser, dC: DriveController, dir, speedCurve, speedStraigh
     # dC.driveToWall(speedStraight,0,1000,wall)
     
     if dir == dC.convertDir(parser, dC.leftWall):
-        wallLost = dC.driveToWall(speedStraight,0,1100,900,avoidWall=dC.convertDir(parser, dC.leftWall))
+        wallLost = dC.driveToWall(speedStraight,0,1000,900,avoidWall=dC.convertDir(parser, dC.leftWall))
         # drove to far (past the next obstacle):
         if wallLost and parser.checkSectionAuto(dC.nextSection()) == parser.GREEN:
             dC.brake()
-            dC.driveDist(-1,0,510)
+            dC.driveAwayFromWall(-0.5,0,1000,dC.frontWall)
             dC.brake()
     else:
-        dC.driveToWall(speedStraight,0,1050, 900, avoidWall=None)
+        dC.driveToWall(speedStraight,0,1000, 900, avoidWall=None)
     
 def unParkCW(parser: Parser, dC: DriveController):
     speedStraight=1
@@ -69,14 +68,14 @@ def unParkCCW(parser: Parser, dC: DriveController):
     
     sectionObstacleList = parser.checkSectionMulti(dC.section)
     print("First obstacle: " + str(sectionObstacleList[0]) + ", second obsacle: " + str(sectionObstacleList[1]))
-    if sectionObstacleList[1] == parser.RED:
-        dC.tightTurn(speedCurveSlow, -40)
-        dC.driveDist(speedStraight, -40, 350)
-    else:
+    if parser.obstacles[2] == parser.GREEN:
         dC.tightTurn(speedCurveSlow, -90)
         dC.driveToWall(speedStraightSlow,-90,300, 0)
         dC.brake()
         dC.tightTurn(speedCurveSlow, 0)
+    else:
+        dC.tightTurn(speedCurveSlow, -40)
+        dC.driveDist(speedStraight, -40, 350)
 
 def parkCW(parser: Parser, dC: DriveController):
     speedStraight=1
@@ -91,7 +90,8 @@ def parkCW(parser: Parser, dC: DriveController):
     print("First obstacle: " + str(sectionObstacleList[0]) + ", second obsacle: " + str(sectionObstacleList[1]))
     
     dC.brake()
-    if sectionObstacleList[1] == parser.RED:
+    parser.setTowerAngle(0)
+    if parser.obstacles[2] == parser.RED:
         dC.driveToWall(speedStraightVerySlow,90,800,dC.frontWall)
         dC.brake()
         dC.tightTurn(speedCurveSlow,0)
@@ -138,17 +138,22 @@ def parkCCW(parser: Parser, dC: DriveController, sectionObstacleList):
     
     print("First obstacle: " + str(sectionObstacleList[0]) + ", second obsacle: " + str(sectionObstacleList[1]))
     dC.brake()
+    parser.setTowerAngle(270)
     if sectionObstacleList[0] == parser.GREEN:
+        # dC.driveToWall(speedStraightVerySlow, 0, 240, wallDir=dC.rightWall)
+        # dC.driveDist(speedStraightVerySlow, 0, 100)
+        dC.driveDist(-speedStraightSlow, 0, 100)
+        dC.brake()
         dC.tightTurn(speedCurveSlow,90)
         dC.driveToWall(speedStraightSlow,90,400,dC.frontWall)
         dC.tightTurn(speedCurveSlow,0)
-    # else:
-    dC.driveDist(speedStraight, 0, 500)
+    else:
+        dC.driveDist(speedStraight, 0, 500)
     dC.brake()
     dC.tightTurn(speedCurveSlow, 0)
     dC.driveToWall(speedStraightSlow,0,1050, 900)
     dC.brake()
-    dC.driveDist(-speedStraightSlow, 0, 100)
+    dC.driveDist(-speedStraightSlow, 0, 150)
     dC.brake()
     dC.driveToWall(-speedStraightVerySlow, 0, 180, wallDir=dC.rightWall)
     dC.brake()
@@ -162,11 +167,92 @@ def parkCCW(parser: Parser, dC: DriveController, sectionObstacleList):
     dC.brake()
 
 def detectObstaclesCCW(parser: Parser, cam: Camera):
-    parser.setTowerAngle(270)
+    sleepTime = 0.5
+    
+    parser.setTowerAngle(180)
+    time.sleep(sleepTime)
     cam.captureImage()
-    cam.getObstacles("CCW", 0)
+    
+    parser.obstacles[2] = cam.getObstacles("CCW", 2)
+    parser.obstacles[3] = cam.getObstacles("CCW", 3)
+    
+    if parser.obstacles[3] is None:
+        parser.obstacles[4] = cam.getObstacles("CCW", 4)
+    else:
+        parser.obstacles[4] = None
+    
+    if parser.obstacles[4] is None:
+        parser.obstacles[5] = cam.getObstacles("CCW", 5)
+    else:
+        parser.obstacles[5] = None
+        
+    parser.setTowerAngle(225)
+    time.sleep(sleepTime)
+    cam.captureImage()
+    
+    parser.obstacles[1] = cam.getObstacles("CCW", 1)
+    parser.obstacles[6] = cam.getObstacles("CCW", 6)
+    parser.obstacles[7] = cam.getObstacles("CCW", 7)
+    parser.obstacles[8] = cam.getObstacles("CCW", 8)
+    
+    parser.setTowerAngle(270)
+    time.sleep(sleepTime)
+    cam.captureImage()
+    
+    parser.obstacles[0] = cam.getObstacles("CCW", 0)
+    parser.obstacles[9] = cam.getObstacles("CCW", 9)
+    parser.obstacles[10] = cam.getObstacles("CCW", 10)
+    parser.obstacles[11] = cam.getObstacles("CCW", 11)
+    
+    # parser.setTowerAngle(135)
+    for i in range(12):
+        print(f"{i}: {parser.colorName(parser.obstacles[i])}")
+        
     call("sudo systemctl restart smbd", shell=True)
     
+def detectObstaclesCW(parser: Parser, cam: Camera):
+    sleepTime = 0.5
+        
+    parser.setTowerAngle(90)
+    time.sleep(sleepTime)
+    cam.captureImage()
+    
+    parser.obstacles[0] = cam.getObstacles("CW", 0)
+    parser.obstacles[1] = cam.getObstacles("CW", 1)
+    parser.obstacles[9] = cam.getObstacles("CW", 9)
+    parser.obstacles[10] = cam.getObstacles("CW", 10)
+    parser.obstacles[11] = cam.getObstacles("CW", 11)
+    
+    parser.setTowerAngle(45)
+    time.sleep(sleepTime)
+    cam.captureImage()
+
+    parser.obstacles[6] = cam.getObstacles("CW", 6)
+    parser.obstacles[7] = cam.getObstacles("CW", 7)
+    parser.obstacles[8] = cam.getObstacles("CW", 8)
+    
+    parser.setTowerAngle(20)
+    time.sleep(sleepTime)
+    cam.captureImage()
+    
+    parser.obstacles[2] = cam.getObstacles("CW", 2)
+    parser.obstacles[3] = cam.getObstacles("CW", 3)
+    
+    if parser.obstacles[3] is None:
+        parser.obstacles[4] = cam.getObstacles("CW", 4)
+    else:
+        parser.obstacles[4] = None
+    
+    if parser.obstacles[4] is None:
+        parser.obstacles[5] = cam.getObstacles("CW", 5)
+    else:
+        parser.obstacles[5] = None
+    
+    # parser.setTowerAngle(135)
+    for i in range(12):
+        print(f"{i}: {parser.colorName(parser.obstacles[i])}")
+        
+    call("sudo systemctl restart smbd", shell=True)  
 
 def findDirection(parser: Parser, dC: DriveController):
     distRight = 0
@@ -212,19 +298,21 @@ def FirstObstacle(parser: Parser, dC: DriveController, sectionObstacleList, i):
         dC.turn(speedCurve,0)
         dC.driveAwayFromWall(speedStraight, 0, 1000)
 
-def SameObstacles(parser: Parser, dC: DriveController, sectionObstacleList):
+def SameObstacles(parser: Parser, dC: DriveController, sectionObstacleList, nextSectionObstacleList, mirror):
     speedStraight = dC.topSpeed
     
+    wall = dC.rightWall if mirror else dC.leftWall
+    
     if sectionObstacleList[0] == parser.GREEN:
-        wallLost = dC.driveToWall(speedStraight,0,1100,900,avoidWall=dC.leftWall,minTravel=750)
+        wallLost = dC.driveToWall(speedStraight,0,1050,900,avoidWall=wall,minTravel=750)
         # drove to far (past the next obstacle):
-        if wallLost and parser.checkSection(dC.nextSection(), True) == parser.GREEN:
+        if wallLost and nextSectionObstacleList[0] == parser.GREEN:
             dC.brake()
-            dC.driveDist(-1,0,510)
+            dC.driveAwayFromWall(-0.5,0,1050, wallDir=dC.frontWall)
             dC.brake()
 
     elif sectionObstacleList[0] in (parser.RED, None):
-        dC.driveToWall(speedStraight,0,1050, 900, avoidWall=None, minTravel=750)
+        dC.driveToWall(speedStraight,0,1050,900, avoidWall=None, minTravel=750)
 
 def SecondObstacle(parser: Parser, dC: DriveController, sectionObstacleList, i):
     speedStraight = dC.topSpeed
@@ -243,25 +331,27 @@ def obstacleChallenge(parser: Parser, dC: DriveController, cam: Camera):
     speedCurve=1
     speedCurveSlow=0.65
     
-    parser.obstacles[0] = parser.RED
-    parser.obstacles[2] = parser.RED
+    # parser.obstacles[0] = parser.RED
+    # parser.obstacles[2] = parser.RED
     
-    parser.obstacles[3] = parser.RED
-    parser.obstacles[5] = parser.RED
+    # parser.obstacles[3] = parser.RED
+    # parser.obstacles[5] = parser.RED
     
-    parser.obstacles[6] = parser.RED
-    parser.obstacles[8] = parser.RED
+    # parser.obstacles[6] = parser.RED
+    # parser.obstacles[8] = parser.RED
     
-    parser.obstacles[9] = parser.RED
-    parser.obstacles[11] = parser.RED
+    # parser.obstacles[9] = parser.RED
+    # parser.obstacles[11] = parser.RED
     
     findDirection(parser, dC)
     mirror = False
     if parser.Direction == parser.CW:
         mirror = True
+        detectObstaclesCW(parser, cam)
         unParkCW(parser, dC)
     else:
         mirror = False
+        detectObstaclesCCW(parser, cam)
         unParkCCW(parser, dC)
     
     dC.section += 1
@@ -270,6 +360,7 @@ def obstacleChallenge(parser: Parser, dC: DriveController, cam: Camera):
             lastSection = i == 3 and j == 2
             secondToLastSection = i == 2 and j == 2
             sectionObstacleList = parser.checkSectionMulti(dC.section, mirror, mirror)
+            nextSectionObstacleList = parser.checkSectionMulti(dC.nextSection(), mirror, mirror)
             parked = False
             
             if secondToLastSection and parser.Direction == parser.CW:
@@ -285,7 +376,7 @@ def obstacleChallenge(parser: Parser, dC: DriveController, cam: Camera):
                     parked = True
             
             if sectionObstacleList[0] == sectionObstacleList[1] and not parked:
-                SameObstacles(parser, dC, sectionObstacleList)
+                SameObstacles(parser, dC, sectionObstacleList, nextSectionObstacleList, mirror)
             elif not parked:
                 SecondObstacle(parser, dC, sectionObstacleList, i)
             
