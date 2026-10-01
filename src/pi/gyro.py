@@ -15,6 +15,10 @@ old_terminal_settings = termios.tcgetattr(stdin_fd)
 
 
 def read_keypress():
+    """@brief Non-blocking read of a single lowercase key from stdin.
+
+    @return str the pressed key (lowercased), or None if no key is waiting.
+    """
     if select.select([sys.stdin], [], [], 0)[0]:
         return sys.stdin.read(1).lower()
     return None

@@ -13,6 +13,10 @@ from parser import Parser
 # rpicam-hello -t0   #zum testen der Kamera
 
 def main():
+    """@brief Standalone entry point: capture and analyze one frame for testing.
+
+    @return None
+    """
     cam = Camera()
     cam.captureImage(False)
 
@@ -50,6 +54,11 @@ class Camera():
         self.picam2.start()
     
     def getNearestObstacle(self, useOldPicture = False):
+        """@brief Capture and analyze a frame aimed at the nearest obstacle band.
+
+        @param useOldPicture bool reuse the last stored frame instead of capturing.
+        @return None
+        """
         distances={ 200 : 400,
                     300 : 600,
                     400 : 800,
@@ -74,6 +83,7 @@ class Camera():
         @param rightDist float Distance to right wall, used to shift scan band left.
         @param upDist float Distance to ceiling, used to lower scan band.
         @param downDistList list of float Distances to floor, used to raise scan band.
+        @param useOldPicture bool If True, reuse the last stored frame instead of capturing.
         @return None (populates blocksAngle/blocksColor + imgCam for drawing)
         """
         if self.parser.endTime != 0:

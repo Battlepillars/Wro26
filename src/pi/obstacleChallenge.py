@@ -6,12 +6,28 @@ from driveController import DriveController
 from cameraTower import Camera
 
 def wallDrive(parser: Parser, dC: DriveController, dir, speedCurve, speedStraight, angle = 45, i = 0):
+    """@brief Change lane across the course by steering out and back to a wall.
+
+    Turns to the given angle, drives toward the chosen (angled or side) wall,
+    straightens out, then follows the far wall – optionally running a recovery
+    move if it overshoots past the next obstacle.
+    @param parser        Parser with obstacle and direction state.
+    @param dC            DriveController providing motion primitives.
+    @param dir           target wall to end up following.
+    @param speedCurve    float speed used during the turns.
+    @param speedStraight float speed used on the straight segments.
+    @param angle         int lane-change angle (45 or 90 degrees).
+    @param i             int section counter (lengthens the last section).
+    @return None
+    """
     if i == 3:
-        dist = 600
+        dist = 600       # last section of the lap is longer
     else:
         dist = 350
     
     
+    # Pick the sensor that faces the wall for this heading and negate the angle
+    # when heading toward the left wall.
     if angle == 45:
         dist += 100
         if dir == dC.rightWall:
@@ -43,6 +59,14 @@ def wallDrive(parser: Parser, dC: DriveController, dir, speedCurve, speedStraigh
         dC.driveToWall(speedStraight,0,1000, 900, avoidWall=None)
     
 def unParkCW(parser: Parser, dC: DriveController):
+    """@brief Leave the start/parking zone when running clockwise.
+
+    Picks the exit maneuver based on the first obstacle's color in the
+    current section.
+    @param parser Parser with the scanned obstacle layout.
+    @param dC     DriveController providing motion primitives.
+    @return None
+    """
     speedStraight=1
     speedCurve=1
     speedCurveSlow=0.6
@@ -61,6 +85,12 @@ def unParkCW(parser: Parser, dC: DriveController):
         dC.driveToWall(speedStraight,0,1050, 900)
 
 def unParkCCW(parser: Parser, dC: DriveController):
+    """@brief Leave the start/parking zone when running counter-clockwise.
+
+    @param parser Parser with the scanned obstacle layout.
+    @param dC     DriveController providing motion primitives.
+    @return None
+    """
     speedStraight=1
     speedStraightSlow=0.6
     speedCurve=1
@@ -78,6 +108,14 @@ def unParkCCW(parser: Parser, dC: DriveController):
         dC.driveDist(speedStraight, -40, 350)
 
 def parkCW(parser: Parser, dC: DriveController):
+    """@brief Perform the final parallel-parking maneuver for a clockwise run.
+
+    Chooses the approach depending on the parking-zone obstacle color and
+    backs into the magenta parking bay.
+    @param parser Parser with the scanned obstacle layout.
+    @param dC     DriveController providing motion primitives.
+    @return None
+    """
     speedStraight=1
     speedStraightSlow=0.6
     speedStraightVerySlow=0.3
@@ -130,6 +168,13 @@ def parkCW(parser: Parser, dC: DriveController):
         dC.brake()
 
 def parkCCW(parser: Parser, dC: DriveController, sectionObstacleList):
+    """@brief Perform the final parallel-parking maneuver for a CCW run.
+
+    @param parser              Parser with the scanned obstacle layout.
+    @param dC                  DriveController providing motion primitives.
+    @param sectionObstacleList list of obstacle colors in the parking section.
+    @return None
+    """
     speedStraight=1
     speedStraightSlow=0.6
     speedStraightVerySlow=0.3
@@ -167,6 +212,14 @@ def parkCCW(parser: Parser, dC: DriveController, sectionObstacleList):
     dC.brake()
 
 def detectObstaclesCCW(parser: Parser, cam: Camera):
+    """@brief Scan the whole course for obstacles from the start (CCW layout).
+
+    Rotates the camera tower to three fixed angles, captures an image at each
+    and fills `parser.obstacles[0..11]` with the detected colors.
+    @param parser Parser whose obstacle array is populated.
+    @param cam    Camera used to capture and analyze each view.
+    @return None
+    """
     sleepTime = 0.5
     
     parser.setTowerAngle(180)
@@ -211,6 +264,14 @@ def detectObstaclesCCW(parser: Parser, cam: Camera):
     call("sudo systemctl restart smbd", shell=True)
     
 def detectObstaclesCW(parser: Parser, cam: Camera):
+    """@brief Scan the whole course for obstacles from the start (CW layout).
+
+    Rotates the camera tower to three fixed angles, captures an image at each
+    and fills `parser.obstacles[0..11]` with the detected colors.
+    @param parser Parser whose obstacle array is populated.
+    @param cam    Camera used to capture and analyze each view.
+    @return None
+    """
     sleepTime = 0.5
         
     parser.setTowerAngle(90)
@@ -255,9 +316,19 @@ def detectObstaclesCW(parser: Parser, cam: Camera):
     call("sudo systemctl restart smbd", shell=True)  
 
 def findDirection(parser: Parser, dC: DriveController):
+    """@brief Determine whether the course is run clockwise or counter-clockwise.
+
+    Waits until one side sensor sees a near wall and sets `parser.Direction`
+    accordingly (near right wall => CCW, otherwise CW).
+    @param parser Parser whose Direction field is set.
+    @param dC     DriveController providing sensor access and logging.
+    @return None
+    """
     distRight = 0
     distLeft = 0
     
+    # Wait until a side wall comes within 400 mm; the near side tells us which
+    # way around the track the car is pointing.
     while (distLeft > 400 or distLeft == 0) and (distRight > 400 or distRight == 0):
         distRight = dC.getDist([3,4],3,dC.rightWall)
         distLeft = dC.getDist([3,4],3,dC.leftWall)
@@ -278,6 +349,15 @@ def findDirection(parser: Parser, dC: DriveController):
         parser.Direction = parser.CW
 
 def FirstObstacle(parser: Parser, dC: DriveController, sectionObstacleList, i):
+    """@brief Drive past the first obstacle of a section.
+
+    Passes a green obstacle on the left and a red/unknown one on the right.
+    @param parser              Parser with shared state.
+    @param dC                  DriveController providing motion primitives.
+    @param sectionObstacleList list of obstacle colors in the current section.
+    @param i                   int section counter within the lap.
+    @return None
+    """
     speedStraight = dC.topSpeed
     speedCurve=1
     
@@ -299,6 +379,17 @@ def FirstObstacle(parser: Parser, dC: DriveController, sectionObstacleList, i):
         dC.driveAwayFromWall(speedStraight, 0, 1000)
 
 def SameObstacles(parser: Parser, dC: DriveController, sectionObstacleList, nextSectionObstacleList, mirror):
+    """@brief Cross a section whose two obstacles share the same color.
+
+    Drives straight to the far wall while optionally avoiding a side wall,
+    with a recovery move if it overshoots past a following green obstacle.
+    @param parser                  Parser with shared state.
+    @param dC                      DriveController providing motion primitives.
+    @param sectionObstacleList     list of obstacle colors in this section.
+    @param nextSectionObstacleList list of obstacle colors in the next section.
+    @param mirror                  bool True for a clockwise (mirrored) run.
+    @return None
+    """
     speedStraight = dC.topSpeed
     
     wall = dC.rightWall if mirror else dC.leftWall
@@ -315,6 +406,16 @@ def SameObstacles(parser: Parser, dC: DriveController, sectionObstacleList, next
         dC.driveToWall(speedStraight,0,1050,900, avoidWall=None, minTravel=750)
 
 def SecondObstacle(parser: Parser, dC: DriveController, sectionObstacleList, i):
+    """@brief Handle the second, differently-colored obstacle of a section.
+
+    Advances a bit then performs a lane change around the appropriate wall
+    depending on the green->red or red->green color order.
+    @param parser              Parser with shared state.
+    @param dC                  DriveController providing motion primitives.
+    @param sectionObstacleList list of obstacle colors in this section.
+    @param i                   int section counter within the lap.
+    @return None
+    """
     speedStraight = dC.topSpeed
     speedCurve=1
     
@@ -327,6 +428,16 @@ def SecondObstacle(parser: Parser, dC: DriveController, sectionObstacleList, i):
         wallDrive(parser, dC, dC.leftWall, speedCurve, speedStraight, 90)
 
 def obstacleChallenge(parser: Parser, dC: DriveController, cam: Camera):
+    """@brief Run the full obstacle challenge (full-scan, fixed-route strategy).
+
+    Determines the direction, scans all obstacles up front, unparks, then
+    drives three laps reacting to the stored obstacle layout and finally
+    parks in the start zone.
+    @param parser Parser with shared state and obstacle array.
+    @param dC     DriveController providing motion primitives.
+    @param cam    Camera used for the initial obstacle scan.
+    @return None
+    """
     speedStraight = dC.topSpeed
     speedCurve=1
     speedCurveSlow=0.65
@@ -355,6 +466,8 @@ def obstacleChallenge(parser: Parser, dC: DriveController, cam: Camera):
         unParkCCW(parser, dC)
     
     dC.section += 1
+    # Three laps x four sections. Each iteration handles one section: pass its
+    # first obstacle, then either cross (same colors) or weave to the second.
     for j in range(3):
         for i in range(4):
             lastSection = i == 3 and j == 2
@@ -364,7 +477,7 @@ def obstacleChallenge(parser: Parser, dC: DriveController, cam: Camera):
             parked = False
             
             if secondToLastSection and parser.Direction == parser.CW:
-                dC.topSpeed = 1
+                dC.topSpeed = 1          # slow down before the CW parking approach
              
             if lastSection and parser.Direction == parser.CW:
                 parkCW(parser, dC)
@@ -375,6 +488,8 @@ def obstacleChallenge(parser: Parser, dC: DriveController, cam: Camera):
                     parkCCW(parser, dC, sectionObstacleList)
                     parked = True
             
+            # Same color on both slots -> straight crossing; otherwise weave
+            # around the second, differently-colored obstacle.
             if sectionObstacleList[0] == sectionObstacleList[1] and not parked:
                 SameObstacles(parser, dC, sectionObstacleList, nextSectionObstacleList, mirror)
             elif not parked:

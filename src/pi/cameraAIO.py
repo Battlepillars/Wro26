@@ -14,6 +14,10 @@ from parser import Parser
 # rpicam-hello -t0   #zum testen der Kamera
 
 def main():
+    """@brief Standalone entry point: capture a single image for testing.
+
+    @return None
+    """
     cam = Camera()
     cam.captureImage()
 
@@ -88,6 +92,12 @@ class Camera():
 
 
     def captureImage(self):
+        """@brief Grab a still frame from the camera and save it to disk.
+
+        Stores the RGB frame in `self.baseImage` and writes a numbered JPEG
+        into the capture folder.
+        @return None
+        """
         # self.captureHdr()
         # return
         
@@ -128,20 +138,24 @@ class Camera():
         self.baseImage = cv.cvtColor(merged_8u, cv.COLOR_BGR2RGB)
         cv.imwrite(f'capture/{self.pictureNum}-0baseImage.jpg', merged_8u)
     def loadImage(self, path):
+        """@brief Load an image from disk into `self.baseImage` for analysis.
+
+        @param path str file path of the image to load.
+        @return None
+        """
         realColor = cv.imread(path)
         
         self.baseImage = cv.cvtColor(realColor, cv.COLOR_BGR2RGB)
     def getObstacles2(self, mask = [230,390, 300,1000], defaultColor=20):
-        """@brief Capture frame, extract scan band, detect RED/GREEN blobs.
+        """@brief Detect the dominant obstacle color inside a rectangular region.
 
-        Performs blur, HSV conversion, masking for color ranges (including
-        wrap-around red hues), then records each contour's horizontal angle.
-        @param checkHeightNear bool If True, lowers scan band for near obstacle perspective.
-        @param leftDist float Distance to left wall, used to shift scan band right.
-        @param rightDist float Distance to right wall, used to shift scan band left.
-        @param upDist float Distance to ceiling, used to lower scan band.
-        @param downDistList list of float Distances to floor, used to raise scan band.
-        @return None (populates blocksAngle/blocksColor + imgCam for drawing)
+        Blurs the frame, converts to HSV, builds RED/GREEN masks (including the
+        wrap-around red hue range), restricts them to `mask`, and returns the
+        color of the lowest (nearest) detected blob.
+        @param mask         list [y0, y1, x0, x1] pixel bounds of the region.
+        @param defaultColor color returned when no obstacle is found (20 = use
+                            the camera's configured default).
+        @return the detected obstacle color, or the default color.
         """
 
         timeStart = time.time()
@@ -269,6 +283,10 @@ class Camera():
         return color
         
     def getObstacles1(self):
+        """@brief Detect the obstacle in section-1's field of view (flood-fill ROI).
+
+        @return the detected obstacle color, or the default color.
+        """
         
         # Maske x: 500-1000, y: 300-800
         regionMask = np.zeros(self.baseImage.shape[:2], dtype=np.uint8)
@@ -277,12 +295,20 @@ class Camera():
         return self.getObstacles(regionMask,800,500,1)  # y: 540
         #                                    x   y
     def getObstacles1b(self):
+        """@brief Detect the extra section-0 obstacle from the section-1 image.
+
+        @return the detected obstacle color, or the default color.
+        """
         self.pictureNum += 1
         # Maske x: 500-1000, y: 300-800
         regionMask = np.zeros(self.baseImage.shape[:2], dtype=np.uint8) 
         return self.getObstacles2([600,1000, 400,1150],None)
         #      
     def getObstacles3(self):
+        """@brief Detect the obstacle in section-3's field of view (flood-fill ROI).
+
+        @return the detected obstacle color, or the default color.
+        """
         
         # Maske x: 500-1000, y: 300-800
         regionMask = np.zeros(self.baseImage.shape[:2], dtype=np.uint8)
@@ -292,14 +318,22 @@ class Camera():
         return self.getObstacles(regionMask,800,390,3)
         #                                    x   y
     def getObstacles4(self):
+        """@brief Detect the obstacle in section-0's field of view (flood-fill ROI).
+
+        @return the detected obstacle color, or the default color.
+        """
         self.pictureNum=4
         # Maske x: 500-1000, y: 300-800
         regionMask = np.zeros(self.baseImage.shape[:2], dtype=np.uint8)
         regionMask[340:900, 300:1150] = 255
         #           y          x
         return self.getObstacles(regionMask,759,890,4)
-        #                                     x   y    
+        #                                    x   y    
     def getObstacles3b(self):
+        """@brief Alternate section-3 detection with a wider ROI (clockwise scan).
+
+        @return the detected obstacle color, or the default color.
+        """
         
         # Maske x: 500-1000, y: 300-800
         regionMask = np.zeros(self.baseImage.shape[:2], dtype=np.uint8)
@@ -309,6 +343,10 @@ class Camera():
         return self.getObstacles(regionMask,800,440,3)  # 800,440
         #                             x   y
     def getObstacles4b(self):
+        """@brief Alternate section-0 (left) detection ROI (clockwise scan).
+
+        @return the detected obstacle color, or the default color.
+        """
         self.pictureNum=5
         # Maske x: 500-1000, y: 300-800
         regionMask = np.zeros(self.baseImage.shape[:2], dtype=np.uint8)
@@ -317,16 +355,17 @@ class Camera():
         return self.getObstacles(regionMask,400,690,4)
         #                                     x   y 
     def getObstacles(self,regionMask,fillx,filly,regionNum,minSize=200):    
-        """@brief Capture frame, extract scan band, detect RED/GREEN blobs.
+        """@brief Detect an obstacle inside a flood-filled drivable region.
 
-        Performs blur, HSV conversion, masking for color ranges (including
-        wrap-around red hues), then records each contour's horizontal angle.
-        @param checkHeightNear bool If True, lowers scan band for near obstacle perspective.
-        @param leftDist float Distance to left wall, used to shift scan band right.
-        @param rightDist float Distance to right wall, used to shift scan band left.
-        @param upDist float Distance to ceiling, used to lower scan band.
-        @param downDistList list of float Distances to floor, used to raise scan band.
-        @return None (populates blocksAngle/blocksColor + imgCam for drawing)
+        Uses the black course walls as a flood-fill barrier so only the
+        drivable area is analyzed, masks RED/GREEN inside it, and returns the
+        most relevant blob's color (rightmost for sections 1/3, nearest otherwise).
+        @param regionMask ndarray initial region-of-interest mask.
+        @param fillx      int flood-fill seed x coordinate (inside the track).
+        @param filly      int flood-fill seed y coordinate (inside the track).
+        @param regionNum  int section index, selecting the blob-picking rule.
+        @param minSize    int minimum contour area (px^2) to accept a blob.
+        @return the detected obstacle color, or the default color.
         """
         self.blocksCx = []
         self.blocksCy = []
@@ -366,16 +405,19 @@ class Camera():
         
         
 
+        # Treat everything outside the ROI as "wall" so the flood fill can only
+        # spread across the drivable area inside the region.
         maskblack = cv.bitwise_and(maskblack, regionMask)
         maskblack2 = cv.bitwise_or(maskblack, regionMaskInv)
         
 
-        # Floodfill maskblack starting at x=650, y=400
+        # Flood fill from a seed known to be on the track; the black walls act
+        # as barriers, so only the reachable floor gets marked (value 128).
         floodMask = np.zeros((maskblack2.shape[0] + 2, maskblack2.shape[1] + 2), dtype=np.uint8)
         maskblackFilled = maskblack2.copy()
         cv.floodFill(maskblackFilled, floodMask, (fillx, filly), 128)
 
-        # Maske aller Punkte mit Wert 128 aus maskblackFilled
+        # Keep only the flooded (drivable) pixels as the final analysis mask.
         maskRegionFinal = np.where(maskblackFilled == 128, np.uint8(255), np.uint8(0))
 
         # Bitwise-AND mask and original image
@@ -386,6 +428,8 @@ class Camera():
         cv.imwrite(f'capture/{self.pictureNum}-4imageMaskedFlooded.jpg', maskRegionFinal)
         
         
+        # Restrict the color masks to the drivable area: obstacles behind walls
+        # or off the course are discarded.
         maskred   = cv.bitwise_and(maskred,   maskRegionFinal)
         maskgreen = cv.bitwise_and(maskgreen, maskRegionFinal)
 
@@ -467,6 +511,8 @@ class Camera():
         if (len(self.blocksCx) == 0):
             cv.imwrite(f'capture/{self.pictureNum}-9detection_result.jpg', imgclear)
             return self.defaultColor
+        # Sections 1/3 pick the rightmost blob; others pick the nearest one
+        # (closest to the bottom-center of the frame).
         if (regionNum == 1 or regionNum == 3):
             index = max(range(len(self.blocksCx)), key=self.blocksCx.__getitem__)
         else:

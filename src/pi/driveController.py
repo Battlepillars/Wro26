@@ -66,6 +66,14 @@ class DriveController:
     # start helper functions:
     
     def convertDir(self, parser: Parser, dir):
+        """@brief Mirror a wall/sensor direction when driving clockwise.
+
+        Left/right (and angled) walls swap when the course is run CW so the
+        same high-level logic works for both directions; CCW is unchanged.
+        @param parser Parser holding the current drive direction.
+        @param dir    the wall/sensor constant to convert.
+        @return the mirrored wall constant for CW, or `dir` unchanged for CCW.
+        """
         convertDic = {
             self.angleLeftWall: self.angleRightWall,
             self.angleRightWall: self.angleLeftWall,
@@ -93,6 +101,11 @@ class DriveController:
         return val
 
     def wallToString(self, wall):
+        """@brief Return a human-readable name for a wall/sensor constant.
+
+        @param wall the wall constant (front/right/left/back/angled).
+        @return str descriptive wall name, or "unknown wall".
+        """
         if wall == self.frontWall:
             return "front wall"
         elif wall == self.rightWall:
@@ -134,6 +147,8 @@ class DriveController:
     def setTargetHeading(self, heading):
         """Normalize a heading into the current section and clamp it to [-180, 180]."""
         
+        # Headings are given relative to the section; rotate them into the
+        # global gyro frame (and flip sign for CW so both directions match).
         if self.parser.Direction == self.parser.CW:      # rotating to match current section
             heading = -heading + self.section*90   
         else:
@@ -146,9 +161,20 @@ class DriveController:
         self.targetHeading = heading
     
     def logStuff(self, message):
+        """@brief Log a message annotated with the current section and run time.
+
+        @param message str text to record.
+        @return None
+        """
         self.logger.log(f"{message}, Section: {self.section}, Time: {time.time()-self.parser.startTime:.2f}")
     
     def logCaller(self):
+        """@brief Log which external function called the current driving primitive.
+
+        Walks the stack to find the first frame outside this file, giving a
+        breadcrumb of where each maneuver was invoked.
+        @return None
+        """
         _stack = traceback.extract_stack()
         _this_file = __file__
         _fn_name = _stack[-2].name
@@ -195,11 +221,15 @@ class DriveController:
             while errorAngle < -180:
                 errorAngle += 360
             
+            # Full lock toward the target; direction depends on error sign and
+            # whether we are driving forward or in reverse.
             if (errorAngle>0) ==(speed>0):
                 self.parser.setSteer(180)
             else:                
                 self.parser.setSteer(0)
             
+            # Scale speed down as the heading error shrinks so the car doesn't
+            # overshoot the target angle.
             mySpeed=0.3 * (speed/abs(speed))
             
             if abs(errorAngle) < 60:
@@ -240,6 +270,8 @@ class DriveController:
             while errorAngle < -180:
                 errorAngle += 360
             
+            # Near the target, hand steering over to the PID for a smooth
+            # finish; far away, use full lock to swing around fast.
             # doPid = abs(errorAngle)<10*(speed*self.parser.speed*2)
             doPid = abs(errorAngle)<20
             
@@ -275,6 +307,8 @@ class DriveController:
             while errorAngle < -180:
                 errorAngle += 360
             
+            # Wider PID handoff than quickTurn (50° vs 20°) gives a gentler,
+            # less overshooting turn.
             # doPid = abs(errorAngle)<10*(speed*self.parser.speed*2)
             doPid = abs(errorAngle)<50
             
@@ -309,6 +343,8 @@ class DriveController:
         traveled = abs(self.parser.distance - startDist)
 
         self.resetAvoidWall()
+        # Keep driving while still too far from the wall, below the minimum
+        # travel, or (with minDist) too close and needing to back off.
         while ((lastVal > (dist+20)) or (traveled < minTravel ) or (lastVal<minDist)) and not self.stop_event.is_set():
             
             # if avoidWall and lastVal > 1000 and lastVal != 10000:
@@ -317,6 +353,8 @@ class DriveController:
             #     self.calcAccel()
                 
             distSide = self.calcAccel( avoidWall=avoidWall)
+            # Side wall disappeared after the minimum travel -> report it so the
+            # caller can react (e.g. abort and recover).
             if distSide == 10000 and (avoidWall is not None) and traveled > minTravel:
                 self.logger.log("\n\n                   Side Wall lost       \n")
                 return True
@@ -328,7 +366,7 @@ class DriveController:
             else:
                 val = self.getDist([3,4],3,wallDir)
             if (val==0):
-                val=10000
+                val=10000                 # 0 = no reading -> treat as "very far"
                 
             self.logCountetr += 1
             diff=0
@@ -395,6 +433,14 @@ class DriveController:
             return
     
     def driveUntilWall(self, speed, heading, wallDir, maxDist):
+        """@brief Drive on a heading until a wall appears within `maxDist`.
+
+        @param speed   float target drive speed.
+        @param heading float heading to hold while driving.
+        @param wallDir wall/sensor to watch for the approaching wall.
+        @param maxDist float distance threshold that counts as "wall found".
+        @return None
+        """
         self.logCaller()
         self.setCommand("driveUntilWall")
         self.setSpeed(speed)
@@ -508,6 +554,10 @@ class DriveController:
     
     
     def resetAvoidWall(self):
+        """@brief Reset the side-wall avoidance state machine.
+
+        @return None
+        """
         self.avoidState = 0
         self.wallStartDist = 0
         self.avoidStartDist = 0
@@ -518,6 +568,7 @@ class DriveController:
         lastCycleTime = time.time() - self.lastTime
         frq = 0.01
 
+        # Fixed 100 Hz control rate: sleep out the remainder of the cycle.
         if (lastCycleTime) < frq:
             time.sleep(frq-lastCycleTime)
         self.lastTime = time.time()
@@ -540,8 +591,9 @@ class DriveController:
                 
                 
                 if (distSide==0):
-                    distSide=10000
+                    distSide=10000            # no reading -> treat as "wall far away"
                 
+                # Start the avoidance window once a wall first comes close.
                 if (distSide < 500 and self.wallStartDist == 0):
                     self.wallStartDist = self.parser.distance
                  
@@ -549,6 +601,8 @@ class DriveController:
                  
                 self.logger.logAppend(f" - DistSide: {distSide}  avoidState: {self.avoidState}  wallTravel: {(self.wallStartDist>0)*abs(self.parser.distance-self.wallStartDist):.0f} avoidTravel: {(self.avoidStartDist>0)*abs(self.parser.distance-self.avoidStartDist):.0f} ")
 
+                # State 1 = actively steering away/toward the wall; hold the
+                # correction for a fixed distance, then clear it.
                 if (self.avoidState == 1):
                     if (abs(self.parser.distance-self.avoidStartDist)>250):
                         self.avoidState = 0
@@ -557,6 +611,8 @@ class DriveController:
                         
                     
     
+                # Only correct within the first 300 mm of seeing the wall and
+                # when not already in a correction move.
                 if (abs(self.parser.distance-self.wallStartDist) < 300  and self.avoidState == 0):
                 
                     minDist = 150
@@ -565,20 +621,22 @@ class DriveController:
                     angle = 8
                     
                     if distSide < minDist:
-                        self.avoidWallSteer = angle
+                        self.avoidWallSteer = angle               # too close -> steer away
                         self.avoidState=1
                         self.avoidStartDist = self.parser.distance
                         self.logger.log("-----  Too close to wall, steering away")
                     elif distSide > maxDist and distSide < outsideDist:
-                        self.avoidWallSteer = -angle
+                        self.avoidWallSteer = -angle              # drifting off -> steer back
                         self.avoidState=1
                         self.avoidStartDist = self.parser.distance
                         self.logger.log("-----  Too far from wall, steering towards")
                         
                     if avoidWall == self.leftWall:
-                        self.avoidWallSteer *= -1
+                        self.avoidWallSteer *= -1                 # mirror correction for the left wall
             
                 
+            # Mix the heading target with any wall-avoidance offset, then wrap
+            # the error into [-180, 180].
             errorAngle = (-self.targetHeading + self.avoidWallSteer) + self.parser.getHeading()
             
             while errorAngle > 180:
@@ -591,6 +649,8 @@ class DriveController:
             elif pid == 2:
                 outputSteer = -(self.pidSteer2.compute(errorAngle,1))+90
 
+        # Rate-limit the speed setpoint toward the target: separate accel and
+        # decel rates for each of the four forward/reverse x speed-up/slow-down cases.
         if self.setpoint < self.targetSpeed and self.setpoint >= 0:     # nach vorne Beschleunigen
             self.setpoint += myAcc * frq
             if self.setpoint > self.targetSpeed:
@@ -617,7 +677,7 @@ class DriveController:
                 if self.targetSpeed >= 0:
                     self.parser.setSteer(outputSteer)
                 else:
-                    self.parser.setSteer(180-outputSteer)
+                    self.parser.setSteer(180-outputSteer)   # mirror steering when reversing
         return distSide
 
 class PIDController:

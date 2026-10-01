@@ -82,6 +82,11 @@ def read_throttled() -> str:
 
 
 class SysMonApp:
+    """@brief Minimal always-on-top overlay showing CM5 health stats.
+
+    Periodically refreshes CPU temperature, usage, throttle state and runtime,
+    color-coding each value; draggable and closed with a right-click.
+    """
     REFRESH_MS = 1000   # update interval in milliseconds
     BG        = "#1a1a1a"
     FG_NORMAL = "#00e676"
@@ -90,6 +95,11 @@ class SysMonApp:
     FONT      = ("Monospace", 10, "bold")
 
     def __init__(self, root: tk.Tk):
+        """@brief Build the overlay window, labels and input bindings.
+
+        @param root tk.Tk root window to populate.
+        @return None
+        """
         self.root = root
         self.start = time.monotonic()
 
@@ -124,6 +134,10 @@ class SysMonApp:
         self._update()
 
     def _position_bottom_right(self):
+        """@brief Move the overlay to the bottom-right corner of the screen.
+
+        @return None
+        """
         self.root.update_idletasks()
         sw = self.root.winfo_screenwidth()
         sh = self.root.winfo_screenheight()
@@ -134,6 +148,11 @@ class SysMonApp:
         self.root.geometry(f"+{x}+{y}")
 
     def _color_for_temp(self, t: float) -> str:
+        """@brief Pick a label color for a temperature value.
+
+        @param t float temperature in °C.
+        @return str hex color (normal/warn/crit).
+        """
         if t >= 80:
             return self.FG_CRIT
         if t >= 70:
@@ -141,6 +160,11 @@ class SysMonApp:
         return self.FG_NORMAL
 
     def _color_for_cpu(self, pct: float) -> str:
+        """@brief Pick a label color for a CPU-usage percentage.
+
+        @param pct float CPU usage in percent.
+        @return str hex color (normal/warn/crit).
+        """
         if pct >= 90:
             return self.FG_CRIT
         if pct >= 70:
@@ -148,6 +172,11 @@ class SysMonApp:
         return self.FG_NORMAL
 
     def _color_for_throttle(self, label: str) -> str:
+        """@brief Pick a label color for a throttle-state string.
+
+        @param label str throttle summary (e.g. "OK", "UV", "...hist").
+        @return str hex color (normal/warn/crit).
+        """
         if label in ("OK", "n/a"):
             return self.FG_NORMAL
         if "hist" in label:
@@ -155,6 +184,11 @@ class SysMonApp:
         return self.FG_CRIT
 
     def _format_runtime(self, seconds: float) -> str:
+        """@brief Format an elapsed-seconds value as a runtime string.
+
+        @param seconds float elapsed time in seconds.
+        @return str runtime like "Runtime : 01h 02m 03s".
+        """
         s = int(seconds)
         h, rem = divmod(s, 3600)
         m, sec = divmod(rem, 60)
@@ -163,6 +197,10 @@ class SysMonApp:
         return f"Runtime : {m:02d}m {sec:02d}s"
 
     def _update(self):
+        """@brief Refresh all stat labels and reschedule the next update.
+
+        @return None
+        """
         temp     = read_temp()
         cpu      = read_cpu_usage()
         throttle = read_throttled()
@@ -189,10 +227,20 @@ class SysMonApp:
 
     # Drag support -------------------------------------------------------
     def _drag_start(self, event):
+        """@brief Record the cursor offset when a window drag begins.
+
+        @param event tk event carrying the click position.
+        @return None
+        """
         self._drag_x = event.x
         self._drag_y = event.y
 
     def _drag_motion(self, event):
+        """@brief Reposition the window as the cursor is dragged.
+
+        @param event tk event carrying the current cursor position.
+        @return None
+        """
         x = self.root.winfo_x() + event.x - self._drag_x
         y = self.root.winfo_y() + event.y - self._drag_y
         self.root.geometry(f"+{x}+{y}")

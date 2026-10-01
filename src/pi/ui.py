@@ -10,7 +10,16 @@ clock = pygame.time.Clock()
 running = True
 
 class Ui:
+    """@brief Pygame status display for the robot.
+
+    Renders the four ToF sensor grids, telemetry (voltage, speed, heading,
+    distance, time), the detected obstacle layout, and image-review views.
+    """
     def __init__(self):
+        """@brief Initialize fonts and telemetry caches for the UI.
+
+        @return None
+        """
         self.uiScale = 1
         self.font = pygame.font.Font('freesansbold.ttf',20)
         self.cpu_usage = "--"
@@ -21,6 +30,10 @@ class Ui:
         self.drawCounter = 0
 
     def _read_cpu_usage(self):
+        """@brief Compute CPU usage since the last sample from /proc/stat.
+
+        @return float usage percentage, or None on the first call / read error.
+        """
         try:
             with open("/proc/stat", "r", encoding="utf-8") as proc_stat:
                 cpu_fields = proc_stat.readline().split()[1:]
@@ -46,6 +59,10 @@ class Ui:
             return None
 
     def _read_cpu_temperature(self):
+        """@brief Read the CPU temperature from the thermal-zone sysfs node.
+
+        @return float temperature in °C, or None on read error.
+        """
         try:
             with open("/sys/class/thermal/thermal_zone0/temp", "r", encoding="utf-8") as temp_file:
                 return float(temp_file.read().strip()) / 1000.0
@@ -54,6 +71,10 @@ class Ui:
 
 
     def updatePiTelemetry(self):
+        """@brief Refresh cached CPU usage/temperature at most once per second.
+
+        @return None
+        """
         now = time.monotonic()
         if now - self._last_telemetry_refresh < 1.0:
             return
@@ -69,6 +90,15 @@ class Ui:
         self._last_telemetry_refresh = now
 
     def draw(self, screen, parser: Parser, cam: Camera):
+        """@brief Render the current UI view onto the pygame surface.
+
+        Draws the default dashboard (sensor grids, telemetry, obstacle map) or
+        one of the image-review modes depending on `parser.uiType`.
+        @param screen pygame surface to draw on.
+        @param parser Parser providing live sensor and run state.
+        @param cam    Camera providing the latest capture index.
+        @return None
+        """
         if parser.uiType == parser.Default:
             self.updatePiTelemetry()
             screen.fill("black")
@@ -139,13 +169,15 @@ class Ui:
                 for pos in range(3):
                     yOffset = 0
                     xOffset = 0
+                    # Even sections run horizontally, odd ones vertically, so the
+                    # four sections form a square loop matching the track layout.
                     if sec%2 == 0:
                         xOffset = width*pos
                     else:
                         yOffset = width*pos
                     
                     if sec in [1, 2]:
-                        colorPos = 2 - pos
+                        colorPos = 2 - pos   # these sections are drawn in reverse order
                     else:
                         colorPos = pos
                     

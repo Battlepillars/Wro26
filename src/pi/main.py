@@ -14,11 +14,18 @@ from ui import Ui
 from driveController import DriveController
 from cameraTower import Camera
 
-stop_event = threading.Event()
-start_event = threading.Event()
+stop_event = threading.Event()   # signals all driving threads to stop immediately
+start_event = threading.Event()  # released to start/resume the control loop
 running = True
 
 def main():
+    """@brief Program entry point running on the Raspberry Pi CM5.
+
+    Initializes pygame, the serial parser, camera and UI, spawns the
+    parser and control-loop threads, then runs the main UI/input loop
+    until the user quits.
+    @return None
+    """
     pygame.init()
     parser = Parser()
     cam = Camera(parser)
@@ -133,15 +140,35 @@ def main():
     pygame.quit()
 
 def findCloesetHsvImage(images, path):
+    """@brief Find the index of an image path within the image list.
+
+    @param images list of image file paths to search.
+    @param path   target path to locate.
+    @return int index of the first match, or 0 if not found.
+    """
     indexes = [i for i, value in enumerate(images) if value == path]
     return indexes[0] if indexes else 0
 
 def handle_kb_interrupt(sig, frame):
+    """@brief SIGINT handler that requests a clean shutdown.
+
+    @param sig   signal number (unused).
+    @param frame current stack frame (unused).
+    @return None
+    """
     global running
     running = False
     stop_event.set()
 
 def controllLoop(parser,cam):
+    """@brief Control-loop thread: wait for start, then run the challenge.
+
+    Blocks on `start_event`, resets the gyro heading, rotates the capture
+    folders and dispatches to the auto challenge selector.
+    @param parser Parser instance holding shared sensor state.
+    @param cam    Camera instance used for obstacle detection.
+    @return None
+    """
     dC = DriveController(parser,stop_event)
     
     start_event.wait()
@@ -169,6 +196,12 @@ def controllLoop(parser,cam):
 
 
 def shiftCaptures():
+    """@brief Rotate the capture output folders between runs.
+
+    Renames capture → capture2, capture2 → capture3, … so each run keeps
+    its own images, dropping the oldest once `MAX_CAPTURE_DIRS` is reached.
+    @return None
+    """
     # Shift capture folders: capture → capture1, capture1 → capture2, …
     MAX_CAPTURE_DIRS = 10
     for n in range(MAX_CAPTURE_DIRS, 0, -1):

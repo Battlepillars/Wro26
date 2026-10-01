@@ -80,6 +80,14 @@ void parse();
 
 #define RESOLUTION VL53L8CX_RESOLUTION_8X8
 
+/**
+ * @brief Initialize and start continuous ranging on one VL53L8CX sensor.
+ *
+ * Runs begin()/init(), sets the 8x8 resolution, ranging frequency and
+ * continuous mode, then starts ranging. Status is reported over Serial1.
+ * @param sensor Pointer to the VL53L8CX instance to initialize.
+ * @param speed  Ranging frequency in Hz.
+ */
 void initVL53(VL53L8CX * sensor, int speed)
 { 
   
@@ -110,6 +118,13 @@ void initVL53(VL53L8CX * sensor, int speed)
 
 }
 
+/**
+ * @brief Poll a sensor and fetch a new ranging frame if one is ready.
+ *
+ * @param sensor Pointer to the VL53L8CX instance to read.
+ * @param result Output buffer that receives the ranging data when available.
+ * @return 1 if a new frame was copied into @p result, 0 otherwise.
+ */
 int update(VL53L8CX * sensor, VL53L8CX_ResultsData * result) 
 {
   // Serial1.println("\nSensor updating");
@@ -137,6 +152,13 @@ int update(VL53L8CX * sensor, VL53L8CX_ResultsData * result)
 }
 
 /* Setup ---------------------------------------------------------------------*/
+/**
+ * @brief One-time hardware initialization run at power-up.
+ *
+ * Configures chip-select/LED/button pins, the UART link to the CM5, the
+ * quadrature encoder (TIM2), the 100 Hz motor-control interrupt (TIM5), the
+ * motor PWM outputs, the speed PID, the SPI bus and all four ToF sensors.
+ */
 void setup()
 {
   pinMode(CS_PIN1, OUTPUT);
@@ -249,6 +271,13 @@ void setup()
 }
 
 
+/**
+ * @brief Drive the motor H-bridge at a signed speed via PWM.
+ *
+ * Positive drives forward, negative reverse, zero applies an active brake
+ * (both outputs high). The magnitude is clamped to +/-95%.
+ * @param speed Signed speed percentage (-95..95).
+ */
 void setSpeed(double speed)
 {
   if (speed > 0) 
@@ -263,6 +292,7 @@ void setSpeed(double speed)
     analogWrite(PWM_PIN2, (1023*(abs(speed)/100.0)));
   } else 
   {
+    // Both outputs high = active short brake (motor terminals tied together).
     analogWrite(PWM_PIN1, 1023);
     analogWrite(PWM_PIN2, 1023);
   }
@@ -270,6 +300,14 @@ void setSpeed(double speed)
   // analogWrite(PWM_PIN1, 200);
   // analogWrite(PWM_PIN2, 800);
 }
+/**
+ * @brief Send one sensor's full ranging grid to the CM5 as a CSV line.
+ *
+ * Emits "cam,<id>,<v0>,...,<vN>,". Cells without a valid target status are
+ * reported as -1.
+ * @param cam    1-based sensor id written into the message.
+ * @param result Ranging data to transmit.
+ */
 void printSensorData(int cam,VL53L8CX_ResultsData * result) 
 {
   int res=8;
@@ -278,6 +316,8 @@ void printSensorData(int cam,VL53L8CX_ResultsData * result)
   Serial1.printf("cam,%i",cam);
   for (int i = 0; i < res*res; i++) 
   {
+    // Status 5 and 9 are the VL53L8CX "valid measurement" codes; anything
+    // else is unreliable and reported as -1.
     if (result->target_status[i]!=5 && result->target_status[i]!=9)
       Serial1.printf(",-1");
     else
@@ -286,6 +326,14 @@ void printSensorData(int cam,VL53L8CX_ResultsData * result)
   Serial1.println(",");
 }
 
+/**
+ * @brief Send every 4th cell of a grid, starting at @p offset, as a CSV line.
+ *
+ * Used to split one sensor's grid across multiple smaller messages.
+ * @param cam    Sensor id used to derive the reported id (offset+1).
+ * @param result Ranging data to transmit.
+ * @param offset Starting cell offset (0..3) selecting the interleaved subset.
+ */
 void printMultiSensorData(int cam,VL53L8CX_ResultsData * result,int offset) 
 {
   int res=8;
@@ -302,6 +350,12 @@ void printMultiSensorData(int cam,VL53L8CX_ResultsData * result,int offset)
   Serial1.println(",");
 }
 
+/**
+ * @brief Drain the UART RX buffer, splitting incoming bytes into tokens.
+ *
+ * Accumulates comma-separated fields into @c strinList and calls parse() when
+ * a newline terminates a command.
+ */
 void waitForNewMessage()
 {
   char str[2] = "";
@@ -328,6 +382,12 @@ void waitForNewMessage()
 // Serial1.printf(" %i:<%c> ",r,r);
 }
 
+/**
+ * @brief Act on one fully received command from the CM5.
+ *
+ * Handles "speed", "servo", "checkVoltage", "ready" and "start" messages, then
+ * clears the token buffer for the next command.
+ */
 void parse()
 {
   if (strinList[0] == "speed" && amountDividers==1) 
@@ -363,6 +423,13 @@ void parse()
 }
 
 
+/**
+ * @brief Main super-loop: handle serial I/O, sensors and status reporting.
+ *
+ * Reads incoming commands, measures battery voltage (shutting the motor down
+ * and signaling the CM5 on sustained under-voltage), polls the ToF sensors
+ * and streams their data, and periodically sends status and speed packets.
+ */
 void loop()
 {
   waitForNewMessage();
@@ -450,9 +517,13 @@ void loop()
   static int lowBatCounter=0;
   if (vBat<10.5)
   {
+    // Require ~100 consecutive low readings before acting, so brief voltage
+    // sags under load don't trigger a false shutdown.
     lowBatCounter++;
     if (lowBatCounter>100)
     {
+      // Battery critically low: stop the motor and keep warning the CM5
+      // (wiggling the servo as a visible alarm) until power is cut.
       while (true)
       {
         if (micros()-lastPrint>500000) {
@@ -539,6 +610,13 @@ void loop()
 // speed,value,value,value;
 
 
+/**
+ * @brief 100 Hz timer ISR running the closed-loop speed controller.
+ *
+ * Reads the encoder delta, converts it to rotations/second, feeds the PID
+ * controller and updates the motor PWM. Flags @c newdata so loop() can report
+ * the latest speed. PA15 is toggled to mark the ISR duration.
+ */
 void motorController100Hz()
 {
   digitalWrite(PA15,1); 
@@ -548,12 +626,13 @@ void motorController100Hz()
   
   // Calculate impulses per second
   impulse_diff = EncoderCount - lastEncoderCount;
+  // Handle the 16-bit timer wrapping around 0/0xFFFF in either direction.
   if (impulse_diff > 30000)
     impulse_diff-=0xffff;
   if (impulse_diff <- 30000)
     impulse_diff+=0xffff;
 
-  int32_t impulses_per_sec = impulse_diff * 100;
+  int32_t impulses_per_sec = impulse_diff * 100;   // sampled at 100 Hz
 
   EncoderCountFull += impulse_diff;
   
@@ -567,6 +646,7 @@ void motorController100Hz()
   myPID.Compute();
   if (Setpoint==0)
   {
+    // Hard stop: zero output and reset the PID so it doesn't wind up at idle.
     Output=0;
     myPID.Initialize();
   }

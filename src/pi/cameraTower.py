@@ -13,6 +13,10 @@ from parser import Parser
 # rpicam-hello -t0   #zum testen der Kamera
 
 def main():
+    """@brief Standalone entry point: capture a single image for testing.
+
+    @return None
+    """
     cam = Camera()
     cam.captureImage()
 
@@ -110,6 +114,18 @@ class Camera():
 
 
     def addQuader(self, direction, number, leftX, topY, rightX, bottomY):
+        """@brief Register a rectangular region (quader) used to crop one obstacle.
+
+        Each direction/number pair stores the pixel box that a single obstacle
+        is expected to appear in for a given tower scan angle.
+        @param direction str scan direction key ("CW" or "CCW").
+        @param number    int obstacle/region index.
+        @param leftX     int left pixel coordinate.
+        @param topY      int top pixel coordinate.
+        @param rightX    int right pixel coordinate.
+        @param bottomY   int bottom pixel coordinate.
+        @return None
+        """
         if direction not in self.quaders:
             return
         self.quaders[direction][str(number)] = {
@@ -120,6 +136,13 @@ class Camera():
         }
 
     def createQuadar(self, capture):
+        """@brief Interactively pick a region box and print its addQuader() call.
+
+        Calibration helper: lets the user drag a rectangle over an image and
+        prints the coordinates to paste back as an `addQuader` definition.
+        @param capture bool True to grab a fresh image, False to load a stored one.
+        @return None
+        """
         # Load the image
         if capture:
             self.captureImage()
@@ -142,6 +165,12 @@ class Camera():
         cv.destroyAllWindows()
     
     def captureImage(self):
+        """@brief Grab a still frame from the camera and save it to disk.
+
+        Stores the RGB frame in `self.baseImage` and writes a numbered JPEG
+        into the capture folder for later review.
+        @return None
+        """
         # self.captureHdr()
         # return
         
@@ -183,6 +212,11 @@ class Camera():
         cv.imwrite(f'capture/{self.pictureNum}-0baseImage.jpg', merged_8u)
         
     def loadImage(self, path):
+        """@brief Load an image from disk into `self.baseImage` for analysis.
+
+        @param path str file path of the image to load.
+        @return None
+        """
         realColor = cv.imread(path)
         self.baseImage = cv.cvtColor(realColor, cv.COLOR_BGR2RGB)
         
@@ -212,15 +246,16 @@ class Camera():
         topY = quader["topY"]
         rightX = quader["rightX"]
         bottomY = quader["bottomY"]
-        imgIn = cv.blur(imgclear,(10,10))
-        imgInCroped = imgIn[topY:bottomY, leftX:rightX]
-        hsv = cv.cvtColor(imgInCroped, cv.COLOR_RGB2HSV)
+        imgIn = cv.blur(imgclear,(10,10))              # soften noise and color edges
+        imgInCroped = imgIn[topY:bottomY, leftX:rightX]  # crop to this obstacle's region
+        hsv = cv.cvtColor(imgInCroped, cv.COLOR_RGB2HSV)  # HSV is robust to brightness changes
         cv.imwrite(f'capture/{self.pictureNum}-0hsv.jpg', hsv)
         
         img = imgInCroped
         
         assert hsv is not None, "HSV color conversion failed"
 
+        # Red wraps around the hue circle, so combine a low- and high-hue mask.
         lower_mask = cv.inRange(hsv, self.redlower1, self.redupper1)
         upper_mask = cv.inRange(hsv, self.redlower2, self.redupper2)
         
@@ -289,12 +324,12 @@ class Camera():
         self.pictureNum += 1
         # quader["leftX"]
         if len(self.blocksColor) == 0:
-            color = self.defaultColor
+            color = self.defaultColor        # nothing found -> fall back to default
         else:
             cX = self.blocksCx[0]
             cY = self.blocksCy[0]
             cv.line(imgclear,(cX,0),(cX,1150),(0,0,255),3)
-            color = self.blocksColor[0]
+            color = self.blocksColor[0]      # first blob in the region wins
             
         cv.line(imgclear,(quader["leftX"],quader["topY"]),(quader["rightX"],quader["topY"]),(0,255,0),3)
         cv.line(imgclear,(quader["leftX"],quader["bottomY"]),(quader["rightX"],quader["bottomY"]),(0,255,0),3)

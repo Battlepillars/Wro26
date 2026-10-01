@@ -11,6 +11,21 @@ from cameraAIO import Camera
 from subprocess import call
 
 def wallDrive(dC: DriveController, dir, speedCurve, speedStraight, driveWall = False, angle = 45, dist = 310, skipTurn = False, skipWallDrive = False):    
+    """@brief Lane-change primitive used by the single-scan obstacle strategy.
+
+    Turns to an angle, drives toward the relevant wall for `dist`, then
+    straightens back to heading 0, optionally following the wall afterwards.
+    @param dC            DriveController providing motion primitives.
+    @param dir           target wall (left/right) defining the turn direction.
+    @param speedCurve    float speed used during the turns.
+    @param speedStraight float speed used on the straight segments.
+    @param driveWall     bool follow the wall after straightening out.
+    @param angle         int turn angle (45, 90 or 0).
+    @param dist          float distance to drive toward the wall.
+    @param skipTurn      bool skip the initial turn.
+    @param skipWallDrive bool skip the drive-to-wall segment.
+    @return None
+    """
     wall = dC.frontWall
     
     print(f"Wall drive with angle {angle}, distance {dist}, direction {dC.wallToString(dir)}, driveWall={driveWall}")
@@ -41,6 +56,13 @@ def wallDrive(dC: DriveController, dir, speedCurve, speedStraight, driveWall = F
 
 
 def unParkcounterClockwise(parser: Parser, dC: DriveController, cam: Camera):
+    """@brief Leave the start zone for a counter-clockwise single-scan run.
+
+    @param parser Parser with scanned obstacle state.
+    @param dC     DriveController providing motion primitives.
+    @param cam    Camera (unused here, kept for signature symmetry).
+    @return None
+    """
     speedStraight = dC.topSpeed
     speedCurve=1
     
@@ -53,6 +75,15 @@ def unParkcounterClockwise(parser: Parser, dC: DriveController, cam: Camera):
 
 
 def singleScanCounterClockwise(parser: Parser, dC: DriveController, cam: Camera):
+    """@brief Rotate in place and photograph the course (CCW layout).
+
+    Turns the car to three fixed headings, captures an image at each and
+    detects the obstacle color for every section.
+    @param parser Parser used for color-name logging.
+    @param dC     DriveController providing motion primitives.
+    @param cam    Camera used to capture and analyze each view.
+    @return tuple (color1, color2, color3, color4) – per-section colors.
+    """
     speedStraight=1
 
     
@@ -94,6 +125,13 @@ def singleScanCounterClockwise(parser: Parser, dC: DriveController, cam: Camera)
     return color1, color2, color3, color4
 
 def scanSimulation(parser: Parser, cam: Camera):
+    """@brief Re-run obstacle detection on stored images (offline testing).
+
+    Picks the CW or CCW simulation based on which base images exist on disk.
+    @param parser Parser used for color-name logging.
+    @param cam    Camera loaded with the stored images.
+    @return None
+    """
     path1 = os.path.isfile("captureStore/1-0baseImage.jpg")
     path2 = os.path.isfile("captureStore/2-0baseImage.jpg")
     path3 = os.path.isfile("captureStore/3-0baseImage.jpg")
@@ -104,6 +142,12 @@ def scanSimulation(parser: Parser, cam: Camera):
         scanClockwiseSimulation(parser, cam)
 
 def scanClockwiseSimulation(parser: Parser, cam: Camera):
+    """@brief Replay the clockwise obstacle detection on stored images.
+
+    @param parser Parser used for color-name logging.
+    @param cam    Camera loaded with the stored CW images.
+    @return None
+    """
     cam.loadImage("captureStore/1-0baseImage.jpg")
     cam.pictureNum=1
     color1=cam.getObstacles1()
@@ -130,6 +174,12 @@ def scanClockwiseSimulation(parser: Parser, cam: Camera):
     call("sudo systemctl restart smbd", shell=True)
 
 def scanCounterClockwiseSimulation(parser: Parser, cam: Camera):
+    """@brief Replay the counter-clockwise obstacle detection on stored images.
+
+    @param parser Parser used for color-name logging.
+    @param cam    Camera loaded with the stored CCW images.
+    @return None
+    """
     cam.loadImage("captureStore/1-0baseImage.jpg")
     cam.pictureNum=1
     color1=cam.getObstacles1()
@@ -153,6 +203,15 @@ def scanCounterClockwiseSimulation(parser: Parser, cam: Camera):
 
 
 def singleScanClockwise(parser: Parser, dC: DriveController, cam: Camera):
+    """@brief Rotate in place and photograph the course (CW layout).
+
+    Turns the car to three fixed headings, captures an image at each and
+    detects the obstacle color for every section.
+    @param parser Parser used for color-name logging.
+    @param dC     DriveController providing motion primitives.
+    @param cam    Camera used to capture and analyze each view.
+    @return tuple (color1, color2, color3, color4, color4Left) – per-section colors.
+    """
     speedStraight = dC.topSpeed
     speedCurve=1
     
@@ -201,6 +260,15 @@ def singleScanClockwise(parser: Parser, dC: DriveController, cam: Camera):
 
 
 def obstacleChallengeSingle(parser: Parser, dC: DriveController, cam: Camera):
+    """@brief Run the obstacle challenge using the scan-while-rotating strategy.
+
+    Detects the drive direction from the side sensors, then dispatches to the
+    clockwise or counter-clockwise routine.
+    @param parser Parser with shared state.
+    @param dC     DriveController providing motion primitives.
+    @param cam    Camera used for obstacle scanning.
+    @return None
+    """
     distRight = 0
     distLeft = 0
     
@@ -225,6 +293,12 @@ def obstacleChallengeSingle(parser: Parser, dC: DriveController, cam: Camera):
     
 
 def parkCCW(parser: Parser, dC: DriveController):
+    """@brief Final parking maneuver for a counter-clockwise single-scan run.
+
+    @param parser Parser with shared state.
+    @param dC     DriveController providing motion primitives.
+    @return None
+    """
     speedStraight=1
     speedCurve=1
     
@@ -242,6 +316,13 @@ def parkCCW(parser: Parser, dC: DriveController):
     dC.driveToWall(0.5,90,70)
     
 def parkCW(parser: Parser, dC: DriveController):
+    """@brief Final parking maneuver for a clockwise single-scan run.
+
+    Chooses the approach based on the parking-zone obstacle color.
+    @param parser Parser with shared state.
+    @param dC     DriveController providing motion primitives.
+    @return None
+    """
     speedStraight=1
     speedCurve=1
     
@@ -275,6 +356,15 @@ def parkCW(parser: Parser, dC: DriveController):
 
 
 def counterClockwise(parser: Parser, dC: DriveController, cam: Camera):
+    """@brief Drive the full counter-clockwise obstacle run (single-scan).
+
+    Scans obstacles, unparks, then drives three laps reacting to each
+    section's obstacle color and finally parks.
+    @param parser Parser with shared state and obstacle array.
+    @param dC     DriveController providing motion primitives.
+    @param cam    Camera used for the obstacle scan.
+    @return None
+    """
     speedStraight = dC.topSpeed
     speedCurve=1
     speedCurveSlow=0.65
@@ -341,6 +431,15 @@ def counterClockwise(parser: Parser, dC: DriveController, cam: Camera):
 
 
 def clockwise(parser: Parser, dC: DriveController, cam: Camera):
+    """@brief Drive the full clockwise obstacle run (single-scan).
+
+    Scans obstacles, exits the start zone, then drives three laps reacting to
+    each section's obstacle color and finally parks.
+    @param parser Parser with shared state and obstacle array.
+    @param dC     DriveController providing motion primitives.
+    @param cam    Camera used for the obstacle scan.
+    @return None
+    """
     speedStraight = dC.topSpeed
     speedCurve = 1
     speedCurveSlow=0.65
