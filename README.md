@@ -13,7 +13,7 @@
         </details>
       </li>
     <li><a href="#videos-of-the-robot">Videos of the robot</a></li>
-    <li><details><summary><a href="#1-mobility-and-mechanics">1. Mobility and mechanics</a></summary>
+    <li><details><summary><a href="#mobility-and-mechanics">1. Mobility and mechanics</a></summary>
         <ul dir="auto">
             <li><a href="#development-goal">Development goal</a></li>
             <li><a href="#chassis-and-mechanical-structure">Chassis and mechanical structure</a>
@@ -41,7 +41,7 @@
           </ul>
           </details>
         </li>
-        <li><details><summary><a href="#2-power-and-sensors">2. Power and sensors</a></summary>
+        <li><details><summary><a href="#power-and-sensors">2. Power and sensors</a></summary>
         <ul dir="auto">
             <li><a href="#concept">Concept</a></li>
             <li><a href="#electronics-setup">Electronics setup</a></li>
@@ -73,13 +73,13 @@
           </ul>
           </details>
         </li>
-        <li><details><summary><a href="#3-software-development">3. Software development</a></summary>
+        <li><details><summary><a href="#software-development">3. Software development</a></summary>
         <ul dir="auto">
             <li><a href="#software-architecture">Software architecture</a></li>
             <li><a href="#threading-and-system-flow">Threading and system flow</a></li>
-            <li><a href="#driving-primitives-in-drivecontrollerpy">Driving primitives</a></li>
+            <li><a href="#driving-primitives-in-drivecontrollerpy">Driving primitives in driveController.py</a></li>
             <li><a href="#opening-challenge-driving-strategy">Opening challenge driving strategy</a></li>
-            <li><a href="#obstacle-challenge-driving-strategy---strategy-change">Obstacle challenge driving strategy</a>
+            <li><a href="#obstacle-challenge-driving-strategy---strategy-change">Obstacle challenge driving strategy - strategy change</a>
               <ul dir="auto">
                 <li><a href="#old-strategy-scanning-while-driving">Old strategy: scanning while driving</a></li>
                 <li><a href="#new-strategy-full-scan-fixed-route">New strategy: full scan, fixed route</a></li>
@@ -94,11 +94,10 @@
               </ul>
             </li>
             <li><a href="#software-improvements">Software improvements</a></li>
-            <li><a href="#test-methodology-and-performance-metrics">Test methodology and performance metrics</a></li>
           </ul>
           </details>
         </li>
-        <li><details><summary><a href="#4-overall-robot-system-and-technical-decisions">4. Overall robot system and technical decisions</a></summary>
+        <li><details><summary><a href="#overall-robot-system-and-technical-decisions">4. Overall robot system and technical decisions</a></summary>
         <ul dir="auto">
             <li><a href="#design-constraints">Design constraints</a></li>
             <li><a href="#system-level-risks">System-level risks</a></li>
@@ -198,8 +197,8 @@ My part of the team effort is the documentation and images you'll see below.
 ## **Anton Wiesen**
 
 <div align="center">
-    <a href="img/einstellung_lenkung.jpg" target="_blank">
-        <img width="300" src="img/einstellung_lenkung.jpg">
+    <a href="img/Einstellung_Lenkung.jpg" target="_blank">
+        <img width="300" src="img/Einstellung_Lenkung.jpg">
     </a>
 </div>
 
@@ -242,7 +241,7 @@ The smaller form factor was meant to bring several advantages: the small size of
 
 <div align="center">
     <a href="img/vergleich_roboter.png" target="_blank">
-        <img width="600" src="img/vergleich_roboter.png" alt="Obstacle’s acceptable angle window">
+        <img width="600" src="img/vergleich_roboter.png" alt="Comparison of the 2025 and 2026 robot designs">
     </a>
 </div>
 
@@ -287,7 +286,7 @@ At the start, the **base deck** consisted only of a simple rectangle. This first
 
 <div align="center">
     <a href="img/iterationen_bodenplatte_eng.png" target="_blank">
-        <img width="600" src="img/iterationen_bodenplatte_eng.png" alt="Obstacle’s acceptable angle window">
+        <img width="600" src="img/iterationen_bodenplatte_eng.png" alt="Iterations of the base deck">
     </a>
 </div>
 
@@ -306,7 +305,7 @@ The finished vehicle with all components (PCB, battery, Raspberry Pi CM5, sensor
 
 <div align="center">
     <a href="img/ebenen.jpg" target="_blank">
-        <img width="600" src="img/ebenen.jpg" alt="Obstacle’s acceptable angle window">
+        <img width="600" src="img/ebenen.jpg" alt="Three-level structure of the robot chassis">
     </a>
 </div>
 
@@ -676,7 +675,7 @@ The complete electronics setup is shown in the wiring diagram below, which shows
 #### Figure 9: Wiring diagram
 
 </div><div align="center">
-    <a href="img/plan_gesamt_Kopie.jpg" target="_blank">
+    <a href="img/plan_gesamt%20Kopie.jpg" target="_blank">
         <img width="400" src="img/plan_gesamt Kopie.jpg">
     </a>
 </div>
@@ -1507,8 +1506,8 @@ The pattern of straight and turn repeats four times per lap (one side of the cou
 #### Figure 20: Source code for the opening challenge
 
 </div><div align="center">
-    <a href="img/code.png" target="_blank">
-        <img width="600" src="img/code.png">
+    <a href="img/Code.png" target="_blank">
+        <img width="600" src="img/Code.png">
     </a>
 </div>
 
@@ -1574,10 +1573,10 @@ red:
 **Parking:**
 The parallel maneuver runs entirely at low speed (0.3–0.6 m/s) for precision and uses the ToF sensors on three sides for alignment:
 
-1. Approach the front wall of the lot (driveToWall, front ToF) and straighten the heading (tightTurn(0°)).
-2. Set the lateral position next to the lot from the side-wall ToF (driveToWall to 180 mm from the left/right wall), with an additional 300 mm offset if the previous section's last obstacle was green.
-3. Swing the tail in with a forward–reverse–forward wiggle (tightTurn −45° forward, −70° in reverse, −90° forward).
-4. Reverse into the lot until the rear ToF reports the back wall (driveToWall backward, back ToF) and finally straighten out (tightTurn(0°)).
+1. Approach the front wall of the lot (<code>driveToWall</code>, front ToF) and straighten the heading (<code>tightTurn(0°)</code>).
+2. Set the lateral position next to the lot from the side-wall ToF (<code>driveToWall</code> to 180 mm from the left/right wall), with an additional 300 mm offset if the previous section's last obstacle was green.
+3. Swing the tail in with a forward–reverse–forward wiggle (<code>tightTurn(-45°)</code> forward, <code>tightTurn(-70°)</code> in reverse, <code>tightTurn(-90°)</code> forward).
+4. Reverse into the lot until the rear ToF reports the back wall (<code>driveToWall</code> backward, back ToF) and finally straighten out (<code>tightTurn(0°)</code>).
 
 
 ## **Serial communication and data model**
@@ -1917,12 +1916,12 @@ Before going into the individual architecture decisions, we summarize the main c
 
   <tr>
     <td bgcolor="#EAF4FB" style="border: 1px solid black; padding: 8px;"><b>Maximum vehicle dimensions (WRO competition rules)</b></td>
-    <td bgcolor="#EAF4FB" style="border: 1px solid black; padding: 8px;">Compact Compute Module 5 instead of Raspberry Pi 5, own baseboard developed (cf. <a href="#raspberry-pi-5-vs-raspberry-pi-cms">„Raspberry Pi 5 vs. Raspberry Pi CM5“</a>)</td>
+    <td bgcolor="#EAF4FB" style="border: 1px solid black; padding: 8px;">Compact Compute Module 5 instead of Raspberry Pi 5, own baseboard developed (cf. <a href="#raspberry-pi-5-vs-raspberry-pi-cm5">„Raspberry Pi 5 vs. Raspberry Pi CM5“</a>)</td>
   </tr>
 
   <tr>
     <td style="border: 1px solid black; padding: 8px;"><b>Goal: significantly shorter lap time than the previous year's model</b></td>
-    <td style="border: 1px solid black; padding: 8px;">Switch from LiDAR to ToF sensors (measurement latency 100–200 ms → approx. 33 ms), control without stopping (cf. <a href="#distance-sensors">Distance sensors</a>, <a href="#lidar-vs-time-of-flight-sensoren--steuerungsparadigma">„LiDAR vs. time-of-flight sensors / control paradigm“</a>)</td>
+    <td style="border: 1px solid black; padding: 8px;">Switch from LiDAR to ToF sensors (measurement latency 100–200 ms → approx. 33 ms), control without stopping (cf. <a href="#distance-sensors">Distance sensors</a>, <a href="#lidar-vs-time-of-flight-sensors--control-paradigm">„LiDAR vs. time-of-flight sensors / control paradigm“</a>)</td>
   </tr>
 
   <tr>
@@ -1955,7 +1954,7 @@ Before going into the individual architecture decisions, we summarize the main c
 
 ## **System-level risks**
 
-[Chapter 2](#2-power-and-sensors) already documents component-specific failure modes in sensors and power supply ([Table 12](#table-12-failure-modes-detection-and-countermeasures)). Here we add a risk/FMEA-light view at the **system level** – i.e. risks arising from the interplay of multiple subsystems.
+The [Power and sensors section](#power-and-sensors) already documents component-specific failure modes in sensors and power supply ([Table 12](#table-12-failure-modes-detection-and-countermeasures)). Here we add a risk/FMEA-light view at the **system level** – i.e. risks arising from the interplay of multiple subsystems.
 
 #### Table 19: System risks, detection, and countermeasures
 
@@ -2140,13 +2139,13 @@ Before going into the individual architecture decisions, we summarize the main c
 A complete shopping list with sources, photos, and the required CAD files for replication is at the beginning of [Chapter 5](#5-construction-guide).
 
 ## **System architecture**
-The software-side task distribution between the Raspberry Pi CM5 and STM32F411 – including a module overview and the communication protocol – is described in the sections [Software architecture](#softwarearchitektur) and [Serial communication and data model](#serielle-kommunikation-und-datenmodell). At the system level, the **mutual influence of the mechanical and electronic components** is decisive. The dimensions of the self-developed PCB determined the length of the chassis. The compact chassis required a correspondingly space-saving integration of the computing unit. The raised camera position improved the system's field of view, but affected the vehicle's center of gravity. The sensor layout depended on the available installation space and the required field of view. The following block diagram summarizes this overall architecture and shows how computing units, actuators, and sensors interact in the system.
+The software-side task distribution between the Raspberry Pi CM5 and STM32F411 – including a module overview and the communication protocol – is described in the sections [Software architecture](#software-architecture) and [Serial communication and data model](#serial-communication-and-data-model). At the system level, the **mutual influence of the mechanical and electronic components** is decisive. The dimensions of the self-developed PCB determined the length of the chassis. The compact chassis required a correspondingly space-saving integration of the computing unit. The raised camera position improved the system's field of view, but affected the vehicle's center of gravity. The sensor layout depended on the available installation space and the required field of view. The following block diagram summarizes this overall architecture and shows how computing units, actuators, and sensors interact in the system.
 
 #### Figure 23: Block diagram of the system architecture
 
 </div><div align="center">
-    <a href="img/blockschaltbild_englisch.png" target="_blank">
-        <img width="600" src="img/blockschaltbild_englisch.png">
+    <a href="img/Blockschaltbild_englisch.png" target="_blank">
+        <img width="600" src="img/Blockschaltbild_englisch.png">
     </a>
 </div>
 
@@ -2218,21 +2217,21 @@ The final robot did not emerge from a single development step, but through multi
     <td style="border: 1px solid black; padding: 8px;">January–February</td>
     <td style="border: 1px solid black; padding: 8px;"><b>Breadboard test phase</b></td>
     <td style="border: 1px solid black; padding: 8px;">Risk reduction before the first PCB order</td>
-    <td style="border: 1px solid black; padding: 8px;">All components work together (cf. <a href="#aufbau-der-elektronik">Electronics setup</a>)</td>
+    <td style="border: 1px solid black; padding: 8px;">All components work together (cf. <a href="#electronics-setup">Electronics setup</a>)</td>
   </tr>
 
   <tr>
     <td bgcolor="#EAF4FB" style="border: 1px solid black; padding: 8px;">Mid-February</td>
     <td bgcolor="#EAF4FB" style="border: 1px solid black; padding: 8px;"><b>Design and manufacturing of PCB version 1</b></td>
     <td bgcolor="#EAF4FB" style="border: 1px solid black; padding: 8px;">Breadboard phase complete; all components validated</td>
-    <td bgcolor="#EAF4FB" style="border: 1px solid black; padding: 8px;">Board ordered (cf. <a href="#aufbau-der-elektronik">Electronics setup</a>)</td>
+    <td bgcolor="#EAF4FB" style="border: 1px solid black; padding: 8px;">Board ordered (cf. <a href="#electronics-setup">Electronics setup</a>)</td>
   </tr>
 
   <tr>
     <td style="border: 1px solid black; padding: 8px;">Early March</td>
     <td style="border: 1px solid black; padding: 8px;"><b>Design and manufacturing of PCB version 2</b></td>
     <td style="border: 1px solid black; padding: 8px;">Wrong footprint for the STM32; camera connectors faulty → board completely unusable</td>
-    <td style="border: 1px solid black; padding: 8px;">Board redesigned and reordered; all interfaces functional afterward; board ready for use (cf. <a href="#aufbau-der-elektronik">Electronics setup</a>)</td>
+    <td style="border: 1px solid black; padding: 8px;">Board redesigned and reordered; all interfaces functional afterward; board ready for use (cf. <a href="#electronics-setup">Electronics setup</a>)</td>
   </tr>
 
   <tr>
@@ -2246,7 +2245,7 @@ The final robot did not emerge from a single development step, but through multi
     <td style="border: 1px solid black; padding: 8px;">Mid-March</td>
     <td style="border: 1px solid black; padding: 8px;"><b>Design of the middle part as a mount for the main PCB</b></td>
     <td style="border: 1px solid black; padding: 8px;">Board available; Raspberry Pi and STM32 need to be mounted</td>
-    <td style="border: 1px solid black; padding: 8px;">Raspberry Pi and STM32 mounted and connected to motor and steering (cf. <a href="#aufbau-der-elektronik">Electronics setup</a>)</td>
+    <td style="border: 1px solid black; padding: 8px;">Raspberry Pi and STM32 mounted and connected to motor and steering (cf. <a href="#electronics-setup">Electronics setup</a>)</td>
   </tr>
 
   <tr>
@@ -2318,8 +2317,8 @@ The final robot did not emerge from a single development step, but through multi
       • Previous obstacle challenge logic could only handle one obstacle per section; sections with two obstacles were not handled correctly<br>
       • Fixed driving positions for scan pictures were not always reached with exact precision, causing slight deviations that occasionally led to image-recognition problems
     </td>
-    <td bgcolor="#EAF4FB" style="border: 1px solid black; padding: 8px;">• Drive logic upgraded to <b>correctly handle two obstacles in the same section</b>.<br>
-    • Camera mounted on a new <b>servo-driven rotating tower</b> instead of a fixed position, allowing it to be aimed precisely at the relevant area regardless of small positioning errors (cf. <a href="#further-development-rotating-camera-tower">Further development: rotating camera tower</a>)</td>
+    <td bgcolor="#EAF4FB" style="border: 1px solid black; padding: 8px;">• Drive logic upgraded to <b>correctly handle two obstacles in the same section</b> (cf. <a href="#passing-two-obstacles-in-one-section">Passing two obstacles in one section</a>).<br>
+    • Camera mounted on a new <b>servo-driven rotating tower</b> instead of a fixed position, allowing it to be aimed precisely at the relevant area regardless of small positioning errors (cf. <a href="#further-development-rotating-camera-tower">Further development: rotating camera tower</a> and <a href="#new-strategy-full-scan-fixed-route">New strategy: full scan, fixed route</a>)</td>
   </tr>
 
 </table>
@@ -2631,7 +2630,7 @@ Install the **battery** in its slot on the **lower deck**, between the front and
     </a>
 </div>
 
-**Place** the **baseboard** (with the CM5 already connected via the Hirose FH12-22S connector and M.2 socket) onto small spacer bolts onthe middle deck (circled in red) and **add** the big spacer bolts on top of the baseboard that hold the upper deck plate. **Screw** it on from the bottom (opposite of red arrows). Then **connect** every remaining component (motor, encoder, steering servo, gyroscope, ToF sensors) to its respective connector on the baseboard, following the [wiring diagram](#step-5-wiring).
+**Place** the **baseboard** (with the CM5 already connected via the Hirose FH12-22S connector and M.2 socket) onto small spacer bolts onthe middle deck (circled in red) and **add** the big spacer bolts on top of the baseboard that hold the upper deck plate. **Screw** it on from the bottom (opposite of red arrows). 
 
 ## **Step 4: Upper deck – ToF sensors and rotating camera tower**
 
@@ -2682,7 +2681,7 @@ The camera tower is rotated by a servo so the camera can be aimed at different a
 ## **Step 5: Wiring**
 
 <div align="center">
-    <a href="img/plan_gesamt_Kopie.jpg" target="_blank">
+    <a href="img/plan_gesamt%20Kopie.jpg" target="_blank">
         <img width="500" src="img/plan_gesamt Kopie.jpg">
     </a>
 </div>
