@@ -1,10 +1,10 @@
 # Video Open Challange
 
-https://www.youtube.com/watch?v=m8tsO8CkDkw
+https://youtu.be/xgsjbz8JtRs?is=9g74XXmeAL3ZztfQ
 
 
 <br><br>
 
 # Video Obstacle Challange
 
-https://www.youtube.com/watch?v=g57Lu4CANCM
+https://youtu.be/dZyoW23Dgi8?is=IOlfB-I18UwgznLK

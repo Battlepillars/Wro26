@@ -138,7 +138,7 @@
                 <li><a href="#32-mount-the-baseboard-and-connect-all-components">3.2 Mount the baseboard and connect all components</a></li>
               </ul>
             </li>
-            <li><a href="#step-4-upper-deck--sensor-tower-and-camera">Step 4: Upper deck – sensor tower and camera</a>
+            <li><a href="#step-4-upper-deck--tof-sensors-and-rotating-camera-tower">Step 4: Upper deck – ToF sensors and rotating camera tower</a>
               <ul dir="auto">
                 <li><a href="#41-mount-the-upper-deck">4.1 Mount the upper deck</a></li>
                 <li><a href="#42-insert-the-distance-sensors">4.2 Insert the distance sensors</a></li>
@@ -198,8 +198,8 @@ My part of the team effort is the documentation and images you'll see below.
 ## **Anton Wiesen**
 
 <div align="center">
-    <a href="img/leonard.jpg" target="_blank">
-        <img width="300" src="img/leonard.jpg">
+    <a href="img/einstellung_lenkung.jpg" target="_blank">
+        <img width="300" src="img/einstellung_lenkung.jpg">
     </a>
 </div>
 
@@ -222,8 +222,8 @@ The following videos show the vehicle operating autonomously, one video per run:
 
 | Run | Link |
 |---|---|
-| Open Challenge | [![Open Challenge video](https://img.youtube.com/vi/m8tsO8CkDkw/0.jpg)](https://www.youtube.com/watch?v=m8tsO8CkDkw) |
-| Obstacle Challenge | [![Obstacle Challenge video](https://img.youtube.com/vi/g57Lu4CANCM/0.jpg)](https://www.youtube.com/watch?v=g57Lu4CANCM) |
+| Open Challenge | [![Open Challenge video](https://img.youtube.com/vi/xgsjbz8JtRs/0.jpg)](https://youtu.be/xgsjbz8JtRs?is=9g74XXmeAL3ZztfQ) |
+| Obstacle Challenge | [![Obstacle Challenge video](https://img.youtube.com/vi/dZyoW23Dgi8/0.jpg)](https://youtu.be/dZyoW23Dgi8?is=IOlfB-I18UwgznLK) |
 
 
 
@@ -648,7 +648,7 @@ When **selecting** the steering servo, besides the size, quick availability was 
 The **positioning of the servo** presented an independent design challenge. The arrangement common in model vehicles – servo and linkage centered in the vehicle – was ruled out, because we needed a relatively short wheelbase for high agility and wanted to fit the battery between the front and rear wheels for a low center of gravity. After evaluating numerous configurations, the servo was moved in front of the front axle, with the linkage routed behind it. This allowed the bumper area to be used constructively without having to relocate the battery or the PCB; the center of gravity remained low and central, and the required steering lock was achieved without collisions.
 
 <table width="100%" cellpadding="10" cellspacing="0" border="0"><tr><td bgcolor="#2E8B57" width="1%">&nbsp;</td><td bgcolor="#E2F3E5">
-📊 <b>Result:</b> Ball-bearing front axle, metal-gear servo, and the new steering geometry together reduce the minimum turning radius from <b>172 mm to 114 mm</b> and eliminate noticeable steering play compared to the 2025 season.
+ <b>Result:</b> Ball-bearing front axle, metal-gear servo, and the new steering geometry together reduce the minimum turning radius from <b>172 mm to 114 mm</b> and eliminate noticeable steering play compared to the 2025 season.
 </td></tr></table>
 
 <br>
@@ -661,7 +661,7 @@ To achieve the design goal of a small and fast vehicle, a fundamental overhaul o
 For the new vehicle we therefore chose a fundamentally different approach: several **time-of-flight sensors** (VL53L8CX) continuously measure the distances to the walls at 30 Hz, enabling control without stopping. The control logic is now event-based – instead of "go to coordinate X/Y", a driving command now reads, for example, "drive toward the wall until the distance is 20 cm". Since no more stops are needed for position correction, the vehicle drives noticeably more smoothly and faster.
 
 <table width="100%" cellpadding="10" cellspacing="0" border="0"><tr><td bgcolor="#2E8B57" width="1%">&nbsp;</td><td bgcolor="#E2F3E5">
-📊 <b>Result:</b> The average time for a run in the obstacle challenge dropped from <b>160 s (2025)</b> to <b>35–45 s (2026)</b> – an improvement of about a factor of 4. The design goal of 30 s per run was thus narrowly missed.
+ <b>Result:</b> The average time for a run in the obstacle challenge dropped from <b>160 s (2025)</b> to <b>35–45 s (2026)</b> – an improvement of about a factor of 4. The design goal of 30 s per run was thus narrowly missed.
 </td></tr></table>
 <br>
 
@@ -696,7 +696,7 @@ This change – explained in detail later (cf. [Obstacle challenge driving strat
 This approach makes obstacle detection considerably more demanding (cf. [mask pipeline](#mask-pipeline)), but simplifies the actual driving process significantly. Since the robot no longer needs to move to favorable camera positions during the run, valuable time can be saved.
 
 <table width="100%" cellpadding="10" cellspacing="0" border="0"><tr><td bgcolor="#2E8B57" width="1%">&nbsp;</td><td bgcolor="#E2F3E5">
-📊 <b>Result:</b> With the old <b>"scanning while driving"</b> strategy, we needed <b>56 s</b> on average per run, whereas the new <b>"full-scan strategy"</b> dropped this to only <b>38 s</b>.
+ <b>Result:</b> With the old <b>"scanning while driving"</b> strategy, we needed <b>56 s</b> on average per run, whereas the new <b>"full-scan strategy"</b> dropped this to only <b>38 s</b>.
 </td></tr></table>
 
 ### **Further development: rotating camera tower**
@@ -716,9 +716,9 @@ We expected this approach to improve the accuracy and reliability of obstacle de
 
 ### **Calibration procedure**
 
-The camera **calibrates** exposure time, white balance, and gain automatically. Depending on the on-site lighting conditions, manual adjustments of the color masks in <code>cameraAIO.py</code> may be necessary – in particular, detection of the black walls is sensitive to changes in lighting.
+The camera automatically calibrates its exposure time, white balance, and gain. Depending on the on-site lighting conditions, manual adjustments to the color masks in <code>cameraTower.py</code> may be necessary.
 
-Before every competition run, we take a test image and check in the debug image whether the obstacles lie completely within the mask and whether the black walls form a closed flood-fill barrier. If not, we first adjust the V-maximum value of the black mask and then the H/S/V values of the red and green masks. Since the hue range in OpenCV goes from 0 to 179° and red is the only color that appears at both ends of the scale, two separate masks are generated for red detection and then added together.
+Before each competition run, we take a test image and check whether the obstacles are detected correctly. If they are not, we adjust the HSV values for the red and green masks. In OpenCV, the hue scale ranges from 0 to 179. Since red is the only color that appears at both ends of the scale, we create two separate masks to detect red and then combine them.
 
 #### Table 7: HSV color masks and calibration parameters
 
@@ -766,20 +766,7 @@ Before every competition run, we take a test image and check in the debug image 
     </td>
   </tr>
 
-  <!-- Black -->
-  <tr>
-    <td style="border: 1px solid black; padding: 8px; text-align: center;"><b>Black<br>(walls)</b></td>
-    <td style="border: 1px solid black; padding: 8px; text-align: center;">0–255</td>
-    <td style="border: 1px solid black; padding: 8px; text-align: center;">0–255</td>
-    <td style="border: 1px solid black; padding: 8px; text-align: center;">0–90</td>
-    <td style="border: 1px solid black; padding: 8px;">
-      Defined only via the brightness channel V
-    </td>
-  </tr>
-
 </table>
-
-The most critical parameter is the V-maximum value of the black mask (default value: 90 – see table). Under strong ambient light, black walls reflect more light and appear brighter; the value must then be increased to 110–120. Under weak lighting it can be lowered to 70–80 to avoid false detections caused by dark shadows on the white floor. Partial sunlight is problematic: black walls in direct sunlight can reach a higher V value than the white floor in the shade – a scenario for which we have not yet found a reliable solution. Addressing this reliably will be a priority for future versions of the mask pipeline.
 
 ## **Distance sensors**
 
@@ -1121,7 +1108,7 @@ Correction factor = measured rotation / expected rotation
 The table summarizes the results of our gyro evaluation. Each value is the average of five measured runs on our test course. The BNO086 was the only sensor for which the deviation was consistent across multiple runs and could therefore be compensated by our correction factor. In practice, it has been shown that the robot can still drive the course cleanly with this deviation.
 
 <table width="100%" cellpadding="10" cellspacing="0" border="0"><tr><td bgcolor="#2E8B57" width="1%">&nbsp;</td><td bgcolor="#E2F3E5">
-📊 <b>Result:</b> With the BNO086 and rate calibration, the gyro deviation is only about <b>1°</b> after three laps driven – precise enough to reliably drive the course.
+ <b>Result:</b> With the BNO086 and rate calibration, the gyro deviation is only about <b>1°</b> after three laps driven – precise enough to reliably drive the course.
 </td></tr></table>
 
 ## **Power budget: power supply and consumption**
@@ -1230,7 +1217,7 @@ In addition to the typical values from Table 11, the **worst case** is decisive 
 On the 5 V rail we use an **AP3441SHE-7B** synchronous buck regulator (Diodes Inc., rated current 3 A per datasheet). The purely calculated worst case is thus just above the regulator's continuous current rating. In practice, full CM5 load, servo peak current, and maximum ToF activity never occur at exactly the same time; the measured total power of the complete system (7–10 W, see below) confirms a significantly lower real current demand. For future revisions, this is nevertheless noted as a point for improvement: a regulator with higher continuous current (e.g. 4 A) would create additional safety margin if further consumers are added.
 
 <table width="100%" cellpadding="10" cellspacing="0" border="0"><tr><td bgcolor="#2E8B57" width="1%">&nbsp;</td><td bgcolor="#E2F3E5">
-📊 <b>Result:</b> Worst-case peak current on the 5 V rail ≈ <b>3.2 A</b> versus a regulator capacity of <b>3 A</b> (AP3441SHE-7B) – however, the measured practical load of 7–10 W is significantly lower, since not all peaks occur simultaneously.
+ <b>Result:</b> Worst-case peak current on the 5 V rail ≈ <b>3.2 A</b> versus a regulator capacity of <b>3 A</b> (AP3441SHE-7B) – however, the measured practical load of 7–10 W is significantly lower, since not all peaks occur simultaneously.
 </td></tr></table>
 
 ### **Measured total power requirement**
@@ -1243,7 +1230,7 @@ The **measured total power requirement** of the system during operation is betwe
 - **Runtime (practical):** In test operation, the measured runtime to the shutdown threshold (3.5 V/cell) is usually about 40 minutes and thus matches the theoretical calculations well.
 
 <table width="100%" cellpadding="10" cellspacing="0" border="0"><tr><td bgcolor="#2E8B57" width="1%">&nbsp;</td><td bgcolor="#E2F3E5">
-📊 <b>Result:</b> The 3S LiPo (550 mAh) delivers a practical runtime of approx. <b>40 minutes</b> in test operation – this matches the theoretical calculation (36–52 min) and is sufficient for several competition runs per battery charge.
+ <b>Result:</b> The 3S LiPo (550 mAh) delivers a practical runtime of approx. <b>40 minutes</b> in test operation – this matches the theoretical calculation (36–52 min) and is sufficient for several competition runs per battery charge.
 </td></tr></table>
 
 ### **Avoiding deep discharge**
@@ -1537,50 +1524,60 @@ The **new strategy fully separates detection and driving**. Right after program 
 #### Figure 21: State diagram obstacle challenge – full-scan strategy
 
 </div><div align="center">
-    <a href="img/Zustandsdiagramm_Hindernisrennen.png" target="_blank">
-        <img width="600" src="img/Zustandsdiagramm_Hindernisrennen.png">
+    <a href="img/Zustandsdiagramm_Hindernisrennen_en.png" target="_blank">
+        <img width="600" src="img/Zustandsdiagramm_Hindernisrennen_en.png">
     </a>
 </div>
 
 
-For the competition in Croatia, we developed the full-scan approach further: instead of physically turning the whole car to three different angles, the car now stays in a single fixed position and orientation, and only the **camera** is rotated – via the rotating camera tower described above (cf. [Further development: rotating camera tower](#further-development-rotating-camera-tower)). Using <code>parser.setTowerAngle()</code>, the tower is aimed at three different angles and a photograph is taken at each of them. From these three images, all twelve obstacle slots <code>parser.obstacles[0..11]</code> are read by evaluating the direction-specific crop regions (<code>quaders</code>) defined in <code>cameraTower.py</code>. This eliminates the three separate turn-and-photograph maneuvers of the car entirely, making the scan faster and more repeatable, since the car no longer has to reach three different positions precisely before every run.
+For the competition in Croatia, we developed the full-scan approach further: instead of physically turning the whole car to three different angles, the car now stays in a single fixed position and orientation, and only the **camera** is rotated – via the rotating camera tower described above (cf. [Further development: rotating camera tower](#further-development-rotating-camera-tower)). Using <code>parser.setTowerAngle()</code>, the tower is aimed at three different angles and a picture is taken at each of them. From these three images, all twelve obstacle slots <code>parser.obstacles[0..11]</code> are read by evaluating the direction-specific crop regions (<code>quaders</code>) defined in <code>cameraTower.py</code>. This eliminates the three separate turn-and-photograph maneuvers of the car entirely, making the scan faster and more repeatable, since the car no longer has to reach three different positions precisely before every run.
 
 
 ### **Passing two obstacles in one section**
-The **German national rules limit each section to at most one obstacle**, so our original driving logic only ever had to react to a single obstacle color per section. The **international rules used in Croatia allow up to two obstacles in the same section**, which our old logic could not handle correctly: it evaluated only the first obstacle it detected and then drove straight to the next wall, ignoring a second obstacle that might require the car to be on the opposite side. This is why the two-obstacle handling described below was only implemented once we started preparing for the competition in Croatia.
+The **German national rules limit each section to at most one obstacle**, so our original driving logic only ever had to react to a single obstacle color per section. The **international rules used in Croatia allow up to two obstacles in the same section**, which our old logic could not handle correctly: it evaluated only the first obstacle it detected and then drove straight to the next wall, ignoring a second obstacle that might require the car to switch sides. This is why the two-obstacle handling described below was implemented only when we started preparing for the competition in Croatia.
 
-Each of the four course sections stores up to three obstacle slots in <code>parser.obstacles[0..11]</code> (3 slots per section), but the robot only ever has to react to **the obstacles actually present**. <code>parser.checkSectionMulti(section, mirror, colorMirror)</code> reads these slots and returns an ordered list of the colors found in that section, in the order they will be reached while driving. If a section only holds one obstacle, its color is duplicated in the list (<code>obstacleList[0] == obstacleList[1]</code>), so every section can be handled as if it always had exactly two entries – no special case is needed for single-obstacle sections.
+Each of the four course sections has three obstacle slots in <code>parser.obstacles[0..11]</code>, but the robot only ever has to react to **the obstacles actually present**. <code>parser.checkSectionMulti(section, mirror, colorMirror)</code> reads these slots and returns an ordered list of the colors found in that section, in the order in which the obstacles will be reached while driving. If a section contains only one obstacle, its color is duplicated in the list (<code>obstacleList[0] = obstacleList[1]</code>), so every section can be handled as if it always had exactly two entries — no special case is needed for sections with a single obstacle.
 
 In <code>obstacleChallenge.py</code>, driving through a section is split into three steps:
-- <code>FirstObstacle()</code> only looks at <code>sectionObstacleList[0]</code>: on **green** the robot pulls away from the outer wall and heads for the inside of the far wall; on **red** it first drives to the side wall at the obstacle's position and then turns back onto the straight – identical to the original single-obstacle logic.
-- If both list entries are the same color, <code>SameObstacles()</code> simply continues **all the way** to the next wall on the side dictated by that color, using <code>driveToWall(..., avoidWall=dC.leftWall/dC.rightWall)</code> to keep following the correct side wall until the turn.
-- If the two entries differ (Red→Green or Green→Red), <code>SecondObstacle()</code> instead drives only **half the distance** to the far wall (<code>driveDist(speedStraight, 0, 300)</code>) and then calls <code>wallDrive()</code>, which steers the car diagonally (45°) or at 90° across to the **opposite** wall, re-aligns the heading with the gyro (<code>dC.turn</code>) and continues the straight along the new wall (<code>dC.driveToWall</code>). This is the lane change "halfway to the next wall" for sections with two different obstacles.
+- <code>FirstObstacle()</code> only looks at <code>sectionObstacleList[0]</code>. If the first obstacle is **green**, the robot turns left; if it is **red**, it first drives straight to the front wall before turning - identical to the original single-obstacle logic.
+- If both list entries have the same color, <code>SameObstacles()</code> simply continues **driving straight** to the end of the section, using <code>driveToWall(..., avoidWall=dC.leftWall/dC.rightWall)</code> to avoid overshooting.
+- If the two entries differ (red→green or green→red), <code>SecondObstacle()</code> drives only **half the distance** to the far wall (<code>driveDist(..., 300)</code>) before calling <code>wallDrive()</code>. This function steers the car 90° toward the wall on the **opposite** side, realigns its heading using the gyro (<code>dC.turn(0)</code>), and then continues driving straight to the end of the section.
 
-Because <code>driveToWall(..., avoidWall=...)</code> continuously checks the side ToF sensor for the wall currently being followed, a side wall that disappears earlier than expected (e.g. because the robot already passed the second obstacle) is detected mid-drive: the function returns <code>True</code>, and the caller performs a short recovery reverse (<code>dC.driveDist(-1, 0, 510)</code>) before continuing, so a misjudged distance to the next obstacle doesn't push the car into a wall.
+<code>driveToWall(..., avoidWall=...)</code> continuously checks whether the inner wall is still present when the robot is driving on the left side of the section. If the wall is no longer detected, the robot has overshot the end of the section, so it briefly drives backwards.
 
-To reuse the same functions for both driving directions, <code>checkSectionMulti</code> takes a <code>mirror</code> flag: sections 1 and 3 are swapped and the detected colors are inverted, so the identical <code>FirstObstacle</code>/<code>SameObstacles</code>/<code>SecondObstacle</code> functions work whether the robot drives clockwise or counter-clockwise.
-
-This two-obstacle handling was added later in development, replacing the earlier version that could only react to the first obstacle per section (cf. [Software improvements](#software-improvements), release "Ready for Zagreb, Croatia").
-
+To reuse the same functions for both driving directions, <code>checkSectionMulti</code> takes a <code>mirror</code> flag that swaps sections 1 and 3 and inverts the detected colors. This allows the same <code>FirstObstacle</code>/<code>SameObstacles</code>/<code>SecondObstacle</code> functions to work whether the robot drives clockwise or counter-clockwise.
 
 ### **Parking and un-parking**
-The obstacle challenge starts and ends in the parking lot, so every run is framed by two dedicated maneuvers: **un-parking** at the start (<code>unParkCW</code>/<code>unParkCCW</code>) and **parking** at the end (<code>parkCW</code>/<code>parkCCW</code>). Both are mirrored for clockwise and counter-clockwise driving, exactly like the section logic.
+The obstacle challenge starts and ends in the parking lot, so every run is framed by two dedicated maneuvers: **un-parking** at the start (<code>unParkCW</code>/<code>unParkCCW</code>) and **parking** at the end (<code>parkCW</code>/<code>parkCCW</code>). Because the parking lot is always positioned on the same side, mirroring the (un-)parking functions is not possible, so the two directions have separate implementations.
 
-**Un-parking.** After the initial full scan the car still stands in the parking lot. The un-park routine reads the first section's obstacles via <code>checkSectionMulti</code> and pulls out at an angle that already lines the car up for the first obstacle: on a **green** first obstacle it leaves the lot flat (<code>tightTurn</code> to −40°) and heads for the far side; on **red** it turns out sharply (−90°), briefly approaches the side wall and only then straightens onto the first straight (<code>turn(0°)</code>). The exit angle is therefore not wasted – it doubles as the approach for the first obstacle.
+**Un-parking CW:** The un-parking maneuver is different based on if the first obstacle in the first section is red or green.
+green:
+1. turn to 40°
+2. drive 200mm straight
+3. turn back to 0°
+4. drive to the end of the section <code>driveToWall()</code>
+red:
+1. turn to 90°
+2. drive to inner wall <code>driveToWall()</code>
+3. turn back to 0°
+4. drive to the end of the section <code>driveToWall()</code>
 
-**Parking – straight-in vs. parallel.** How the car parks depended directly on the competition rules:
+**Un-parking CCW:** The un-parking maneuver is different based on if the first obstacle in the first section is red or green.
+green:
+1. turn to 90°
+2. drive to inner wall <code>driveToWall()</code>
+3. turn back to 0°
+red:
+1. turn to 40°
+2. drive 350 mm straight (this drives between the right most obstacle and the outer parking lot wall)
 
-- At the **German final** the car only had to come to a stop inside the lot. Because our vehicle has a very short wheelbase, we could drive in **nose-first**: pull up level with the lot along the wall and swing in with a single ~90° turn, without any reversing.
-- For the **international final in Croatia** the rules require **parallel parking** into a lot that is only slightly longer than the car itself. A single turn no longer fits, so <code>parkCW</code>/<code>parkCCW</code> perform a real parallel-parking sequence.
-
+**Parking: **
 The parallel maneuver runs entirely at low speed (0.3–0.6 m/s) for precision and uses the ToF sensors on three sides for alignment:
 
-1. Approach the front wall of the lot (<code>driveToWall</code>, front ToF) and straighten the heading (<code>tightTurn(0°)</code>).
-2. Set the lateral position next to the lot from the side-wall ToF (<code>driveToWall</code> to 180 mm from the left/right wall), with an additional 300 mm offset if the previous section's last obstacle was green.
-3. Swing the tail in with a forward–reverse–forward wiggle (<code>tightTurn</code> −45° forward, −70° in reverse, −90° forward).
-4. Reverse into the lot until the rear ToF reports the back wall (<code>driveToWall</code> backward, back ToF) and finally straighten out (<code>tightTurn(0°)</code>).
-
-Because both the last **and** the previous section's obstacle colors are read (<code>sectionObstacleList</code> and <code>prevSectionObstacleList</code>), the car knows from which side it is arriving and adjusts its approach distance, so the parallel maneuver always starts from a repeatable position. This position-dependent parking replaced the earlier straight-in version during the preparation for Croatia (cf. [Software improvements](#software-improvements)).
+1. Approach the front wall of the lot (driveToWall, front ToF) and straighten the heading (tightTurn(0°)).
+2. Set the lateral position next to the lot from the side-wall ToF (driveToWall to 180 mm from the left/right wall), with an additional 300 mm offset if the previous section's last obstacle was green.
+3. Swing the tail in with a forward–reverse–forward wiggle (tightTurn −45° forward, −70° in reverse, −90° forward).
+4. Reverse into the lot until the rear ToF reports the back wall (driveToWall backward, back ToF) and finally straighten out (tightTurn(0°)).
 
 
 ## **Serial communication and data model**
@@ -1899,57 +1896,7 @@ During development and test runs, errors were identified, their causes analyzed,
 
 </table>
 
-## **Test methodology and performance metrics**
 
-To avoid scattering performance evidence throughout the whole documentation, we summarize it here in a dedicated section. In addition to the individual fixes documented above, software quality is captured quantitatively via <code>logger.py</code>. Every test run writes a continuous log (<code>logs/log_1.txt</code> … <code>log_10.txt</code>), from which the following metrics can be evaluated. The full evidence chain (test setup, sample size, raw data) for each metric is documented in [tests/README.md](tests/README.md).
-
-#### Table 18: Metrics for software validation
-
-<table align="center" border="1" style="border-collapse: collapse; border: 2px solid black;">
-
-  <tr>
-    <th bgcolor="#4A90C2" width="280" style="border: 1px solid black; border-bottom: 3px solid black; padding: 8px; color: white;">Metric</th>
-    <th bgcolor="#4A90C2" width="320" style="border: 1px solid black; border-bottom: 3px solid black; padding: 8px; color: white;">Definition / source</th>
-    <th bgcolor="#4A90C2" width="260" style="border: 1px solid black; border-bottom: 3px solid black; padding: 8px; color: white;">Measured value</th>
-    <th bgcolor="#4A90C2" width="80" style="border: 1px solid black; border-bottom: 3px solid black; padding: 8px; color: white;">Evidence</th>
-  </tr>
-
-  <tr>
-    <td bgcolor="#EAF4FB" style="border: 1px solid black; padding: 8px;"><b>Steering interventions per lap</b></td>
-    <td bgcolor="#EAF4FB" style="border: 1px solid black; padding: 8px;">Number of corrections by <code>pidSteer</code>/<code>pidSteer2</code> above a threshold, logged via <code>logger.log()</code></td>
-    <td bgcolor="#EAF4FB" style="border: 1px solid black; padding: 8px;">avg. 12.4 interventions/lap (σ = 2.1; 12 test runs)</td>
-    <td bgcolor="#EAF4FB" style="border: 1px solid black; padding: 8px; text-align: center;"><a href="tests/README.md#t-01">T-01</a></td>
-  </tr>
-
-  <tr>
-    <td style="border: 1px solid black; padding: 8px;"><b>Obstacle color detection rate</b></td>
-    <td style="border: 1px solid black; padding: 8px;">Proportion of correctly classified red/green obstacles from the mask pipeline over N test runs</td>
-    <td style="border: 1px solid black; padding: 8px;">142 of 148 correct (95.9%)</td>
-    <td style="border: 1px solid black; padding: 8px; text-align: center;"><a href="tests/README.md#t-02">T-02</a></td>
-  </tr>
-
-  <tr>
-    <td bgcolor="#EAF4FB" style="border: 1px solid black; padding: 8px;"><b>Lap-time consistency</b></td>
-    <td bgcolor="#EAF4FB" style="border: 1px solid black; padding: 8px;">Mean and standard deviation of the time for a run across multiple test runs, before/after switching to the full-scan strategy</td>
-    <td bgcolor="#EAF4FB" style="border: 1px solid black; padding: 8px;">before avg. 56 s (σ = 4.2 s); after avg. 38 s (σ = 2.3 s)</td>
-    <td bgcolor="#EAF4FB" style="border: 1px solid black; padding: 8px; text-align: center;"><a href="tests/README.md#t-03">T-03</a></td>
-  </tr>
-
-  <tr>
-    <td style="border: 1px solid black; padding: 8px;"><b>Recovery success rate</b></td>
-    <td style="border: 1px solid black; padding: 8px;">Proportion of successful recoveries after sensor loss (wall-loss reverse maneuver, encoder fallback, parking correction) over N test runs</td>
-    <td style="border: 1px solid black; padding: 8px;">27 of 30 successful (90.0%)</td>
-    <td style="border: 1px solid black; padding: 8px; text-align: center;"><a href="tests/README.md#t-04">T-04</a></td>
-  </tr>
-
-  <tr>
-    <td bgcolor="#EAF4FB" style="border: 1px solid black; padding: 8px;"><b>Success rate of complete test runs</b></td>
-    <td bgcolor="#EAF4FB" style="border: 1px solid black; padding: 8px;">Proportion of test runs (obstacle challenge) completed fully and in compliance with the rules over N runs (timing: see lap-time consistency above)</td>
-    <td bgcolor="#EAF4FB" style="border: 1px solid black; padding: 8px;">18 of 20 runs successful (90.0%)</td>
-    <td bgcolor="#EAF4FB" style="border: 1px solid black; padding: 8px; text-align: center;"><a href="tests/README.md#t-05">T-05</a></td>
-  </tr>
-
-</table>
 
 <br><br>
 
@@ -1959,7 +1906,7 @@ To avoid scattering performance evidence throughout the whole documentation, we 
 
 Before going into the individual architecture decisions, we summarize the main constraints that limited our design from the start – and the specific consequence each had for the vehicle.
 
-#### Table 19: Design constraints and their consequences
+#### Table 18: Design constraints and their consequences
 
 <table align="center" border="1" style="border-collapse: collapse; border: 2px solid black;">
 
@@ -2010,7 +1957,7 @@ Before going into the individual architecture decisions, we summarize the main c
 
 [Chapter 2](#2-power-and-sensors) already documents component-specific failure modes in sensors and power supply ([Table 12](#table-12-failure-modes-detection-and-countermeasures)). Here we add a risk/FMEA-light view at the **system level** – i.e. risks arising from the interplay of multiple subsystems.
 
-#### Table 20: System risks, detection, and countermeasures
+#### Table 19: System risks, detection, and countermeasures
 
 <table align="center" border="1" style="border-collapse: collapse; border: 2px solid black;">
 
@@ -2064,7 +2011,7 @@ Before going into the individual architecture decisions, we summarize the main c
 
 ## **Technical specifications**
 
-#### Table 21: Technical specifications
+#### Table 20: Technical specifications
 
 <table align="center" border="1" style="border-collapse: collapse; border: 2px solid black;">
 
@@ -2248,7 +2195,7 @@ At the time, the choice fell on the **VL53L8CX**, since the datasheet indicated 
 
 The final robot did not emerge from a single development step, but through multiple iterations of tests, failed attempts, and technical optimizations. The following table shows the most important milestones and the resulting changes to the system.
 
-#### Table 22: Development milestones
+#### Table 21: Development milestones
 
 <table align="center" border="1" style="border-collapse: collapse; border: 2px solid black;">
 
@@ -2380,7 +2327,7 @@ The final robot did not emerge from a single development step, but through multi
 
 # **5. Construction guide**
 
-#### Table 23: Bill of materials for replication (purchased parts & CAD files)
+#### Table 22: Bill of materials for replication (purchased parts & CAD files)
 
 <table align="center" border="1" style="border-collapse: collapse; border: 2px solid black;">
 
@@ -2398,12 +2345,12 @@ The final robot did not emerge from a single development step, but through multi
     <td bgcolor="#EAF4FB" style="border: 1px solid black; padding: 8px;"><b>Drive motor</b></td>
     <td bgcolor="#EAF4FB" style="border: 1px solid black; padding: 8px;">N30 6V 1500 rpm, total gear ratio 24.4:1</td>
     <td bgcolor="#EAF4FB" style="border: 1px solid black; padding: 8px; text-align: center;">
-      <a href="https://www.amazon.de/HUJWLBWF-Electronic-Starter-100RPM-1000RPM/dp/B0DFGZJPYX?th=1">Purchase link</a>
+      <a href="https://www.amazon.de/HUJWLBWF-Electronic-Starter-100RPM-1000RPM/dp/B0DFGZJPYX">Purchase link</a>
     </td>
     <td bgcolor="#EAF4FB" style="border: 1px solid black; padding: 8px; text-align: center;">
       <img src="img/motor.avif" width="100">
     </td>
-    <td bgcolor="#EAF4FB" style="border: 1px solid black; padding: 8px; text-align: center;">– (purchased part)</td>
+    <td bgcolor="#EAF4FB" style="border: 1px solid black; padding: 8px; text-align: center;">n/a (purchased part)</td>
   </tr>
 
   <!-- Steering servo -->
@@ -2416,7 +2363,7 @@ The final robot did not emerge from a single development step, but through multi
     <td style="border: 1px solid black; padding: 8px; text-align: center;">
       <img src="img/servo.avif" width="100">
     </td>
-    <td style="border: 1px solid black; padding: 8px; text-align: center;">– (purchased part)</td>
+    <td style="border: 1px solid black; padding: 8px; text-align: center;">n/a (purchased part)</td>
   </tr>
 
   <!-- Ball differential -->
@@ -2424,12 +2371,12 @@ The final robot did not emerge from a single development step, but through multi
     <td bgcolor="#EAF4FB" style="border: 1px solid black; padding: 8px;"><b>Ball differential (rear axle)</b></td>
     <td bgcolor="#EAF4FB" style="border: 1px solid black; padding: 8px;">Kyosho ball differential (model-making purchased part)</td>
     <td bgcolor="#EAF4FB" style="border: 1px solid black; padding: 8px; text-align: center;">
-      <a href="https://www.modellbau-berlinski.de/rc-fahrzeuge-und-zubehoer/autos-und-zubehoer/ersatz--und-tuningteile/kyosho/kugeldifferential-mini-z-mr04-mr03-mr02?geo=DE">Purchase link</a>
+      <a href="https://www.modellbau-berlinski.de/rc-fahrzeuge-und-zubehoer/autos-und-zubehoer/ersatz--und-tuningteile/kyosho/kugeldifferential-mini-z-mr04-mr03-mr02">Purchase link</a>
     </td>
     <td bgcolor="#EAF4FB" style="border: 1px solid black; padding: 8px; text-align: center;">
       <img src="img/kugelachse.png" width="100">
     </td>
-    <td bgcolor="#EAF4FB" style="border: 1px solid black; padding: 8px; text-align: center;">– (purchased part)</td>
+    <td bgcolor="#EAF4FB" style="border: 1px solid black; padding: 8px; text-align: center;">n/a (purchased part)</td>
   </tr>
 
   <!-- Tires -->
@@ -2442,16 +2389,18 @@ The final robot did not emerge from a single development step, but through multi
     <td style="border: 1px solid black; padding: 8px; text-align: center;">
       <img src="img/reifen.jpg" width="100">
     </td>
-    <td style="border: 1px solid black; padding: 8px; text-align: center;">– (purchased part)</td>
+    <td style="border: 1px solid black; padding: 8px; text-align: center;">n/a (purchased part)</td>
   </tr>
 
   <!-- Ball bearings -->
   <tr>
-    <td bgcolor="#EAF4FB" style="border: 1px solid black; padding: 8px;"><b>Front axle/steering ball bearings</b></td>
+    <td bgcolor="#EAF4FB" style="border: 1px solid black; padding: 8px;"><b>Ball bearings</b></td>
     <td bgcolor="#EAF4FB" style="border: 1px solid black; padding: 8px;">10× ball bearings (8× front axle: 2× steering knuckle + 2× wheel per side)</td>
-    <td bgcolor="#EAF4FB" style="border: 1px solid black; padding: 8px; text-align: center;">no link provided (standard size per the front axle CAD model)</td>
-    <td bgcolor="#EAF4FB" style="border: 1px solid black; padding: 8px; text-align: center;">–</td>
-    <td bgcolor="#EAF4FB" style="border: 1px solid black; padding: 8px; text-align: center;"><i>Placeholder – not yet included in the repository</i></td>
+    <td bgcolor="#EAF4FB" style="border: 1px solid black; padding: 8px; text-align: center;"><a href="https://www.amazon.es/-/en/Swpeet-Bearing-Variety-Bearings-Shielded/dp/B0DQNGRL3R">Purchase link</a></td>
+    <td bgcolor="#EAF4FB" style="border: 1px solid black; padding: 8px; text-align: center;">
+    <img src="img/bearings.jpg" width="100">
+    </td>
+    <td bgcolor="#EAF4FB" style="border: 1px solid black; padding: 8px; text-align: center;"><i>n/a (purchased part)</i></td>
   </tr>
 
   <!-- Main computer -->
@@ -2464,14 +2413,14 @@ The final robot did not emerge from a single development step, but through multi
     <td style="border: 1px solid black; padding: 8px; text-align: center;">
       <img src="img/cm5.webp" width="100">
     </td>
-    <td style="border: 1px solid black; padding: 8px; text-align: center;">– (purchased part)</td>
+    <td style="border: 1px solid black; padding: 8px; text-align: center;">n/a (purchased part)</td>
   </tr>
 
   <!-- Baseboard -->
   <tr>
     <td bgcolor="#EAF4FB" style="border: 1px solid black; padding: 8px;"><b>Own carrier board (baseboard)</b></td>
     <td bgcolor="#EAF4FB" style="border: 1px solid black; padding: 8px;">Self-developed PCB for CM5, STM32, sensors, and motor driver</td>
-    <td bgcolor="#EAF4FB" style="border: 1px solid black; padding: 8px; text-align: center;">– (own development, not purchased)</td>
+    <td bgcolor="#EAF4FB" style="border: 1px solid black; padding: 8px; text-align: center;">n/a (own development, not purchased)</td>
     <td bgcolor="#EAF4FB" style="border: 1px solid black; padding: 8px; text-align: center;">–</td>
     <td bgcolor="#EAF4FB" style="border: 1px solid black; padding: 8px; text-align: center;"><code>kicad/baseboard</code> (KiCad project available)</td>
   </tr>
@@ -2486,7 +2435,7 @@ The final robot did not emerge from a single development step, but through multi
     <td style="border: 1px solid black; padding: 8px; text-align: center;">
       <img src="img/mikrocontroller.jpg" width="100">
     </td>
-    <td style="border: 1px solid black; padding: 8px; text-align: center;">– (purchased part)</td>
+    <td style="border: 1px solid black; padding: 8px; text-align: center;">n/a (purchased part)</td>
   </tr>
 
   <!-- ToF sensors -->
@@ -2499,7 +2448,7 @@ The final robot did not emerge from a single development step, but through multi
     <td bgcolor="#EAF4FB" style="border: 1px solid black; padding: 8px; text-align: center;">
       <img src="img/tofsensor.webp" width="100">
     </td>
-    <td bgcolor="#EAF4FB" style="border: 1px solid black; padding: 8px; text-align: center;">– (purchased part)</td>
+    <td bgcolor="#EAF4FB" style="border: 1px solid black; padding: 8px; text-align: center;">n/a (purchased part)</td>
   </tr>
 
   <!-- Camera -->
@@ -2512,7 +2461,7 @@ The final robot did not emerge from a single development step, but through multi
     <td style="border: 1px solid black; padding: 8px; text-align: center;">
       <img src="img/kamera.webp" width="100">
     </td>
-    <td style="border: 1px solid black; padding: 8px; text-align: center;">– (purchased part)</td>
+    <td style="border: 1px solid black; padding: 8px; text-align: center;">n/a (purchased part)</td>
   </tr>
 
   <!-- Gyro -->
@@ -2525,7 +2474,7 @@ The final robot did not emerge from a single development step, but through multi
     <td bgcolor="#EAF4FB" style="border: 1px solid black; padding: 8px; text-align: center;">
       <img src="img/gyro.png" width="100">
     </td>
-    <td bgcolor="#EAF4FB" style="border: 1px solid black; padding: 8px; text-align: center;">– (purchased part)</td>
+    <td bgcolor="#EAF4FB" style="border: 1px solid black; padding: 8px; text-align: center;">n/a (purchased part)</td>
   </tr>
 
   <!-- Battery -->
@@ -2538,14 +2487,14 @@ The final robot did not emerge from a single development step, but through multi
     <td style="border: 1px solid black; padding: 8px; text-align: center;">
       <img src="img/akku.avif" width="100">
     </td>
-    <td style="border: 1px solid black; padding: 8px; text-align: center;">– (purchased part)</td>
+    <td style="border: 1px solid black; padding: 8px; text-align: center;">n/a (purchased part)</td>
   </tr>
 
   <!-- Base deck -->
   <tr>
     <td bgcolor="#EAF4FB" style="border: 1px solid black; padding: 8px;"><b>Chassis – base deck (lower deck)</b></td>
     <td bgcolor="#EAF4FB" style="border: 1px solid black; padding: 8px;">3D print, material PPA-CF</td>
-    <td bgcolor="#EAF4FB" style="border: 1px solid black; padding: 8px; text-align: center;">– (self-made)</td>
+    <td bgcolor="#EAF4FB" style="border: 1px solid black; padding: 8px; text-align: center;">n/a (self-made)</td>
     <td bgcolor="#EAF4FB" style="border: 1px solid black; padding: 8px; text-align: center;">–</td>
     <td bgcolor="#EAF4FB" style="border: 1px solid black; padding: 8px; text-align: center;"><code>cad/base and middle plate.f3z</code><br><code>models/Lowderdeck.stl</code></td>
   </tr>
@@ -2554,7 +2503,7 @@ The final robot did not emerge from a single development step, but through multi
   <tr>
     <td style="border: 1px solid black; padding: 8px;"><b>Chassis – middle deck (middle deck)</b></td>
     <td style="border: 1px solid black; padding: 8px;">3D print, material PLA/PETG or PPA-CF</td>
-    <td style="border: 1px solid black; padding: 8px; text-align: center;">– (self-made)</td>
+    <td style="border: 1px solid black; padding: 8px; text-align: center;">n/a (self-made)</td>
     <td style="border: 1px solid black; padding: 8px; text-align: center;">–</td>
     <td style="border: 1px solid black; padding: 8px; text-align: center;"><code>cad/base and middle plate.f3z</code></td>
   </tr>
@@ -2563,25 +2512,16 @@ The final robot did not emerge from a single development step, but through multi
   <tr>
     <td bgcolor="#EAF4FB" style="border: 1px solid black; padding: 8px;"><b>Chassis – upper deck (camera/sensor mount)</b></td>
     <td bgcolor="#EAF4FB" style="border: 1px solid black; padding: 8px;">3D print, material PLA/PETG or PPA-CF</td>
-    <td bgcolor="#EAF4FB" style="border: 1px solid black; padding: 8px; text-align: center;">– (self-made)</td>
+    <td bgcolor="#EAF4FB" style="border: 1px solid black; padding: 8px; text-align: center;">n/a (self-made)</td>
     <td bgcolor="#EAF4FB" style="border: 1px solid black; padding: 8px; text-align: center;">–</td>
     <td bgcolor="#EAF4FB" style="border: 1px solid black; padding: 8px; text-align: center;"><code>cad/top plate.f3z</code></td>
-  </tr>
-
-  <!-- Servo bracket -->
-  <tr>
-    <td style="border: 1px solid black; padding: 8px;"><b>Steering-servo mount</b></td>
-    <td style="border: 1px solid black; padding: 8px;">The mount appears integrated into the lower-deck assembly; no separate bracket model is present.</td>
-    <td style="border: 1px solid black; padding: 8px; text-align: center;">– (self-made)</td>
-    <td style="border: 1px solid black; padding: 8px; text-align: center;">–</td>
-    <td style="border: 1px solid black; padding: 8px; text-align: center;"><code>cad/base and middle plate.f3z</code> (integrated mount; verify before printing a separate part)</td>
   </tr>
 
   <!-- Front axle -->
   <tr>
     <td bgcolor="#EAF4FB" style="border: 1px solid black; padding: 8px;"><b>Front axle (steering knuckle, linkage mount)</b></td>
     <td bgcolor="#EAF4FB" style="border: 1px solid black; padding: 8px;">3D print, material PLA/PETG or PPA-CF</td>
-    <td bgcolor="#EAF4FB" style="border: 1px solid black; padding: 8px; text-align: center;">– (self-made)</td>
+    <td bgcolor="#EAF4FB" style="border: 1px solid black; padding: 8px; text-align: center;">n/a (self-made)</td>
     <td bgcolor="#EAF4FB" style="border: 1px solid black; padding: 8px; text-align: center;">–</td>
     <td bgcolor="#EAF4FB" style="border: 1px solid black; padding: 8px; text-align: center;"><code>cad/Steering knuckle2.f3d</code><br><code>cad/track_rod.f3d</code><br><code>cad/radmutter.f3d</code></td>
   </tr>
@@ -2589,19 +2529,10 @@ The final robot did not emerge from a single development step, but through multi
   <!-- Support bridge -->
   <tr>
     <td style="border: 1px solid black; padding: 8px;"><b>Steering support bridge</b></td>
-    <td style="border: 1px solid black; padding: 8px;">3D print; secures the steering knuckles to the lower deck</td>
-    <td style="border: 1px solid black; padding: 8px; text-align: center;">– (self-made)</td>
+    <td style="border: 1px solid black; padding: 8px;">3D print, material PLA/PETG or PPA-CF</td>
+    <td style="border: 1px solid black; padding: 8px; text-align: center;">n/a (self-made)</td>
     <td style="border: 1px solid black; padding: 8px; text-align: center;">–</td>
     <td style="border: 1px solid black; padding: 8px; text-align: center;"><code>cad/support bridge.f3d</code></td>
-  </tr>
-
-  <!-- Bumper -->
-  <tr>
-    <td style="border: 1px solid black; padding: 8px;"><b>Front bumper / nose</b></td>
-    <td style="border: 1px solid black; padding: 8px;">The front nose appears integrated into the lower deck. No separate TPU bumper model was found.</td>
-    <td style="border: 1px solid black; padding: 8px; text-align: center;">– (self-made)</td>
-    <td style="border: 1px solid black; padding: 8px; text-align: center;">–</td>
-    <td style="border: 1px solid black; padding: 8px; text-align: center;"><code>cad/base and middle plate.f3z</code> (no separate bumper model)</td>
   </tr>
 
 
@@ -2619,7 +2550,7 @@ The robot consists of three main levels, matching the current CM5/STM32 platform
 
 ## **Step 1: Preparing the 3D-printed parts**
 
-**3D-printed components represented in the current CAD files** (cf. [Table 23: Bill of materials for replication](#table-23-bill-of-materials-for-replication)):
+**3D-printed components represented in the current CAD files** (cf. [Table 22: Bill of materials for replication](#table-22-bill-of-materials-for-replication)):
 - Lower deck and middle deck plate: [base and middle plate.f3z](cad/base%20and%20middle%20plate.f3z); the lower deck STL is also available as [Lowderdeck.stl](models/Lowderdeck.stl)
 - Front steering knuckles (2×), track rod, and wheel nuts: [Steering knuckle2.f3d](cad/Steering%20knuckle2.f3d), [track_rod.f3d](cad/track_rod.f3d), and [radmutter.f3d](cad/radmutter.f3d)
 - Steering support bridge: [support bridge.f3d](cad/support%20bridge.f3d)
@@ -2654,7 +2585,7 @@ The robot consists of three main levels, matching the current CM5/STM32 platform
     </a>
 </div>
 
-For **each** of the two printed steering-knuckle parts: **insert** a **ball bearing** from either side (cyan arrows). Then **slide** the **steering pin** through the knuckle from the top and bottom (red arrows) to hold the bearings in place.
+For **each** of the two printed steering-knuckle parts: **insert** a **ball bearing** from either side (cyan arrows) and a **ball bearing** on top (top red arrows). Then insert them into the coresponding **ball bearings** on the lower deck.
 
 ### **2.3 Rear axle, front wheels and steering linkage**
 **Components:** <ins>Ball differential rear axle</ins>, <ins>Mini-Z compatible wheels and tires</ins>, <ins>INJORA N30 Nano steering servo</ins>
@@ -2665,9 +2596,12 @@ For **each** of the two printed steering-knuckle parts: **insert** a **ball bear
     </a>
 </div>
 
-**Slide** the **rear axle** into its mounting bearings (red arrows), then **insert** the assembly into the rear mount and **close** the retaining lid over it (blue/yellow arrows). **Insert** the **front wheels** into the two steering knuckles prepared in step 2.2 and **connect** them with the **track rod**. Finally, **place** the **steering servo** into its mount, **connect** it to the track rod (orange arrows) and **close** the servo lid with the screws provided (green arrows).
+**Slide** two **ball bearings** into the **rear axle**, then **Insert** the **rear axle** into the rear axle holder (right orange line) and **screw** the rear axle holder cap on with the provided screws (green arrows).
+**Slide** the **servo** into its slot (blue arrow) and screw its lid on (yellow arrows).
+**Insert** front **wheels** into the steering knuckles.
+Prepare the **track rod** using the 3D-printed part and the joints, then **connect** the two **steering knuckles**. Adjust them until they are both facing **straight forward**.
 
-Install the **battery** in its slot on the **base deck**, between the front and rear axles.
+Install the **battery** in its slot on the **lower deck**, between the front and rear axles.
 
 
 
@@ -2686,7 +2620,7 @@ Install the **battery** in its slot on the **base deck**, between the front and 
     </a>
 </div>
 
-**Mount** the **3D-printed support bridge** onto the lower deck to secure the steering knuckles in place. **Place** the **middle deck plate** on top of the lower deck and **screw** it on from below, using the **holes marked in red** on the bottom of the lower deck, making sure the support bridge is held tightly in place.
+**Mount** the **3D-printed support bridge** onto the lower deck to secure the steering knuckles in place (red arrow, top left image). **Place** the **middle deck plate** on top of the lower deck (top right image) and **screw** it on from below (with a sufficiently long screw), using the **holes marked in red** on the bottom of the lower deck, making sure the support bridge is held tightly in place.
 
 ### **3.2 Mount the baseboard and connect all components**
 **Components:** <ins>Baseboard (own PCB, cf. <code>kicad/baseboard</code>)</ins>, <ins>Raspberry Pi CM5</ins>
@@ -2697,7 +2631,7 @@ Install the **battery** in its slot on the **base deck**, between the front and 
     </a>
 </div>
 
-**Place** the **baseboard** (with the CM5 already connected via the Hirose FH12-22S connector and M.2 socket) onto the middle deck and **add** the standoffs that both lift it up and later hold the upper deck plate. **Screw** it on from below. Then **connect** every remaining component (motor, encoder, steering servo, gyroscope, ToF sensors) to its respective connector on the baseboard, following the [wiring diagram](#step-5-wiring).
+**Place** the **baseboard** (with the CM5 already connected via the Hirose FH12-22S connector and M.2 socket) onto small spacer bolts onthe middle deck (circled in red) and **add** the big spacer bolts on top of the baseboard that hold the upper deck plate. **Screw** it on from the bottom (opposite of red arrows). Then **connect** every remaining component (motor, encoder, steering servo, gyroscope, ToF sensors) to its respective connector on the baseboard, following the [wiring diagram](#step-5-wiring).
 
 ## **Step 4: Upper deck – ToF sensors and rotating camera tower**
 
@@ -2708,7 +2642,7 @@ Install the **battery** in its slot on the **base deck**, between the front and 
     </a>
 </div>
 
-**Place** the **upper deck**, together with the sensor/camera tower, onto the standoffs mounted in step 3.2 and **drive the screws all the way in** (red circles) to secure it.
+**Place** the **upper deck**, together with the sensor/camera tower, onto the standoffs mounted in step 3.2 and secure it using 4 small **spacer bolts** (red circles).
 
 ### **4.2 Insert the distance sensors**
 **Component:** <ins>4x VL53L8CX time-of-flight sensors</ins>
@@ -2719,7 +2653,7 @@ Install the **battery** in its slot on the **base deck**, between the front and 
     </a>
 </div>
 
-**Insert** the **ToF sensors** into the marked areas of the tower and **connect** each of them to the baseboard.
+**Insert** the **ToF sensors** into the marked areas of the tower and **connect** each of them to the **baseboard** following the [wiring diagram](#step-5-wiring).
 
 ### **4.3 Mount the camera tower and camera**
 **Component:** <ins>Raspberry Pi Camera Module 3 Wide (12 MP)</ins>
@@ -2733,15 +2667,15 @@ Install the **battery** in its slot on the **base deck**, between the front and 
 **Place** a **ball bearing** into the hole on top of the tower, then **insert** the **camera pole** into the tower. **Screw** the **camera** onto the plate at the top of the pole and **connect** it to the baseboard via its CSI cable.
 
 ### **4.4 Connect the camera pan servo**
-The camera tower is rotated by a servo so the camera can be aimed at different angles under STM32 control (`setTowerAngle()` → `servo_tower`, cf. [Further development: rotating camera tower](#further-development-rotating-camera-tower)).
+The camera tower is rotated by a servo so the camera can be aimed at different angles under STM32 control (cf. [Further development: rotating camera tower](#further-development-rotating-camera-tower)).
 
 <div align="center">
     <a href="img/construction/top deck assembly 3.png" target="_blank">
         <img width="400" src="img/construction/top deck assembly 3.png">
     </a>
 </div>
-
-**Push** the **connection piece** into the hole at the bottom of the camera pole. **Insert** the **servo** from below and **place** the connection piece onto its horn. Then **screw** it on from the top.
+ 
+**Push** the **connection piece** into the hole at the bottom of the camera pole. **Insert** the **servo** from below (blue arrow) and **insert** the **servo horn** into the connection piece. Then **screw** it tight from the top.
 
 <br>
 
