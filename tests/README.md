@@ -4,31 +4,6 @@ This document makes the metrics from [Chapter 3 ("Test Methodology and Performan
 
 The goal is the chain **README → test setup → raw data/logs → calculation → result**, rather than a mere claim about a measurement.
 
-## Format
-
-Each test entry (`T-XX`) contains:
-
-| Field | Meaning |
-|---|---|
-| **Date / firmware version** | When it was tested and which software/firmware version was used (commit hash or tag) |
-| **Test objective** | Which question or hypothesis is being tested |
-| **Test setup** | Track, mat, number of runs, and measurement method |
-| **Sample size (N)** | Number of laps/trials used to calculate the metric |
-| **Raw data / log file** | Reference to the specific log/data file(s) for this test series |
-| **Metric** | What exactly is calculated (formula/definition) |
-| **Result** | Measured value as quoted in the README |
-| **Resulting change** | Which code/design change followed from the result |
-
-## Known Limitation: Raw Data Archiving
-
-`logger.py` writes each test run to `logs/log_1.txt` ... `log_10.txt` (ring buffer, `MAX_LOGS = 10`; older runs are automatically overwritten at the next start). Both `logs/` and `src/pi/logs/` are also listed in [.gitignore](../.gitignore) and are therefore not versioned in the repository.
-
-This means that the original log files for the test series documented below are currently **only stored locally**, not in this repository.
-
-**Implication for new test series:** From now on, we will also copy the relevant logs for every official test series to `tests/data/<Test-ID>/` (this folder is deliberately not named `logs/`, so it is not covered by the `.gitignore` rule and can be versioned).
-
----
-
 <a id="t-01"></a>
 
 ## T-01 - Steering Interventions per Lap
@@ -89,16 +64,11 @@ This means that the original log files for the test series documented below are 
 - **Test objective:** Measure overall system reliability: the proportion of runs completed fully and according to the rules (obstacle race)
 - **Test setup:** 20 complete end-to-end test runs on the competition mat
 - **Sample size:** N = 20 runs
-- **Raw data / log file:** TODO - `tests/data/T-05/`
+
 - **Metric:** Success rate = fully completed and compliant / N; additionally, mean and standard deviation of runtime
 - **Result:** 18 of 20 runs successful (90.0%); mean time 38 s, σ = 2.3 s
 - **Resulting change:** Cumulative effect of all individual changes listed above (T-01 to T-04)
 
 ---
 
-## Open Items / Next Steps
 
-- [ ] Check the dates marked *(estimated)* (derived from the [milestone table](../README.md#table-x-development-milestones)) against the actual test data and remove the "estimated" note after confirmation
-- [ ] Add the exact commit hashes/tags for the respective firmware versions (replace "commit hash/tag to be confirmed")
-- [ ] Copy and commit the associated log files/raw data to `tests/data/<Test-ID>/`
-- [ ] For new test series: assign the next available `T-XX` number, add an entry using the format above, and link it from the [README](../README.md#test-methodology-and-performance-metrics) if needed
