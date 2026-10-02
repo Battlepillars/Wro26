@@ -1571,7 +1571,7 @@ red:
 1. turn to 40°
 2. drive 350 mm straight (this drives between the right most obstacle and the outer parking lot wall)
 
-**Parking: **
+**Parking:**
 The parallel maneuver runs entirely at low speed (0.3–0.6 m/s) for precision and uses the ToF sensors on three sides for alignment:
 
 1. Approach the front wall of the lot (driveToWall, front ToF) and straighten the heading (tightTurn(0°)).
