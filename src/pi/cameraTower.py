@@ -321,7 +321,6 @@ class Camera():
                     _h, _w = imgclear.shape[:2]
                     self.blocksDist.append(((cX - _w // 2) ** 2 + (cY - _h) ** 2) ** 0.5)
         
-        self.pictureNum += 1
         # quader["leftX"]
         if len(self.blocksColor) == 0:
             color = self.defaultColor        # nothing found -> fall back to default
@@ -337,6 +336,7 @@ class Camera():
         cv.line(imgclear,(quader["rightX"],quader["topY"]),(quader["rightX"],quader["bottomY"]),(0,255,0),3)
 
         cv.imwrite(f'capture/{self.pictureNum}-4detection_result.jpg', imgclear)
+        self.pictureNum += 1
 
         return color
 
