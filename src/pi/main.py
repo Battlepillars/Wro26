@@ -102,6 +102,7 @@ def main():
         
         if parser.button and not parser.started:
             parser.started = True
+            time.sleep(0.2)
             start_event.set()
 
         if manual:

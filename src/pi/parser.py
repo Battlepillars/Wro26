@@ -341,7 +341,7 @@ class Parser:
         self.assignMultibelObstacles(3, color3)
         
     def assignAllObstaclesCustom(self, color4, color2, color3, color1):
-        """@brief Store a hand-picked obstacle layout (used for testing).
+        """@brief Store a obstacle layout.
 
         @param color4 color for section 0.
         @param color2 color for section 2.
