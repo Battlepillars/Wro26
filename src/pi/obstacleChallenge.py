@@ -48,14 +48,19 @@ def wallDrive(parser: Parser, dC: DriveController, dir, speedCurve, speedStraigh
     dC.turn(speedCurve,0)
     # dC.driveToWall(speedStraight,0,1000,wall)
     
-    if dir == dC.convertDir(parser, dC.leftWall):
-        wallLost = dC.driveToWall(speedStraight,0,1000,900,avoidWall=dC.convertDir(parser, dC.leftWall))
+    print("Dir: " + str(dir))
+    if dir == dC.leftWall:
+        print("Dir: " + str(dC.convertDir(parser, dC.leftWall)))
+        wallLost = dC.driveToWall(speedStraight,0,1000,900,avoidWall=dC.convertDir(parser, dC.leftWall))    # dist = 1000, min = 900
         # drove to far (past the next obstacle):
         if wallLost and parser.checkSectionAuto(dC.nextSection()) == parser.GREEN:
             dC.brake()
             # dC.driveAwayFromWall(-0.5,0,900,dC.frontWall)
-            dC.driveDist(-0.5,0,200)
-            dC.driveAwayFromWall(-0.5,0,900,dir)
+            dC.driveDist(-0.5,0,600)
+            print("Dir: " + str(dir))
+            dC.driveToWall(-0.5,0,300,wallDir=dC.convertDir(parser, dC.leftWall))
+            dC.brake()
+            dC.driveToWall(0.5,0,300,wallDir=dC.convertDir(parser, dC.leftWall))
             dC.driveDist(0.5,0,200)
             dC.brake()
     else:
@@ -400,11 +405,17 @@ def SameObstacles(parser: Parser, dC: DriveController, sectionObstacleList, next
     wall = dC.rightWall if mirror else dC.leftWall
     
     if sectionObstacleList[0] == parser.GREEN:
-        wallLost = dC.driveToWall(speedStraight,0,1050,900,avoidWall=wall,minTravel=750)
+        wallLost = dC.driveToWall(speedStraight,0,1050,900,avoidWall=wall,minTravel=750) #1050, 900
         # drove to far (past the next obstacle):
         if wallLost and nextSectionObstacleList[0] == parser.GREEN:
             dC.brake()
-            dC.driveAwayFromWall(-0.5,0,900, wallDir=dC.frontWall)
+            # dC.driveAwayFromWall(-0.5,0,900,dC.frontWall)
+            dC.driveDist(-0.5,0,600)
+            print("Dir: " + str(dir))
+            dC.driveToWall(-0.5,0,300,wallDir=dC.convertDir(parser, dC.leftWall))
+            dC.brake()
+            dC.driveToWall(0.5,0,300,wallDir=dC.convertDir(parser, dC.leftWall))
+            dC.driveDist(0.5,0,200)
             dC.brake()
 
     elif sectionObstacleList[0] in (parser.RED, None):
