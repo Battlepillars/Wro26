@@ -99,7 +99,7 @@ class Camera():
         self.addQuader("CW", 10, 789, 260, 913, 330)
         self.addQuader("CW", 11, 590, 275, 705, 334)
         
-        self.addQuader("CCW", 0, 515, 340, 672, 503)
+        self.addQuader("CCW", 0, 515, 360, 672, 503)
         self.addQuader("CCW", 1, 159, 410, 559, 771)
         self.addQuader("CCW", 2, 276, 448, 730, 816)
         self.addQuader("CCW", 3, 647, 365, 862, 430)

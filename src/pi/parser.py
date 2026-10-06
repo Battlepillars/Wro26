@@ -135,7 +135,7 @@ class Parser:
             elif self.round == 1:
                 angle += -1
             elif self.round == 2:
-                angle += -2                     # kleinere Zahl (mehr negativ)  = er steuer mehr nach rechts
+                angle += -1.5                     # kleinere Zahl (mehr negativ)  = er steuer mehr nach rechts
         else:
             if self.round == 0:
                 angle += 0

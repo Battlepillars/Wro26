@@ -12,8 +12,8 @@ def openChallenge(parser: Parser, dC: DriveController):
     @param parser  Parser instance that holds shared sensor data and round state.
     @param dC      DriveController used for all motion primitives.
     """
-    turnSpeed = 1.8   # speed for curves
-    speed     = 2     # speed for drive straight
+    turnSpeed = 1.5   # speed for curves
+    speed     = 1.8     # speed for drive straight
 
     for i in range(3):   # three laps around the track
         # --- Section 1: heading 0° ---

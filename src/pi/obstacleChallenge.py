@@ -53,7 +53,10 @@ def wallDrive(parser: Parser, dC: DriveController, dir, speedCurve, speedStraigh
         # drove to far (past the next obstacle):
         if wallLost and parser.checkSectionAuto(dC.nextSection()) == parser.GREEN:
             dC.brake()
-            dC.driveAwayFromWall(-0.5,0,1000,dC.frontWall)
+            # dC.driveAwayFromWall(-0.5,0,900,dC.frontWall)
+            dC.driveDist(-0.5,0,200)
+            dC.driveAwayFromWall(-0.5,0,900,dir)
+            dC.driveDist(0.5,0,200)
             dC.brake()
     else:
         dC.driveToWall(speedStraight,0,1000, 900, avoidWall=None)
@@ -128,7 +131,7 @@ def parkCW(parser: Parser, dC: DriveController):
     print("First obstacle: " + str(sectionObstacleList[0]) + ", second obsacle: " + str(sectionObstacleList[1]))
     
     dC.brake()
-    parser.setTowerAngle(0)
+    # parser.setTowerAngle(0)
     if parser.obstacles[2] == parser.RED:
         dC.driveToWall(speedStraightVerySlow,90,800,dC.frontWall)
         dC.brake()
@@ -151,7 +154,7 @@ def parkCW(parser: Parser, dC: DriveController):
         dC.tightTurn(-speedCurveSlow, 0)
         dC.brake()
     else:
-        dC.driveToWall(speedStraightSlow,90,400,dC.frontWall)
+        dC.driveToWall(speedStraightSlow,90,440,dC.frontWall) #dist = 400
         dC.brake()
         dC.tightTurn(speedCurveSlow,0)
         dC.brake()
@@ -180,10 +183,11 @@ def parkCCW(parser: Parser, dC: DriveController, sectionObstacleList):
     speedStraightVerySlow=0.3
     speedCurve=1
     speedCurveSlow=0.6
+    speedCurveVerySlow=0.3
     
     print("First obstacle: " + str(sectionObstacleList[0]) + ", second obsacle: " + str(sectionObstacleList[1]))
     dC.brake()
-    parser.setTowerAngle(270)
+    # parser.setTowerAngle(270)
     if sectionObstacleList[0] == parser.GREEN:
         # dC.driveToWall(speedStraightVerySlow, 0, 240, wallDir=dC.rightWall)
         # dC.driveDist(speedStraightVerySlow, 0, 100)
@@ -193,17 +197,18 @@ def parkCCW(parser: Parser, dC: DriveController, sectionObstacleList):
         dC.driveToWall(speedStraightSlow,90,400,dC.frontWall)
         dC.tightTurn(speedCurveSlow,0)
     else:
-        dC.driveDist(speedStraight, 0, 500)
+        dC.driveDist(speedStraight, 0, 400)
     dC.brake()
-    dC.tightTurn(speedCurveSlow, 0)
-    dC.driveToWall(speedStraightSlow,0,1050, 900)
+    dC.tightTurn(speedCurveVerySlow, 0)
+    dC.driveToWall(speedStraightVerySlow,0,1050, 900)
     dC.brake()
-    dC.driveDist(-speedStraightSlow, 0, 150)
+    # dC.driveDist(-speedStraightVerySlow, 0, 150)
+    dC.driveDist(-speedStraightVerySlow, 0, 100)
     dC.brake()
-    dC.driveToWall(-speedStraightVerySlow, 0, 180, wallDir=dC.rightWall)
-    dC.brake()
-    dC.driveDist(speedStraightSlow, 0, 150)
-    dC.brake()
+    # dC.driveToWall(-speedStraightVerySlow, 0, 180, wallDir=dC.rightWall)
+    # dC.brake()
+    # dC.driveDist(speedStraightSlow, 0, 150)
+    # dC.brake()
     dC.tightTurn(speedCurveSlow, -90)
     dC.brake()
     dC.driveToWall(-speedStraightSlow, -90, 300, wallDir=dC.backWall)
@@ -257,7 +262,7 @@ def detectObstaclesCCW(parser: Parser, cam: Camera):
     parser.obstacles[10] = cam.getObstacles("CCW", 10)
     parser.obstacles[11] = cam.getObstacles("CCW", 11)
     
-    # parser.setTowerAngle(135)
+    parser.setTowerAngle(130)
     for i in range(12):
         print(f"{i}: {parser.colorName(parser.obstacles[i])}")
         
@@ -309,7 +314,7 @@ def detectObstaclesCW(parser: Parser, cam: Camera):
     else:
         parser.obstacles[5] = None
     
-    # parser.setTowerAngle(135)
+    parser.setTowerAngle(135)
     for i in range(12):
         print(f"{i}: {parser.colorName(parser.obstacles[i])}")
         
@@ -399,7 +404,7 @@ def SameObstacles(parser: Parser, dC: DriveController, sectionObstacleList, next
         # drove to far (past the next obstacle):
         if wallLost and nextSectionObstacleList[0] == parser.GREEN:
             dC.brake()
-            dC.driveAwayFromWall(-0.5,0,1050, wallDir=dC.frontWall)
+            dC.driveAwayFromWall(-0.5,0,900, wallDir=dC.frontWall)
             dC.brake()
 
     elif sectionObstacleList[0] in (parser.RED, None):

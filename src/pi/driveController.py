@@ -536,7 +536,7 @@ class DriveController:
         self.parser.setSteer(90)
         
         while abs(self.parser.speed) > 0 and not self.stop_event.is_set():
-            self.calcAccel(False)
+            self.calcAccel(False) # steer = False
             self.logStuff(f"Brake: {self.parser.speed:.2f} Heading: {self.parser.getHeading():.0f}")
         if self.end():
             return
